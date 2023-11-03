@@ -6,13 +6,13 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/03 11:33:31 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2023/11/03 12:08:46 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	main(void)
 {
-	printf("Hello Wolrld\n");
+	ft_parse("malparido ijueputa");
 	return (0);
 }
 /*
