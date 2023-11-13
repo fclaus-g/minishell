@@ -6,12 +6,13 @@
 #    By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 21:48:21 by pgomez-r          #+#    #+#              #
-#    Updated: 2023/11/01 21:57:59 by pgomez-r         ###   ########.fr        #
+#    Updated: 2023/11/13 12:37:12 by pgomez-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC       = gcc
 CFLAGS   = -Wall -Wextra -Werror
+LDFLAGS  = -lreadline
 NAME     = minishell
 
 SRC_PATH = src/
@@ -32,7 +33,7 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 $(NAME):	$(OBJS)
 	@echo "\033[0;33m\n	 ##### Checking/compiling Libft_42 library #####\n\033[0m"
 	@${MAKE} -C ./incl/libft
-	@${CC} $(CFLAGS) $(OBJS) ./incl/libft/libft.a -o $(NAME)
+	@${CC} $(CFLAGS) $(OBJS) $(LDFLAGS) ./incl/libft/libft.a  -o $(NAME)
 	@echo "\033[0;32m\n	 ##### Minishell is ready! #####\n\033[0m"
 
 norm:
@@ -42,7 +43,7 @@ norm:
 		@norminette incl/minishell.h
 
 debug:
-		@gcc -Wall -Wextra -Werror ./src/*.c ./incl/MLX42/libmlx42.a -o debug 
+		@gcc -Wall -Wextra -Werror -lreadline ./src/*.c ./incl/libft/libft.a -o debug 
 		@echo "\033[0;32m\n	##### Debug file successfully generated #####\n\033[0m"
 
 clean:
