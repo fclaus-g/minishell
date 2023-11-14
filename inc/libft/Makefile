@@ -6,7 +6,7 @@
 #    By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/05 09:29:12 by pgomez-r          #+#    #+#              #
-#    Updated: 2023/05/04 21:42:03 by pgomez-r         ###   ########.fr        #
+#    Updated: 2023/11/12 09:54:51 by pgomez-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ NAME = libft.a
 
 $(NAME): $(OBJS)
 	@ar rcs $(NAME) $(OBJS)
-	@echo "\033[0;32mLibft42 compilada!\033[0m"
+	@echo "\033[0;32m\n	 #####Libft42 compilada! #####\n\033[0m"
 
 all: $(NAME)
 
