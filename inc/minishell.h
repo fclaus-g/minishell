@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/14 09:56:57 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/11/14 14:32:30 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ typedef struct s_element
 {
 	char	type;
 	char	*data;
+	int		fd_in;//para redirecciones se establece un valor standar y si hay redirecciones se cambia
+	int		fd_out;//para redirecciones
+	int		priority;//en algun momento creo que se debe decidir que ejecutar primero
 }	t_element;
 
 /*Estructura para la lectura del input completo, dentro guardamos varias flags
