@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 07:32:32 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/14 09:52:10 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/11/15 12:34:47 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,14 @@ void	ft_fill_input(t_input *in, char *st)
 	in->elements = malloc(sizeof(t_element) * ft_strdlen(in->sp_input));
 	i = -1;
 	while (in->sp_input[++i] != NULL)
+	{
 		in->elements[i].data = ft_strdup(in->sp_input[i]);
+		in->elements[i].type = 0;
+		in->elements[i].fd_in = 0;
+		in->elements[i].fd_out = 1;//por defecto entrada y salida estandar
+		in->elements[i].priority = 0;
+	}	
+	in->n_elements = i;
 }
 
 /*A esta función le entra una variable de entorno completa en una str
@@ -61,12 +68,14 @@ void	ft_split_env(t_data *d, char *var, size_t x)
 
 /*De momento solo copia las variables de entorno, más adelante podemos inciar
 aquí también variables que vayamos añadiendo a la struct general*/
-void	ft_init(t_data *d, char **env)
+void	ft_init(t_data *d, char **env, t_input *input)
 {
 	size_t	i;
 
+	ft_init_structs(d, input);//voi a iniciar las structs en una funcion aparte
 	d->env_dup = env;
 	d->env_arr = malloc(sizeof(t_env) * ft_strdlen(d->env_dup));
+	d->in = input;
 	i = -1;
 	while (++i < ft_strdlen(d->env_dup))
 	{

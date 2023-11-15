@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/14 14:44:00 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2023/11/15 12:33:42 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,19 @@ int	main(int ac, char **av, char **env)
 	i = 0;
 	if (ac > 1)
 		return (1);
-	ft_init(&d, env);
-	while (d.env_arr[i].full != NULL)
-	{
-		ft_printf("%s\n", d.env_arr[i].full);
-		i++;
-	}
+	ft_init(&d, env, &input);
+	// while (d.env_arr[i].full != NULL)
+	// {
+	// 	ft_printf("%s\n", d.env_arr[i].full);
+	// 	i++;
+	// }
 	while (1)
 	{
 		ft_clean_input(&input);
 		str_input = readline("cascarabash/> ");
 		add_history(str_input);
 		ft_fill_input(&input, str_input);
-		ft_checkinput(&input, &d);
+		ft_checkinput(&input);
 	}
 	return (0);
 }

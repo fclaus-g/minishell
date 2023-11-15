@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:58:04 by fclaus-g          #+#    #+#             */
-/*   Updated: 2023/11/14 14:51:04 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2023/11/15 12:51:33 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,76 @@ ft_is_pipe lo ideal seria tambien saber diferenciar un comando de un archivo, AU
 Una vez que sepa que tipo de elemento es cada uno, podria ir guardando en la estructura t_element
 el tipo de elemento y su contenido en str, para luego poder ejecutarlo en el orden que corresponda.
 Y a continuacion comenzar a programar los builtins, detecto a priori que desde aqui no podria a no ser que pase la struct
-con el env guardado o que la linkee en la struct general data*/
-void	ft_checkinput(t_data *d, t_input *input)
+con el env guardado o que la linkee en la struct general data
+IMPORTANTE ESTABLECER LA PRIORIDAD | DIFERENCIAR ENTRE REDIRECCIONES DE ENTRADA Y SALIDA
+DIFERENCIAR ENTRE COMANDO Y ARCHIVO
+*/
+void	ft_checkinput(t_input *input)
 {
 	int i;
 
 	i = -1;
-	while (input->sp_input[++i] != NULL)
+	while (++i < input->n_elements)
+	{
+		if (ft_is_builtin(input->elements[i].data))
+		{
+			input->elements[i].type = 'b';
+			input->is_built++;
+		}
+		else if (ft_is_redir(input->elements[i].data))
+		{
+			input->elements[i].type = 'r';
+			input->is_redir++;
+		}	
+		else if (ft_is_pipe(input->elements[i].data))
+		{
+			input->elements[i].type = 'p';
+			input->n_pipe++;
+		}	
+		else
+			input->elements[i].type = 'c';
+		printf("elemento %s num %d es de tipo %c\n%d fdin\n%d fdout \n priority= %d\n", input->elements[i].data, i, input->elements[i].type, input->elements[i].fd_in, input->elements[i].fd_out, input->elements[i].priority);
+	}
+}
+
+int	ft_is_builtin(char *str)
+{
+	if (ft_strcmp(str, "echo") == 0)
+		return (1);
+	else if (ft_strcmp(str, "cd") == 0)
+		return (1);
+	else if (ft_strcmp(str, "pwd") == 0)
+		return (1);
+	else if (ft_strcmp(str, "export") == 0)
+		return (1);
+	else if (ft_strcmp(str, "unset") == 0)
+		return (1);
+	else if (ft_strcmp(str, "env") == 0)
+		return (1);
+	else if (ft_strcmp(str, "exit") == 0)
+		return (1);
+	else
+		return (0);
+}
+
+int	ft_is_redir(char *str)
+{
+	if (ft_strcmp(str, ">") == 0)
+		return (1);
+	else if (ft_strcmp(str, ">>") == 0)
+		return (1);
+	else if (ft_strcmp(str, "<") == 0)
+		return (1);
+	else if (ft_strcmp(str, "<<") == 0)
+		return (1);
+	else
+		return (0);
+}
+
+int	ft_is_pipe(char *str)
+{
+	if (ft_strcmp(str, "|") == 0)
+		return (1);
+	else
+		return (0);
 }
