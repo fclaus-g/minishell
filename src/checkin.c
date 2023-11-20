@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:58:04 by fclaus-g          #+#    #+#             */
-/*   Updated: 2023/11/15 12:51:33 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2023/11/20 12:40:24 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_checkinput(t_input *input)
 		}
 		else if (ft_is_redir(input->elements[i].data))
 		{
-			input->elements[i].type = 'r';
+			input->elements[i].type = ft_is_redir(input->elements[i].data) + 48;
 			input->is_redir++;
 		}	
 		else if (ft_is_pipe(input->elements[i].data))
@@ -46,9 +46,11 @@ void	ft_checkinput(t_input *input)
 		}	
 		else
 			input->elements[i].type = 'c';
+		ft_check_c(input, i);
 		printf("elemento %s num %d es de tipo %c\n%d fdin\n%d fdout \n priority= %d\n", input->elements[i].data, i, input->elements[i].type, input->elements[i].fd_in, input->elements[i].fd_out, input->elements[i].priority);
 	}
 }
+/*en ft_check_c vamos a dar una segunda vuelta a la clasificacion*/
 
 int	ft_is_builtin(char *str)
 {
@@ -75,11 +77,11 @@ int	ft_is_redir(char *str)
 	if (ft_strcmp(str, ">") == 0)
 		return (1);
 	else if (ft_strcmp(str, ">>") == 0)
-		return (1);
+		return (2);
 	else if (ft_strcmp(str, "<") == 0)
-		return (1);
+		return (3);
 	else if (ft_strcmp(str, "<<") == 0)
-		return (1);
+		return (4);
 	else
 		return (0);
 }
