@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/14 09:56:57 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/11/21 22:31:43 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,21 @@ typedef struct s_input
 	int			n_elements; //número de elementos
 	int			is_built; //hay built-in?
 	int			is_redir; //hay redirecciones?
-	int			n_pipe; //cuantos pipes?
+	int			cmd_n; //cuantos comandos?
+	int			fd_in; //entero para guardar el fd despues de abrir infile si hay
+	int			fd_out; //entero para guardar el fd después de abrir outfile si hay
 	char		**sp_input; //splitted input en matriz de cadenas
 	t_element	*elements; //array de structs - cada una un elemento
 }	t_input;
+
+/*Estructura que uso solamente para pipex/exegguttor de momento, veré si puedo
+pasar sus elementos a otra de element o input o si es mejor tenerla aislada*/
+typedef struct s_command
+{
+	char	**paths;
+	char	*path_cmd;
+	char	**cmd;
+}	t_command;
 
 /*main.c*/
 
@@ -58,6 +69,9 @@ typedef struct s_input
 void					ft_fill_input(t_input *in, char *st);
 void					ft_split_env(t_data *d, char *var, size_t x);
 void					ft_init(t_data *d, char **env);
+/*exegguttor.c*/
+
+/*exegguttor_utils.c*/
 
 /*exit.c*/
 void					ft_clean_input(t_input *input);
