@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:24:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/14 09:52:40 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/11/22 23:30:57 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_clean_input(t_input *input)
 	i = -1;
 	input->is_built = 0;
 	input->is_redir = 0;
-	input->n_pipe = 0;
+	input->cmd_n = 0;
 	if (input->sp_input != NULL)
 	{
 		ft_totalfree(input->sp_input);

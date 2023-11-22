@@ -6,16 +6,19 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/21 22:35:52 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/11/22 23:38:56 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 /**
- * Abrimos los archivos y guardamos su fd nuestras dos variables, prefiero
+ * @brief Abre los archivos y guardamos su fd nuestras dos variables, prefiero
  * tenerlo en struct que en dos enteros o array de enteros en main
+ * Es como estaba en pipex, aquí habrá que modificarla mucho, si es que llega 
+ * a servir para algo, la dejo comentada por si acaso
  *  */
 
+/*
 void	ft_openfiles(t_struct *d, char **av, int i)
 {
 	d->fd_in = open(av[1], O_RDONLY);
@@ -31,6 +34,15 @@ void	ft_openfiles(t_struct *d, char **av, int i)
 		exit(EXIT_FAILURE);
 	}
 }
+*/
+
+/**
+ * @brief Función que ejecuta los comandos de la consola con execve, tal
+ * como la tenía en pipex 
+ * @param cmd entra como una cadena completa, luego se descompone y usa 
+ * como haga falta para encontrar rutas y ejecutarla
+ * TODO: Modificar para que compruebe y ejecute si es una built =)
+ */
 
 void	ft_exegguttor(char *cmd, char **env)
 {
@@ -80,19 +92,38 @@ void	ft_pipex(char *cmd, char **env, int fd)
 	}
 }
 
-int	ft_exe_inshell(t_input *input, char **av, char **env)
-{
-	int	curr_cmd;
+/*La idea de momento, llamar a esta función desde main-shell cuando sepamos
+que no hay built in, pasasrle la struct de input y el entorno debería ejecutar
+con o sin pipes sin problema*/
 
-	if (!env || !*env)
-		return (perror("cascaribash: env parse error"), 1);
-	// ft_openfiles(&d, av, ac - 1);
-	// dup2(d.fd_in, 0);
-	// dup2(d.fd_out, 1);
-	curr_cmd = 3;
-	ft_pipex(av[2], env, d.fd_in);
-	while (d.cmd_n < ac - 2)
-		ft_pipex(av[d.cmd_n++], env, 1);
-	ft_exegguttor(av[ac - 2], env);
+int	ft_cmd_driver(t_input *npt, char **env)
+{
+	int			curr_cmd;
+	pid_t		pid;
+
+	curr_cmd = 0;
+	pid = fork();
+	if (pid == -1)
+		perror("cascaribash: fork process failed");
+	else if (pid > 0)
+		waitpid(pid, NULL, 0);
+	else
+	{
+		if (npt->cmd_n > 1)
+		{
+			ft_pipex(npt->cmd_tab[curr_cmd], env, 0);
+			while (curr_cmd < npt->cmd_n - 1)
+				ft_pipex(npt->cmd_tab[curr_cmd++], env, 1);
+			ft_exegguttor(npt->cmd_tab[curr_cmd], env);
+		}
+		else
+			ft_exegguttor(npt->cmd_tab[0], env);
+	}
 	return (0);
 }
+
+/**
+ * TODO: cambiar mensajes de "pipex:"
+ * TODO: guardar numero de cmd_n -> strdlen de cmd_tab
+ * TODO: adaptar exeguttor a built-in
+ */

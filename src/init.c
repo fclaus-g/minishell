@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 07:32:32 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/14 09:52:10 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/11/22 23:28:23 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_fill_input(t_input *in, char *st)
 	int	i;
 
 	in->sp_input = ft_split(st, ' ');
+	in->cmd_tab = ft_split(st, '|');
 	in->elements = malloc(sizeof(t_element) * ft_strdlen(in->sp_input));
 	i = -1;
 	while (in->sp_input[++i] != NULL)

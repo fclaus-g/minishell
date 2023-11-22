@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/21 22:31:43 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/11/22 23:24:10 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_input
 	int			fd_in; //entero para guardar el fd despues de abrir infile si hay
 	int			fd_out; //entero para guardar el fd después de abrir outfile si hay
 	char		**sp_input; //splitted input en matriz de cadenas
+	char		**cmd_tab; //cada cadena = "comando + opciones"
 	t_element	*elements; //array de structs - cada una un elemento
 }	t_input;
 
@@ -70,9 +71,15 @@ void					ft_fill_input(t_input *in, char *st);
 void					ft_split_env(t_data *d, char *var, size_t x);
 void					ft_init(t_data *d, char **env);
 /*exegguttor.c*/
-
+int						ft_cmd_driver(t_input *npt, char **env);
+void					ft_pipex(char *cmd, char **env, int fd);
+void					ft_exegguttor(char *cmd, char **env);
 /*exegguttor_utils.c*/
-
+int						is_path(char *str);
+void					free_cache(t_command *st, int error);
+void					split_cmd(t_command *st, char *cmdstr);
+int						find_path_index(t_command *st, char *cmd);
+void					get_paths(t_command *st, char **env);
 /*exit.c*/
 void					ft_clean_input(t_input *input);
 
