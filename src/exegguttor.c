@@ -53,7 +53,7 @@ void	ft_exegguttor(char *cmd, char **env)
 	find_path_index(&st, st.cmd[0]);
 	if (execve(st.path_cmd, st.cmd, env) == -1)
 	{
-		ft_printf_error("pipex: command not found: %s\n", st.cmd[0]);
+		ft_printf_error("cascaribash: command not found: %s\n", st.cmd[0]);
 		free_cache(&st, 127);
 	}
 }
@@ -74,7 +74,7 @@ void	ft_pipex(char *cmd, char **env, int fd)
 	pipe(pipe_end);
 	pid = fork();
 	if (pid == -1)
-		perror("pipex: fork process failed");
+		perror("cascaribash: fork process failed");
 	else if (pid > 0)
 	{
 		close(pipe_end[1]);
@@ -123,7 +123,5 @@ int	ft_cmd_driver(t_input *npt, char **env)
 }
 
 /**
- * TODO: cambiar mensajes de "pipex:"
- * TODO: guardar numero de cmd_n -> strdlen de cmd_tab
  * TODO: adaptar exeguttor a built-in
  */

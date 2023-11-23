@@ -71,7 +71,7 @@ void	split_cmd(t_command *st, char *cmdstr)
 {
 	st->cmd = ft_split(cmdstr, ' ');
 	if (!st->cmd)
-		perror ("pipex: parse error");
+		perror ("cascaribash: parse error");
 }
 
 /**

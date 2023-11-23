@@ -70,6 +70,7 @@ typedef struct s_command
 void					ft_fill_input(t_input *in, char *st);
 void					ft_split_env(t_data *d, char *var, size_t x);
 void					ft_init(t_data *d, char **env);
+char					*ft_strtrim_free(char const *s1, char const *set);
 /*exegguttor.c*/
 int						ft_cmd_driver(t_input *npt, char **env);
 void					ft_pipex(char *cmd, char **env, int fd);

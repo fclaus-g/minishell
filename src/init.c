@@ -16,6 +16,15 @@ ft_split_env por ejemplo)*/
 
 #include "../inc/minishell.h"
 
+char	*ft_strtrim_free(char const *s1, char const *set)
+{
+	char	*aux;
+
+	aux = ft_strtrim(s1, set);
+	free(s1);
+	return(aux);
+
+}
 /*Función para guardar el input que está en formato str después de readline en 
 el formato de doble matrix y array de estructuras que queremos para usarlo
 En el mismo bucle podemos ir llamando a la función lexer cuando la tengamos*/
@@ -25,6 +34,10 @@ void	ft_fill_input(t_input *in, char *st)
 
 	in->sp_input = ft_split(st, ' ');
 	in->cmd_tab = ft_split(st, '|');
+	i = -1;
+	while (in->cmd_tab[++i] != NULL)
+		in->cmd_tab[i] = ft_strtrim_free(in->cmd_tab[i], " ");
+	in->cmd_n = ft_strdlen(in->cmd_tab);
 	in->elements = malloc(sizeof(t_element) * ft_strdlen(in->sp_input));
 	i = -1;
 	while (in->sp_input[++i] != NULL)
