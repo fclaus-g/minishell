@@ -16,7 +16,7 @@ ft_split_env por ejemplo)*/
 
 #include "../inc/minishell.h"
 
-char	*ft_strtrim_free(char const *s1, char const *set)
+char	*ft_strtrim_free(char *s1, char const *set)
 {
 	char	*aux;
 
