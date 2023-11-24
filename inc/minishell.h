@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/22 23:24:10 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/11/24 14:17:00 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,11 @@ void					ft_fill_input(t_input *in, char *st);
 void					ft_split_env(t_data *d, char *var, size_t x);
 void					ft_init(t_data *d, char **env);
 char					*ft_strtrim_free(char *s1, char const *set);
+/*checkin.c*/
+int						ft_is_builtin(char *str);
+int						ft_is_biexit(char *str);
 /*exegguttor.c*/
-int						ft_cmd_driver(t_input *npt, char **env);
+int						ft_cmd_driver(t_input *in, char **env, t_data *d);
 void					ft_pipex(char *cmd, char **env, int fd);
 void					ft_exegguttor(char *cmd, char **env);
 /*exegguttor_utils.c*/
@@ -81,7 +84,10 @@ void					free_cache(t_command *st, int error);
 void					split_cmd(t_command *st, char *cmdstr);
 int						find_path_index(t_command *st, char *cmd);
 void					get_paths(t_command *st, char **env);
+/*builts_1,c*/
+void					bi_exit(t_data *d, t_input *in);
 /*exit.c*/
 void					ft_clean_input(t_input *input);
+void					ft_free_data(t_data *d);
 
 #endif

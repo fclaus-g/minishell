@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:24:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/22 23:30:57 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/11/24 14:03:25 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,21 @@ void	ft_clean_input(t_input *input)
 		free(input->elements);
 	}
 	input->n_elements = 0;
+}
+
+/*Función para liberar memoria de la struct inicial-general, que
+ahora mismo solo tiene el entorno duplicado*/
+void	ft_free_data(t_data *d)
+{
+	int	i;
+
+	i = -1;
+	if (d->env_dup)
+		ft_totalfree(d->env_dup);
+	while (d->env_arr[++i].full)
+	{
+		free(d->env_arr[i].full);
+		free(d->env_arr[i].title);
+		free(d->env_arr[i].line);			
+	}
 }

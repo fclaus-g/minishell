@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exegguttor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/22 23:38:56 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/11/24 14:26:36 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,18 @@ void	ft_exegguttor(char *cmd, char **env)
 
 	get_paths(&st, env);
 	split_cmd(&st, cmd);
-	find_path_index(&st, st.cmd[0]);
-	if (execve(st.path_cmd, st.cmd, env) == -1)
-	{
-		ft_printf_error("cascaribash: command not found: %s\n", st.cmd[0]);
-		free_cache(&st, 127);
+	if (ft_is_builtin(st.cmd[0]))
+		ft_exe_built(); //crear función
+	else if (ft_is_biexit(st.cmd[0]))
+		exit(0);
+	else
+	{	
+		find_path_index(&st, st.cmd[0]);
+		if (execve(st.path_cmd, st.cmd, env) == -1)
+		{
+			ft_printf_error("cascaribash: command not found: %s\n", st.cmd[0]);
+			free_cache(&st, 127);
+		}
 	}
 }
 
@@ -96,7 +103,7 @@ void	ft_pipex(char *cmd, char **env, int fd)
 que no hay built in, pasasrle la struct de input y el entorno debería ejecutar
 con o sin pipes sin problema*/
 
-int	ft_cmd_driver(t_input *npt, char **env)
+int	ft_cmd_driver(t_input *in, char **env, t_data *d)
 {
 	int			curr_cmd;
 	pid_t		pid;
@@ -109,16 +116,18 @@ int	ft_cmd_driver(t_input *npt, char **env)
 		waitpid(pid, NULL, 0);
 	else
 	{
-		if (npt->cmd_n > 1)
+		if (in->cmd_n > 1)
 		{
-			ft_pipex(npt->cmd_tab[curr_cmd], env, 0);
-			while (curr_cmd < npt->cmd_n - 1)
-				ft_pipex(npt->cmd_tab[curr_cmd++], env, 1);
-			ft_exegguttor(npt->cmd_tab[curr_cmd], env);
+			ft_pipex(in->cmd_tab[curr_cmd], env, 0);
+			while (curr_cmd < in->cmd_n - 1)
+				ft_pipex(in->cmd_tab[curr_cmd++], env, 1);
+			ft_exegguttor(in->cmd_tab[curr_cmd], env);
 		}
 		else
-			ft_exegguttor(npt->cmd_tab[0], env);
+			ft_exegguttor(in->cmd_tab[0], env);
 	}
+	if (ft_is_biexit(in->cmd_tab[curr_cmd]))
+		bi_exit(d, in);
 	return (0);
 }
 

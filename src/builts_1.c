@@ -3,12 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   builts_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:57:29 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/23 17:57:36 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/11/24 13:40:53 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+void	bi_exit(t_data *d, t_input *in)
+{
+	ft_clean_input(in);
+	ft_free_data(d);
+	exit(0);
+}
