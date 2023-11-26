@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/20 09:46:49 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2023/11/26 17:45:23 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	main(int ac, char **av, char **env)
 		str_input = readline("cascarabash/> ");
 		add_history(str_input);
 		ft_fill_input(&input, str_input);
-		ft_checkinput(&input);
+		ft_pipe_checkinput(&input);
+		//ft_checkinput(&input);
 	}
 	return (0);
 }
