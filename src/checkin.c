@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:58:04 by fclaus-g          #+#    #+#             */
-/*   Updated: 2023/11/27 09:49:36 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:29:56 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,43 @@ void	ft_checkinput(t_input *input)
 		}
 		else
 			input->elements[i].type = 'c';
-		ft_check_c(input);//aqui vamos a dar una segunda vuelta a la clasificacion para clasificar cmd y files
-		ft_check_dollar(input);
 		printf("elemento %s num %d es de tipo %c\n%d fdin\n%d fdout \n priority= %d\n", input->elements[i].data, i, input->elements[i].type, input->elements[i].fd_in, input->elements[i].fd_out, input->elements[i].priority);
 	}
 }
+/*en ft_check_c vamos a ver si elements[i -1] es una derirecccion el tipo c (command) se cambiara por tipo f(file)*/
+void	ft_check_c(t_input *input)
+{
+	int i;
 
-int	ft_is_builtin(char *str)
+	i = 0;
+	while (++i < input->n_elements)
+	{
+		if (input->elements[i].type == 'c' && i > 0)
+		{
+			if (input->elements[i - 1].type == '1' || input->elements[i - 1].type == '2' || input->elements[i - 1].type == '3' || input->elements[i - 1].type == '4')
+				input->elements[i].type = 'f';
+		}
+	}
+}
+
+void	ft_check_dollar(t_input *input)
+{
+	int i;
+
+	i = -1;
+	while (++i < input->n_elements)
+	{
+		if (input->elements[i].type == 'c' && input->elements[i].data[0] == '$')
+		{
+			input->elements[i].type = 'v';
+		}
+	}
+}
+
+int	ft_is_builtin(char *str, t_input *input)
 {
 	if (ft_strcmp(str, "echo") == 0)
-		return (1);
+		return (ft_echo(input), 1);
 	else if (ft_strcmp(str, "cd") == 0)
 		return (1);
 	else if (ft_strcmp(str, "pwd") == 0)

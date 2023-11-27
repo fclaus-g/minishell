@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 09:52:53 by fclaus-g          #+#    #+#             */
-/*   Updated: 2023/11/27 09:37:11 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2023/11/27 11:19:12 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 
 void	ft_init_structs(t_data *d, t_input *input)
 {
-	ft_init_data(d);
+	ft_init_data(d, input);
 	ft_init_input(input);
 }
 
-void	ft_init_data(t_data *d)
+void	ft_init_data(t_data *d, t_input *input)
 {
 	d->env_dup = NULL;
 	d->env_arr = NULL;
+	d->in = input;
+
 }
 
 void	ft_init_input(t_input *input)

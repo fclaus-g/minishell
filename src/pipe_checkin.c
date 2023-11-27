@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 19:37:54 by fclaus-g          #+#    #+#             */
-/*   Updated: 2023/11/26 18:00:12 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:27:04 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 y a detectar de que tipo es cada cosa, creo que asi sera mas facil quitar comillas*/
 void	ft_pipe_checkinput(t_input *input)
 {
-	int i;
+ 	(void)input;
 }
 
 

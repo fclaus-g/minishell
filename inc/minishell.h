@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/27 09:48:27 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2023/11/27 11:33:17 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 /*STRUCTS*/
 typedef struct s_input t_input;
+typedef struct s_element t_element;
 /*Estructura para cada variable de entorno (tendremos que crear un array de
 este tipo de struct)*/
 typedef struct s_env
@@ -42,7 +43,9 @@ typedef struct s_element
 	int		fd_in;//para redirecciones se establece un valor standar y si hay redirecciones se cambia
 	int		fd_out;//para redirecciones
 	int		priority;//en algun momento creo que se debe decidir que ejecutar primero
+	t_element	*next;
 }	t_element;
+
 
 /*Estructura para la lectura del input completo, dentro guardamos varias flags
 o info general y un array con todos los elementos de la linea, esto lo re-
@@ -64,7 +67,7 @@ typedef struct s_input
 
 /*init_structs.c*/
 void					ft_init_structs(t_data *d, t_input *input);
-void					ft_init_data(t_data *d);
+void					ft_init_data(t_data *d, t_input *input);
 void					ft_init_input(t_input *input);
 
 /*init.c*/
@@ -72,20 +75,21 @@ void					ft_fill_input(t_input *in, char *st);
 void					ft_split_env(t_data *d, char *var, size_t x);
 void					ft_init(t_data *d, char **env, t_input *input);
 
-/*checkin.c/
+/*checkin.c*/
 void					ft_checkinput(t_input *input);
 int						ft_is_builtin(char *str, t_input *input);
 int						ft_is_redir(char *str);
 int						ft_is_pipe(char *str);
 void					ft_check_c(t_input *input);
-void	ft_check_dollar(t_input *input);
-*/
+void					ft_check_dollar(t_input *input);
+
 /*pipe_chekin.c*/
 void				ft_pipe_checkinput(t_input *input);
 void				ft_print_matriz(char **matriz);
 /*exit.c*/
 void					ft_clean_input(t_input *input);
 
-/*builtins1.c*/
+/*builtins.c*/
 void					ft_pwd(t_input *input);
+void					ft_echo(t_input *input);
 #endif

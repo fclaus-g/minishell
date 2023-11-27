@@ -6,7 +6,7 @@
 #    By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 21:48:21 by pgomez-r          #+#    #+#              #
-#    Updated: 2023/11/27 09:50:50 by fclaus-g         ###   ########.fr        #
+#    Updated: 2023/11/27 11:19:50 by fclaus-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ NAME     = minishell
 SRC_PATH = src/
 OBJ_PATH = obj/
 
-SRC      = main.c init_structs.c init.c pipe_checkin.c exit.c
+SRC      = main.c init_structs.c init.c pipe_checkin.c checkin.c exit.c builtins.c
 SRCS	 = $(addprefix $(SRC_PATH), $(SRC))
 OBJ		 = $(SRC:.c=.o)
 OBJS	 = $(addprefix $(OBJ_PATH), $(OBJ))
