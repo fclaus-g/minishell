@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/17 11:37:11 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2023/11/27 09:48:27 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,9 @@ typedef struct s_input
 	int			is_flag; //hay flags?
 	int			is_redir; //hay redirecciones?
 	int			n_pipe; //cuantos pipes?
-	char		*pwd; //pwd actual
+	int			n_lines; //cuantas lineas?
 	char		**sp_input; //splitted input en matriz de cadenas
+	char		**sp_pipe; //splitted input por pipes
 	t_element	*elements; //array de structs - cada una un elemento
 }	t_input;
 
@@ -71,12 +72,17 @@ void					ft_fill_input(t_input *in, char *st);
 void					ft_split_env(t_data *d, char *var, size_t x);
 void					ft_init(t_data *d, char **env, t_input *input);
 
-/*checkin.c*/
+/*checkin.c/
 void					ft_checkinput(t_input *input);
 int						ft_is_builtin(char *str, t_input *input);
 int						ft_is_redir(char *str);
 int						ft_is_pipe(char *str);
-
+void					ft_check_c(t_input *input);
+void	ft_check_dollar(t_input *input);
+*/
+/*pipe_chekin.c*/
+void				ft_pipe_checkinput(t_input *input);
+void				ft_print_matriz(char **matriz);
 /*exit.c*/
 void					ft_clean_input(t_input *input);
 
