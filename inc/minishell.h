@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/15 12:35:17 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2023/11/17 11:37:11 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,10 @@ typedef struct s_input
 {
 	int			n_elements; //número de elementos
 	int			is_built; //hay built-in?
+	int			is_flag; //hay flags?
 	int			is_redir; //hay redirecciones?
 	int			n_pipe; //cuantos pipes?
+	char		*pwd; //pwd actual
 	char		**sp_input; //splitted input en matriz de cadenas
 	t_element	*elements; //array de structs - cada una un elemento
 }	t_input;
@@ -71,11 +73,13 @@ void					ft_init(t_data *d, char **env, t_input *input);
 
 /*checkin.c*/
 void					ft_checkinput(t_input *input);
-int						ft_is_builtin(char *str);
+int						ft_is_builtin(char *str, t_input *input);
 int						ft_is_redir(char *str);
 int						ft_is_pipe(char *str);
 
 /*exit.c*/
 void					ft_clean_input(t_input *input);
 
+/*builtins1.c*/
+void					ft_pwd(t_input *input);
 #endif
