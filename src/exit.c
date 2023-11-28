@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:24:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/24 14:03:25 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/11/24 22:14:11 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_clean_input(t_input *input)
 	if (input->sp_input != NULL)
 	{
 		ft_totalfree(input->sp_input);
+		ft_totalfree(input->cmd_tab);
 		while (++i < input->n_elements)
 		{
 			free(input->elements[i].data);
@@ -44,8 +45,6 @@ void	ft_free_data(t_data *d)
 	int	i;
 
 	i = -1;
-	if (d->env_dup)
-		ft_totalfree(d->env_dup);
 	while (d->env_arr[++i].full)
 	{
 		free(d->env_arr[i].full);

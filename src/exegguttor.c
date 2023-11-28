@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/24 14:26:36 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/11/24 23:40:50 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,8 @@ void	ft_exegguttor(char *cmd, char **env)
 
 	get_paths(&st, env);
 	split_cmd(&st, cmd);
-	if (ft_is_builtin(st.cmd[0]))
-		ft_exe_built(); //crear función
-	else if (ft_is_biexit(st.cmd[0]))
+	ft_is_builtin(st.cmd);
+	if (ft_is_biexit(st.cmd[0]))
 		exit(0);
 	else
 	{	

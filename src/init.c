@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 07:32:32 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/22 23:28:23 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/11/24 21:58:27 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	ft_fill_input(t_input *in, char *st)
 	while (in->cmd_tab[++i] != NULL)
 		in->cmd_tab[i] = ft_strtrim_free(in->cmd_tab[i], " ");
 	in->cmd_n = ft_strdlen(in->cmd_tab);
-	in->elements = malloc(sizeof(t_element) * ft_strdlen(in->sp_input));
+	in->n_elements = (int)ft_strdlen(in->sp_input);
+	in->elements = malloc(sizeof(t_element) * in->n_elements);
 	i = -1;
 	while (in->sp_input[++i] != NULL)
 		in->elements[i].data = ft_strdup(in->sp_input[i]);

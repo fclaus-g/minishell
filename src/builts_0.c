@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builts_1.c                                         :+:      :+:    :+:   */
+/*   builts_0.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:57:29 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/24 13:40:53 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/11/24 23:46:29 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,16 @@ void	bi_exit(t_data *d, t_input *in)
 {
 	ft_clean_input(in);
 	ft_free_data(d);
+	exit(0);
+}
+
+void	bi_echo(char **cmd_line)
+{
+	int	i;
+
+	i = 0;
+	while (cmd_line[++i] != NULL)
+		ft_printf("%s ", cmd_line[i]);
+	ft_printf("\n");
 	exit(0);
 }

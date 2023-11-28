@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/24 14:17:00 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/11/24 23:31:11 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void					ft_split_env(t_data *d, char *var, size_t x);
 void					ft_init(t_data *d, char **env);
 char					*ft_strtrim_free(char *s1, char const *set);
 /*checkin.c*/
-int						ft_is_builtin(char *str);
+void					ft_is_builtin(char **cmd_line);
 int						ft_is_biexit(char *str);
 /*exegguttor.c*/
 int						ft_cmd_driver(t_input *in, char **env, t_data *d);
@@ -84,8 +84,9 @@ void					free_cache(t_command *st, int error);
 void					split_cmd(t_command *st, char *cmdstr);
 int						find_path_index(t_command *st, char *cmd);
 void					get_paths(t_command *st, char **env);
-/*builts_1,c*/
+/*builts_0.c*/
 void					bi_exit(t_data *d, t_input *in);
+void					bi_echo(char **cmd_line);
 /*exit.c*/
 void					ft_clean_input(t_input *input);
 void					ft_free_data(t_data *d);

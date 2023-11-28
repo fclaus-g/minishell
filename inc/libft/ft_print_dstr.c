@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_dstr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 20:59:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/04/24 21:00:01 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/11/25 11:19:43 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_print_dstr(char **dstr)
 	i = 0;
 	while (dstr[i] != NULL)
 	{
-		printf("%s\n", dstr[i]);
+		ft_printf("%s\n", dstr[i]);
 		i++;
 	}
 }
