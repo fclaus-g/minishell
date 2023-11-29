@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 09:52:53 by fclaus-g          #+#    #+#             */
-/*   Updated: 2023/11/27 11:19:12 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2023/11/29 10:31:04 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_init_structs(t_data *d, t_input *input)
 {
 	ft_init_data(d, input);
-	ft_init_input(input);
+	ft_init_input(d, input);
 }
 
 void	ft_init_data(t_data *d, t_input *input)
@@ -26,7 +26,7 @@ void	ft_init_data(t_data *d, t_input *input)
 
 }
 
-void	ft_init_input(t_input *input)
+void	ft_init_input(t_data *d, t_input *input)
 {
 	input->n_elements = 0;
 	input->is_built = 0;
@@ -37,4 +37,5 @@ void	ft_init_input(t_input *input)
 	input->sp_input = NULL;
 	input->sp_pipe = NULL;
 	input->elements = NULL;
+	input->data = d;
 }
