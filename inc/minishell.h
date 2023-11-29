@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/27 11:33:17 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2023/11/28 10:28:11 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ void					ft_init_input(t_input *input);
 void					ft_fill_input(t_input *in, char *st);
 void					ft_split_env(t_data *d, char *var, size_t x);
 void					ft_init(t_data *d, char **env, t_input *input);
-
+void	ft_check_quotes_str(char *str, t_input *input);
+int ft_count_char(char *str, char c);
 /*checkin.c*/
 void					ft_checkinput(t_input *input);
 int						ft_is_builtin(char *str, t_input *input);
