@@ -12,41 +12,46 @@
 
 #include "../inc/minishell.h"
 
-
-int	ft_count_elements_qts(char const *s)
+int	ft_wordcnt_qt(char *str)
 {
-	unsigned int	i;
-	int				count;
+    int	cnt = 0;
+    int	in_qt = false;
+    int	encounteredNonSpace = false;
 
-	i = 0;
-	count = 0;
-	while (s[i] != '\0')
-	{
-		while (s[i] == ' ')
-			i++;
-		if (s[i] != '\0')
-			count++;
-		while (s[i] != '\0' && s[i] != ' ' && s[i] != 39 && s[i] != 34)
-			i++;
-	}
-	return (count);
-}
+    if (str == NULL || *str == '\0')
+        return 0;
 
-/*Qué hace cont_word = un ciclo con tres "checks" dentro:
-while(recorrer toda la cadena original *s)
-	while(si lo que hay en cada posicion de str == c, seguimos i++)
-	if(terminado el while de arriba, porque str != c, aumentamos cntr+ 1 vez)
-	while(si no ha terminado str y s[i] es distinto a c, seguimos i++)
-Así ya tenemos el número de strings que va a tener nuestra tabla resultado*/
+    // Iterate through each character in the string
+    for (int i = 0; str[i] != '\0'; ++i) {
+        // Check if the current character is a space or a punctuation mark
+        if (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\r' || str[i] == ',' || str[i] == '.' || str[i] == '?' || str[i] == '!' || str[i] == ';') {
+            // If we are not inside quotes, consider it as a word separator
+            if (!in_qt && encounteredNonSpace) {
+                ++cnt;
+            }
 
-char	*ft_savewords(const char *s, unsigned int n)
-{
-	char			*str;
+            // Skip consecutive spaces
+            while (str[i + 1] == ' ' || str[i + 1] == '\t' || str[i + 1] == '\n' || str[i + 1] == '\r') {
+                ++i;
+            }
+        } else if (str[i] == '"' || str[i] == '\'') {
+            // Flip the in_qt flag when encountering a quote
+            in_qt = !in_qt;
+        } else {
+            // Mark that we've encountered a non-space character
+            encounteredNonSpace = true;
+        }
+    }
 
-	str = (char *)malloc(sizeof(char) * (n + 1));
-	if (str == NULL)
-		return (NULL);
-	str = ft_strncpy(str, s, n);
-	str[n] = '\0';
-	return (str);
+    // Check if the string consists only of spaces
+    if (!encounteredNonSpace && !in_qt) {
+        return 0;
+    }
+
+    // Increment the word count if the last word is not followed by a space or punctuation
+    if (!in_qt && encounteredNonSpace) {
+        ++cnt;
+    }
+
+    return cnt;
 }
