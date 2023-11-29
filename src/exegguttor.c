@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exegguttor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/24 23:40:50 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/11/29 21:40:44 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_exegguttor(char *cmd, char **env)
 	if (ft_is_biexit(st.cmd[0]))
 		exit(0);
 	else
-	{	
+	{
 		find_path_index(&st, st.cmd[0]);
 		if (execve(st.path_cmd, st.cmd, env) == -1)
 		{
