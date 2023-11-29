@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/28 10:28:11 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2023/11/29 17:58:03 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,11 @@ typedef struct s_input
 	int			is_redir; //hay redirecciones?
 	int			n_pipe; //cuantos pipes?
 	int			n_lines; //cuantas lineas?
+	char		*pwd;
 	char		**sp_input; //splitted input en matriz de cadenas
 	char		**sp_pipe; //splitted input por pipes
 	t_element	*elements; //array de structs - cada una un elemento
+	t_data		*data; //puntero a la struct data
 }	t_input;
 
 /*main.c*/
@@ -68,7 +70,7 @@ typedef struct s_input
 /*init_structs.c*/
 void					ft_init_structs(t_data *d, t_input *input);
 void					ft_init_data(t_data *d, t_input *input);
-void					ft_init_input(t_input *input);
+void					ft_init_input(t_data *d, t_input *input);
 
 /*init.c*/
 void					ft_fill_input(t_input *in, char *st);
@@ -93,4 +95,10 @@ void					ft_clean_input(t_input *input);
 /*builtins.c*/
 void					ft_pwd(t_input *input);
 void					ft_echo(t_input *input);
+
+/*ft_env.c*/
+void					ft_env(t_input *input);
+/*ft_export.c*/
+void	ft_export(t_input *input);
+char	**ft_export_order(char **env);
 #endif

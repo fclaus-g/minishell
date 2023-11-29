@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:58:04 by fclaus-g          #+#    #+#             */
-/*   Updated: 2023/11/27 14:29:56 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2023/11/29 11:07:14 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,11 @@ int	ft_is_builtin(char *str, t_input *input)
 	else if (ft_strcmp(str, "pwd") == 0)
 		return (ft_pwd(input), 1);
 	else if (ft_strcmp(str, "export") == 0)
-		return (1);
+		return (ft_export(input), 1);
 	else if (ft_strcmp(str, "unset") == 0)
 		return (1);
 	else if (ft_strcmp(str, "env") == 0)
-		return (1);
+		return (ft_env(input), 1);
 	else if (ft_strcmp(str, "exit") == 0)
 		return (1);
 	else
