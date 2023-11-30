@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:15:46 by pgruz11           #+#    #+#             */
-/*   Updated: 2023/11/25 11:31:41 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/11/30 19:38:20 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,5 @@ int	ft_is_biexit(char *str)
 {
 	if (ft_strcmp(str, "exit") == 0)
 		return (1);
-	else
-		return (0);
+	return (0);
 }

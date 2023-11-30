@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 16:39:07 by pgruz11           #+#    #+#             */
-/*   Updated: 2023/11/30 09:01:02 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/11/30 20:12:42 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,23 +169,66 @@ size_t	ft_wordcnt_qt(char *str)
 
 /*versión de split que deja la str de origen dividida por espacios pero
 teniendo en cuenta las comillas*/
-char	**ft_split_qt(char *str, int n)
+// char	**ft_split_qt(char *str, int n)
+// {
+// 	int				i;
+// 	int				j;
+// 	int				k;
+// 	int				in_qt;
+// 	char			**tab;
+
+// 	i = 0;
+// 	k = 0;
+// 	tab = (char **)malloc(sizeof(char *) * (n + 1));
+// 	if (!tab || !str)
+// 		return (NULL);
+// 	i = 0;
+// 	k = 0;
+// 	in_qt = -1;
+// 	while (str[i] != '\0')
+// 	{
+// 		while (ft_check_spc(str[i]) && str[i] != '\0')
+// 			i++;
+// 		j = i;
+// 		in_qt = ft_quote_eval(str[i], in_qt);
+// 		if (in_qt == -1)
+// 		{
+// 			while (!ft_check_spc(str[i]) && str[i] != '\0')
+// 				i++;
+// 			if (i > j)
+// 			{
+// 				tab[k] = ft_savewords(str + j, i - j);
+// 				printf("Contenido str[%d]: %s\n", k, tab[k]);
+// 				k++;
+// 			}
+// 		}
+// 		else
+// 			i++;
+// 			while (in_qt == ft_quote_eval(str[i], in_qt) && str[i] != '\0')
+// 				i++;
+// 			i++;
+// 			if (i > j)
+// 			{
+// 				tab[k] = ft_savewords(str + j, i - j);
+// 				printf("Contenido str[%d]: %s\n", k, tab[k]);
+// 				k++;
+// 			}
+// 	}
+// 	tab[k] = NULL;
+// 	return (tab);
+// }
+
+void ft_split_qt(char *str, t_input *in)
 {
 	int				i;
 	int				j;
 	int				k;
 	int				in_qt;
-	char			**tab;
 
 	i = 0;
 	k = 0;
-	tab = (char **)malloc(sizeof(char *) * (n + 1));
-	if (!tab || !str)
-		return (NULL);
-	i = -1;
-	k = 0;
 	in_qt = -1;
-	while (str[++i] != '\0')
+	while (str[i] != '\0')
 	{
 		while (ft_check_spc(str[i]) && str[i] != '\0')
 			i++;
@@ -197,44 +240,42 @@ char	**ft_split_qt(char *str, int n)
 				i++;
 			if (i > j)
 			{
-				tab[k] = ft_savewords(str + j, i - j);
-				printf("Contenido str[%d]: %s\n", k, tab[k]);
+				in->elements[k].data = ft_savewords(str + j, i - j);
 				k++;
 			}
 		}
 		else
+		{		
 			i++;
 			while (in_qt == ft_quote_eval(str[i], in_qt) && str[i] != '\0')
 				i++;
 			i++;
 			if (i > j)
 			{
-				tab[k] = ft_savewords(str + j, i - j);
-				printf("Contenido str[%d]: %s\n", k, tab[k]);
+				in->elements[k].data = ft_savewords(str + j, i - j);
 				k++;
 			}
+		}
 	}
-	tab[k] = NULL;
-	return (tab);
 }
 
 /*Recibe el struct del input (puede que haga falta el struct general?) y
 convierte por primera vez el array de elementos separando y etiquetando
 los que son entre comillas*/
-void	ft_tokenizer_qt(t_input *in, char *s)
+int	ft_tokenizer_qt(t_input *in, char *s)
 {
-	int	i;
+	//int	i;
 	int	n_elements;
 
 	n_elements = (int)ft_wordcnt_qt(s);
-	in->sp_input = ft_split_qt(s, n_elements);
+	if (n_elements == 0)
+		return (printf("Input vacío\n"), 1);
 	in->elements = malloc(sizeof(t_element) * n_elements);
-	i = -1;
-	while (++i < n_elements)
-	{
-		//printf("Contenido str[%d]: %s\n", i, in->sp_input[i]);
-		in->elements[i].data = ft_strdup((const char *)in->sp_input[i]);
-	}
+	ft_split_qt(s, in);
+	//i = -1;
+	// while (++i < n_elements)
+	// 	in->elements[i].data = ft_strdup((const char *)in->sp_input[i]);
+	return (0);
 }
 
 int	main(void)
@@ -244,14 +285,31 @@ int	main(void)
 	int		i;
 	int		j;
 
-	input_line = "\"grep\" git\0";
-	//input_line = "ls -la\n";
+	//input_line = "ls -la \"grep git\"";
+	input_line = "\"grep \"git\" hola\"";
 	i = (int)ft_wordcnt_qt(input_line);
 	printf("INPUT PARA TEST: %s\n", input_line);
 	printf("El valor que devuelve wordcnt (número de elementos) es: %d\n", i);
-	ft_tokenizer_qt(&input, input_line);
+	if (ft_tokenizer_qt(&input, input_line) == 1)
+		return (1);
 	j = -1;
 	while (++j < i)
 		printf("Texto en input->elements[%d]: %s\n", j, input.elements[j].data);
 	return (0);
 }
+
+
+/**
+ * @brief Ahora mismo, la función separa elementos entre espacios y aisla en
+ * un solo elemento lo que haya entre comillas, pero solo si viene todo ya
+ * separado por espacios en el input
+ * Por ejemplo: ls la"grep gi" no lo hace bien, en este caso lo primero que
+ * falla es countword que saca muchos más elementos, creo que se puede ajustar
+ * mejorando la ft para ver si hay que abrir o cerrar estado de comillas para
+ * que evalue tambien que hay antes y despues del caracter de comilla
+ * También, tanto en ft_count como en ft_splitqt, cuando estemos recorriendo
+ * la str en el caso que tengamos quote en -1 (no estamos dentro de comillas)
+ * deberían seguir chequeando si hay o no comilla, no solo espacio, lo puedo
+ * replantear
+ * TODO: check inputs con saltos de lineas dentro y al final
+ */
