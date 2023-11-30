@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 16:39:07 by pgruz11           #+#    #+#             */
-/*   Updated: 2023/11/29 22:44:06 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/11/30 09:01:02 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,8 @@ que esta dentro de otras, impares, etc...no se me ocurre como de momento
 Devuelve la flag actualizada*/
 int	ft_quote_eval(char c, int in_qt)
 {
-	if ((c == '"' || c == '\'') && in_qt == -1)
+	if (c == '"' || c == '\'')
 		in_qt *= -1;
-	else if ((c == '"' || c == '\'') && in_qt == 1)
-	{
-		in_qt *= -1;
-	}
 	return(in_qt);
 }
 
@@ -148,25 +144,25 @@ size_t	ft_wordcnt_qt(char *str)
 	if (ft_emptystr_check(str))
 		return (0);
 	cnt = 0;
-	in_qt = -1;
 	i = -1;
+	in_qt = -1;
 	while (str[++i] != '\0')
 	{
-		if (ft_check_spc(str[i]))
+		while (ft_check_spc(str[i]) && str[i] != '\0')
+			i++;
+		cnt++;
+		in_qt = ft_quote_eval(str[i], in_qt);
+		if (in_qt == -1)
 		{
-			while (ft_check_spc(str[i + 1]))
+			while (!ft_check_spc(str[i]) && str[i] != '\0')
 				i++;
-			if (in_qt == -1 && str[i] != '\0')
-				cnt++;
 		}
-		if (str[i] == '"' || str[i] == '\'')
-			in_qt *= -1;
-		// if ((str[i] == '"' || str[i] == '\'') && in_qt == -1)
-		// 	in_qt *= -1;
-		// else if ((str[i] == '"' || str[i] == '\'') && in_qt == 1)
-		// {
-		// 	in_qt *= -1;
-		// }
+		else
+		{
+			i++;
+			while (in_qt == ft_quote_eval(str[i], in_qt) && str[i] != '\0')
+				i++;
+		}
 	}
 	return (cnt);
 }
@@ -191,18 +187,32 @@ char	**ft_split_qt(char *str, int n)
 	in_qt = -1;
 	while (str[++i] != '\0')
 	{
-		while (ft_check_spc(str[i]))
+		while (ft_check_spc(str[i]) && str[i] != '\0')
 			i++;
-		in_qt = ft_quote_eval(str[i], in_qt);
 		j = i;
-		while (!ft_check_spc(str[i]) && str[i] != '"' && str[i] != '\'')
-			i++;
 		in_qt = ft_quote_eval(str[i], in_qt);
-		if (i > j && in_qt == -1)
+		if (in_qt == -1)
 		{
-			tab[k] = ft_savewords(str + j, i - j);
-			k++;
+			while (!ft_check_spc(str[i]) && str[i] != '\0')
+				i++;
+			if (i > j)
+			{
+				tab[k] = ft_savewords(str + j, i - j);
+				printf("Contenido str[%d]: %s\n", k, tab[k]);
+				k++;
+			}
 		}
+		else
+			i++;
+			while (in_qt == ft_quote_eval(str[i], in_qt) && str[i] != '\0')
+				i++;
+			i++;
+			if (i > j)
+			{
+				tab[k] = ft_savewords(str + j, i - j);
+				printf("Contenido str[%d]: %s\n", k, tab[k]);
+				k++;
+			}
 	}
 	tab[k] = NULL;
 	return (tab);
@@ -221,7 +231,10 @@ void	ft_tokenizer_qt(t_input *in, char *s)
 	in->elements = malloc(sizeof(t_element) * n_elements);
 	i = -1;
 	while (++i < n_elements)
+	{
+		//printf("Contenido str[%d]: %s\n", i, in->sp_input[i]);
 		in->elements[i].data = ft_strdup((const char *)in->sp_input[i]);
+	}
 }
 
 int	main(void)
@@ -231,14 +244,14 @@ int	main(void)
 	int		i;
 	int		j;
 
-	input_line = "\"grep\" git\n";
+	input_line = "\"grep\" git\0";
 	//input_line = "ls -la\n";
 	i = (int)ft_wordcnt_qt(input_line);
-	printf("En esta prueba, el num de elementos es 2\n");
-	printf("El valor que devuelve wordcnt es: %d\n", i);
+	printf("INPUT PARA TEST: %s\n", input_line);
+	printf("El valor que devuelve wordcnt (número de elementos) es: %d\n", i);
 	ft_tokenizer_qt(&input, input_line);
 	j = -1;
 	while (++j < i)
-		printf("Texto de elemento %d: %s\n", j, input.elements[j].data);
+		printf("Texto en input->elements[%d]: %s\n", j, input.elements[j].data);
 	return (0);
 }
