@@ -3,313 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/28 16:39:07 by pgruz11           #+#    #+#             */
-/*   Updated: 2023/11/30 20:12:42 by pgruz11          ###   ########.fr       */
+/*   Created: 2023/12/01 18:04:06 by pgomez-r          #+#    #+#             */
+/*   Updated: 2023/12/01 18:45:52 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-size_t	ft_strlen(const char *str)
+typedef struct s_input
 {
-	size_t	i;
+	int			n_elements; //número de elementos
+	int			cmd_n; //cuantos comandos?
+	char		**sp_input; //splitted input en matriz de cadenas
+	t_element	*elements; //array de structs - cada una un elemento
+	t_command	*cmds; //array de comandos completos, que a su vez contiene array de elementos (pero solo los correspondientes a cada comando)
+}	t_input;
 
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
-}
-
-char	*ft_strdup(const char *src)
+typedef struct s_element
 {
-	char	*dup;
-	size_t	i;
-	size_t	len;
+	char	type;
+	char	*data;
+}	t_element;
 
-	len = ft_strlen(src);
-	i = 0;
-	dup = (char *)malloc(sizeof(char) * (len + 1));
-	if (!dup)
-		return (NULL);
-	while (i < len)
-	{
-		dup[i] = src[i];
-		i++;
-	}
-	dup[i] = '\0';
-	return (dup);
-}
-
-char	*ft_strncpy(char *dest, const char *src, unsigned int n)
+typedef struct s_command
 {
-	unsigned int	cnt;
+	char		**paths; //estos tres primeros lo usa el último paso de executor solo si no es built in
+	char		*path_cmd; //al generar el t_command en lexer, los ponemos NULL para evitar problemas
+	char		**cmd; //luego si hace falta en executor le dará un valor para usarlos
+	t_element	*tokens; //array de elementos igual que el que tenemos en input, pero incluimos los que sabemos que necesitamos para ejecutar
+}	t_command;
 
-	cnt = 0;
-	while (cnt < n)
-	{
-		dest[cnt] = src[cnt];
-		cnt++;
-	}
-	dest[cnt] = '\0';
-	return (dest);
-}
-
-char	*ft_savewords(const char *s, unsigned int n)
+void	ft_lexer(t_data *d, char *line)
 {
-	char			*str;
-
-	str = (char *)malloc(sizeof(char) * (n + 1));
-	if (str == NULL)
-		return (NULL);
-	str = ft_strncpy(str, s, n);
-	str[n] = '\0';
-	return (str);
-}
-
-/*TODO LO DE ARRIBA DE ESTO NO HACE FALTA ES POR NO VINCULAR CON MAKE + 
-LIBERIA PARA COMPILAR SOLO ESTE ARCHIVO E IR HACIENDO PRUEBAS*/
-
-/*Misma función que tengo de momento en init para que funcione el ejecutor
-básico de momento, aquí voy a intentar ir reformulando para los primeros pasos
-de lex-toke-parse
-void	ft_fill_input(t_input *in, char *st)
-{
-	int	i;
-
-	ft_tokenizer_qt(in, st);
-	// in->sp_input = ft_split(st, ' ');
-	// in->cmd_tab = ft_split(st, '|');
-	// i = -1;
-	// while (in->cmd_tab[++i] != NULL)
-	// 	in->cmd_tab[i] = ft_strtrim_free(in->cmd_tab[i], " ");
-	// in->cmd_n = ft_strdlen(in->cmd_tab);
-	// in->n_elements = (int)ft_strdlen(in->sp_input);
-	// i = -1;
-	// while (in->sp_input[++i] != NULL)
-	// 	in->elements[i].data = ft_strdup(in->sp_input[i]);
-}
-*/
-
-/*ft para comprobar si un char coincide con algun separador, así acortamos
-los while/if y ahorramos líneas*/
-int	ft_check_spc(char c)
-{
-	if (c == ' ' || c == '\t' || c == '\n' || c == '\r')
-		return (1);
-	return (0);
-}
-
-/*ft para evaluar el estado de la flag de comillas, la idea es mejorar la
-función para tener en cuenta también si se trata de comilla que no cierra
-que esta dentro de otras, impares, etc...no se me ocurre como de momento
-Devuelve la flag actualizada*/
-int	ft_quote_eval(char c, int in_qt)
-{
-	if (c == '"' || c == '\'')
-		in_qt *= -1;
-	return(in_qt);
-}
-
-/*ft para checkear si la str solo contiene espacios o separadores*/
-int	ft_emptystr_check(char *str)
-{
-	int	i;
-
-	if (str == NULL || *str == '\0')
-		return (1);
-	i = -1;
-	while (str[++i] != '\0')
-	{
-		if (!ft_check_spc(str[i]))
-			return (0);
-	}
-	return (1);
+	ft_split_qt(line, d->in); //se queda elementos guardados aislando en bloques las comillas
+	//ft_token_qt(d->in); //se asigna el type a los elementos que sean entre comillas
+	//ft_token_pipe(d->in); //se separan y etiquetan los elementos que sean pipe
+	//ft_token_redir(d->in); //se separan y etiquetan las redir
+	//ft_token_files(d->in); //según tipo de redir, separar y poner token de archivo a los elementos que estén antes/después
+	//ft_command_assemble(d->in); //con todo separado y etiquetado, generar comandos completos para enviar a cmd_driver
 }
 
 /**
- * @brief Función para contar los elementos teniendo en cuenta las comillas
- * Muy larga pero funciona, la comprobación de cadena vací o que solo contenga
-	separadores se puede encapsular en una función a parte (líneas 24-34)
- * TODO: hacer que contemple bien el caso  "gr"ep" como un solo element!
- * TODO: estoy tratando " y ' igual, quizá hay que separarlo ("gre'p")
- */
-size_t	ft_wordcnt_qt(char *str)
-{
-	int	i;
-	int	cnt;
-	int	in_qt;
-
-	if (ft_emptystr_check(str))
-		return (0);
-	cnt = 0;
-	i = -1;
-	in_qt = -1;
-	while (str[++i] != '\0')
-	{
-		while (ft_check_spc(str[i]) && str[i] != '\0')
-			i++;
-		cnt++;
-		in_qt = ft_quote_eval(str[i], in_qt);
-		if (in_qt == -1)
-		{
-			while (!ft_check_spc(str[i]) && str[i] != '\0')
-				i++;
-		}
-		else
-		{
-			i++;
-			while (in_qt == ft_quote_eval(str[i], in_qt) && str[i] != '\0')
-				i++;
-		}
-	}
-	return (cnt);
-}
-
-/*versión de split que deja la str de origen dividida por espacios pero
-teniendo en cuenta las comillas*/
-// char	**ft_split_qt(char *str, int n)
-// {
-// 	int				i;
-// 	int				j;
-// 	int				k;
-// 	int				in_qt;
-// 	char			**tab;
-
-// 	i = 0;
-// 	k = 0;
-// 	tab = (char **)malloc(sizeof(char *) * (n + 1));
-// 	if (!tab || !str)
-// 		return (NULL);
-// 	i = 0;
-// 	k = 0;
-// 	in_qt = -1;
-// 	while (str[i] != '\0')
-// 	{
-// 		while (ft_check_spc(str[i]) && str[i] != '\0')
-// 			i++;
-// 		j = i;
-// 		in_qt = ft_quote_eval(str[i], in_qt);
-// 		if (in_qt == -1)
-// 		{
-// 			while (!ft_check_spc(str[i]) && str[i] != '\0')
-// 				i++;
-// 			if (i > j)
-// 			{
-// 				tab[k] = ft_savewords(str + j, i - j);
-// 				printf("Contenido str[%d]: %s\n", k, tab[k]);
-// 				k++;
-// 			}
-// 		}
-// 		else
-// 			i++;
-// 			while (in_qt == ft_quote_eval(str[i], in_qt) && str[i] != '\0')
-// 				i++;
-// 			i++;
-// 			if (i > j)
-// 			{
-// 				tab[k] = ft_savewords(str + j, i - j);
-// 				printf("Contenido str[%d]: %s\n", k, tab[k]);
-// 				k++;
-// 			}
-// 	}
-// 	tab[k] = NULL;
-// 	return (tab);
-// }
-
-void ft_split_qt(char *str, t_input *in)
-{
-	int				i;
-	int				j;
-	int				k;
-	int				in_qt;
-
-	i = 0;
-	k = 0;
-	in_qt = -1;
-	while (str[i] != '\0')
-	{
-		while (ft_check_spc(str[i]) && str[i] != '\0')
-			i++;
-		j = i;
-		in_qt = ft_quote_eval(str[i], in_qt);
-		if (in_qt == -1)
-		{
-			while (!ft_check_spc(str[i]) && str[i] != '\0')
-				i++;
-			if (i > j)
-			{
-				in->elements[k].data = ft_savewords(str + j, i - j);
-				k++;
-			}
-		}
-		else
-		{		
-			i++;
-			while (in_qt == ft_quote_eval(str[i], in_qt) && str[i] != '\0')
-				i++;
-			i++;
-			if (i > j)
-			{
-				in->elements[k].data = ft_savewords(str + j, i - j);
-				k++;
-			}
-		}
-	}
-}
-
-/*Recibe el struct del input (puede que haga falta el struct general?) y
-convierte por primera vez el array de elementos separando y etiquetando
-los que son entre comillas*/
-int	ft_tokenizer_qt(t_input *in, char *s)
-{
-	//int	i;
-	int	n_elements;
-
-	n_elements = (int)ft_wordcnt_qt(s);
-	if (n_elements == 0)
-		return (printf("Input vacío\n"), 1);
-	in->elements = malloc(sizeof(t_element) * n_elements);
-	ft_split_qt(s, in);
-	//i = -1;
-	// while (++i < n_elements)
-	// 	in->elements[i].data = ft_strdup((const char *)in->sp_input[i]);
-	return (0);
-}
-
-int	main(void)
-{
-	t_input	input;
-	char	*input_line;
-	int		i;
-	int		j;
-
-	//input_line = "ls -la \"grep git\"";
-	input_line = "\"grep \"git\" hola\"";
-	i = (int)ft_wordcnt_qt(input_line);
-	printf("INPUT PARA TEST: %s\n", input_line);
-	printf("El valor que devuelve wordcnt (número de elementos) es: %d\n", i);
-	if (ft_tokenizer_qt(&input, input_line) == 1)
-		return (1);
-	j = -1;
-	while (++j < i)
-		printf("Texto en input->elements[%d]: %s\n", j, input.elements[j].data);
-	return (0);
-}
-
-
-/**
- * @brief Ahora mismo, la función separa elementos entre espacios y aisla en
- * un solo elemento lo que haya entre comillas, pero solo si viene todo ya
- * separado por espacios en el input
- * Por ejemplo: ls la"grep gi" no lo hace bien, en este caso lo primero que
- * falla es countword que saca muchos más elementos, creo que se puede ajustar
- * mejorando la ft para ver si hay que abrir o cerrar estado de comillas para
- * que evalue tambien que hay antes y despues del caracter de comilla
- * También, tanto en ft_count como en ft_splitqt, cuando estemos recorriendo
- * la str en el caso que tengamos quote en -1 (no estamos dentro de comillas)
- * deberían seguir chequeando si hay o no comilla, no solo espacio, lo puedo
- * replantear
- * TODO: check inputs con saltos de lineas dentro y al final
+ * TODO: configurar función cada SEPARACIÓN por tipo (nuevo array + orden correcto + free)
+ * 
  */

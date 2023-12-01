@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/29 21:40:44 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/01 17:42:09 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void	ft_exegguttor(char *cmd, char **env)
 
 	get_paths(&st, env);
 	split_cmd(&st, cmd);
-	ft_is_builtin(st.cmd);
+	if (!ft_is_builtin(st.cmd))
+		exit(0);
 	if (ft_is_biexit(st.cmd[0]))
 		exit(0);
 	else

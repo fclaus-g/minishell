@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:15:46 by pgruz11           #+#    #+#             */
-/*   Updated: 2023/11/30 19:38:20 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/12/01 17:41:05 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,21 @@
 
 /*Misma función de fer, pero le he quitado el check de exit
 para tratarlo a parte*/
-void	ft_is_builtin(char **cmd_line)
+int	ft_is_builtin(char **cmd_line)
 {
 	if (ft_strcmp(cmd_line[0], "echo") == 0)
 		bi_echo(cmd_line);
 	else if (ft_strcmp(cmd_line[0], "cd") == 0)
-		ft_printf("Sorry, [%s] built-in not implemented yet.\n", cmd_line[0]);
+		return (ft_printf("[%s] built not implemented yet.\n", cmd_line[0]), 0);
 	else if (ft_strcmp(cmd_line[0], "pwd") == 0)
-		ft_printf("Sorry, [%s] built-in not implemented yet.\n", cmd_line[0]);
+		return (ft_printf("[%s] built not implemented yet.\n", cmd_line[0]), 0);
 	else if (ft_strcmp(cmd_line[0], "export") == 0)
-		ft_printf("Sorry, [%s] built-in not implemented yet.\n", cmd_line[0]);
+		return (ft_printf("[%s] built not implemented yet.\n", cmd_line[0]), 0);
 	else if (ft_strcmp(cmd_line[0], "unset") == 0)
-		ft_printf("Sorry, [%s] built-in not implemented yet.\n", cmd_line[0]);
+		return (ft_printf("[%s] built not implemented yet.\n", cmd_line[0]), 0);
 	else if (ft_strcmp(cmd_line[0], "env") == 0)
-		ft_printf("Sorry, [%s] built-in not implemented yet.\n", cmd_line[0]);
+		return (ft_printf("[%s] built not implemented yet.\n", cmd_line[0]), 0);
+	return (1);
 }
 
 int	ft_is_biexit(char *str)
