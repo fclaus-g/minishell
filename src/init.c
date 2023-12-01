@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 07:32:32 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/29 17:53:36 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2023/11/30 09:30:59 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_fill_input(t_input *in, char *st)
 {
 	int	i;
 
-	ft_check_quotes_str(st, in);
+	ft_lexer(st, in);
 	in->sp_input = ft_split(st, ' ');
 	in->sp_pipe = ft_split(st, '|');//vamos a guardar una matriz con el split como separador
 	in->elements = malloc(sizeof(t_element) * ft_strdlen(in->sp_input));
@@ -92,43 +92,3 @@ void	ft_init(t_data *d, char **env, t_input *input)
 	}
 }
 
-/**
- *en esta funcion vamos a analizar el input como str y vamos a contar las comillas 
-tanto simples como dobles con idea de abstraer todo lo que este entre comillas antes de
-hacer split
-*!Lo que quiero es contar las comillas y que al recorrer la string, si hay comillas cuente
-*!cuanto ocupa, la idea de alguna manera de primeras es que el split guarde ya las comillas para 
-*!no trabajar las comillas desde la matriz, me esta costando lo suyo pero ahi estamos 
-*/ 
-
-void	ft_check_quotes_str(char *str, t_input *input)
-{
-	//int	c;
-	int quotes;
-	int db_quotes;
-
-	//c = -1;
-	(void)input;
-	quotes = ft_count_char(str, '\'');
-	db_quotes = ft_count_char(str, '\"');
-
-	printf("quotes: %d\ndb_quotes: %d\n", quotes, db_quotes);
-
-}
-
-int	ft_count_char(char *str, char c)
-{
-	int	i;
-	int times;
-
-	i = -1;
-	times = 0;
-	while (str[++i] && str[i])
-	{
-		if (str[i] == c)
-			times++;
-	}
-	if (times > 1)
-		return (times);
-	return (0);
-}
