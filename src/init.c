@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 07:32:32 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/30 09:30:59 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2023/12/01 11:46:59 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_fill_input(t_input *in, char *st)
 {
 	int	i;
 
-	ft_lexer(st, in);
+	//ft_lexer(st, in);
 	in->sp_input = ft_split(st, ' ');
 	in->sp_pipe = ft_split(st, '|');//vamos a guardar una matriz con el split como separador
 	in->elements = malloc(sizeof(t_element) * ft_strdlen(in->sp_input));
