@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:46:37 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/13 08:48:40 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/04 19:39:35 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,8 @@ t_list		*ft_lstlast(t_list *lst);
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 t_list		*ft_lstnew(void *content);
 int			ft_lstsize(t_list *lst);
+/*FUNCIONES SPLIT*/
+char		*ft_savewords(const char *s, unsigned int n);
 
 /*FUNCIONES DE PRINTF*/
 int			ft_printf(char const *str, ...);

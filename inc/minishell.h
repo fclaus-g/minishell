@@ -17,6 +17,13 @@
 
 /*STRUCTS*/
 
+/*Estructura para cada elemento del input, guarda tipo y su contenido en str*/
+typedef struct s_element
+{
+	char	type;
+	char	*data;
+}	t_element;
+
 /*Estructura que uso solamente para pipex/exegguttor de momento, veré si puedo
 pasar sus elementos a otra de element o input o si es mejor tenerla aislada*/
 typedef struct s_command
@@ -27,12 +34,6 @@ typedef struct s_command
 	t_element	*tokens;
 }	t_command;
 
-/*Estructura para cada elemento del input, guarda tipo y su contenido en str*/
-typedef struct s_element
-{
-	char	type;
-	char	*data;
-}	t_element;
 
 /*Estructura para la lectura del input completo, dentro guardamos varias flags
 o info general y un array con todos los elementos de la linea, esto lo re-
@@ -43,7 +44,7 @@ typedef struct s_input
 	int			cmd_n; //cuantos comandos?
 	char		**sp_input; //splitted input en matriz de cadenas
 	t_element	*elements; //array de structs - cada una un elemento
-	t_command	*cmds;
+	t_command	*cmds; //array de comandos
 }	t_input;
 
 /*Estructura para cada variable de entorno (tendremos que crear un array de
@@ -91,8 +92,6 @@ void					bi_export(t_data *d);
 char					**ft_export_order(char **env);
 void					bi_env(t_data *d);
 void					ft_pwd(t_data *d);
-/*lexer.c*/
-void					ft_lexer(t_data *d, char *line);
 /*lex_quotes.c*/
 int						ft_check_spc(char c);
 int						ft_quote_eval(char c, int in_qt);
