@@ -34,7 +34,6 @@ typedef struct s_command
 	t_element	*tokens;
 }	t_command;
 
-
 /*Estructura para la lectura del input completo, dentro guardamos varias flags
 o info general y un array con todos los elementos de la linea, esto lo re-
 utilizamos en cada lectura*/
@@ -64,9 +63,7 @@ typedef struct s_data
 	t_input	in;
 }	t_data;
 
-
 /*main.c*/
-
 /*init.c*/
 void					ft_fill_input(t_input *in, char *st);
 void					ft_split_env(t_data *d, char *var, size_t x);
@@ -92,12 +89,6 @@ void					bi_export(t_data *d);
 char					**ft_export_order(char **env);
 void					bi_env(t_data *d);
 void					ft_pwd(t_data *d);
-/*lex_quotes.c*/
-int						ft_check_spc(char c);
-int						ft_quote_eval(char c, int in_qt);
-int						ft_emptystr_check(char *str);
-size_t					ft_wordcnt_qt(char *str);
-void					ft_split_qt(char *str, t_input *in);
 /*exit.c*/
 void					ft_clean_input(t_input *input);
 void					ft_free_data(t_data *d);

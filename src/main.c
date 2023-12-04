@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/01 18:43:24 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/04 23:25:32 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 int	main(int ac, char **av, char **env)
 {
 	t_data	d;
-	char	*str_input = NULL;
+	char	*str_input;
 
+	str_input = NULL;
 	(void)av;
 	if (ac > 1)
 		return (1);
@@ -28,9 +29,12 @@ int	main(int ac, char **av, char **env)
 		str_input = readline("cascaribash/> ");
 		add_history(str_input);
 		ft_fill_input(&d.in, str_input);
-		//ft_input_lexer(&d, str_input); CAMBIAR fill_input por lexer
-		//ft_cmd_interprer(&d); //ya teniendo comandos listos, interpretar si hay que hacer redirecciones, crear/abrir archivos, etc
 		ft_cmd_driver(&d.in, d.env_dup, &d);
 	}
 	return (0);
 }
+
+/**
+ * TODO: ft_fill_input cambiar por input_lexer o adaptar/fusionar ambos
+ * TODO: cmd_interpreter - cmd_assambler.. antes o dentro de cmd_driver?
+ */

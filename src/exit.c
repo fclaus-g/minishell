@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:24:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/24 22:14:11 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/12/04 23:22:20 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,33 @@ void	ft_clean_input(t_input *input)
 	int	i;
 
 	i = -1;
-	input->is_built = 0;
-	input->is_redir = 0;
-	input->cmd_n = 0;
 	if (input->sp_input != NULL)
 	{
 		ft_totalfree(input->sp_input);
-		ft_totalfree(input->cmd_tab);
 		while (++i < input->n_elements)
 		{
 			free(input->elements[i].data);
 		}
 		free(input->elements);
 	}
+	i = -1;
+	if (input->cmd_n > 0)
+	{
+		while (++i < input->cmd_n)
+		{
+			free(input->cmds->tokens[i].data);
+		}
+		free(input->cmds->tokens);
+	}
+	input->cmd_n = 0;
 	input->n_elements = 0;
 }
+/**
+ * TODO: Check si se están liberando en exeguttor los char** de cms
+ * Tendrían que liberarse y dejar a NULL cada vez que se termina una exe,
+ * para luego volver a hacerles malloc y darles valor si es necesario en
+ * siguientes comandos
+ */
 
 /*Función para liberar memoria de la struct inicial-general, que
 ahora mismo solo tiene el entorno duplicado*/
@@ -49,6 +61,6 @@ void	ft_free_data(t_data *d)
 	{
 		free(d->env_arr[i].full);
 		free(d->env_arr[i].title);
-		free(d->env_arr[i].line);			
+		free(d->env_arr[i].line);
 	}
 }

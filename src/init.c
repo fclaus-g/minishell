@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 07:32:32 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/01 17:15:26 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/04 23:18:32 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ char	*ft_strtrim_free(char *s1, char const *set)
 
 	aux = ft_strtrim(s1, set);
 	free(s1);
-	return(aux);
-
+	return (aux);
 }
+
 /*Función para guardar el input que está en formato str después de readline en 
 el formato de doble matrix y array de estructuras que queremos para usarlo
 En el mismo bucle podemos ir llamando a la función lexer cuando la tengamos*/
@@ -33,16 +33,14 @@ void	ft_fill_input(t_input *in, char *st)
 	int	i;
 
 	in->sp_input = ft_split(st, ' ');
-	in->cmd_tab = ft_split(st, '|');
-	i = -1;
-	while (in->cmd_tab[++i] != NULL)
-		in->cmd_tab[i] = ft_strtrim_free(in->cmd_tab[i], " ");
-	in->cmd_n = ft_strdlen(in->cmd_tab);
 	in->n_elements = (int)ft_strdlen(in->sp_input);
 	in->elements = malloc(sizeof(t_element) * in->n_elements);
 	i = -1;
 	while (in->sp_input[++i] != NULL)
+	{
 		in->elements[i].data = ft_strdup(in->sp_input[i]);
+		in->elements[i].type = NULL;
+	}
 }
 
 /*A esta función le entra una variable de entorno completa en una str
