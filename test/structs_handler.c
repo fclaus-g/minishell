@@ -98,7 +98,7 @@ void	ft_fill_arr(t_input *in, t_element *new_arr, int tar, char **tab)
 			while (tab[++j] != NULL)
 			{
 				new_arr[i].data = ft_strdup(tab[j]);
-				new_arr[i++].type = NULL;
+				new_arr[i++].type = '0';
 			}
 		}
 		else
@@ -109,9 +109,18 @@ void	ft_fill_arr(t_input *in, t_element *new_arr, int tar, char **tab)
 	}
 }
 
-void	ft_tag_type(t_element *arr, int start, char c)
+/*Aquí les pongo el type a cada elemento, de momento guardando el char
+directamente*/
+void	ft_tag_type(t_element *arr, int start, int size, char c)
 {
-	
+	while (start < size)
+	{
+		if (ft_strchr(arr[start].data, c))
+			arr[start].type = c;
+		else
+			arr[start].type = '0';
+		start++;
+	}
 }
 
 /*Llamar a la función cuando haga falta dividir y añadir elementos, con un if 
@@ -129,12 +138,12 @@ t_element	*ft_arr_update(t_input *in, int i, char c)
 	new_arr = malloc(sizeof(t_element) * new_size);
 	in->n_elements = new_size;
 	ft_fill_arr(in, new_arr, i, new_text);
-	ft_tag_type(new_arr, i, c);
+	ft_tag_type(new_arr, i, (int)ft_strdlen(new_text), c);
 	ft_totalfree(new_text);
-	ft_free_arr(in);
+	//ft_free_arr(in);
 	return (new_arr);
 }
-/*
+
 int	main(void)
 {
 	char	*str;
@@ -145,4 +154,3 @@ int	main(void)
 	ft_print_dstr(test);
 	return (0);
 }
-*/
