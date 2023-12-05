@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lexer.c                                         :+:      :+:    :+:   */
+/*   ft_quoter.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 10:11:58 by fclaus-g          #+#    #+#             */
-/*   Updated: 2023/12/01 11:42:59 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2023/12/05 10:12:59 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	diferenciar_comillas(int c, char *str)
 	printf("aux: %s\n", aux);	
 }
 
-void ft_lexer(char *str)
+void ft_quoter(char *str)
 {
 	int c;
 	
@@ -85,7 +85,7 @@ int main(int ac, char **av)
 {
 	if (ac == 2)
 	{
-		ft_lexer(av[1]);
+		ft_quoter(av[1]);
 	}
 	return (0);
 }

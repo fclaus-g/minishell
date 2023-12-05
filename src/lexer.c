@@ -6,11 +6,13 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 09:29:49 by fclaus-g          #+#    #+#             */
-/*   Updated: 2023/11/30 10:11:53 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2023/12/05 13:59:53 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/**
+#include "../inc/minishell.h"
+
+/*
  *en esta funcion vamos a analizar el input como str y vamos a contar las comillas 
 tanto simples como dobles con idea de abstraer todo lo que este entre comillas antes de
 hacer split
@@ -18,23 +20,38 @@ hacer split
 *!cuanto ocupa, la idea de alguna manera de primeras es que el split guarde ya las comillas para 
 *!no trabajar las comillas desde la matriz, me esta costando lo suyo pero ahi estamos 
 */ 
+
+
+
 void	ft_lexer(char *str, t_input *input)
 {
-	int len;
+	int first_quote;
+	int last_quote;
 	int c;
 
 	c = -1;
-	len = ft_strlen(str);
+	(void)input;
+	first_quote = ft_start_quotes(str);
+	last_quote = ft_end_quotes(str); ;
 	while (str[++c] != '\0')
 	{
-		if (str[c] == '\'')
-			ft_check_quotes_str(&str[c], input);
-		if (str[c] == '\"')
-			ft_check_quotes_str(&str[c], input);
-		c++;
+		if (str[c] == '\'' || str[c] == '\"')             
+		{
+			while (first_quote <= last_quote)
+			{
+				c++;
+				first_quote++;
+			}
+		}
+		if (str[c] == ' ')
+		{
+			str[c] = '\0';
+		}
+		printf("str[%d]: %c\n", c, str[c]);
 	}
-
+	printf("str = %s\n", str);
 }
+
 void	ft_check_quotes_str(char *str, t_input *input)
 {
 	//int	c;
@@ -45,9 +62,7 @@ void	ft_check_quotes_str(char *str, t_input *input)
 	(void)input;
 	quotes = ft_count_char(str, '\'');
 	db_quotes = ft_count_char(str, '\"');
-
 	printf("quotes: %d\ndb_quotes: %d\n", quotes, db_quotes);
-
 }
 
 int	ft_count_char(char *str, char c)

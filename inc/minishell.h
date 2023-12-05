@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/01 11:46:17 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2023/12/05 13:49:22 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,14 @@ void					ft_env(t_input *input);
 /*ft_export.c*/
 void	ft_export(t_input *input);
 char	**ft_export_order(char **env);
+/*lexer.c*/
 void	ft_lexer(char *str, t_input *input);
+/*quotes.c*/
+int ft_start_quotes(char *str);
+int	ft_count_quotes(char *str);
+int ft_end_quotes(char *str);
+
+/*ft_split_ms.c*/
+char	**ft_split_ms(char const *s, char c);
+
 #endif
