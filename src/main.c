@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/04 23:25:32 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/05 23:28:14 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ int	main(int ac, char **av, char **env)
 }
 
 /**
- * TODO: ft_fill_input cambiar por input_lexer o adaptar/fusionar ambos
+ * TODO: para poder ejecutar, crear comandos + adaptar exeguttor
+ * TODO: ft_fill_input dentro input_lexer, luego change for quote_fix
+ * TODO: despues de fill_input - check_pipe
+ * TODO: aqui una impresión en pantalla para comprobar, luego cmd_interp
  * TODO: cmd_interpreter - cmd_assambler.. antes o dentro de cmd_driver?
  */

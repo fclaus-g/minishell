@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 07:32:32 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/04 23:18:32 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/05 23:20:25 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_fill_input(t_input *in, char *st)
 	while (in->sp_input[++i] != NULL)
 	{
 		in->elements[i].data = ft_strdup(in->sp_input[i]);
-		in->elements[i].type = NULL;
+		in->elements[i].type = '0';
 	}
 }
 

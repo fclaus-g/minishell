@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 21:39:30 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/04 23:27:14 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/05 21:17:08 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,16 @@ void	ft_tag_type(t_element *arr, int start, int size, char c)
 	}
 }
 
+void	ft_free_arr(t_input *in, int size)
+{
+	int	i;
+
+	i = -1;
+	while (++i < size)
+		free(in->elements[i].data);
+	free(in->elements);
+}
+
 /*Llamar a la función cuando haga falta dividir y añadir elementos, con un if 
 o funcion check antes en cada ft_token, si solo hay que catalogar el elemento
 lo hacemos fuera, si hay que separar sus partes se hace aquí y se cataloga la
@@ -132,7 +142,9 @@ t_element	*ft_arr_update(t_input *in, int i, char c)
 	char		**new_text;
 	t_element	*new_arr;
 	int			new_size;
+	int			size;
 
+	size = in->n_elements;
 	new_text = ft_element_split(in->elements[i].data, c);
 	new_size = in->n_elements + (int)ft_strdlen(new_text) - 1;
 	new_arr = malloc(sizeof(t_element) * new_size);
@@ -140,17 +152,41 @@ t_element	*ft_arr_update(t_input *in, int i, char c)
 	ft_fill_arr(in, new_arr, i, new_text);
 	ft_tag_type(new_arr, i, (int)ft_strdlen(new_text), c);
 	ft_totalfree(new_text);
-	//ft_free_arr(in);
+	//ft_free_arr(in, size);
+	free(in->elements);
 	return (new_arr);
 }
 
 int	main(void)
 {
-	char	*str;
-	char	**test;
+	int		i;
+	t_input	in;
 
-	str = "hello|cabesa|wordl|||yestoque";
-	test = ft_element_split(str, '|');
-	ft_print_dstr(test);
+	in.n_elements = 3;
+	in.elements = malloc(sizeof(t_element) * 3);
+	in.elements[0].data = "ls";
+	in.elements[0].type = '0';
+	in.elements[1].data = "-la|grep|cabesa|otropipe";
+	in.elements[1].type = '0';
+	in.elements[2].data = "git";
+	in.elements[2].type = '0';
+	printf("///INPUT DE ENTRADA EN ARRAY DE ELEMENTOS\\\\\\\n\n");
+	printf("Número elementos original: %d\n", in.n_elements);
+	i = -1;
+	while (++i < in.n_elements)
+	{
+		printf("Texto elemento[%d]: %s <---> ", i, in.elements[i].data);
+		printf("Tipo elemento[%d]: %c\n", i, in.elements[i].type);
+	}
+	in.elements = ft_arr_update(&in, 1, '|');
+	printf("\n   ---------------------------------   \n\n");
+	printf("///INPUT NUEVO EN ARRAY DE ELEMENTOS\\\\\\\n\n");
+	printf("Número elementos nuevo: %d\n", in.n_elements);
+	i = -1;
+	while (++i < in.n_elements)
+	{
+		printf("Texto en elemento[%d]: %s <---> ", i, in.elements[i].data);
+		printf("Tipo en elemento[%d]: %c\n", i, in.elements[i].type);
+	}
 	return (0);
 }

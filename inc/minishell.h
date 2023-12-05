@@ -1,4 +1,4 @@
- /* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/01 17:38:28 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/05 23:22:59 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ o info general y un array con todos los elementos de la linea, esto lo re-
 utilizamos en cada lectura*/
 typedef struct s_input
 {
-	int			n_elements; //número de elementos
-	int			cmd_n; //cuantos comandos?
-	char		**sp_input; //splitted input en matriz de cadenas
-	t_element	*elements; //array de structs - cada una un elemento
-	t_command	*cmds; //array de comandos
+	int			n_elements;
+	int			cmd_n;
+	char		**sp_input;
+	t_element	*elements;
+	t_command	*cmds;
 }	t_input;
 
 /*Estructura para cada variable de entorno (tendremos que crear un array de
@@ -72,6 +72,14 @@ char					*ft_strtrim_free(char *s1, char const *set);
 /*checkin.c*/
 int						ft_is_builtin(char **cmd_line);
 int						ft_is_biexit(char *str);
+/*arr_tools_0.c*/
+t_element				*ft_arr_update(t_input *in, int i, char c);
+void					ft_fill_arr(t_input *in, t_element *new_arr, int tar, char **tab);
+char					**ft_element_split(char *str, char c);
+/*arr_tools_1.c*/
+void					ft_tag_type(t_element *arr, int start, int size, char c);
+char					*ft_token_char(char c);
+size_t					ft_count_elements(char *str, char c);
 /*exegguttor.c*/
 int						ft_cmd_driver(t_input *in, char **env, t_data *d);
 void					ft_pipex(char *cmd, char **env, int fd);
@@ -88,9 +96,10 @@ void					bi_echo(char **cmd_line);
 void					bi_export(t_data *d);
 char					**ft_export_order(char **env);
 void					bi_env(t_data *d);
+/*builts_1.c*/
 void					ft_pwd(t_data *d);
-/*exit.c*/
+/*free.c*/
 void					ft_clean_input(t_input *input);
 void					ft_free_data(t_data *d);
-
+void					ft_free_arr(t_input *in, int size);
 #endif

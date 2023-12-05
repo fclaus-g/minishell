@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:57:29 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/01 17:29:11 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/05 23:18:34 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,20 +76,4 @@ char	**ft_export_order(char **env)
 		i++;
 	}
 	return (env);
-}
-
-void	ft_pwd(t_data *d)
-{
-	char	pwd[PATH_MAX];
-
-	(void)d;
-	if (getcwd(pwd, sizeof(pwd)) == NULL)
-	{
-		ft_putstr_fd("Error: ", 2);
-		ft_putstr_fd(strerror(errno), 2);
-		ft_putstr_fd("\n", 2);
-		return ;
-	}
-	ft_putstr_fd(pwd, 1);
-	ft_putstr_fd("\n", 1);
 }

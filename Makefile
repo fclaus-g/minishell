@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+         #
+#    By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 21:48:21 by pgomez-r          #+#    #+#              #
-#    Updated: 2023/11/24 22:29:40 by pgruz11          ###   ########.fr        #
+#    Updated: 2023/12/05 23:17:59 by pgomez-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ NAME     = minishell
 SRC_PATH = src/
 OBJ_PATH = obj/
 
-SRC      = main.c init.c exit.c exegguttor.c exegguttor_utils.c builts_0.c checkin.c
+SRC      = main.c init.c free.c exegguttor.c exegguttor_utils.c builts_0.c \
+			builts_1.c checkin.c arr_tools_0.c arr_tools_1.c
 SRCS	 = $(addprefix $(SRC_PATH), $(SRC))
 OBJ		 = $(SRC:.c=.o)
 OBJS	 = $(addprefix $(OBJ_PATH), $(OBJ))

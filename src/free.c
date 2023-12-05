@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:24:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/04 23:22:20 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/05 23:02:10 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,7 @@ void	ft_clean_input(t_input *input)
 {
 	int	i;
 
-	i = -1;
-	if (input->sp_input != NULL)
-	{
-		ft_totalfree(input->sp_input);
-		while (++i < input->n_elements)
-		{
-			free(input->elements[i].data);
-		}
-		free(input->elements);
-	}
-	i = -1;
+	ft_free_arr(in, in->n_elements);
 	if (input->cmd_n > 0)
 	{
 		while (++i < input->cmd_n)
@@ -63,4 +53,14 @@ void	ft_free_data(t_data *d)
 		free(d->env_arr[i].title);
 		free(d->env_arr[i].line);
 	}
+}
+
+void	ft_free_arr(t_input *in, int size)
+{
+	int	i;
+
+	i = -1;
+	while (++i < size)
+		free(in->elements[i].data);
+	free(in->elements);
 }
