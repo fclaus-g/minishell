@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 22:59:50 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/05 23:14:00 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/07 11:58:36 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	**ft_element_split(char *str, char c)
 			tab[k++] = ft_savewords(str + j, i - j);
 		if (str[i] == c)
 		{
-			tab[k++] = ft_token_char(c);
+			tab[k++] = ft_write_token(c);
 			i++;
 		}
 	}

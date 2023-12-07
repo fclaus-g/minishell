@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/05 23:22:59 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/07 14:24:37 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,24 @@
 
 # include "./libft/libft.h"
 
-/*STRUCTS*/
+/*DEFS*/
+/*Types/Tokens*/
+# define T_VOID 0
+# define T_CMD 1
+# define T_BLT 2
+# define T_OPT 3
+# define T_PIP 4
+# define T_INF 5
+# define T_OUF 6
+# define T_DQT 7
+# define T_SQT 8
+# define T_VAR 9
+# define T_INR 10
+# define T_OUR 11
+# define T_HDC 12
+# define T_APP 13
 
+/*STRUCTS*/
 /*Estructura para cada elemento del input, guarda tipo y su contenido en str*/
 typedef struct s_element
 {
@@ -64,11 +80,15 @@ typedef struct s_data
 }	t_data;
 
 /*main.c*/
+void					debug_arr(t_input *in, char *str_in, char *msg);
 /*init.c*/
 void					ft_fill_input(t_input *in, char *st);
 void					ft_split_env(t_data *d, char *var, size_t x);
 void					ft_init(t_data *d, char **env);
 char					*ft_strtrim_free(char *s1, char const *set);
+/*lexer.c*/
+void					ft_lexer(t_data *d, char *str_in);
+void					ft_token_char(t_input *in, char c);
 /*checkin.c*/
 int						ft_is_builtin(char **cmd_line);
 int						ft_is_biexit(char *str);
@@ -78,7 +98,7 @@ void					ft_fill_arr(t_input *in, t_element *new_arr, int tar, char **tab);
 char					**ft_element_split(char *str, char c);
 /*arr_tools_1.c*/
 void					ft_tag_type(t_element *arr, int start, int size, char c);
-char					*ft_token_char(char c);
+char					*ft_write_token(char c);
 size_t					ft_count_elements(char *str, char c);
 /*exegguttor.c*/
 int						ft_cmd_driver(t_input *in, char **env, t_data *d);

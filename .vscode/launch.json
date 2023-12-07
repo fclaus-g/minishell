@@ -8,7 +8,7 @@
 			"type": "lldb",
 			"request": "launch",
 			"name": "Debug",
-			"program": "/Users/pgruz11/Desktop/code/minishell/src/test",
+			"program": "/Users/pgomez-r/github/minishell/debug",
 			"args": [],
 			"cwd": "${workspaceFolder}"
 		}

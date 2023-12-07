@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/01 17:42:09 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/07 17:16:05 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * a servir para algo, la dejo comentada por si acaso
  *  */
 
-/*
+
 void	ft_openfiles(t_struct *d, char **av, int i)
 {
 	d->fd_in = open(av[1], O_RDONLY);
@@ -34,7 +34,7 @@ void	ft_openfiles(t_struct *d, char **av, int i)
 		exit(EXIT_FAILURE);
 	}
 }
-*/
+
 
 /**
  * @brief Función que ejecuta los comandos de la consola con execve, tal

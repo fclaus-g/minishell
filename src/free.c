@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:24:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/05 23:02:10 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/07 14:22:54 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ void	ft_clean_input(t_input *input)
 {
 	int	i;
 
-	ft_free_arr(in, in->n_elements);
+	ft_free_arr(input, input->n_elements);
 	if (input->cmd_n > 0)
 	{
+		i = -1;
 		while (++i < input->cmd_n)
 		{
 			free(input->cmds->tokens[i].data);

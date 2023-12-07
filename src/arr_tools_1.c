@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 22:59:50 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/05 23:17:16 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/07 11:57:38 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_tag_type(t_element *arr, int start, int size, char c)
 /*Para guardar el elemento separador de ft_element_split en su
 propia cadena, que devolvemos para insertar en la posición de la
 matriz de cadenas correspondiente*/
-char	*ft_token_char(char c)
+char	*ft_write_token(char c)
 {
 	char	*str;
 
