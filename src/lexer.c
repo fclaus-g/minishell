@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 09:29:49 by fclaus-g          #+#    #+#             */
-/*   Updated: 2023/12/05 13:59:53 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2023/12/06 14:21:11 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,20 @@ void	ft_lexer(char *str, t_input *input)
 	c = -1;
 	(void)input;
 	first_quote = ft_start_quotes(str);
-	last_quote = ft_end_quotes(str); ;
+	last_quote = ft_end_quotes(str);
+	printf("first_quote: %d\nlast_quote: %d\n", first_quote, last_quote);
 	while (str[++c] != '\0')
 	{
 		if (str[c] == '\'' || str[c] == '\"')             
 		{
 			while (first_quote <= last_quote)
 			{
+				if (str[c] == ' ')
+					str[c] = '\1';
 				c++;
 				first_quote++;
 			}
 		}
-		if (str[c] == ' ')
-		{
-			str[c] = '\0';
-		}
-		printf("str[%d]: %c\n", c, str[c]);
 	}
 	printf("str = %s\n", str);
 }
