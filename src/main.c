@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/07 16:38:04 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/08 14:51:05 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,26 +31,22 @@ int	main(int ac, char **av, char **env)
 {
 	t_data	d;
 	char	*str_input;
-	char	*test;
 
-	test = "hola| tu";
 	str_input = NULL;
 	(void)av;
 	if (ac > 1)
 		return (1);
 	ft_init(&d, env);
-	ft_lexer(&d, test);
-	debug_arr(&d.in, test, "RESULTADO FINAL DE FT_LEXER ACTUAL");
-	// while (1)
-	// {
-	// 	if (str_input != NULL)
-	// 		ft_clean_input(&d.in);
-	// 	str_input = readline("cascaribash/> ");
-	// 	add_history(str_input);
-	// 	ft_lexer(&d, str_input);
-	// 	debug_arr(&d.in, str_input, "RESULTADO FINAL DE FT_LEXER ACTUAL");
-	// 	//ft_cmd_driver(&d.in, d.env_dup, &d);
-	// }
+	while (1)
+	{
+		if (str_input != NULL)
+			ft_clean_input(&d.in);
+		str_input = readline("cascaribash/> ");
+		add_history(str_input);
+		ft_lexer(&d, str_input);
+		debug_arr(&d.in, str_input, "RESULTADO FINAL DE FT_LEXER ACTUAL");
+		//ft_cmd_driver(&d.in, d.env_dup, &d);
+	}
 	return (0);
 }
 

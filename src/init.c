@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 07:32:32 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/05 23:20:25 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/08 15:03:12 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ void	ft_fill_input(t_input *in, char *st)
 		in->elements[i].data = ft_strdup(in->sp_input[i]);
 		in->elements[i].type = '0';
 	}
+	// ft_totalfree(in->sp_input);
+	// free(in->sp_input);
+	// in->sp_input = NULL;
 }
 
 /*A esta función le entra una variable de entorno completa en una str

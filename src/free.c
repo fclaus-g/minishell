@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:24:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/07 14:22:54 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/08 14:53:59 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,18 @@ En el resto además libera las variables que han necesitado malloc en la lectura
 anterior*/
 void	ft_clean_input(t_input *input)
 {
-	int	i;
+	//int	i;
 
 	ft_free_arr(input, input->n_elements);
-	if (input->cmd_n > 0)
-	{
-		i = -1;
-		while (++i < input->cmd_n)
-		{
-			free(input->cmds->tokens[i].data);
-		}
-		free(input->cmds->tokens);
-	}
+	// if (input->cmd_n > 0)
+	// {
+	// 	i = -1;
+	// 	while (++i < input->cmd_n)
+	// 	{
+	// 		free(input->cmds->tokens[i].data);
+	// 	}
+	// 	free(input->cmds->tokens);
+	// }
 	input->cmd_n = 0;
 	input->n_elements = 0;
 }
