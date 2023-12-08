@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 22:59:50 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/07 11:58:36 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/08 20:17:19 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_element	*ft_arr_update(t_input *in, int i, char c)
 	ft_fill_arr(in, new_arr, i, new_text);
 	ft_tag_type(new_arr, i, (int)ft_strdlen(new_text), c);
 	ft_totalfree(new_text);
-	ft_free_arr(in, size);
+	//ft_free_arr(in, size);
 	free(in->elements);
 	return (new_arr);
 }

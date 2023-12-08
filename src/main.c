@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/08 14:51:05 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/12/08 20:05:10 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,13 @@ int	main(int ac, char **av, char **env)
 			ft_clean_input(&d.in);
 		str_input = readline("cascaribash/> ");
 		add_history(str_input);
+		if (ft_is_biexit(str_input))
+			break ;
 		ft_lexer(&d, str_input);
 		debug_arr(&d.in, str_input, "RESULTADO FINAL DE FT_LEXER ACTUAL");
 		//ft_cmd_driver(&d.in, d.env_dup, &d);
 	}
+	system("leaks -q minishell");
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/07 17:16:05 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/08 19:31:26 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
  * Es como estaba en pipex, aquí habrá que modificarla mucho, si es que llega 
  * a servir para algo, la dejo comentada por si acaso
  *  */
-
 
 void	ft_openfiles(t_struct *d, char **av, int i)
 {
@@ -34,7 +33,6 @@ void	ft_openfiles(t_struct *d, char **av, int i)
 		exit(EXIT_FAILURE);
 	}
 }
-
 
 /**
  * @brief Función que ejecuta los comandos de la consola con execve, tal

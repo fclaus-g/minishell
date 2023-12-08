@@ -6,13 +6,13 @@
 #    By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 21:48:21 by pgomez-r          #+#    #+#              #
-#    Updated: 2023/12/07 14:29:23 by pgomez-r         ###   ########.fr        #
+#    Updated: 2023/12/08 17:46:37 by pgomez-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC       = gcc
 CFLAGS   = -Wall -Wextra -Werror
-LDFLAGS  = -lreadline
+LDFLAGS  = -lreadline 
 NAME     = minishell
 
 SRC_PATH = src/
