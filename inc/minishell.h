@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/07 14:24:37 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/10 21:19:38 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void					ft_init(t_data *d, char **env);
 char					*ft_strtrim_free(char *s1, char const *set);
 /*lexer.c*/
 void					ft_lexer(t_data *d, char *str_in);
-void					ft_token_char(t_input *in, char c);
+void					ft_token_pipes(t_input *in);
 /*checkin.c*/
 int						ft_is_builtin(char **cmd_line);
 int						ft_is_biexit(char *str);

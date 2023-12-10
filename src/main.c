@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/08 20:05:10 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/10 23:25:09 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	debug_arr(t_input *in, char *str_in, char *msg)
 {
 	int	i;
 
-	printf("///INPUT_LINE\\\\\\\n%s\n", str_in);
+	printf("///INPUT_LINE\\\\\\\n%s\n\n", str_in);
 	printf("///%s\\\\\\\n\n", msg);
 	printf("Número elementos actual: %d\n", in->n_elements);
 	i = -1;
@@ -46,7 +46,7 @@ int	main(int ac, char **av, char **env)
 		if (ft_is_biexit(str_input))
 			break ;
 		ft_lexer(&d, str_input);
-		debug_arr(&d.in, str_input, "RESULTADO FINAL DE FT_LEXER ACTUAL");
+		debug_arr(&d.in, str_input, "RESULTADO FINAL DE FT_LEXER");
 		//ft_cmd_driver(&d.in, d.env_dup, &d);
 	}
 	system("leaks -q minishell");
