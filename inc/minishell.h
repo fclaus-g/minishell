@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/10 21:19:38 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/11 22:21:06 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ char					*ft_strtrim_free(char *s1, char const *set);
 /*lexer.c*/
 void					ft_lexer(t_data *d, char *str_in);
 void					ft_token_pipes(t_input *in);
+void					ft_token_redirs(t_input *in);
+int						ft_is_red(char	*s);
 /*checkin.c*/
 int						ft_is_builtin(char **cmd_line);
 int						ft_is_biexit(char *str);
@@ -96,10 +98,14 @@ int						ft_is_biexit(char *str);
 t_element				*ft_arr_update(t_input *in, int i, char c);
 void					ft_fill_arr(t_input *in, t_element *new_arr, int tar, char **tab);
 char					**ft_element_split(char *str, char c);
+t_element				*ft_db_redirs(t_input *in, int i, char c);
+char					**ft_dbredir_split(char *str, char c);
 /*arr_tools_1.c*/
 void					ft_tag_type(t_element *arr, int start, int size, char c);
 char					*ft_write_token(char c);
 size_t					ft_count_elements(char *str, char c);
+void					ft_tag_redtype(t_element *arr, int start, int size, char c);
+char					*ft_save_dbred(char c);
 /*exegguttor.c*/
 int						ft_cmd_driver(t_input *in, char **env, t_data *d);
 void					ft_pipex(char *cmd, char **env, int fd);

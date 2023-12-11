@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 22:59:50 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/11 22:20:14 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/11 21:16:35 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,6 @@ void	ft_tag_type(t_element *arr, int start, int size, char c)
 	}
 }
 
-/*Cataloga los elementos nuevos despues de dividir por << / >> */
-void	ft_tag_redtype(t_element *arr, int start, int size, char c)
-{
-	int	i;
-
-	i = 0;
-	while (i < size)
-	{
-		if (ft_strchr(arr[start].data, c))
-		{
-			if (c == '<')
-				arr[start++].type = 'h';
-			else if (c == '>')
-				arr[start++].type = 'a';
-		}
-		else
-			arr[start++].type = '0';
-		i++;
-	}
-}
-
 /*Para guardar el elemento separador de ft_element_split en su
 propia cadena, que devolvemos para insertar en la posición de la
 matriz de cadenas correspondiente*/
@@ -60,20 +39,6 @@ char	*ft_write_token(char c)
 	str = malloc(sizeof(char) * 2);
 	str[0] = c;
 	str[1] = '\0';
-	return (str);
-}
-
-/*Mismo que ft_write_token, guarda el elemento separador de
-dbred_split en su propia cadena, que se inserta en la posición que
-le corresponde dentro de la matriz de cadenas*/
-char	*ft_save_dbred(char c)
-{
-	char	*str;
-
-	str = malloc(sizeof(char) * 3);
-	str[0] = c;
-	str[1] = c;
-	str[2] = '\0';
 	return (str);
 }
 
