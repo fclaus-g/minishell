@@ -46,7 +46,7 @@ typedef struct s_command
 {
 	char		**paths;
 	char		*path_cmd;
-	char		**cmd;
+	char		**cmd_tab;
 	t_element	*tokens;
 }	t_command;
 

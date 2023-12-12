@@ -62,6 +62,13 @@ void	ft_token_pipes(t_input *in)
 				in->elements[i].type = '|';
 		}
 	}
+	in->cmd_n = 1;
+	i = -1;
+	while (++i < in->n_elements)
+	{
+		if (in->elements[i].type = '|')
+			cmd_n++;
+	}
 }
 
 /*Proceso de lexer/token o como se diga; fill_input será sustituido por la ft_
