@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 11:40:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/11 22:24:40 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:36:11 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,6 @@ void	ft_token_pipes(t_input *in)
 			else
 				in->elements[i].type = '|';
 		}
-	}
-	in->cmd_n = 1;
-	i = -1;
-	while (++i < in->n_elements)
-	{
-		if (in->elements[i].type = '|')
-			cmd_n++;
 	}
 }
 

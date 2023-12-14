@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 07:32:32 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/08 15:03:12 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/12/14 18:00:59 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,6 @@ funcionemos podemos ir sacando a archivos utils.c las auxiliares (como
 ft_split_env por ejemplo)*/
 
 #include "../inc/minishell.h"
-
-char	*ft_strtrim_free(char *s1, char const *set)
-{
-	char	*aux;
-
-	aux = ft_strtrim(s1, set);
-	free(s1);
-	return (aux);
-}
 
 /*Función para guardar el input que está en formato str después de readline en 
 el formato de doble matrix y array de estructuras que queremos para usarlo
@@ -41,9 +32,8 @@ void	ft_fill_input(t_input *in, char *st)
 		in->elements[i].data = ft_strdup(in->sp_input[i]);
 		in->elements[i].type = '0';
 	}
-	// ft_totalfree(in->sp_input);
-	// free(in->sp_input);
-	// in->sp_input = NULL;
+	ft_totalfree(in->sp_input);
+	in->sp_input = NULL;
 }
 
 /*A esta función le entra una variable de entorno completa en una str
@@ -55,24 +45,27 @@ void	ft_split_env(t_data *d, char *var, size_t x)
 	int	i;
 	int	j;
 
-	i = 1;
-	while (var[i] != '=')
+	i = 0;
+	while (var[i] != '=' && var[i] != '\0')
 		i++;
-	d->env_arr[x].title = malloc(sizeof(char) * i);
-	i = -1;
-	while (var[++i] != '=')
+	d->env_arr[x].title = malloc(sizeof(char) * i + 1);
+	i = 0;
+	while (var[i] != '=' && var[i] != '\0')
+	{
 		d->env_arr[x].title[i] = var[i];
+		i++;
+	}
 	d->env_arr[x].title[i] = '\0';
 	i++;
 	j = i;
 	while (var[i] != '\0')
 		i++;
-	d->env_arr[x].line = malloc(sizeof(char) * (i + 1) - j);
+	d->env_arr[x].line = malloc(sizeof(char) * ((i - j) + 1));
 	i = j - 1;
 	j = -1;
 	while (var[++i] != '\0')
 		d->env_arr[x].line[++j] = var[i];
-	d->env_arr[x].line[j + 1] = '\0';
+	d->env_arr[x].line[j] = '\0';
 }
 
 /*De momento solo copia las variables de entorno, más adelante podemos inciar
@@ -83,10 +76,11 @@ void	ft_init(t_data *d, char **env)
 
 	d->env_dup = env;
 	d->env_arr = malloc(sizeof(t_env) * ft_strdlen(d->env_dup));
-	i = -1;
-	while (++i < ft_strdlen(d->env_dup))
+	i = 0;
+	while (i < ft_strdlen(d->env_dup))
 	{
 		d->env_arr[i].full = ft_strdup(d->env_dup[i]);
 		ft_split_env(d, env[i], i);
+		i++;
 	}
 }

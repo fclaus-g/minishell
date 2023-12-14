@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 22:59:50 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/11 22:16:16 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/14 18:33:08 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_element	*ft_arr_update(t_input *in, int i, char c)
 	ft_fill_arr(in, new_arr, i, new_text);
 	ft_tag_type(new_arr, i, (int)ft_strdlen(new_text), c);
 	ft_totalfree(new_text);
+	ft_free_arr(in, size);
 	free(in->elements);
 	return (new_arr);
 }
@@ -125,6 +126,7 @@ t_element	*ft_db_redirs(t_input *in, int i, char c)
 	ft_fill_arr(in, new_arr, i, new_text);
 	ft_tag_redtype(new_arr, i, (int)ft_strdlen(new_text), c);
 	ft_totalfree(new_text);
+	ft_free_arr(in, size);
 	free(in->elements);
 	return (new_arr);
 }

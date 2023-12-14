@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 04:19:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/12 04:20:31 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:46:26 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_cmd_size(t_input *in, int *start)
 
 void	ft_cmd_assembler(t_input *in)
 {
-	int i;
+	int	i;
 	int	j;
 	int	start;
 	int	curr;
@@ -42,7 +42,7 @@ void	ft_cmd_assembler(t_input *in)
 	i = 0;
 	curr = 0;
 	while (i < in->cmd_n)
-	{   
+	{
 		start = curr;
 		in->cmds[i].paths = NULL;
 		in->cmds[i].path_cmd = NULL;

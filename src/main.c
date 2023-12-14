@@ -6,11 +6,16 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/10 23:25:09 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/14 18:40:10 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	ft_leaks(void)
+{
+	system("leaks -q minishell");
+}
 
 void	debug_arr(t_input *in, char *str_in, char *msg)
 {
@@ -32,6 +37,7 @@ int	main(int ac, char **av, char **env)
 	t_data	d;
 	char	*str_input;
 
+	//atexit(ft_leaks);
 	str_input = NULL;
 	(void)av;
 	if (ac > 1)
@@ -40,16 +46,18 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		if (str_input != NULL)
+		{
+			free(str_input);
 			ft_clean_input(&d.in);
+		}
 		str_input = readline("cascaribash/> ");
 		add_history(str_input);
 		if (ft_is_biexit(str_input))
-			break ;
+			return (ft_clean_exit(&d, str_input), 0);
 		ft_lexer(&d, str_input);
 		debug_arr(&d.in, str_input, "RESULTADO FINAL DE FT_LEXER");
 		//ft_cmd_driver(&d.in, d.env_dup, &d);
 	}
-	system("leaks -q minishell");
 	return (0);
 }
 
@@ -59,4 +67,4 @@ int	main(int ac, char **av, char **env)
  * TODO: despues de fill_input - check_pipe
  * TODO: aqui una impresión en pantalla para comprobar, luego cmd_interp
  * TODO: cmd_interpreter - cmd_assambler.. antes o dentro de cmd_driver?
- */
+*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:46:37 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/04 19:39:35 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/12/14 14:28:21 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ typedef struct s_lis_utils
 }			t_lis_utils;
 
 /*FUNCIONES ft_utils*/
-void		ft_leaks(void);
 int			ft_strcmp(char *s1, char *s2);
 char		*ft_strcpy(char *dest, char *src);
 size_t		ft_strdlen(char **str);
@@ -87,6 +86,8 @@ int			ft_chklimit(char **str);
 size_t		ft_minvalue_pos(int *array, size_t len);
 int			ft_abs_sum(int x, int y);
 void		ft_print_dstr(char **dstr);
+char		*ft_strtrim_free(char *s1, char const *set);
+
 
 /*FUNCIONES DE LIBFT*/
 int			ft_atoi(const char *str);

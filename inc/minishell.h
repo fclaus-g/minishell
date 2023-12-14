@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/11 22:21:06 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/14 14:30:11 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,4 +128,6 @@ void					ft_pwd(t_data *d);
 void					ft_clean_input(t_input *input);
 void					ft_free_data(t_data *d);
 void					ft_free_arr(t_input *in, int size);
+void					ft_clean_exit(t_data *d, char *readline);
+
 #endif
