@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:24:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/14 09:52:40 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/12 12:16:21 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	ft_clean_input(t_input *input)
 		ft_totalfree(input->sp_input);
 		while (++i < input->n_elements)
 		{
-			free(input->elements[i].data);
+			free(input->element[i].data);
 		}
-		free(input->elements);
+		free(input->element);
 	}
 	input->n_elements = 0;
 }
