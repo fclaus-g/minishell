@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/05 13:49:22 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2023/12/14 16:40:13 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_element
 	int		fd_in;//para redirecciones se establece un valor standar y si hay redirecciones se cambia
 	int		fd_out;//para redirecciones
 	int		priority;//en algun momento creo que se debe decidir que ejecutar primero
+	int 	pos;//para saber la posicion que ocupa en el array de elementos
 	t_element	*next;
 }	t_element;
 
@@ -61,7 +62,7 @@ typedef struct s_input
 	char		*pwd;
 	char		**sp_input; //splitted input en matriz de cadenas
 	char		**sp_pipe; //splitted input por pipes
-	t_element	*elements; //array de structs - cada una un elemento
+	t_element	*element; //array de structs - cada una un elemento
 	t_data		*data; //puntero a la struct data
 }	t_input;
 
@@ -76,19 +77,15 @@ void					ft_init_input(t_data *d, t_input *input);
 void					ft_fill_input(t_input *in, char *st);
 void					ft_split_env(t_data *d, char *var, size_t x);
 void					ft_init(t_data *d, char **env, t_input *input);
-void	ft_check_quotes_str(char *str, t_input *input);
-int ft_count_char(char *str, char c);
 /*checkin.c*/
 void					ft_checkinput(t_input *input);
-int						ft_is_builtin(char *str, t_input *input);
-int						ft_is_redir(char *str);
-int						ft_is_pipe(char *str);
-void					ft_check_c(t_input *input);
-void					ft_check_dollar(t_input *input);
-
+void					ft_check_quotes(t_element *element);
+void					ft_find_quotes(t_element *element);
+void	ft_check_prequotes(t_element *element, t_input *input);
+void ft_space_quotes(t_element *element);
 /*pipe_chekin.c*/
-void				ft_pipe_checkinput(t_input *input);
-void				ft_print_matriz(char **matriz);
+void					ft_pipe_checkinput(t_input *input);
+void					ft_print_matriz(char **matriz);
 /*exit.c*/
 void					ft_clean_input(t_input *input);
 
@@ -99,16 +96,28 @@ void					ft_echo(t_input *input);
 /*ft_env.c*/
 void					ft_env(t_input *input);
 /*ft_export.c*/
-void	ft_export(t_input *input);
-char	**ft_export_order(char **env);
+void					ft_export(t_input *input);
+char					**ft_export_order(char **env);
 /*lexer.c*/
-void	ft_lexer(char *str, t_input *input);
+int 					ft_is_space(char c);
+int 					ft_is_quote(char c);
+void					ft_separate_quotes(char *str);
 /*quotes.c*/
-int ft_start_quotes(char *str);
-int	ft_count_quotes(char *str);
-int ft_end_quotes(char *str);
+int						ft_start_quotes(char *str);
+int						ft_count_quotes(char *str);
+int						ft_end_quotes(char *str);
+void					ft_check_quotes_str(char *str, t_input *input);
+int						ft_count_char(char *str, char c);
+int						ft_is_builtin(char *str, t_input *input);
+int						ft_is_redir(char *str);
+int						ft_is_pipe(char *str);
+void					ft_check_c(t_input *input);
+void					ft_check_dollar(t_input *input);
 
-/*ft_split_ms.c*/
-char	**ft_split_ms(char const *s, char c);
+/*funciones array.c*/
+t_element *add_element_array(t_input *in, char *add, int pos);
+int ft_is_special_char(char c);
+void	ft_printarray(t_element *array);
+t_element *aislar_special(t_input *in, t_element *elemento, int pos);
 
 #endif

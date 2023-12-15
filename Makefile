@@ -6,7 +6,7 @@
 #    By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 21:48:21 by pgomez-r          #+#    #+#              #
-#    Updated: 2023/12/05 14:24:19 by fclaus-g         ###   ########.fr        #
+#    Updated: 2023/12/13 12:54:23 by fclaus-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRC_PATH = src/
 OBJ_PATH = obj/
 
 SRC      = main.c init_structs.c init.c pipe_checkin.c checkin.c exit.c builtins.c \
-			ft_env.c ft_export.c lexer.c quotes.c 
+			ft_env.c ft_export.c separate_quotes.c quotes.c funciones_array.c
 SRCS	 = $(addprefix $(SRC_PATH), $(SRC))
 OBJ		 = $(SRC:.c=.o)
 OBJS	 = $(addprefix $(OBJ_PATH), $(OBJ))
