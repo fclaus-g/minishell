@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/14 14:30:11 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/15 17:26:44 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,13 @@ void					ft_split_env(t_data *d, char *var, size_t x);
 void					ft_init(t_data *d, char **env);
 char					*ft_strtrim_free(char *s1, char const *set);
 /*lexer.c*/
-void					ft_lexer(t_data *d, char *str_in);
+int						ft_lexer(t_data *d, char *str_in);
 void					ft_token_pipes(t_input *in);
 void					ft_token_redirs(t_input *in);
+int						ft_syntax_check(t_input *in);
+/*lexer_utils.c*/
 int						ft_is_red(char	*s);
+void					ft_syntax_error(char c);
 /*checkin.c*/
 int						ft_is_builtin(char **cmd_line);
 int						ft_is_biexit(char *str);

@@ -6,7 +6,7 @@
 #    By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 21:48:21 by pgomez-r          #+#    #+#              #
-#    Updated: 2023/12/11 20:58:43 by pgomez-r         ###   ########.fr        #
+#    Updated: 2023/12/15 17:24:28 by pgomez-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ NAME     = minishell
 SRC_PATH = src/
 OBJ_PATH = obj/
 
-SRC      = main.c init.c free.c builts_0.c lexer.c \
+SRC      = main.c init.c free.c builts_0.c lexer.c lexer_utils.c \
 			builts_1.c checkin.c arr_tools_0.c arr_tools_1.c
 SRCS	 = $(addprefix $(SRC_PATH), $(SRC))
 OBJ		 = $(SRC:.c=.o)

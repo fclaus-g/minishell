@@ -6,24 +6,38 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 11:40:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/14 13:36:11 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/15 17:53:47 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_is_red(char	*s)
+/*Comprueba si hay dos elementos del mismo tipo "especial" (redirecciones y 
+pipes) seguidas, si es así envía error de syntax por consola*/
+int	ft_syntax_check(t_input *in)
 {
-	int	i;
+	int		i;
+	int		j;
+	char	*set;
 
+	set = "|<>ha";
 	i = -1;
-	while (s[++i] != '\0')
+	while (set[++i] != '\0')
 	{
-		if (s[i] == '<' || s[i] == '>')
-			return (i);
+		j = -1;
+		while (++j < in->n_elements)
+		{
+			if (in->elements[j].type == set[i]
+				&& in->elements[j + 1].type == set[i])
+				return (ft_syntax_error(set[i]), 1);
+		}
 	}
-	return (-1);
+	return (0);
 }
+/**
+ * TODO: plantear cómo encontrar syntax error con elementos de diferente tipo >|
+ * TODO: con >> o <<, cuando imprimir error near `>' o near `>>'
+ */
 
 void	ft_token_redirs(t_input *in)
 {
@@ -64,15 +78,12 @@ void	ft_token_pipes(t_input *in)
 	}
 }
 
-/*Proceso de lexer/token o como se diga; fill_input será sustituido por la ft_
-que separe por primera vez el input en elementos teniendo en cuenta el tema de
-nuestras queridas comillas, depués de eso la idea es ir enocontrando, separando
-(si están pegados sin espacios) y catalogando otros elementos
-El orden podría ser:
-- Separar/catalogar pipes
-- Separar/catalogar redirecciones
+/*Proceso de lexer/token; fill_input será sustituido por la ft que separe por 
+primera vez el input en elementos teniendo en cuenta el tema de las comillas,
+despues de eso la idea es ir enocontrando, separando (si están pegados sin 
+espacios) y catalogando otros tipos de elementos (pipes, redirs)
 */
-void	ft_lexer(t_data *d, char *str_in)
+int	ft_lexer(t_data *d, char *str_in)
 {
 	int		i;
 
@@ -80,4 +91,7 @@ void	ft_lexer(t_data *d, char *str_in)
 	ft_fill_input(&d->in, str_in);
 	ft_token_pipes(&d->in);
 	ft_token_redirs(&d->in);
+	if (ft_syntax_check(&d->in))
+		return (1);
+	return (0);
 }

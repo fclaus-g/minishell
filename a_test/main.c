@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/11 21:03:34 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/15 17:37:51 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int	main(int ac, char **av, char **env)
 	// add_history(str_input);
 	// if (ft_is_biexit(str_input))
 	// 	return (printf("Taluego\n"), 1);
-	ft_lexer(&d, str_input);
+	if (ft_lexer(&d, str_input))
+		return (1);
 	debug_arr(&d.in, str_input, "RESULTADO FINAL DE FT_LEXER");
 	//ft_cmd_driver(&d.in, d.env_dup, &d);
 	return (0);

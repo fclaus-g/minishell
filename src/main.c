@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/14 18:40:10 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/15 17:27:22 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,10 @@ int	main(int ac, char **av, char **env)
 		add_history(str_input);
 		if (ft_is_biexit(str_input))
 			return (ft_clean_exit(&d, str_input), 0);
-		ft_lexer(&d, str_input);
+		if (ft_lexer(&d, str_input))
+			continue ;
 		debug_arr(&d.in, str_input, "RESULTADO FINAL DE FT_LEXER");
+		//ft_cmd_maker()
 		//ft_cmd_driver(&d.in, d.env_dup, &d);
 	}
 	return (0);

@@ -8,8 +8,8 @@
 			"type": "lldb",
 			"request": "launch",
 			"name": "Debug",
-			"program": "${workspaceFolder}/lexer/lexer",
-			"args": ["hola| |hola"],
+			"program": "${workspaceFolder}/a_test/lexer",
+			"args": ["hola||| tu"],
 			"cwd": "${workspaceFolder}"
 		}
 	]
