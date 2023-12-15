@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:58:04 by fclaus-g          #+#    #+#             */
-/*   Updated: 2023/12/14 16:43:00 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2023/12/15 12:25:23 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	ft_check_prequotes(t_element *element, t_input *input)
 
 	c = -1;
 	printf("cheking prequotes\n");
+	(void)input;
 	while (element->data[++c] && element->data[c])
 	{
 		if ((element->data[c] == '\"' || element->data[c] == '\'') && c > 0)

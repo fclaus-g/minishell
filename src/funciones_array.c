@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+ /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   funciones_array.c                                  :+:      :+:    :+:   */
@@ -26,7 +26,7 @@ t_element *add_element_array(t_input *in, char *add, int pos)
 	new = malloc(sizeof(t_element) * (in->n_elements + 1));
 	while (in->element[c].data)
 	{	
-		if (pos > 0)
+		if (pos >= 0)
 		{
 			while (++c < pos)
 			{
@@ -60,28 +60,30 @@ t_element *aislar_special(t_input *in,t_element *elemento, int pos)
 	char 	*aux;
 	char	*aux2;
 	int c;
+	int i;
 	
 	c = 0;
+	i = 0;
 	new = malloc(sizeof(t_element) * (in->n_elements + 1));
 	if (pos >= 0)
 	{
 		aux = ft_substr(elemento->data, 0, pos + 1);
 		aux2 = ft_substr(elemento->data, pos + 1, ft_strlen(elemento->data));
 		printf("aux = %s aux2 = %s\n", aux, aux2);
-		while (in->element[c].data)
+		while (c < in->n_elements)
 		{
-			//new[c].data = ft_strdup(in->element[c].data);
-			printf("new[c].data = %s\n", new[c].data);
-			printf("elemento->pos = %d\n", elemento->pos);
 			if (c == elemento->pos)
 			{
-			 	printf("valor de c = %d\n", c);
-				new[c].data = ft_strdup(aux);
-			 	new[c++].data = ft_strdup(aux2);
+				new[i].data = ft_strdup(aux);
+				i++;
+				new[i].data = ft_strdup(aux2);
 			}
-			new[c].data = ft_strdup(in->element[c].data);
+			else
+				new[i].data = ft_strdup(in->element[c].data);
+			i++;
 			c++;
 		}
+	
 	}
 	ft_printarray(new);
 	return (new);
