@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/15 17:27:22 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/18 08:19:12 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,27 @@ void	debug_arr(t_input *in, char *str_in, char *msg)
 	{
 		printf("Texto elemento[%d]: %s <---> ", i, in->elements[i].data);
 		printf("Tipo elemento[%d]: %c\n", i, in->elements[i].type);
+	}
+}
+
+void	debug_cmds(t_input *in, char *str_in, char *msg)
+{
+	int	i;
+	int	j;
+
+	printf("///INPUT_LINE\\\\\\\n%s\n\n", str_in);
+	printf("///%s\\\\\\\n\n", msg);
+	printf("Número comandos actual: %d\n", in->cmd_n);
+	i = -1;
+	while (++i < in->cmd_n)
+	{
+		j = -1;
+		printf(" --- COMMAND[%d] --- \n", i);
+		while (++j < in->cmds[i].size)
+		{
+			printf("Data elem[%d]: %s <---> ", j, in->cmds->tokens[j].data);
+			printf("Type elem[%d]: %c\n", j, in->cmds->tokens[j].type);
+		}
 	}
 }
 

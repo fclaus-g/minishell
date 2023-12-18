@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/15 17:37:51 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/18 08:33:34 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,27 @@ void	debug_arr(t_input *in, char *str_in, char *msg)
 	}
 }
 
+void	debug_cmds(t_input *in, char *str_in, char *msg)
+{
+	int	i;
+	int	j;
+
+	printf("///INPUT_LINE\\\\\\\n%s\n\n", str_in);
+	printf("///%s\\\\\\\n\n", msg);
+	printf("Número comandos actual: %d\n", in->cmd_n);
+	i = -1;
+	while (++i < in->cmd_n)
+	{
+		j = -1;
+		printf(" --- COMMAND[%d] --- \n", i);
+		while (++j < in->cmds[i].size)
+		{
+			printf("Data elem[%d]: %s <---> ", j, in->cmds[i].tokens[j].data);
+			printf("Type elem[%d]: %c\n", j, in->cmds[i].tokens[j].type);
+		}
+	}
+}
+
 int	main(int ac, char **av, char **env)
 {
 	t_data	d;
@@ -34,7 +55,7 @@ int	main(int ac, char **av, char **env)
 
 	// str_input = NULL;
 	(void)env;
-	if (ac > 2)
+	if (ac != 2)
 		return (1);
 	str_input = av[1];
 	// ft_init(&d, env);
@@ -46,7 +67,10 @@ int	main(int ac, char **av, char **env)
 	// 	return (printf("Taluego\n"), 1);
 	if (ft_lexer(&d, str_input))
 		return (1);
-	debug_arr(&d.in, str_input, "RESULTADO FINAL DE FT_LEXER");
+	ft_cmd_assembler(&d.in);
+	//debug_arr(&d.in, str_input, "RESULTADO FINAL DE FT_LEXER");
+	debug_cmds(&d.in, str_input, "RESULTADO FINAL DE FT_CMD_MAKER");
+	printf("Prueba -> cmd[2] -> dato 3: %s, tipo 3: %c\n", d.in.cmds[2].tokens[3].data, d.in.cmds[2].tokens[3].type);
 	//ft_cmd_driver(&d.in, d.env_dup, &d);
 	return (0);
 }

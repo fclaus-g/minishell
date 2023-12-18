@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/15 17:26:44 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/18 08:21:16 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_element
 pasar sus elementos a otra de element o input o si es mejor tenerla aislada*/
 typedef struct s_command
 {
+	int			size;
 	char		**paths;
 	char		*path_cmd;
 	char		**cmd_tab;
@@ -81,6 +82,7 @@ typedef struct s_data
 
 /*main.c*/
 void					debug_arr(t_input *in, char *str_in, char *msg);
+void					debug_cmds(t_input *in, char *str_in, char *msg);
 /*init.c*/
 void					ft_fill_input(t_input *in, char *st);
 void					ft_split_env(t_data *d, char *var, size_t x);
@@ -94,6 +96,10 @@ int						ft_syntax_check(t_input *in);
 /*lexer_utils.c*/
 int						ft_is_red(char	*s);
 void					ft_syntax_error(char c);
+/*cmd_maker.c*/
+int						ft_element_cnt(t_input	*in, char c);
+int						ft_cmd_size(t_input *in, int *start);
+void					ft_cmd_assembler(t_input *in);
 /*checkin.c*/
 int						ft_is_builtin(char **cmd_line);
 int						ft_is_biexit(char *str);
