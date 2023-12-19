@@ -6,7 +6,7 @@
 #    By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 21:48:21 by pgomez-r          #+#    #+#              #
-#    Updated: 2023/12/18 14:41:59 by fclaus-g         ###   ########.fr        #
+#    Updated: 2023/12/19 14:00:41 by fclaus-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ NAME     = minishell
 SRC_PATH = src/
 OBJ_PATH = obj/
 
-SRC      = main.c init.c manage_input.c quotes.c
+SRC      = main.c init.c manage_input.c quotes.c elements.c array_functions.c
 SRCS	 = $(addprefix $(SRC_PATH), $(SRC))
 OBJ		 = $(SRC:.c=.o)
 OBJS	 = $(addprefix $(OBJ_PATH), $(OBJ))

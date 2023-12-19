@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:01:35 by fclaus-g          #+#    #+#             */
-/*   Updated: 2023/12/18 14:57:39 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2023/12/19 12:15:40 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	ft_init_input(t_data *d, t_input *in)
 	in->n_pipe = 0;
 	in->n_lines = 0;
 	in->n_words = 0;
+	in->str_input = NULL;
 	in->sp_input = NULL;
 	in->element = NULL;
 	in->data = d;

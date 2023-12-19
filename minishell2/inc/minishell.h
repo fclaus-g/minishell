@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/18 14:41:48 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2023/12/19 14:51:44 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct s_input
 	int			n_pipe; //cuantos pipes?
 	int			n_lines; //cuantas lineas?
 	int			n_words; //cuantas palabras?
-	char		*pwd;
+	char		*str_input; //input en string
 	char		**sp_input; //splitted input en matriz de cadenas
 	char		**sp_pipe; //splitted input por pipes
 	t_element	*element; //array de structs - cada una un elemento
@@ -86,9 +86,20 @@ void					ft_manage_input(char *str, t_input *input);
 void					ft_clean_input(t_input *input);
 
 /**********************[quotes.c]*************************************/
-void					ft_separate_quotes(char *str);
+void					ft_separate_quotes(t_input *in);
+int 					ft_is_space(char c);
+int 					ft_is_quote(char c);
+int						ft_is_special_char(char c);
+void 					ft_recovery_sp(t_input *input);
+/**********************[elements.c]**********************************/
+void					ft_fill_elements(t_input *in);
 
-void					ft_fill_input(t_input *in, char *st);
+/**********************[array_functions]*****************************/
+void					ft_print_array(t_element *array);
+
+
+
+
 /*checkin.c*/
 void					ft_checkinput(t_input *input);
 void					ft_check_quotes(t_element *element);
@@ -109,8 +120,6 @@ void					ft_env(t_input *input);
 void					ft_export(t_input *input);
 char					**ft_export_order(char **env);
 /*lexer.c*/
-int 					ft_is_space(char c);
-int 					ft_is_quote(char c);
 /*quotes.c*/
 int						ft_start_quotes(char *str);
 int						ft_count_quotes(char *str);
@@ -125,7 +134,6 @@ void					ft_check_dollar(t_input *input);
 
 /*funciones array.c*/
 t_element *add_element_array(t_input *in, char *add, int pos);
-int ft_is_special_char(char c);
 void	ft_printarray(t_element *array);
 t_element *aislar_special(t_input *in, t_element *elemento, int pos);
 
