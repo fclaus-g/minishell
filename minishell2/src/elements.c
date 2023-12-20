@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:21:41 by fclaus-g          #+#    #+#             */
-/*   Updated: 2023/12/19 14:56:33 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2023/12/20 12:18:48 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_fill_elements(t_input *in)
 		in->element[i].fd_out = 1;
 		in->element[i].priority = 0;
 		in->element[i].pos = i;
-		//in->element[i].next = NULL;
+		in->element[i].data_st = in->data;
 	}
 	ft_print_array(in->element);
 }

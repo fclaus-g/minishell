@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/19 14:51:44 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2023/12/20 14:12:52 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_element
 	int		fd_out;//para redirecciones
 	int		priority;//en algun momento creo que se debe decidir que ejecutar primero
 	int 	pos;//para saber la posicion que ocupa en el array de elementos
-	t_element	*next;
+	t_data	*data_st;//puntero a la struct data
 }	t_element;
 
 
@@ -84,7 +84,9 @@ void					ft_split_env(t_data *d, char *var, size_t x);
 /*********************[manage_input.c]********************************/
 void					ft_manage_input(char *str, t_input *input);
 void					ft_clean_input(t_input *input);
-
+void					ft_check_special_chars(t_input *in, char *str);
+char					*ft_insert_space(char *s, int pos);
+int	ft_check_is_inquote(char *str, int c);
 /**********************[quotes.c]*************************************/
 void					ft_separate_quotes(t_input *in);
 int 					ft_is_space(char c);
