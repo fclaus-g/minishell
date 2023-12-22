@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:34:04 by fclaus-g          #+#    #+#             */
-/*   Updated: 2023/12/20 12:46:59 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2023/12/21 12:29:36 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ int	ft_is_special_char(char c)
 	return (0);
 }
 
-void ft_recovery_sp(t_input *input)
+void	ft_recovery_sp(t_input *input)
 {
-	int i;
-	int c;
+	int	i;
+	int	c;
 
 	i = -1;
 	while (input->sp_input[++i])
