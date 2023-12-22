@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/18 08:21:16 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/22 03:00:17 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ size_t					ft_count_elements(char *str, char c);
 void					ft_tag_redtype(t_element *arr, int start, int size, char c);
 char					*ft_save_dbred(char c);
 /*exegguttor.c*/
-int						ft_cmd_driver(t_input *in, char **env, t_data *d);
+int						ft_cmd_driver(t_command *cmds, char **env, t_data *d);
 void					ft_pipex(char *cmd, char **env, int fd);
 void					ft_exegguttor(char *cmd, char **env);
 /*exegguttor_utils.c*/
