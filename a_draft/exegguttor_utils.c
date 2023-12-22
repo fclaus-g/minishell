@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exegguttor_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/21 22:28:31 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/22 14:48:20 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	get_paths(t_command *st, char **env)
 	i = 0;
 	while (st->paths[i] != NULL)
 	{
-		st->paths[i] = (join_and_free(st->paths[i], "/"));
+		st->paths[i] = (ft_strjoint(st->paths[i], "/"));
 		i++;
 	}
 }
@@ -69,8 +69,8 @@ int	find_path_index(t_command *st, char *cmd)
  */
 void	split_cmd(t_command *st, char *cmdstr)
 {
-	st->cmd = ft_split(cmdstr, ' ');
-	if (!st->cmd)
+	st->cmd_tab = ft_split(cmdstr, ' ');
+	if (!st->cmd_tab)
 		perror ("cascaribash: parse error");
 }
 
@@ -86,8 +86,8 @@ void	free_cache(t_command *st, int error)
 	{
 		if (st->paths != NULL)
 			ft_totalfree(st->paths);
-		if (st->cmd != NULL)
-			ft_totalfree(st->cmd);
+		if (st->cmd_tab != NULL)
+			ft_totalfree(st->cmd_tab);
 	}
 	if (error > 0)
 		exit(error);

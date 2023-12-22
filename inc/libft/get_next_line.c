@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 15:25:40 by pgomez-r          #+#    #+#             */
-/*   Updated: 2022/12/21 09:38:15 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/22 14:10:11 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,18 +100,18 @@ char	*update_stack(char *stack)
 	return (aux);
 }
 
-/*la idea de join_and_free es poder hacer tanto el strjoin para añadir el último
+/*la idea de ft_strjoint es poder hacer tanto el strjoin para añadir el último
 buffer leído a la estática, como también poder liberar la memoria asignada antes
 a nuestra estática
 para eso usamos una cadena auxiliar, a esta le asignamos strjoin de stack y tmp,
 en ese momento aux pasa a tener el contenido que queremos que tenga stack,
-liberamos stack, devolvemos aux y en GNL tenemos que stack = join_and_free, es
+liberamos stack, devolvemos aux y en GNL tenemos que stack = ft_strjoint, es
 decir, stack = aux
 IMPORTANTE: "iniciamos" la estática aquí, cuando le vamos a añadir caracteres
 leidos por primera vez, con un if, así solo lo hará la primera llamada de GNL,
 ya que en los demás casos ya estará inicializada y tendrá contenido*/
 
-char	*join_and_free(char *stack, char *tmp)
+char	*ft_strjoint(char *stack, char *tmp)
 {
 	char	*aux;
 
@@ -166,7 +166,7 @@ char	*get_next_line(int fd)
 		if (readbytes < 0)
 			return (free(stack), stack = NULL, NULL);
 		tmp[readbytes] = '\0';
-		stack = join_and_free(stack, tmp);
+		stack = ft_strjoint(stack, tmp);
 		if (!stack)
 			return (NULL);
 	}

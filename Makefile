@@ -6,7 +6,7 @@
 #    By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 21:48:21 by pgomez-r          #+#    #+#              #
-#    Updated: 2023/12/20 18:31:17 by pgruz11          ###   ########.fr        #
+#    Updated: 2023/12/22 14:57:15 by pgruz11          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ OBJ_PATH = obj/
 
 SRC      = main.c init.c free.c builts_0.c lexer.c lexer_utils.c \
 			builts_1.c checkin.c arr_tools_0.c arr_tools_1.c cmd_maker.c \
+			exegguttor.c exegguttor_utils.c
 SRCS	 = $(addprefix $(SRC_PATH), $(SRC))
 OBJ		 = $(SRC:.c=.o)
 OBJS	 = $(addprefix $(OBJ_PATH), $(OBJ))

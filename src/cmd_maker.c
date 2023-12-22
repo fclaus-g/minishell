@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_maker.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 04:19:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/18 08:38:33 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/22 16:30:07 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,49 @@ int	ft_cmd_size(t_input *in, int *start)
 	return (size);
 }
 
-void	ft_cmd_assembler(t_input *in)
+char	*ft_addspace(char *str)
+{
+	char	*aux;
+	int		i;
+
+	aux = malloc(sizeof(char) * ft_strlen(str) + 2);
+	i = 0;
+	while (str[i] != '\0')
+	{
+		aux[i] = str[i];
+		i++;
+	}
+	aux[i] = ' ';
+	aux[i + 1] = '\0';
+	free(str);
+	return (aux);
+}
+
+void	ft_get_cmdline(t_input *in, t_command *cmds)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < in->cmd_n)
+	{
+		cmds[i].cmd_line = malloc(sizeof(char) * 1);
+		cmds[i].cmd_line[0] = '\0';
+		j = -1;
+		while (++j < cmds[i].size)
+		{
+			if (cmds[i].tokens[j].type == '0')
+			{
+				if (cmds[i].cmd_line[0] != '\0')
+					cmds[i].cmd_line = ft_addspace(cmds[i].cmd_line);
+				cmds[i].cmd_line
+					= ft_strjoint(cmds[i].cmd_line, cmds[i].tokens[j].data);
+			}
+		}
+	}
+}
+
+void	ft_cmd_maker(t_input *in)
 {
 	int	i;
 	int	j;
@@ -66,6 +108,7 @@ void	ft_cmd_assembler(t_input *in)
 		in->cmds[i].paths = NULL;
 		in->cmds[i].path_cmd = NULL;
 		in->cmds[i].cmd_tab = NULL;
+		in->cmds[i].cmd_line = NULL;
 		in->cmds[i].size = ft_cmd_size(in, &curr);
 		curr++;
 		in->cmds[i].tokens = malloc(sizeof(t_element) * in->cmds[i].size);
@@ -74,6 +117,7 @@ void	ft_cmd_assembler(t_input *in)
 			in->cmds[i].tokens[j] = in->elements[start++];
 		i++;
 	}
+	ft_get_cmdline(in, in->cmds);
 }
 
 /**

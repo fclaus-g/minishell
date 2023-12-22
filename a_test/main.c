@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/18 08:33:34 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/22 16:11:20 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	debug_cmds(t_input *in, char *str_in, char *msg)
 	{
 		j = -1;
 		printf(" --- COMMAND[%d] --- \n", i);
+		printf("CMD_LINE[%d]: %s\n", i, in->cmds[i].cmd_line);
 		while (++j < in->cmds[i].size)
 		{
 			printf("Data elem[%d]: %s <---> ", j, in->cmds[i].tokens[j].data);
@@ -67,10 +68,9 @@ int	main(int ac, char **av, char **env)
 	// 	return (printf("Taluego\n"), 1);
 	if (ft_lexer(&d, str_input))
 		return (1);
-	ft_cmd_assembler(&d.in);
+	ft_cmd_maker(&d.in);
 	//debug_arr(&d.in, str_input, "RESULTADO FINAL DE FT_LEXER");
 	debug_cmds(&d.in, str_input, "RESULTADO FINAL DE FT_CMD_MAKER");
-	printf("Prueba -> cmd[2] -> dato 3: %s, tipo 3: %c\n", d.in.cmds[2].tokens[3].data, d.in.cmds[2].tokens[3].type);
 	//ft_cmd_driver(&d.in, d.env_dup, &d);
 	return (0);
 }

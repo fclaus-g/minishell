@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/22 03:00:17 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/12/22 12:56:56 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_command
 	int			size;
 	char		**paths;
 	char		*path_cmd;
+	char		*cmd_line;
 	char		**cmd_tab;
 	t_element	*tokens;
 }	t_command;
@@ -99,7 +100,7 @@ void					ft_syntax_error(char c);
 /*cmd_maker.c*/
 int						ft_element_cnt(t_input	*in, char c);
 int						ft_cmd_size(t_input *in, int *start);
-void					ft_cmd_assembler(t_input *in);
+void					ft_cmd_maker(t_input *in);
 /*checkin.c*/
 int						ft_is_builtin(char **cmd_line);
 int						ft_is_biexit(char *str);
@@ -117,8 +118,8 @@ void					ft_tag_redtype(t_element *arr, int start, int size, char c);
 char					*ft_save_dbred(char c);
 /*exegguttor.c*/
 int						ft_cmd_driver(t_command *cmds, char **env, t_data *d);
-void					ft_pipex(char *cmd, char **env, int fd);
-void					ft_exegguttor(char *cmd, char **env);
+void					ft_pipex(t_command *cmds, char **env, int fd);
+void					ft_exegguttor(t_command *cmds, char **env);
 /*exegguttor_utils.c*/
 int						is_path(char *str);
 void					free_cache(t_command *st, int error);

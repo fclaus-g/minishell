@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:46:37 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/14 14:28:21 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/22 14:10:11 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ void		ft_puthex_error(unsigned long int n, char *base, size_t *i);
 
 /*GNL*/
 char		*get_next_line(int fd);
-char		*join_and_free(char *stack, char *tmp);
+char		*ft_strjoint(char *stack, char *tmp);
 char		*update_stack(char *stack);
 char		*create_line(char *stack);
 

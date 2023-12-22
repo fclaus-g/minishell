@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/22 02:50:21 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/12/22 16:32:03 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int	main(int ac, char **av, char **env)
 			return (ft_clean_exit(&d, str_input), 0);
 		if (ft_lexer(&d, str_input))
 			continue ;
-		ft_cmd_assembler(&d.in);
-		ft_cmd_driver(&d.in, d.env_dup, &d);
+		ft_cmd_maker(&d.in);
+		ft_cmd_driver(d.in.cmds, d.env_dup, &d);
 	}
 	return (0);
 }

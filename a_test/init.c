@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 07:32:32 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/14 18:00:59 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/20 17:55:52 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,10 @@ void	ft_split_env(t_data *d, char *var, size_t x)
 		d->env_arr[x].line[++j] = var[i];
 	d->env_arr[x].line[j] = '\0';
 }
+
+/**
+ * TODO: fix '=' cuando no hay o hay varios! (Gracias Rosana =D)
+ */
 
 /*De momento solo copia las variables de entorno, más adelante podemos inciar
 aquí también variables que vayamos añadiendo a la struct general*/

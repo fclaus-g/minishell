@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+         #
+#    By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 21:48:21 by pgomez-r          #+#    #+#              #
-#    Updated: 2023/12/11 20:59:42 by pgomez-r         ###   ########.fr        #
+#    Updated: 2023/12/22 16:08:28 by pgruz11          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC       = gcc
 CFLAGS   = -Wall -Wextra -Werror -g
 LDFLAGS  = -lreadline 
-NAME     = lexer
+NAME     = test
 
 SRCS = $(wildcard *.c)
 OBJS	=	$(SRCS:.c=.o)
