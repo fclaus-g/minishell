@@ -17,20 +17,20 @@
 
 /*DEFS*/
 /*Types/Tokens*/
-# define T_VOID 0
-# define T_CMD 1
-# define T_BLT 2
-# define T_OPT 3
-# define T_PIP 4
-# define T_INF 5
-# define T_OUF 6
-# define T_DQT 7
-# define T_SQT 8
-# define T_VAR 9
-# define T_INR 10
-# define T_OUR 11
-# define T_HDC 12
-# define T_APP 13
+# define T_VOID '0'
+# define T_CMD 'c'
+# define T_OPT 'o'
+# define T_BLT 'b'
+# define T_PIP '|'
+# define T_INF 'i'
+# define T_OUF 'o'
+# define T_DQT '"'
+# define T_SQT '\''
+# define T_VAR '$'
+# define T_INR '<'
+# define T_OUR '>'
+# define T_HDC 'h'
+# define T_APP 'a'
 
 /*STRUCTS*/
 /*Estructura para cada elemento del input, guarda tipo y su contenido en str*/
@@ -94,13 +94,18 @@ int						ft_lexer(t_data *d, char *str_in);
 void					ft_token_pipes(t_input *in);
 void					ft_token_redirs(t_input *in);
 int						ft_syntax_check(t_input *in);
+void					ft_token_files(t_input *in);
 /*lexer_utils.c*/
 int						ft_is_red(char	*s);
 void					ft_syntax_error(char c);
 /*cmd_maker.c*/
+void					ft_cmd_maker(t_input *in);
+void					ft_init_cmd(t_input *in);
+void					ft_get_cmdline(t_input *in, t_command *cmds);
+/*cmd_maker_utils.c*/
 int						ft_element_cnt(t_input	*in, char c);
 int						ft_cmd_size(t_input *in, int *start);
-void					ft_cmd_maker(t_input *in);
+char					*ft_addspace(char *str);
 /*checkin.c*/
 int						ft_is_builtin(char **cmd_line);
 int						ft_is_biexit(char *str);
