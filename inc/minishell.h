@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/22 12:56:56 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/12/23 20:07:43 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@ pasar sus elementos a otra de element o input o si es mejor tenerla aislada*/
 typedef struct s_command
 {
 	int			size;
+	int			fd_in;
+	int			fd_out;
+	char		**infs;
+	char		**outfs;
 	char		**paths;
 	char		*path_cmd;
 	char		*cmd_line;
@@ -102,10 +106,12 @@ void					ft_syntax_error(char c);
 void					ft_cmd_maker(t_input *in);
 void					ft_init_cmd(t_input *in);
 void					ft_get_cmdline(t_input *in, t_command *cmds);
+void					ft_find_files(t_input *in, t_command *cmds);
 /*cmd_maker_utils.c*/
 int						ft_element_cnt(t_input	*in, char c);
 int						ft_cmd_size(t_input *in, int *start);
 char					*ft_addspace(char *str);
+void					ft_init_files(t_command *cmd);
 /*checkin.c*/
 int						ft_is_builtin(char **cmd_line);
 int						ft_is_biexit(char *str);

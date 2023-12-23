@@ -6,11 +6,47 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 04:19:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/22 16:30:07 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/12/23 20:19:17 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	ft_find_files(t_input *in, t_command *cmds)
+{
+	int		i;
+	int		j;
+	char	*in;
+	char	*out;
+
+	in = NULL;
+	out = NULL;
+	i = -1;
+	while (++i < in->cmd_n)
+	{
+		j = -1;
+		while (++j < cmds[i].size)
+		{
+			if (cmds[i].tokens[j].type == 'i')
+			{
+				in = ft_strjoint(in, cmds[i].tokens[j].data);
+				in = ft_addspace(in);
+			}
+			else if (cmds[i].tokens[j].type == 'o')
+			{
+				out = ft_strjoint(out, cmds[i].tokens[j].data);
+				out = ft_addspace(out);
+			}
+		}
+		if (in != NULL)
+			cmds[i].infs = ft_split(in, ' ');
+		if (out != NULL)
+			cmds[i].outfs = ft_split(out, ' ');
+	}
+}
+/**
+ * TODO: acortar > plantearla para un solo cmd y llamarla en bucle 
+ */
 
 void	ft_get_cmdline(t_input *in, t_command *cmds)
 {
@@ -60,6 +96,7 @@ void	ft_init_cmd(t_input *in)
 		j = -1;
 		while (++j < in->cmds[i].size)
 			in->cmds[i].tokens[j] = in->elements[start++];
+		ft_init_files(in->cmds[i]);
 		i++;
 	}
 }
@@ -68,4 +105,5 @@ void	ft_cmd_maker(t_input *in)
 {
 	ft_init_cmd(in);
 	ft_get_cmdline(in, in->cmds);
+	ft_find_files(in, in->cmds);
 }

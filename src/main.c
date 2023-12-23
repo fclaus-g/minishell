@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/22 16:32:03 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/12/23 18:25:47 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,7 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		ft_cmd_maker(&d.in);
 		ft_cmd_driver(d.in.cmds, d.env_dup, &d);
-		debug_cmds(&d.in, str_input, "RESULTADO ACTUAL LEXER + MAKER");
+		//debug_cmds(&d.in, str_input, "RESULTADO ACTUAL LEXER + MAKER");
 	}
 	return (0);
 }
-
-/**
- * TODO: para poder ejecutar, crear comandos + adaptar exeguttor
- * TODO: ft_fill_input dentro input_lexer, luego change for quote_fix
- * TODO: despues de fill_input - check_pipe
- * TODO: aqui una impresión en pantalla para comprobar, luego cmd_interp
- * TODO: cmd_interpreter - cmd_assambler.. antes o dentro de cmd_driver?
-*/
