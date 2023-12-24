@@ -47,8 +47,6 @@ typedef struct s_command
 	int			size;
 	int			fd_in;
 	int			fd_out;
-	char		**infs;
-	char		**outfs;
 	char		**paths;
 	char		*path_cmd;
 	char		*cmd_line;
@@ -106,7 +104,7 @@ void					ft_syntax_error(char c);
 void					ft_cmd_maker(t_input *in);
 void					ft_init_cmd(t_input *in);
 void					ft_get_cmdline(t_input *in, t_command *cmds);
-void					ft_find_files(t_input *in, t_command *cmds);
+void					ft_set_fds(t_input *in, t_command *cmds);
 /*cmd_maker_utils.c*/
 int						ft_element_cnt(t_input	*in, char c);
 int						ft_cmd_size(t_input *in, int *start);

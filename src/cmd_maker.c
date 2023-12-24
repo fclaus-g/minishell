@@ -12,41 +12,27 @@
 
 #include "../inc/minishell.h"
 
-void	ft_find_files(t_input *in, t_command *cmds)
+void	ft_file_fds(t_command *cmd)
 {
 	int		i;
-	int		j;
-	char	*in;
-	char	*out;
 
-	in = NULL;
-	out = NULL;
 	i = -1;
-	while (++i < in->cmd_n)
+	while (++i < cmd->size)
 	{
-		j = -1;
-		while (++j < cmds[i].size)
+		if (cmd->tokens[i].type == 'i')
 		{
-			if (cmds[i].tokens[j].type == 'i')
-			{
-				in = ft_strjoint(in, cmds[i].tokens[j].data);
-				in = ft_addspace(in);
-			}
-			else if (cmds[i].tokens[j].type == 'o')
-			{
-				out = ft_strjoint(out, cmds[i].tokens[j].data);
-				out = ft_addspace(out);
-			}
+			if (cmd->fd_in > 0)
+				close(cmd->fd_in);
+			cmd->fd_in = open(cmd->tokens[i].data);
 		}
-		if (in != NULL)
-			cmds[i].infs = ft_split(in, ' ');
-		if (out != NULL)
-			cmds[i].outfs = ft_split(out, ' ');
+		else if (cmd->tokens[i].type == 'o')
+		{
+			if (cmd->fd_out > 0)
+				close(cmd->fd_out);
+			cmd->fd_out = open(cmd->tokens[i].data);
+		}
 	}
 }
-/**
- * TODO: acortar > plantearla para un solo cmd y llamarla en bucle 
- */
 
 void	ft_get_cmdline(t_input *in, t_command *cmds)
 {
@@ -105,5 +91,9 @@ void	ft_cmd_maker(t_input *in)
 {
 	ft_init_cmd(in);
 	ft_get_cmdline(in, in->cmds);
-	ft_find_files(in, in->cmds);
 }
+
+/*Estoy planteando el movimiento de fds-archivos antes de exegguttor,
+pero creo que tendría que cambiarlo y meterlo dentro, justo antes de
+ejecutar cada comando, para modificar los archivos encadenados si es
+necesario*/

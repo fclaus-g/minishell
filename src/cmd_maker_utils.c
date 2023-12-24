@@ -71,6 +71,4 @@ void	ft_init_files(t_command *cmd)
 {
 	cmd->fd_in = -1;
 	cmd->fd_out = -1;
-	cmd->infs = NULL;
-	cmd->outfs = NULL;
 }
