@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/22 16:11:20 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/12/24 08:36:32 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ int	main(int ac, char **av, char **env)
 		return (1);
 	ft_cmd_maker(&d.in);
 	//debug_arr(&d.in, str_input, "RESULTADO FINAL DE FT_LEXER");
-	debug_cmds(&d.in, str_input, "RESULTADO FINAL DE FT_CMD_MAKER");
-	//ft_cmd_driver(&d.in, d.env_dup, &d);
+	//debug_cmds(&d.in, str_input, "RESULTADO FINAL DE FT_CMD_MAKER");
+	ft_cmd_driver(d.in.cmds, d.env_dup, &d);
 	return (0);
 }
 

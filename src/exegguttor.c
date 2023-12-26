@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/22 14:55:34 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/12/26 10:49:08 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,26 @@
 	y al estar en un proceso a parte, al terminar se cierran solos
  */
 
-void	ft_exegguttor(t_command *cmds, char **env)
+void	ft_exegguttor(t_command *cmd, char **env)
 {
 	char	*str;
 
+	ft_std_redir(cmd);
 	str = NULL;
-	get_paths(cmds, env);
-	split_cmd(cmds, cmds->cmd_line);
-	if (!ft_is_builtin(cmds->cmd_tab))
+	split_cmd(cmd, cmd->cmd_line);
+	if (!ft_is_builtin(cmd->cmd_tab))
 		exit(0);
-	if (ft_is_biexit(cmds->cmd_tab[0]))
+	if (ft_is_biexit(cmd->cmd_tab[0]))
 		exit(0);
 	else
 	{
-		find_path_index(cmds, cmds->cmd_tab[0]);
-		if (execve(cmds->path_cmd, cmds->cmd_tab, env) == -1)
+		get_paths(cmd, env);
+		find_path_index(cmd, cmd->cmd_tab[0]);
+		if (execve(cmd->path_cmd, cmd->cmd_tab, env) == -1)
 		{
-			str = cmds->cmd_tab[0];
+			str = cmd->cmd_tab[0];
 			ft_printf_error("cascaribash: command not found: %s\n", str);
-			free_cache(cmds, 127);
+			free_cache(cmd, 127);
 		}
 	}
 }

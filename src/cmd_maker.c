@@ -6,33 +6,11 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 04:19:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/23 20:19:17 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/12/26 09:36:54 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-void	ft_file_fds(t_command *cmd)
-{
-	int		i;
-
-	i = -1;
-	while (++i < cmd->size)
-	{
-		if (cmd->tokens[i].type == 'i')
-		{
-			if (cmd->fd_in > 0)
-				close(cmd->fd_in);
-			cmd->fd_in = open(cmd->tokens[i].data);
-		}
-		else if (cmd->tokens[i].type == 'o')
-		{
-			if (cmd->fd_out > 0)
-				close(cmd->fd_out);
-			cmd->fd_out = open(cmd->tokens[i].data);
-		}
-	}
-}
 
 void	ft_get_cmdline(t_input *in, t_command *cmds)
 {
@@ -82,14 +60,18 @@ void	ft_init_cmd(t_input *in)
 		j = -1;
 		while (++j < in->cmds[i].size)
 			in->cmds[i].tokens[j] = in->elements[start++];
-		ft_init_files(in->cmds[i]);
 		i++;
 	}
 }
 
 void	ft_cmd_maker(t_input *in)
 {
+	int	i;
+
 	ft_init_cmd(in);
+	i = -1;
+	while (++i < in->cmd_n)
+		ft_init_files(&in->cmds[i]);
 	ft_get_cmdline(in, in->cmds);
 }
 

@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/23 20:07:43 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/12/26 10:27:04 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,15 +104,15 @@ void					ft_syntax_error(char c);
 void					ft_cmd_maker(t_input *in);
 void					ft_init_cmd(t_input *in);
 void					ft_get_cmdline(t_input *in, t_command *cmds);
-void					ft_set_fds(t_input *in, t_command *cmds);
 /*cmd_maker_utils.c*/
 int						ft_element_cnt(t_input	*in, char c);
 int						ft_cmd_size(t_input *in, int *start);
 char					*ft_addspace(char *str);
 void					ft_init_files(t_command *cmd);
-/*checkin.c*/
-int						ft_is_builtin(char **cmd_line);
-int						ft_is_biexit(char *str);
+/*redir_files.c*/
+void					ft_file_fds(t_command *cmd);
+void					ft_open_check(int fd, char *file_path);
+void					ft_std_redir(t_command *cmd);
 /*arr_tools_0.c*/
 t_element				*ft_arr_update(t_input *in, int i, char c);
 void					ft_fill_arr(t_input *in, t_element *new_arr, int tar, char **tab);
@@ -135,6 +135,9 @@ void					free_cache(t_command *st, int error);
 void					split_cmd(t_command *st, char *cmdstr);
 int						find_path_index(t_command *st, char *cmd);
 void					get_paths(t_command *st, char **env);
+/*builts_utils.c*/
+int						ft_is_builtin(char **cmd_line);
+int						ft_is_biexit(char *str);
 /*builts_0.c*/
 void					bi_exit(t_data *d, t_input *in);
 void					bi_echo(char **cmd_line);

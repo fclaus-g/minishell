@@ -6,65 +6,42 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 04:19:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/22 16:27:23 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/12/24 08:32:38 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/*Función para calcular cuantos elementos de un tipo tenemos en la linea total 
-de input. Para que podamos usarla correctamente en cmd_maker, depende de que la
-comprobación previa de sintaxis funcione correctamente y "aborte" misión antes 
-si hay fallos de ese tipo*/
-int	ft_element_cnt(t_input	*in, char c)
+/**
+* if (cmd->fd_in == -1)
+* 		{
+* 			ft_printf("pipex: %s: %s\n", strerror(errno), cmd->tokens[i].data);
+* 			exit(EXIT_FAILURE);
+* 		}
+*
+* TODO: añadir check if open == -1 en un ft_ despues de cada open
+*/
+void	ft_file_fds(t_command *cmd)
 {
-	int	i;
-	int	cnt;
-
-	cnt = 0;
-	i = -1;
-	while (++i < in->n_elements)
-	{
-		if (in->elements[i].type == c)
-			cnt++;
-	}
-	return (cnt);
-}
-
-int	ft_cmd_size(t_input *in, int *start)
-{
-	int	i;
-	int	size;
-
-	i = *(start);
-	size = 0;
-	if (in->elements[i].type == '|')
-		i++;
-	while (in->elements[i].type != '|' && i < in->n_elements)
-	{
-		size++;
-		i++;
-	}
-	*(start) = i;
-	return (size);
-}
-
-char	*ft_addspace(char *str)
-{
-	char	*aux;
 	int		i;
 
-	aux = malloc(sizeof(char) * ft_strlen(str) + 2);
-	i = 0;
-	while (str[i] != '\0')
+	i = -1;
+	while (++i < cmd->size)
 	{
-		aux[i] = str[i];
-		i++;
+		if (cmd->tokens[i].type == 'i')
+		{
+			if (cmd->fd_in > 0)
+				close(cmd->fd_in);
+			cmd->fd_in = open(cmd->tokens[i].data, O_RDONLY);
+		}
+		else if (cmd->tokens[i].type == 'o')
+		{
+			if (cmd->fd_out > 0)
+				close(cmd->fd_out);
+			cmd->fd_out
+				= open(cmd->tokens[i].data, O_WRONLY | O_CREAT | O_TRUNC);
+		}
 	}
-	aux[i] = ' ';
-	aux[i + 1] = '\0';
-	free(str);
-	return (aux);
 }
 
 void	ft_get_cmdline(t_input *in, t_command *cmds)
@@ -84,13 +61,14 @@ void	ft_get_cmdline(t_input *in, t_command *cmds)
 			{
 				if (cmds[i].cmd_line[0] != '\0')
 					cmds[i].cmd_line = ft_addspace(cmds[i].cmd_line);
-				cmds[i].cmd_line = ft_strjoint(cmds[i].cmd_line, cmds[i].tokens[j].data);
+				cmds[i].cmd_line
+					= ft_strjoint(cmds[i].cmd_line, cmds[i].tokens[j].data);
 			}
 		}
 	}
 }
 
-void	ft_cmd_maker(t_input *in)
+void	ft_init_cmd(t_input *in)
 {
 	int	i;
 	int	j;
@@ -116,10 +94,20 @@ void	ft_cmd_maker(t_input *in)
 			in->cmds[i].tokens[j] = in->elements[start++];
 		i++;
 	}
+}
+
+void	ft_cmd_maker(t_input *in)
+{
+	int	i;
+
+	ft_init_cmd(in);
+	i = -1;
+	while (++i < in->cmd_n)
+		ft_init_files(&in->cmds[i]);
 	ft_get_cmdline(in, in->cmds);
 }
 
-/**
- * TODO: Añadir un contador de numero de elementos dentro de cada comando
- * (Probando de momento con in.cmd.size...Puede funcionar, TEST!)
- */
+/*Estoy planteando el movimiento de fds-archivos antes de exegguttor,
+pero creo que tendría que cambiarlo y meterlo dentro, justo antes de
+ejecutar cada comando, para modificar los archivos encadenados si es
+necesario*/

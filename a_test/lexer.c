@@ -12,6 +12,24 @@
 
 #include "../inc/minishell.h"
 
+/*Función para catalogar los archivos IN/OUT, solo cataloga, luego veremos como
+gestionar los fds para redireccionar stdin/stdout*/
+void	ft_token_files(t_input *in)
+{
+	int	i;
+
+	i = -1;
+	while (++i < in->n_elements)
+	{
+		if (in->elements[i].type == '<' && in->elements[i + 1].type == '0'
+			&& i + 1 < in->n_elements)
+			in->elements[i + 1].type = 'i';
+		else if ((in->elements[i].type == '>' || in->elements[i].type == 'a')
+			&& in->elements[i + 1].type == '0' && i + 1 < in->n_elements)
+			in->elements[i + 1].type = 'o';
+	}
+}
+
 /*Comprueba si hay dos elementos del mismo tipo "especial" (redirecciones y 
 pipes) seguidas, si es así envía error de syntax por consola*/
 int	ft_syntax_check(t_input *in)
@@ -90,5 +108,6 @@ int	ft_lexer(t_data *d, char *str_in)
 	ft_token_redirs(&d->in);
 	if (ft_syntax_check(&d->in))
 		return (1);
+	ft_token_files(&d->in);
 	return (0);
 }

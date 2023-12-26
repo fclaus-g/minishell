@@ -15,9 +15,10 @@
 /**
  * @brief Función que ejecuta los comandos de la consola con execve, tal
  * como la tenía en pipex 
- * @param cmd entra como una cadena completa, luego se descompone y usa 
- * como haga falta para encontrar rutas y ejecutarla
- * TODO: Modificar para que compruebe y ejecute si es una built =)
+ * @param cmds = struct de comando = array de elementos del input
+ * TODO: test get_paths en line.35 (para hacerlo solo si vamos por excve)
+ * TODO: files_fd lo primero, si hay redirs, los fds se quedan cambiados
+	y al estar en un proceso a parte, al terminar se cierran solos
  */
 
 void	ft_exegguttor(t_command *cmds, char **env)
@@ -110,5 +111,6 @@ int	ft_cmd_driver(t_command *cmds, char **env, t_data *d)
 }
 
 /**
- * TODO: adaptar exeguttor a built-in
+ * TODO: redirecciones!-> comprobar si hay in/out file justo antes de
+ *			cada llamada a exegguttor, y hacer dup con los fd si es así
  */
