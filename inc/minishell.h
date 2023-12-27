@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/26 10:27:04 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/12/27 23:33:25 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ void					ft_init_files(t_command *cmd);
 void					ft_file_fds(t_command *cmd);
 void					ft_open_check(int fd, char *file_path);
 void					ft_std_redir(t_command *cmd);
+/*heredoc.c*/
+void					ft_heredoc(t_command *cmd, int pos);
 /*arr_tools_0.c*/
 t_element				*ft_arr_update(t_input *in, int i, char c);
 void					ft_fill_arr(t_input *in, t_element *new_arr, int tar, char **tab);

@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 09:35:55 by pgruz11           #+#    #+#             */
-/*   Updated: 2023/12/26 10:48:51 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/12/27 23:32:35 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,24 @@ void	ft_open_check(int fd, char *file_path)
 	}
 }
 
+void	ft_open_file(t_command *cmd, char *file, int type)
+{
+	if (type == 0)
+	{
+		if (cmd->fd_in != -1)
+			close(cmd->fd_in);
+		cmd->fd_in = open(file, O_RDONLY);
+		ft_open_check(cmd->fd_in, file);
+	}
+	if (type == 1)
+	{
+		if (cmd->fd_out != -1)
+			close(cmd->fd_out);
+		cmd->fd_out = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		ft_open_check(cmd->fd_out, file);
+	}
+}
+
 void	ft_file_fds(t_command *cmd)
 {
 	int		i;
@@ -29,20 +47,11 @@ void	ft_file_fds(t_command *cmd)
 	while (++i < cmd->size)
 	{
 		if (cmd->tokens[i].type == 'i')
-		{
-			if (cmd->fd_in != -1)
-				close(cmd->fd_in);
-			cmd->fd_in = open(cmd->tokens[i].data, O_RDONLY);
-			ft_open_check(cmd->fd_in, cmd->tokens[i].data);
-		}
+			ft_open_file(cmd, cmd->tokens[i].data, 0);
 		else if (cmd->tokens[i].type == 'o')
-		{
-			if (cmd->fd_out != -1)
-				close(cmd->fd_out);
-			cmd->fd_out = open(cmd->tokens[i].data,
-					O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			ft_open_check(cmd->fd_out, cmd->tokens[i].data);
-		}
+			ft_open_file(cmd, cmd->tokens[i].data, 1);
+		else if (cmd->tokens[i].type == 'h')
+			ft_heredoc(cmd, i);
 	}
 }
 
