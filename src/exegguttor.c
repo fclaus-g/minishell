@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/26 10:49:08 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/12/31 21:09:32 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_exegguttor(t_command *cmd, char **env)
 {
 	char	*str;
 
+	ft_is_heredoc(cmd);
 	ft_std_redir(cmd);
 	str = NULL;
 	split_cmd(cmd, cmd->cmd_line);

@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 04:19:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/26 09:37:11 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/12/31 17:37:42 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ char	*ft_addspace(char *str)
 void	ft_init_files(t_command *cmd)
 {
 	cmd->fd_in = -1;
+	cmd->fd_out = -1;
 	cmd->fd_out = -1;
 }

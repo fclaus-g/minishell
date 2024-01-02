@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 11:40:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/22 14:59:22 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/12/28 12:07:21 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@ void	ft_token_files(t_input *in)
 		if (in->elements[i].type == '<' && in->elements[i + 1].type == '0'
 			&& i + 1 < in->n_elements)
 			in->elements[i + 1].type = 'i';
+		else if (in->elements[i].type == 'h' && i + 1 < in->n_elements)
+		{
+			if (in->elements[i + 1].type == '0'
+				|| in->elements[i + 1].type == '\"')
+				in->elements[i + 1].type = 'E';
+			else if (in->elements[i + 1].type == '\'')
+				in->elements[i + 1].type = 'e';
+		}
 		else if ((in->elements[i].type == '>' || in->elements[i].type == 'a')
 			&& in->elements[i + 1].type == '0' && i + 1 < in->n_elements)
 			in->elements[i + 1].type = 'o';

@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 09:35:55 by pgruz11           #+#    #+#             */
-/*   Updated: 2023/12/27 23:32:35 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/12/31 16:48:22 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	ft_file_fds(t_command *cmd)
 {
 	int		i;
 
+	if (access(".heredoc", F_OK) == 0)
+		ft_open_file(cmd, ".heredoc", 0);
 	i = -1;
 	while (++i < cmd->size)
 	{
@@ -50,8 +52,6 @@ void	ft_file_fds(t_command *cmd)
 			ft_open_file(cmd, cmd->tokens[i].data, 0);
 		else if (cmd->tokens[i].type == 'o')
 			ft_open_file(cmd, cmd->tokens[i].data, 1);
-		else if (cmd->tokens[i].type == 'h')
-			ft_heredoc(cmd, i);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/27 23:33:25 by pgruz11          ###   ########.fr       */
+/*   Updated: 2023/12/31 17:36:34 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,15 @@
 # define T_PIP '|'
 # define T_INF 'i'
 # define T_OUF 'o'
-# define T_DQT '"'
+# define T_DQT '\"'
 # define T_SQT '\''
 # define T_VAR '$'
 # define T_INR '<'
 # define T_OUR '>'
 # define T_HDC 'h'
 # define T_APP 'a'
+# define T_EOF 'E'
+# define T_EOD 'e'
 
 /*STRUCTS*/
 /*Estructura para cada elemento del input, guarda tipo y su contenido en str*/
@@ -47,6 +49,7 @@ typedef struct s_command
 	int			size;
 	int			fd_in;
 	int			fd_out;
+	int			hd_stat;
 	char		**paths;
 	char		*path_cmd;
 	char		*cmd_line;
@@ -115,6 +118,8 @@ void					ft_open_check(int fd, char *file_path);
 void					ft_std_redir(t_command *cmd);
 /*heredoc.c*/
 void					ft_heredoc(t_command *cmd, int pos);
+void					ft_write_doc(char *content);
+void					ft_is_heredoc(t_command *cmd);
 /*arr_tools_0.c*/
 t_element				*ft_arr_update(t_input *in, int i, char c);
 void					ft_fill_arr(t_input *in, t_element *new_arr, int tar, char **tab);
@@ -153,5 +158,10 @@ void					ft_clean_input(t_input *input);
 void					ft_free_data(t_data *d);
 void					ft_free_arr(t_input *in, int size);
 void					ft_clean_exit(t_data *d, char *readline);
+/*debug.c*/
+void					ft_leaks(const char *program);
+void					debug_arr(t_input *in, char *str_in, char *msg);
+void					debug_cmds(t_input *in, char *str_in, char *msg);
+void					ft_check_std(void);
 
 #endif
