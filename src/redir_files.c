@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 09:35:55 by pgruz11           #+#    #+#             */
-/*   Updated: 2023/12/31 16:48:22 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/03 21:42:38 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,13 @@ void	ft_std_redir(t_command *cmd)
 {
 	ft_file_fds(cmd);
 	if (cmd->fd_in != -1)
+	{
 		dup2(cmd->fd_in, 0);
+		close(cmd->fd_in);
+	}
 	if (cmd->fd_out != -1)
+	{
 		dup2(cmd->fd_out, 1);
+		close(cmd->fd_out);
+	}
 }

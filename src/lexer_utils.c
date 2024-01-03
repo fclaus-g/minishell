@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 17:12:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/15 17:49:20 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/03 22:33:48 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,34 @@ int	ft_is_red(char	*s)
 	return (-1);
 }
 
-void	ft_syntax_error(char c)
+int	ft_eof_check(t_input *in)
+{
+	int	i;
+	int	hd;
+	int	eof;
+
+	hd = 0;
+	eof = 0;
+	i = -1;
+	while (++i < in->n_elements)
+	{
+		if (in->elements[i].type == 'h')
+			hd++;
+		if (in->elements[i].type == 'e' || in->elements[i].type == 'E')
+			eof++;
+	}
+	if (hd != eof)
+		return (ft_syntax_error(in, i), 1);
+	return (0);
+}
+
+void	ft_syntax_error(t_input *in, int i)
 {
 	char	*msg;
 
 	msg = "cascaribash: syntax error near unexpected token ";
-	if (c == '|')
-		ft_printf_error("%s`|'\n", msg);
-	if (c == '<')
-		ft_printf_error("%s`<'\n", msg);
-	if (c == '>')
-		ft_printf_error("%s`>'\n", msg);
-	if (c == 'h')
-		ft_printf_error("%s`<<'\n", msg);
-	if (c == 'a')
-		ft_printf_error("%s`>>'\n", msg);
+	if (i + 1 < in->n_elements)
+		ft_printf_error("%s`%s'\n", msg, in->elements[i + 1].data);
+	else
+		ft_printf_error("%s`newline'\n", msg);
 }

@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/31 17:36:34 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/03 22:29:03 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ int						ft_syntax_check(t_input *in);
 void					ft_token_files(t_input *in);
 /*lexer_utils.c*/
 int						ft_is_red(char	*s);
-void					ft_syntax_error(char c);
+void					ft_syntax_error(t_input *in, int i);
+int						ft_eof_check(t_input *in);
 /*cmd_maker.c*/
 void					ft_cmd_maker(t_input *in);
 void					ft_init_cmd(t_input *in);

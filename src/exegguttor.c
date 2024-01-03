@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/31 21:09:32 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/03 21:07:47 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	ft_exegguttor(t_command *cmd, char **env)
 {
 	char	*str;
 
-	ft_is_heredoc(cmd);
 	ft_std_redir(cmd);
 	str = NULL;
 	split_cmd(cmd, cmd->cmd_line);
@@ -67,12 +66,14 @@ void	ft_pipex(t_command *cmd, char **env, int fd)
 	{
 		close(pipe_end[1]);
 		dup2(pipe_end[0], 0);
+		close(pipe_end[0]);
 		waitpid(pid, NULL, 0);
 	}
 	else
 	{
 		close(pipe_end[0]);
 		dup2(pipe_end[1], 1);
+		close(pipe_end[1]);
 		if (fd == 0)
 			exit(1);
 		else
@@ -97,15 +98,13 @@ int	ft_cmd_driver(t_command *cmds, char **env, t_data *d)
 		waitpid(pid, NULL, 0);
 	else
 	{
-		if (d->in.cmd_n > 1)
+		while (curr_cmd < d->in.cmd_n - 1)
 		{
-			ft_pipex(&cmds[curr_cmd], env, 0);
-			while (curr_cmd < d->in.cmd_n - 1)
-				ft_pipex(&cmds[curr_cmd++], env, 1);
-			ft_exegguttor(&cmds[curr_cmd], env);
+			ft_is_heredoc(&cmds[curr_cmd]);
+			ft_pipex(&cmds[curr_cmd++], env, 1);
 		}
-		else
-			ft_exegguttor(&cmds[0], env);
+		ft_is_heredoc(&cmds[curr_cmd]);
+		ft_exegguttor(&cmds[curr_cmd], env);
 	}
 	if (ft_is_biexit(cmds[curr_cmd].cmd_line))
 		bi_exit(d, &d->in);
