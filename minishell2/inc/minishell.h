@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/21 12:34:22 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/02 17:56:57 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,29 +84,39 @@ void					ft_split_env(t_data *d, char *var, size_t x);
 /*********************[manage_input.c]********************************/
 void					ft_manage_input(char *str, t_input *input);
 void					ft_clean_input(t_input *input);
-void					ft_check_special_chars(t_input *in, char *str);
-char					*ft_insert_space(char *s, int pos);
-int						ft_in_quotes(char *str, int c);
-void					ft_check_special_chars2(t_input *in, char *str);
-char					*ft_insert_space2(char *s, int pos);
+void					ft_check_special_chars_right(t_input *in, char *str);
+char					*ft_insert_right_space(char *s, int pos);
+void					ft_check_special_chars_left(t_input *in, char *str);
+char					*ft_insert_left_space(char *s, int pos);
+/**********************[manage_input_utils.c]*************************/
+int 					ft_is_space(char c);
+int						ft_is_special_char(char c);
+
 /**********************[quotes.c]*************************************/
 void					ft_separate_quotes(t_input *in);
-int 					ft_is_space(char c);
-int 					ft_is_quote(char c);
-int						ft_is_special_char(char c);
 void 					ft_recovery_sp(t_input *input);
-/**********************[elements.c]**********************************/
+int 					ft_is_quote(char c);
+int						ft_in_quotes(char *str, int c);
+int						ft_quote_in_data(char *str);
+/**********************[quotes2.c]**************************************/
+void					ft_management_quotes(t_element element);
+int						ft_closed_quotes(char *str);
+char 					ft_define_qtype(t_element element);
+void					ft_clean_quotes(t_element element);
+int						ft_count_quotes(char *str);
+/**********************[elements.c]***********************************/
 void					ft_fill_elements(t_input *in);
-
+void					ft_check_elements(t_input *in, t_element *array);
+int						ft_its_dollar(char *str);
+void 					ft_print_element(t_element element);
 /**********************[array_functions]*****************************/
-void					ft_print_array(t_element *array);
+void					ft_print_array(t_element *array, int n_elements);
 
 
 
 
 /*checkin.c*/
 void					ft_checkinput(t_input *input);
-void					ft_check_quotes(t_element *element);
 void					ft_find_quotes(t_element *element);
 void	ft_check_prequotes(t_element *element, t_input *input);
 void ft_space_quotes(t_element *element);

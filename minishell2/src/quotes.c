@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:34:04 by fclaus-g          #+#    #+#             */
-/*   Updated: 2023/12/21 12:29:36 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/01 18:23:48 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,27 +45,7 @@ void	ft_separate_quotes(t_input *in)
 	}
 }
 
-int	ft_is_space(char c)
-{
-	if ((c >= 9 && c <= 13) || c == 32)
-		return (1);
-	return (0);
-}
-
-int	ft_is_quote(char c)
-{
-	if (c == '\'' || c == '\"')
-		return (1);
-	return (0);
-}
-
-int	ft_is_special_char(char c)
-{
-	if (c == '|' || c == '>' || c == '<' || c == ';')
-		return (1);
-	return (0);
-}
-
+/*funcion que recupera los caracteres de control '\1' por espacios de nuevo*/
 void	ft_recovery_sp(t_input *input)
 {
 	int	i;
@@ -81,4 +61,49 @@ void	ft_recovery_sp(t_input *input)
 				input->sp_input[i][c] = ' ';
 		}
 	}
+}
+
+int	ft_is_quote(char c)
+{
+	if (c == '\'' || c == '\"')
+		return (1);
+	return (0);
+}
+
+/*funcion que chequea si un caracter se encuentra entre comillas
+solo chequea si el caracter esta detras de una comilla y la flag
+no esta activa, NO COMPRUEBA SI LAS COMILLAS ESTAN CERRADAS*/
+int	ft_in_quotes(char *str, int c)
+{
+	int		i;
+	int		flag;
+	
+	i = -1;
+	flag = -1;
+	while (str[++i])
+	{
+		if (ft_is_quote(str[i]) && flag == -1)
+		{
+			flag *= -1;
+		}
+		if (i == c && flag == 1)
+		{
+			return (1);
+		}
+	}
+	return (0);
+}
+
+/*chequea si una string tiene comillas*/
+int	ft_quote_in_data(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (ft_is_quote(str[i]))
+			return (1);
+	}
+	return (0);
 }
