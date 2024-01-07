@@ -3,53 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_maker.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 04:19:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/18 08:38:33 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/26 09:36:54 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/*Función para calcular cuantos elementos de un tipo tenemos en la linea total 
-de input. Para que podamos usarla correctamente en cmd_maker, depende de que la
-comprobación previa de sintaxis funcione correctamente y "aborte" misión antes 
-si hay fallos de ese tipo*/
-int	ft_element_cnt(t_input	*in, char c)
+void	ft_get_cmdline(t_input *in, t_command *cmds)
 {
 	int	i;
-	int	cnt;
+	int	j;
 
-	cnt = 0;
 	i = -1;
-	while (++i < in->n_elements)
+	while (++i < in->cmd_n)
 	{
-		if (in->elements[i].type == c)
-			cnt++;
+		cmds[i].cmd_line = malloc(sizeof(char) * 1);
+		cmds[i].cmd_line[0] = '\0';
+		j = -1;
+		while (++j < cmds[i].size)
+		{
+			if (cmds[i].tokens[j].type == '0')
+			{
+				if (cmds[i].cmd_line[0] != '\0')
+					cmds[i].cmd_line = ft_addspace(cmds[i].cmd_line);
+				cmds[i].cmd_line
+					= ft_strjoint(cmds[i].cmd_line, cmds[i].tokens[j].data);
+			}
+		}
 	}
-	return (cnt);
 }
 
-int	ft_cmd_size(t_input *in, int *start)
-{
-	int	i;
-	int	size;
-
-	i = *(start);
-	size = 0;
-	if (in->elements[i].type == '|')
-		i++;
-	while (in->elements[i].type != '|' && i < in->n_elements)
-	{
-		size++;
-		i++;
-	}
-	*(start) = i;
-	return (size);
-}
-
-void	ft_cmd_assembler(t_input *in)
+void	ft_init_cmd(t_input *in)
 {
 	int	i;
 	int	j;
@@ -66,6 +53,7 @@ void	ft_cmd_assembler(t_input *in)
 		in->cmds[i].paths = NULL;
 		in->cmds[i].path_cmd = NULL;
 		in->cmds[i].cmd_tab = NULL;
+		in->cmds[i].cmd_line = NULL;
 		in->cmds[i].size = ft_cmd_size(in, &curr);
 		curr++;
 		in->cmds[i].tokens = malloc(sizeof(t_element) * in->cmds[i].size);
@@ -76,7 +64,18 @@ void	ft_cmd_assembler(t_input *in)
 	}
 }
 
-/**
- * TODO: Añadir un contador de numero de elementos dentro de cada comando
- * (Probando de momento con in.cmd.size...Puede funcionar, TEST!)
- */
+void	ft_cmd_maker(t_input *in)
+{
+	int	i;
+
+	ft_init_cmd(in);
+	i = -1;
+	while (++i < in->cmd_n)
+		ft_init_files(&in->cmds[i]);
+	ft_get_cmdline(in, in->cmds);
+}
+
+/*Estoy planteando el movimiento de fds-archivos antes de exegguttor,
+pero creo que tendría que cambiarlo y meterlo dentro, justo antes de
+ejecutar cada comando, para modificar los archivos encadenados si es
+necesario*/

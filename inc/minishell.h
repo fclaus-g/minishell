@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/03 22:29:03 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/07 21:45:15 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,12 @@ typedef struct s_data
 	t_input	in;
 }	t_data;
 
-/*main.c*/
+/*debug.c*/
 void					debug_arr(t_input *in, char *str_in, char *msg);
 void					debug_cmds(t_input *in, char *str_in, char *msg);
+void					ft_check_std(void);
+/*main.c*/
+void					ft_engine(t_data *d);
 /*init.c*/
 void					ft_fill_input(t_input *in, char *st);
 void					ft_split_env(t_data *d, char *var, size_t x);
@@ -159,10 +162,5 @@ void					ft_free_data(t_data *d);
 void					ft_free_arr(t_input *in, int size);
 void					ft_clean_exit(t_data *d, char *readline);
 void					ft_free_cmds(t_input *in);
-/*debug.c*/
-void					ft_leaks(const char *program);
-void					debug_arr(t_input *in, char *str_in, char *msg);
-void					debug_cmds(t_input *in, char *str_in, char *msg);
-void					ft_check_std(void);
 
 #endif

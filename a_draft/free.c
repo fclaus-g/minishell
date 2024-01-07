@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:24:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/14 18:35:41 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/07 21:34:21 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,11 @@ anterior*/
 void	ft_clean_input(t_input *input)
 {
 	ft_free_arr(input, input->n_elements);
+	ft_free_cmds(input);
 	input->cmd_n = 0;
 	input->n_elements = 0;
+	if (access(".heredoc", F_OK) == 0)
+		remove(".heredoc");
 }
 /**
  * TODO: Check si se están liberando en exeguttor los char** de cms
@@ -46,6 +49,30 @@ void	ft_free_data(t_data *d)
 	free(d->env_arr);
 }
 
+void	ft_free_cmds(t_input *in)
+{
+	int	i;
+
+	i = -1;
+	while (++i < in->cmd_n)
+	{
+		if (in->cmds[i].path_cmd != NULL)
+			free(in->cmds[i].path_cmd);
+		if (in->cmds[i].cmd_line != NULL)
+			free(in->cmds[i].cmd_line);
+		if (in->cmds[i].paths != NULL)
+			free(in->cmds[i].paths);
+		if (in->cmds[i].cmd_tab != NULL)
+			free(in->cmds[i].cmd_tab);
+		free(in->cmds[i].tokens);
+	}
+}
+/**
+ * TODO: check si se le está haciendo malloc siempre a todas las vars
+ * TODO: pensar trigger IF para activar la función y en que momentos
+ * El último free seguramente de doble free!
+ */
+
 void	ft_free_arr(t_input *in, int size)
 {
 	int	i;
@@ -65,6 +92,7 @@ void	ft_clean_exit(t_data *d, char *readline)
 	if (readline != NULL)
 		free(readline);
 	free(d->in.elements);
+	free(d->in.cmds);
 }
 /**
  * TODO: mejorar el IF (comprobación) para liberar o no

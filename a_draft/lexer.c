@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 11:40:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/22 14:59:22 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/03 22:35:24 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,38 +24,19 @@ void	ft_token_files(t_input *in)
 		if (in->elements[i].type == '<' && in->elements[i + 1].type == '0'
 			&& i + 1 < in->n_elements)
 			in->elements[i + 1].type = 'i';
+		else if (in->elements[i].type == 'h' && i + 1 < in->n_elements)
+		{
+			if (in->elements[i + 1].type == '0'
+				|| in->elements[i + 1].type == '\"')
+				in->elements[i + 1].type = 'E';
+			else if (in->elements[i + 1].type == '\'')
+				in->elements[i + 1].type = 'e';
+		}
 		else if ((in->elements[i].type == '>' || in->elements[i].type == 'a')
 			&& in->elements[i + 1].type == '0' && i + 1 < in->n_elements)
 			in->elements[i + 1].type = 'o';
 	}
 }
-
-/*Comprueba si hay dos elementos del mismo tipo "especial" (redirecciones y 
-pipes) seguidas, si es así envía error de syntax por consola*/
-int	ft_syntax_check(t_input *in)
-{
-	int		i;
-	int		j;
-	char	*set;
-
-	set = "|<>ha";
-	i = -1;
-	while (set[++i] != '\0')
-	{
-		j = -1;
-		while (++j < in->n_elements)
-		{
-			if (in->elements[j].type == set[i]
-				&& in->elements[j + 1].type == set[i])
-				return (ft_syntax_error(set[i]), 1);
-		}
-	}
-	return (0);
-}
-/**
- * TODO: plantear cómo encontrar syntax error con elementos de diferente tipo >|
- * TODO: con >> o <<, cuando imprimir error near `>' o near `>>'
- */
 
 void	ft_token_redirs(t_input *in)
 {
@@ -95,6 +76,35 @@ void	ft_token_pipes(t_input *in)
 		}
 	}
 }
+
+/*Comprueba si hay dos elementos del mismo tipo "especial" (redirecciones y 
+pipes) seguidas, si es así envía error de syntax por consola*/
+int	ft_syntax_check(t_input *in)
+{
+	int		i;
+	int		j;
+	char	*set;
+
+	set = "|<>ha";
+	i = -1;
+	while (set[++i] != '\0')
+	{
+		j = -1;
+		while (++j < in->n_elements)
+		{
+			if (in->elements[j].type == set[i]
+				&& in->elements[j + 1].type == set[i])
+				return (ft_syntax_error(in, j), 1);
+		}
+	}
+	if (ft_eof_check(in))
+		return (1);
+	return (0);
+}
+/**
+ * TODO: plantear cómo encontrar syntax error con elementos de diferente tipo >|
+ * TODO: con >> o <<, cuando imprimir error near `>' o near `>>'
+ */
 
 /*Proceso de lexer/token; fill_input será sustituido por la ft que separe por 
 primera vez el input en elementos teniendo en cuenta el tema de las comillas,
