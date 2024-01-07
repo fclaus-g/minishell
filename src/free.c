@@ -48,6 +48,47 @@ void	ft_free_data(t_data *d)
 	free(d->env_arr);
 }
 
+void	ft_free_cmds(t_input *in)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < in->cmd_n)
+	{
+		if (in->cmds[i].path_cmd != NULL)
+		{
+			free(in->cmds[i].path_cmd);
+			in->cmds[i].path_cmd = NULL;
+		}
+		if (in->cmds[i].cmd_line != NULL)
+		{
+			free(in->cmds[i].cmd_line);
+			in->cmds[i].cmd_line = NULL;
+		}
+		if (in->cmds[i].paths != NULL)
+		{
+			free(in->cmds[i].paths);
+			in->cmds[i].paths = NULL;
+		}
+		if (in->cmds[i].cmd_tab != NULL)
+		{
+			free(in->cmds[i].cmd_tab);
+			in->cmds[i].cmd_tab = NULL;
+		}
+		j = -1;
+		while (++j < in->cmds[i].size)
+			free(in->cmds[i].tokens[j]);
+		free(in->cmds[i].tokens);
+	}
+	free(in->cmds);
+}
+/**
+ * TODO: check si se le está haciendo malloc siempre a todas las vars
+ * TODO: pensar trigger IF para activar la función y en que momentos
+ * El último free seguramente de doble free!
+ */
+
 void	ft_free_arr(t_input *in, int size)
 {
 	int	i;

@@ -22,10 +22,7 @@ void	ft_is_heredoc(t_command *cmd)
 	while (++i < cmd->size)
 	{
 		if (cmd->tokens[i].type == 'h')
-		{
-			cmd->hd_stat = 0;
 			ft_heredoc(cmd, i);
-		}
 	}
 }
 
@@ -68,5 +65,4 @@ void	ft_heredoc(t_command *cmd, int pos)
 		free(read);
 	ft_write_doc(content);
 	free(content);
-	cmd->hd_stat = -1;
 }

@@ -49,7 +49,6 @@ typedef struct s_command
 	int			size;
 	int			fd_in;
 	int			fd_out;
-	int			hd_stat;
 	char		**paths;
 	char		*path_cmd;
 	char		*cmd_line;
@@ -159,6 +158,7 @@ void					ft_clean_input(t_input *input);
 void					ft_free_data(t_data *d);
 void					ft_free_arr(t_input *in, int size);
 void					ft_clean_exit(t_data *d, char *readline);
+void					ft_free_cmds(t_input *in);
 /*debug.c*/
 void					ft_leaks(const char *program);
 void					debug_arr(t_input *in, char *str_in, char *msg);
