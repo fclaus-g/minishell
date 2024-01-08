@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:21:41 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/01/02 18:24:57 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/08 13:46:29 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	ft_fill_elements(t_input *in)
 	}
 	ft_print_array(in->element, in->n_elements);
 }
+
 /*en esta funcion vamos a chequear cada elemento de l array
 gestionando en primer lugar si tiene comillas con la funcion
 ft_management_quotes, donde comprobaremos si hay dollar y eliminaremos
@@ -45,14 +46,10 @@ void	ft_check_elements(t_input *in, t_element *array)
 	while (++i < in->n_elements)
 	{
 		if (ft_quote_in_data(array[i].data))
-		{	
-			printf(GREEN"hay comillas en el elemento %d\n"RESET, i);
-			ft_management_quotes(array[i]);		
-			//ft_print_element(in->element[i]);
-		}
+			ft_management_quotes(array[i]);
+		if (ft_its_dollar(array[i].data) && array[i].type != '\'')		
+			ft_expand_dollar(array[i], in->data);
 	}
-	//ft_print_array(in->element, in->n_elements);
-	
 }
 
 
@@ -70,7 +67,7 @@ int	ft_its_dollar(char *str)
 	return (0);
 }
 
-void 	ft_print_element(t_element element)
+void	ft_print_element(t_element element)
 {
 	printf(BLUE"element.data = %s\n"RESET, element.data);
 	printf(YELLOW"element.type = %c\n"RESET, element.type);

@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:30:09 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/01/02 18:26:26 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/08 12:50:23 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,7 @@ void	ft_management_quotes(t_element element)
 	if (ft_closed_quotes(element.data))
 	{
 		element.type = ft_define_qtype(element);
-		if (element.type == '\"' && ft_its_dollar(element.data))
-		{
-			printf(GREEN"hay dollar en comillas dobles\n"RESET);
-			//ft_expand_dollar(element);
-			ft_clean_quotes(element);
-		}
-		else if (element.type == '\'')
-			printf(GREEN"si hay dollar me la pela, comilla = [']\n");
-			ft_clean_quotes(element);
+		ft_clean_quotes(element);
 	}
 	else
 		printf(RED"Error: unclosed quotes\n"RESET);
@@ -57,7 +49,7 @@ int	ft_closed_quotes(char *str)
 }
 
 /*funcion que devuelve el tipo de comilla que estamos tratando*/
-char ft_define_qtype(t_element element)
+char	ft_define_qtype(t_element element)
 {
 	int		c;
 	char	quote;
@@ -92,19 +84,17 @@ void	ft_clean_quotes(t_element element)
 		{
 			aux[i] = element.data[c];
 			i++;
-		}	
-		printf(BLUE"esto es lo que se ha guardado aux = %s\n"RESET, aux);
+		}
 	}
 	element.data = aux;
-	printf(BLUE"esto es lo que se ha guardado element.data = %s\n"RESET, element.data);
 	ft_print_element(element);
 }
 
-int ft_count_quotes(char *str)
+int	ft_count_quotes(char *str)
 {
-	int c;
-	int quotes;
-	char q;
+	int		c;
+	int		quotes;
+	char	q;
 
 	c = -1;
 	quotes = 0;
@@ -118,7 +108,7 @@ int ft_count_quotes(char *str)
 			{
 				if (str[c] == q)
 				{
-					quotes++;;
+					quotes++;
 				}
 			}
 		}

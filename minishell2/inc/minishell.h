@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/02 17:56:57 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/08 14:29:10 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_data
 {
 	char	**env_dup;
 	t_env	*env_arr;
+	int 	env_size;
 	t_input	*in; //creo un puntero a la struct input para acceder a ella desde data
 }	t_data;
 
@@ -109,10 +110,13 @@ void					ft_fill_elements(t_input *in);
 void					ft_check_elements(t_input *in, t_element *array);
 int						ft_its_dollar(char *str);
 void 					ft_print_element(t_element element);
-/**********************[array_functions]*****************************/
+/**********************[array_functions.c]*****************************/
 void					ft_print_array(t_element *array, int n_elements);
 
-
+/**********************[expand.c]**************************************/
+void	ft_expand_dollar(t_element element, t_data *data);
+char *ft_get_dollar_word(char *str);
+int ft_search_value(char *comp, t_env *env, int lenv);
 
 
 /*checkin.c*/

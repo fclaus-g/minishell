@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:09:31 by fclaus-g          #+#    #+#             */
-/*   Updated: 2023/12/30 17:33:50 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/08 10:41:31 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_check_special_chars_right(t_input *in, char *str)
 {
 	int		c;
 	char	*aux;
-	
+
 	c = -1;
 	aux = NULL;
 	while (str[++c])
@@ -98,12 +98,11 @@ void	ft_clean_input(t_input *input)
 	input->n_elements = 0;
 }
 
-
 void	ft_check_special_chars_left(t_input *in, char *str)
 {
 	int		c;
 	char	*aux;
-	
+
 	c = 0;
 	aux = NULL;
 	while (str[c])
@@ -141,8 +140,8 @@ char	*ft_insert_left_space(char *s, int pos)
 			aux[c + 1] = s[c];
 			i = c + 1;
 		}
-		else 
-			aux[++i]= s[c];
+		else
+			aux[++i] = s[c];
 	}
 	aux[++i] = '\0';
 	return (aux);

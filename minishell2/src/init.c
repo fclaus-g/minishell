@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:01:35 by fclaus-g          #+#    #+#             */
-/*   Updated: 2023/12/19 12:15:40 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/08 12:27:43 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	ft_init_env(t_data *d, char **env)
 		d->env_arr[i].full = ft_strdup(env[i]);
 		ft_split_env(d, env[i], i);
 	}
+	d->env_size = i;
 }
 
 /*A esta función le entra una variable de entorno completa en una str
