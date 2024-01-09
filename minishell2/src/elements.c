@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:21:41 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/01/08 13:46:29 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/09 14:46:53 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,11 @@ void	ft_fill_elements(t_input *in)
 /*en esta funcion vamos a chequear cada elemento de l array
 gestionando en primer lugar si tiene comillas con la funcion
 ft_management_quotes, donde comprobaremos si hay dollar y eliminaremos
-las comillas necesarias*/
+las comillas necesarias CUIDADO CACAO CON PUNTEROS, ESTOY PASANDO LOS 
+VALORES EN LAS FUNCIONES LO QUE SIGNIFICA QUE SE CREA UNA COPIA DEL 
+ARG EN LA FUNCION, PARA SOLUCIONAR ESTO O PIENSO EN PUNTEROS Y MODIFICO
+CON CUIDADO LOS ARGS AÑADIENDO ASTERISCOS Y & O DESDE LA FUNCION 
+FT_CHECK_ELEMENTS VOY IGUALANDO LOS VALORES DEL ELEMENTO*/
 void	ft_check_elements(t_input *in, t_element *array)
 {
 	int	i;
@@ -47,12 +51,14 @@ void	ft_check_elements(t_input *in, t_element *array)
 	{
 		if (ft_quote_in_data(array[i].data))
 			ft_management_quotes(array[i]);
-		if (ft_its_dollar(array[i].data) && array[i].type != '\'')		
+	}
+	i = -1;
+	while (++i < in->n_elements)
+	{
+		if (ft_its_dollar(array[i].data) && array[i].type != '\'')
 			ft_expand_dollar(array[i], in->data);
 	}
 }
-
-
 
 int	ft_its_dollar(char *str)
 {

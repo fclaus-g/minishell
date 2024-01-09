@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/08 14:29:10 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/09 14:41:41 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,12 +112,12 @@ int						ft_its_dollar(char *str);
 void 					ft_print_element(t_element element);
 /**********************[array_functions.c]*****************************/
 void					ft_print_array(t_element *array, int n_elements);
-
+void	ft_printenv(t_env *env, int len);
 /**********************[expand.c]**************************************/
 void	ft_expand_dollar(t_element element, t_data *data);
-char *ft_get_dollar_word(char *str);
-int ft_search_value(char *comp, t_env *env, int lenv);
-
+char *ft_get_dollar_word(char *str, int start);
+char *ft_search_value(char *comp, t_env *env, int lenv);
+void	ft_insert_value(t_element elemento, char *value, int start, int del);
 
 /*checkin.c*/
 void					ft_checkinput(t_input *input);
@@ -152,7 +152,7 @@ void					ft_check_dollar(t_input *input);
 
 /*funciones array.c*/
 t_element *add_element_array(t_input *in, char *add, int pos);
-void	ft_printarray(t_element *array);
+void	ft_printarray(void *array, int len);
 t_element *aislar_special(t_input *in, t_element *elemento, int pos);
 
 #endif

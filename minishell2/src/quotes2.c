@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:30:09 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/01/08 12:50:23 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/09 14:13:41 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ void	ft_management_quotes(t_element element)
 	if (ft_closed_quotes(element.data))
 	{
 		element.type = ft_define_qtype(element);
-		ft_clean_quotes(element);
+		element.data = ft_clean_quotes(element);
+		printf("despues de limpiear comillas");
+		ft_print_element(element);
 	}
 	else
 		printf(RED"Error: unclosed quotes\n"RESET);
@@ -69,7 +71,7 @@ char	ft_define_qtype(t_element element)
 /*funcion que va a eliminar las comillas del bloque teniendo 
 en cuenta que deben ser del mismo tipo (si hay comillas del otro
 tipo deben mostrarse)*/
-void	ft_clean_quotes(t_element element)
+char	*ft_clean_quotes(t_element element)
 {
 	int 	c;
 	int		i;
@@ -86,8 +88,8 @@ void	ft_clean_quotes(t_element element)
 			i++;
 		}
 	}
-	element.data = aux;
 	ft_print_element(element);
+	return (aux);
 }
 
 int	ft_count_quotes(char *str)

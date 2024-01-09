@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 13:44:06 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/01/08 14:35:06 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/09 14:06:29 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,50 +19,83 @@ el enfoque de como expandir hay que cambiarlo, se me ocurre si encuentra el dola
 haz esto y continue en lugar de hacerlo en una fncion aparte como esta ahora mismo*/
 void	ft_expand_dollar(t_element element, t_data *data)
 {
-	char	*aux;
-	int		env_pos;
-	
-	aux = ft_get_dollar_word(element.data);
-	env_pos = ft_search_value(aux, data->env_arr, data->env_size);
-	printf("valor de env = %s", data->env_arr[env_pos].line);
-}
-
-char	*ft_get_dollar_word(char *str)
-{
-	char *aux;
-	int c;
-	int start;
-	int	len;
+	int		c;
+	char	*var;
+	char	*value;
 
 	c = -1;
-	while (str[++c])
+	(void)data;
+	while (element.data[++c])
 	{
-		if (str[c] == '$')
+		if (element.data[c] == '$')
 		{
-			start = c;
-			while (!ft_is_space(str[c]) && str[c] != '$' && str[c])
-				c++;
-			len = c;
+			var = ft_get_dollar_word(element.data, c + 1);
+			value = ft_search_value(var, data->env_arr, data->env_size);
+			if (value)
+				element.data = \
+					ft_insert_value(element, value, c, ft_strlen(var));
+			free(var);
+			free(value);
 		}
 	}
-	printf("c = %d\n", len);
+	ft_print_element(element);
+}
+
+char	*ft_get_dollar_word(char *str, int start)
+{
+	char	*aux;
+	int		c;
+
+	c = start;
+	while (str[c] && str[c] != '$' && !ft_is_space(str[c]) && !ft_is_quote(str[c]))
+		c++;
 	aux = ft_substr(str, start, c - start);
-	printf ("aux = %s\n", aux);
+	printf ("aux var = %s\n", aux);
 	return (aux);
 }
 
 /*en esta funcion vamos a buscar en el array de entorno
 una coincidencia con la str *comp para obtener el valor
 de la variab*/
-int ft_search_value(char *comp, t_env *env, int lenv)
+char	*ft_search_value(char *comp, t_env *env, int lenv)
 {
-	int	i;
+	int		i;
+	char	*aux;
 
 	i = -1;
 	while (++i < lenv)
 	{
-		if (ft_strcmp(comp, env[i].title))
-			return(i);
+		if (!ft_strcmp(comp, env[i].title))
+		{
+			aux = ft_strdup(env[i].line);
+			return (aux);
+		}
 	}
-	return (0);
+	printf("no encontrada coincidencia\n");
+	return (NULL);
+}
+
+char	*ft_insert_value(t_element elemento, char *value, int start, int del)
+{
+	char 	*aux;
+	int		c;
+	int 	i;
+	int 	j;
+
+	c = -1;
+	aux = malloc(sizeof(char) * ft_strlen(elemento.data) + ft_strlen(value) - del + 1);
+	while (elemento.data[++c] && c < start)
+		aux[c] = elemento.data[c];
+	i = 0;
+	j = c;
+	while (value[i])
+		aux[j++] = value[i++];
+	c += del + 1;
+	while (elemento.data[c])
+	{
+		aux[j++] = elemento.data[c++];
+	}
+	aux[j] = '\0';
+	printf(YELLOW"aux queda asi %s\n"RESET, aux);
+	return (aux);
 }

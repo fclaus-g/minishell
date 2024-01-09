@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:55:43 by fclaus-g          #+#    #+#             */
-/*   Updated: 2023/12/18 14:47:35 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/09 13:33:28 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		ft_clean_input(&in);
-		str_in = readline("cascaribash$ ");
+		str_in = readline(RED"cascaribash$ "RESET);
 		add_history(str_in);
 		ft_manage_input(str_in, &in);
 	}
