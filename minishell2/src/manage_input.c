@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:09:31 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/01/08 10:41:31 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/10 14:16:39 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,16 @@
 void	ft_manage_input(char *str_in, t_input *in)
 {
 	in->str_input = ft_strdup(str_in);
-	//printf(BLUE"STR RECIBIDA POR INPUT-----> %s\n"RESET, in->str_input);
 	ft_check_special_chars_right(in, in->str_input);
 	ft_check_special_chars_left(in, in->str_input);
-	//printf(GREEN"LA STR DE INPUT QUEDA ASI = %s\n"RESET, in->str_input);
 	ft_separate_quotes(in);
 	in->sp_input = ft_split(in->str_input, ' ');
 	ft_recovery_sp(in);
-	ft_print_dstr(in->sp_input);
+	//ft_print_dstr(in->sp_input);
 	in->n_elements = ft_strdlen(in->sp_input);
 	ft_fill_elements(in);
 	ft_check_elements(in, in->element);
+	ft_print_array(in->element, in->n_elements);
 }
 
 /*Esta funcion chequea si hay un caracter especial(|,<,>, ;) pegado a un 

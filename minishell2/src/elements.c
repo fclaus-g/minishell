@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:21:41 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/01/09 14:46:53 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/10 14:39:47 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,19 @@ void	ft_fill_elements(t_input *in)
 		in->element[i].data_st = in->data;
 		printf(BLUE"element[%d].data = %s\n"RESET, i, in->element[i].data);
 	}
-	ft_print_array(in->element, in->n_elements);
+	//ft_print_array(in->element, in->n_elements);
 }
 
 /*en esta funcion vamos a chequear cada elemento de l array
 gestionando en primer lugar si tiene comillas con la funcion
 ft_management_quotes, donde comprobaremos si hay dollar y eliminaremos
-las comillas necesarias CUIDADO CACAO CON PUNTEROS, ESTOY PASANDO LOS 
-VALORES EN LAS FUNCIONES LO QUE SIGNIFICA QUE SE CREA UNA COPIA DEL 
-ARG EN LA FUNCION, PARA SOLUCIONAR ESTO O PIENSO EN PUNTEROS Y MODIFICO
-CON CUIDADO LOS ARGS AÑADIENDO ASTERISCOS Y & O DESDE LA FUNCION 
-FT_CHECK_ELEMENTS VOY IGUALANDO LOS VALORES DEL ELEMENTO*/
+las comillas necesarias, ACLARACION PARA EL FUTURO, en un array
+no necesitamos añadir un puntero mas ya que un ARRAY ES UN PUNTERO
+EN SI A LA PRIMERA POSICIÓN DEL ARRAY, si en alguna función vamos a
+modificar el valor de un elemento del array si que necesitamos * y &, 
+* en el prototipo y & en la llamada a funcion. Si no vamos a modificar
+el valor del elemento en si, sino que la función chequeara valores y 
+los retornará, se puede pasar en la llamada ft_funcion(*valor).*/
 void	ft_check_elements(t_input *in, t_element *array)
 {
 	int	i;
@@ -50,13 +52,13 @@ void	ft_check_elements(t_input *in, t_element *array)
 	while (++i < in->n_elements)
 	{
 		if (ft_quote_in_data(array[i].data))
-			ft_management_quotes(array[i]);
+			ft_management_quotes(&array[i]);
 	}
 	i = -1;
 	while (++i < in->n_elements)
 	{
 		if (ft_its_dollar(array[i].data) && array[i].type != '\'')
-			ft_expand_dollar(array[i], in->data);
+			ft_expand_dollar(&array[i], in->data);
 	}
 }
 

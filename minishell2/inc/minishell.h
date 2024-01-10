@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/09 14:41:41 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/10 14:38:37 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,34 +90,34 @@ char					*ft_insert_right_space(char *s, int pos);
 void					ft_check_special_chars_left(t_input *in, char *str);
 char					*ft_insert_left_space(char *s, int pos);
 /**********************[manage_input_utils.c]*************************/
-int 					ft_is_space(char c);
+int						ft_is_space(char c);
 int						ft_is_special_char(char c);
 
 /**********************[quotes.c]*************************************/
 void					ft_separate_quotes(t_input *in);
-void 					ft_recovery_sp(t_input *input);
-int 					ft_is_quote(char c);
+void					ft_recovery_sp(t_input *input);
+int						ft_is_quote(char c);
 int						ft_in_quotes(char *str, int c);
 int						ft_quote_in_data(char *str);
 /**********************[quotes2.c]**************************************/
-void					ft_management_quotes(t_element element);
+void					ft_management_quotes(t_element *element);
 int						ft_closed_quotes(char *str);
-char 					ft_define_qtype(t_element element);
-void					ft_clean_quotes(t_element element);
+char					ft_define_qtype(t_element element);
+char					*ft_clean_quotes(t_element element);
 int						ft_count_quotes(char *str);
 /**********************[elements.c]***********************************/
 void					ft_fill_elements(t_input *in);
 void					ft_check_elements(t_input *in, t_element *array);
 int						ft_its_dollar(char *str);
-void 					ft_print_element(t_element element);
+void					ft_print_element(t_element element);
 /**********************[array_functions.c]*****************************/
 void					ft_print_array(t_element *array, int n_elements);
-void	ft_printenv(t_env *env, int len);
+void					ft_printenv(t_env *env, int len);
 /**********************[expand.c]**************************************/
-void	ft_expand_dollar(t_element element, t_data *data);
+void	ft_expand_dollar(t_element *element, t_data *data);
 char *ft_get_dollar_word(char *str, int start);
 char *ft_search_value(char *comp, t_env *env, int lenv);
-void	ft_insert_value(t_element elemento, char *value, int start, int del);
+char	*ft_insert_value(t_element elemento, char *value, int start, int del);
 
 /*checkin.c*/
 void					ft_checkinput(t_input *input);
