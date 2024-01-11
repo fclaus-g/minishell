@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:55:43 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/01/09 13:33:28 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/11 13:50:29 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_leaks(void)
 {
-	system("leaks cascaribash");
+	system("leaks minishell");
 }
 
 int	main(int ac, char **av, char **env)
@@ -33,6 +33,8 @@ int	main(int ac, char **av, char **env)
 		ft_clean_input(&in);
 		str_in = readline(RED"cascaribash$ "RESET);
 		add_history(str_in);
+		if (ft_is_biexit(str_in))
+			return (ft_clean_exit(&d, str_in), 0);
 		ft_manage_input(str_in, &in);
 	}
 	return (0);

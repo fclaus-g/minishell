@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/10 14:38:37 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/11 13:11:32 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ typedef struct s_element
 	int 	pos;//para saber la posicion que ocupa en el array de elementos
 	t_data	*data_st;//puntero a la struct data
 }	t_element;
-
 
 /*Estructura para la lectura del input completo, dentro guardamos varias flags
 o info general y un array con todos los elementos de la linea, esto lo re-
@@ -114,10 +113,16 @@ void					ft_print_element(t_element element);
 void					ft_print_array(t_element *array, int n_elements);
 void					ft_printenv(t_env *env, int len);
 /**********************[expand.c]**************************************/
-void	ft_expand_dollar(t_element *element, t_data *data);
-char *ft_get_dollar_word(char *str, int start);
-char *ft_search_value(char *comp, t_env *env, int lenv);
-char	*ft_insert_value(t_element elemento, char *value, int start, int del);
+void					ft_expand_dollar(t_element *element, t_data *data);
+char 					*ft_get_dollar_word(char *str, int start);
+char 					*ft_search_value(char *comp, t_env *env, int lenv);
+char					*ft_insert_value(t_element elemento, char *value, int start, int del);
+/***********************[builtins.c]***********************************/
+void	bi_exit(t_data *d, t_input *in);
+int	ft_is_biexit(char *str);
+/***********************[exit.c]***************************************/
+void	ft_clean_exit(t_data *d, char *readline);
+void	ft_free_data(t_data *d);
 
 /*checkin.c*/
 void					ft_checkinput(t_input *input);

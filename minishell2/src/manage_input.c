@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:09:31 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/01/10 14:16:39 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/11 13:49:08 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,29 +72,6 @@ char	*ft_insert_right_space(char *s, int pos)
 		aux[i++] = s[c++];
 	aux[i] = '\0';
 	return (aux);
-}
-
-/*Se llama antes de cada readline; en la primera ocasión inicia valores a 0
-En el resto además libera las variables que han necesitado malloc en la lectura
-anterior*/
-void	ft_clean_input(t_input *input)
-{
-	int	i;
-
-	i = -1;
-	input->is_built = 0;
-	input->is_redir = 0;
-	input->n_pipe = 0;
-	if (input->sp_input != NULL)
-	{
-		ft_totalfree(input->sp_input);
-		while (++i < input->n_elements)
-		{
-			free(input->element[i].data);
-		}
-		free(input->element);
-	}
-	input->n_elements = 0;
 }
 
 void	ft_check_special_chars_left(t_input *in, char *str)
