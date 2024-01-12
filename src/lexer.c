@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 11:40:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/03 22:35:24 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/12 18:45:22 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,8 @@ int	ft_lexer(t_data *d, char *str_in)
 	ft_fill_input(&d->in, str_in);
 	ft_token_pipes(&d->in);
 	ft_token_redirs(&d->in);
+	ft_token_files(&d->in);
 	if (ft_syntax_check(&d->in))
 		return (1);
-	ft_token_files(&d->in);
 	return (0);
 }

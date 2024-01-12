@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/03 22:29:03 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/12 19:19:39 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,22 @@ typedef struct s_data
 {
 	char	**env_dup;
 	t_env	*env_arr;
+	char	*rl_input;
 	t_input	in;
 }	t_data;
 
+/*a_temp.c*/
+void					ft_tag_builts(t_command *cmds, int len);
+int						ft_is_built(char *str);
+void					ft_bi_pipex(t_data *d, int curr_cmd);
+void					ft_std_shield(t_data *d, int mode);
+void					ft_built_driver(t_command *cmd, t_data *d, int curr_cmd);
+void					ft_built_exe(t_command *cmd, t_data *d);
+void					ft_init_pipes(t_input *in);
 /*main.c*/
+void					ft_engine(t_data *d);
+/*debug.c*/
+void					ft_check_std(void);
 void					debug_arr(t_input *in, char *str_in, char *msg);
 void					debug_cmds(t_input *in, char *str_in, char *msg);
 /*init.c*/
@@ -157,7 +169,7 @@ void					ft_pwd(t_data *d);
 void					ft_clean_input(t_input *input);
 void					ft_free_data(t_data *d);
 void					ft_free_arr(t_input *in, int size);
-void					ft_clean_exit(t_data *d, char *readline);
+void					ft_clean_exit(t_data *d);
 void					ft_free_cmds(t_input *in);
 /*debug.c*/
 void					ft_leaks(const char *program);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 07:32:32 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/20 17:55:52 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/12 19:01:34 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	ft_init(t_data *d, char **env)
 {
 	size_t	i;
 
+	d->rl_input = NULL;
 	d->env_dup = env;
 	d->env_arr = malloc(sizeof(t_env) * ft_strdlen(d->env_dup));
 	i = 0;
