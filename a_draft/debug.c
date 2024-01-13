@@ -6,11 +6,11 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/31 16:55:39 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/01/13 20:12:56 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/13 20:13:11 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "minishell.h"
 
 void	ft_check_std(void)
 {

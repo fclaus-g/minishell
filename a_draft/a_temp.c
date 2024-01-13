@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   a_temp.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 20:08:47 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/12 19:19:30 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/13 17:17:58 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
-
-void	ft_repipex(t_data *d, int i)
-{
-	if (i != 0)
-	{
-		dup2(d->in.pipes[i - 1][0], 0);
-		close(d->in.pipes[i - 1][0]);
-		close(d->in.pipes[i - 1][1]);
-	}
-	if (i != d->in.cmd_n - 1)
-	{
-		dup2(d->in.pipes[i][1], 1);
-		close(d->in.pipes[i][0]);
-		close(d->in.pipes[i][1]);
-	}
-}
+#include "minishell.h"
 
 void	ft_init_pipes(t_input *in)
 {
@@ -133,13 +117,8 @@ void	ft_built_exe(t_command *cmd, t_data *d)
 		bi_exit(d);
 }
 
-void	ft_built_driver(t_command *cmd, t_data *d, int curr_cmd)
+void	ft_built_driver(t_command *cmd, t_data *d)
 {
-	(void)curr_cmd;
-	ft_std_shield(d, 0);
-	//ft_is_heredoc(cmd);
-	//ft_bi_pipex(d, curr_cmd);
 	ft_std_redir(cmd);
 	ft_built_exe(cmd, d);
-	ft_std_shield(d, 1);
 }

@@ -6,14 +6,14 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/13 15:48:26 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/13 20:14:25 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "./libft/libft.h"
+# include "../inc/libft/libft.h"
 
 /*DEFS*/
 /*Types/Tokens*/
@@ -24,6 +24,7 @@
 # define T_PIP '|'
 # define T_INF 'i'
 # define T_OUF 'o'
+# define T_APF 'O'
 # define T_DQT '\"'
 # define T_SQT '\''
 # define T_VAR '$'
@@ -49,6 +50,7 @@ typedef struct s_command
 	int			size;
 	int			fd_in;
 	int			fd_out;
+	int			built;
 	char		**paths;
 	char		*path_cmd;
 	char		*cmd_line;
@@ -63,6 +65,7 @@ typedef struct s_input
 {
 	int			n_elements;
 	int			cmd_n;
+	int			(*pipes)[2];
 	char		**sp_input;
 	t_element	*elements;
 	t_command	*cmds;
@@ -80,12 +83,23 @@ typedef struct s_env
 /*Estructura "general", iremos añadiendo elementos según vayamos necesitando*/
 typedef struct s_data
 {
-	char	**env_dup;
-	t_env	*env_arr;
-	char	*rl_input;
-	t_input	in;
+	char		**env_dup;
+	t_env		*env_arr;
+	char		*rl_input;
+	int			og_stdin;
+	int			og_stdout;
+	t_input		in;
 }	t_data;
 
+/*a_temp.c*/
+void					ft_repipex(t_data *d, int i);
+void					ft_tag_builts(t_command *cmds, int len);
+int						ft_is_built(char *str);
+void					ft_bi_pipex(t_data *d, int curr_cmd);
+void					ft_std_shield(t_data *d, int mode);
+void					ft_built_driver(t_command *cmd, t_data *d);
+void					ft_built_exe(t_command *cmd, t_data *d);
+void					ft_init_pipes(t_input *in);
 /*main.c*/
 void					ft_engine(t_data *d);
 /*debug.c*/
@@ -137,7 +151,7 @@ size_t					ft_count_elements(char *str, char c);
 void					ft_tag_redtype(t_element *arr, int start, int size, char c);
 char					*ft_save_dbred(char c);
 /*exegguttor.c*/
-int						ft_cmd_driver(t_command *cmds, char **env, t_data *d);
+int						ft_cmd_driver(t_data *d, t_command *cmds);
 void					ft_pipex(t_command *cmds, char **env, int fd);
 void					ft_exegguttor(t_command *cmds, char **env);
 /*exegguttor_utils.c*/
@@ -150,23 +164,18 @@ void					get_paths(t_command *st, char **env);
 int						ft_is_builtin(char **cmd_line);
 int						ft_is_biexit(char *str);
 /*builts_0.c*/
-void					bi_exit(t_data *d, t_input *in);
+void					bi_exit(t_data *d);
 void					bi_echo(char **cmd_line);
 void					bi_export(t_data *d);
 char					**ft_export_order(char **env);
 void					bi_env(t_data *d);
 /*builts_1.c*/
-void					ft_pwd(t_data *d);
+void					bi_pwd(t_data *d);
 /*free.c*/
 void					ft_clean_input(t_input *input);
 void					ft_free_data(t_data *d);
 void					ft_free_arr(t_input *in, int size);
 void					ft_clean_exit(t_data *d);
 void					ft_free_cmds(t_input *in);
-/*debug.c*/
-void					ft_leaks(const char *program);
-void					debug_arr(t_input *in, char *str_in, char *msg);
-void					debug_cmds(t_input *in, char *str_in, char *msg);
-void					ft_check_std(void);
 
 #endif

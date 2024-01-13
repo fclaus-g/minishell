@@ -8,8 +8,8 @@
 			"type": "lldb",
 			"request": "launch",
 			"name": "Debug",
-			"program": "${workspaceFolder}/debug",
-			"args": ["ls -la"],
+			"program": "${workspaceFolder}/a_draft/test",
+			"args": [],
 			"cwd": "${workspaceFolder}"
 		}
 	]
