@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/12 19:13:58 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/14 18:17:48 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	ft_leaks(void)
+{
+	system("leaks -q test");
+}
 
 void	ft_engine(t_data *d)
 {
@@ -26,7 +31,7 @@ void	ft_engine(t_data *d)
 		if (ft_lexer(d, d->rl_input))
 			continue ;
 		ft_cmd_maker(&d->in);
-		ft_cmd_driver(d->in.cmds, d->env_dup, d);
+		ft_cmd_driver(d, d->in.cmds);
 	}
 }
 

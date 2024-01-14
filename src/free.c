@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:24:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/12 18:58:44 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/14 18:17:48 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ En el resto además libera las variables que han necesitado malloc en la lectura
 anterior*/
 void	ft_clean_input(t_input *input)
 {
+	ft_free_cmds(input);
 	ft_free_arr(input, input->n_elements);
 	input->cmd_n = 0;
 	input->n_elements = 0;
+	free(input->pipes);
 	if (access(".heredoc", F_OK) == 0)
 		remove(".heredoc");
 }
@@ -60,9 +62,9 @@ void	ft_free_cmds(t_input *in)
 		if (in->cmds[i].cmd_line != NULL)
 			free(in->cmds[i].cmd_line);
 		if (in->cmds[i].paths != NULL)
-			free(in->cmds[i].paths);
+			ft_totalfree(in->cmds[i].paths);
 		if (in->cmds[i].cmd_tab != NULL)
-			free(in->cmds[i].cmd_tab);
+			ft_totalfree(in->cmds[i].cmd_tab);
 		free(in->cmds[i].tokens);
 	}
 }
@@ -85,13 +87,13 @@ void	ft_free_arr(t_input *in, int size)
 programa*/
 void	ft_clean_exit(t_data *d)
 {
-	ft_free_data(d);
 	if (&d->in.n_elements > 0)
 		ft_clean_input(&d->in);
 	if (d->rl_input != NULL)
 		free(d->rl_input);
-	free(d->in.elements);
 	free(d->in.cmds);
+	free(d->in.elements);
+	ft_free_data(d);
 }
 /**
  * TODO: mejorar el IF (comprobación) para liberar o no

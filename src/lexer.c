@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 11:40:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/12 18:45:22 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/14 18:17:48 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,12 @@ void	ft_token_files(t_input *in)
 			else if (in->elements[i + 1].type == '\'')
 				in->elements[i + 1].type = 'e';
 		}
-		else if ((in->elements[i].type == '>' || in->elements[i].type == 'a')
-			&& in->elements[i + 1].type == '0' && i + 1 < in->n_elements)
+		else if (in->elements[i].type == '>' && in->elements[i + 1].type == '0'
+			&& i + 1 < in->n_elements)
 			in->elements[i + 1].type = 'o';
+		else if (in->elements[i].type == 'a' && in->elements[i + 1].type == '0'
+			&& i + 1 < in->n_elements)
+			in->elements[i + 1].type = 'O';
 	}
 }
 

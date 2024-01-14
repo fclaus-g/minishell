@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 09:35:55 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/01/03 21:42:38 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/14 18:17:48 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@ void	ft_open_file(t_command *cmd, char *file, int type)
 		cmd->fd_out = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		ft_open_check(cmd->fd_out, file);
 	}
+	if (type == 2)
+	{
+		if (cmd->fd_out != -1)
+			close(cmd->fd_out);
+		cmd->fd_out = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		ft_open_check(cmd->fd_out, file);
+	}
 }
 
 void	ft_file_fds(t_command *cmd)
@@ -52,6 +59,8 @@ void	ft_file_fds(t_command *cmd)
 			ft_open_file(cmd, cmd->tokens[i].data, 0);
 		else if (cmd->tokens[i].type == 'o')
 			ft_open_file(cmd, cmd->tokens[i].data, 1);
+		else if (cmd->tokens[i].type == 'O')
+			ft_open_file(cmd, cmd->tokens[i].data, 2);
 	}
 }
 
@@ -67,5 +76,21 @@ void	ft_std_redir(t_command *cmd)
 	{
 		dup2(cmd->fd_out, 1);
 		close(cmd->fd_out);
+	}
+}
+
+void	ft_std_shield(t_data *d, int mode)
+{
+	if (mode == 0)
+	{
+		d->og_stdin = dup(0);
+		d->og_stdout = dup(1);
+	}
+	else
+	{
+		dup2(d->og_stdin, 0);
+		dup2(d->og_stdout, 1);
+		close(d->og_stdin);
+		close(d->og_stdout);
 	}
 }

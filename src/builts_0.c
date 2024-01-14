@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   builts_0.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:57:29 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/05 23:18:34 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/14 18:17:48 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	bi_exit(t_data *d, t_input *in)
+void	bi_exit(t_data *d)
 {
-	ft_clean_input(in);
-	ft_free_data(d);
+	ft_clean_exit(d);
 	exit(0);
 }
 
@@ -27,7 +26,6 @@ void	bi_echo(char **cmd_line)
 	while (cmd_line[++i] != NULL)
 		ft_printf("%s ", cmd_line[i]);
 	ft_printf("\n");
-	exit(0);
 }
 
 void	bi_env(t_data *d)

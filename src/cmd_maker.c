@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_maker.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 04:19:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/12 19:13:28 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/14 18:17:48 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,15 @@ void	ft_cmd_maker(t_input *in)
 	int	i;
 
 	ft_init_cmd(in);
+	ft_init_pipes(in);
 	i = -1;
 	while (++i < in->cmd_n)
 		ft_init_files(&in->cmds[i]);
 	ft_get_cmdline(in, in->cmds);
+	i = -1;
+	while (++i < in->cmd_n)
+		split_cmd(&in->cmds[i], in->cmds[i].cmd_line);
+	ft_tag_builts(in->cmds, in->cmd_n);
 }
 
 /*Estoy planteando el movimiento de fds-archivos antes de exegguttor,
