@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:24:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/14 23:32:11 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/15 22:36:42 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_clean_input(t_input *input)
 	input->cmd_n = 0;
 	input->n_elements = 0;
 	free(input->pipes);
+	input->pipes = NULL;
 	if (access(".heredoc", F_OK) == 0)
 		remove(".heredoc");
 }
@@ -60,7 +61,10 @@ void	ft_free_cmds(t_input *in)
 		if (in->cmds[i].path_cmd != NULL)
 			free(in->cmds[i].path_cmd);
 		if (in->cmds[i].cmd_line != NULL)
+		{
 			free(in->cmds[i].cmd_line);
+			in->cmds[i].cmd_line = NULL;
+		}
 		if (in->cmds[i].paths != NULL)
 			ft_totalfree(in->cmds[i].paths);
 		if (in->cmds[i].cmd_tab != NULL)
@@ -80,7 +84,10 @@ void	ft_free_arr(t_input *in, int size)
 
 	i = -1;
 	while (++i < size)
+	{
 		free(in->elements[i].data);
+		in->elements[i].data = NULL;
+	}
 }
 
 /*Función para liberar toda la memoría alojada cuando se haga exit del

@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:24:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/14 23:32:11 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/15 21:36:39 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_clean_input(t_input *input)
 	input->cmd_n = 0;
 	input->n_elements = 0;
 	free(input->pipes);
+	input->pipes = NULL;
 	if (access(".heredoc", F_OK) == 0)
 		remove(".heredoc");
 }
