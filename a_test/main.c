@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/14 23:38:28 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/16 15:57:16 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@ int	main(int ac, char **av, char **env)
 	ft_cmd_maker(&d.in);
 	//debug_arr(&d.in, str_input, "RESULTADO FINAL DE FT_LEXER");
 	//debug_cmds(&d.in, str_input, "RESULTADO FINAL DE FT_CMD_MAKER");
+	printf("char *rl_input (%lu bytes)\n", sizeof(d.rl_input));
+	printf("t_env *env_arr (%lu bytes)\n", sizeof(*d.env_arr));
+	printf("t_env in (%lu bytes)\n", sizeof(d.in));
+	printf("t_element *elements (%lu bytes)\n", sizeof(*d.in.elements));
+	printf("t_command *cmds (%lu bytes)\n", sizeof(*d.in.cmds));
+	printf("char **split_input (%lu bytes)\n", sizeof(*d.in.sp_input));
+	printf("t_element *tokens(%lu bytes)\n", sizeof(*d.in.cmds->tokens));
 	ft_cmd_driver(&d, d.in.cmds);
 	return (0);
 }

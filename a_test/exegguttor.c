@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/14 18:17:48 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/16 15:03:40 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	ft_built_exe(t_command *cmd, t_data *d)
 {
-	ft_std_redir(cmd);
+	if	(ft_std_redir(cmd) > 0)
+		return ;
 	if (ft_strcmp(cmd->cmd_tab[0], "echo") == 0)
 		bi_echo(cmd->cmd_tab);
 	else if (ft_strcmp(cmd->cmd_tab[0], "cd") == 0)
@@ -36,7 +37,8 @@ void	ft_exegguttor(t_command *cmd, char **env)
 	char	*str;
 	pid_t	pid;
 
-	ft_std_redir(cmd);
+	if	(ft_std_redir(cmd) > 0)
+		return ;
 	pid = fork();
 	if (pid == -1)
 		ft_printf_error("cascaribash: fork process failed");
@@ -80,7 +82,7 @@ int	ft_cmd_driver(t_data *d, t_command *cmds)
 		ft_std_shield(d, 0);
 		ft_is_heredoc(&cmds[curr_cmd]);
 		ft_shell_pipex(d, curr_cmd);
-		if (ft_is_built(cmds[curr_cmd].cmd_tab[0]))
+		if (cmds[curr_cmd].built == 1)
 			ft_built_exe(&cmds[curr_cmd], d);
 		else
 			ft_exegguttor(&cmds[curr_cmd], d->env_dup);

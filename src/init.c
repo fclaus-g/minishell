@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 07:32:32 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/14 18:17:48 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/16 21:25:18 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ void	ft_split_env(t_data *d, char *var, size_t x)
 	while (var[i] != '\0')
 		i++;
 	d->env_arr[x].line = malloc(sizeof(char) * ((i - j) + 1));
-	i = j - 1;
-	j = -1;
-	while (var[++i] != '\0')
-		d->env_arr[x].line[++j] = var[i];
+	i = j;
+	j = 0;
+	while (var[i] != '\0')
+		d->env_arr[x].line[j++] = var[i++];
 	d->env_arr[x].line[j] = '\0';
 }
 

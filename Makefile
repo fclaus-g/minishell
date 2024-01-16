@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+         #
+#    By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 21:48:21 by pgomez-r          #+#    #+#              #
-#    Updated: 2024/01/15 18:40:28 by pgomez-r         ###   ########.fr        #
+#    Updated: 2024/01/16 16:59:10 by pgruz11          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,8 @@ NAME     = minishell
 SRC_PATH = src/
 OBJ_PATH = obj/
 
-SRC      = main.c init.c free.c builts_0.c lexer.c lexer_utils.c redir_files.c \
-			builts_1.c builts_utils.c arr_tools_0.c arr_tools_1.c cmd_maker.c \
+SRC      = main.c init.c free.c bi_temp.c lexer.c lexer_utils.c redir.c \
+			bi_dir.c bi_utils.c arr_tools_0.c arr_tools_1.c cmd_maker.c \
 			exegguttor.c exegguttor_utils.c cmd_maker_utils.c heredoc.c debug.c
 SRCS	 = $(addprefix $(SRC_PATH), $(SRC))
 OBJ		 = $(SRC:.c=.o)

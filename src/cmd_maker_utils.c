@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 04:19:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/14 18:17:48 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/16 15:27:22 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_cmd_size(t_input *in, int *start)
 	size = 0;
 	if (in->elements[i].type == '|')
 		i++;
-	while (in->elements[i].type != '|' && i < in->n_elements)
+	while (i < in->n_elements && in->elements[i].type != '|')
 	{
 		size++;
 		i++;
@@ -71,5 +71,5 @@ void	ft_init_files(t_command *cmd)
 {
 	cmd->fd_in = -1;
 	cmd->fd_out = -1;
-	cmd->fd_out = -1;
+	cmd->fd_error = -1;
 }

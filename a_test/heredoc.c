@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 23:29:12 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/01/14 18:17:48 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/16 15:06:59 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ void	ft_is_heredoc(t_command *cmd)
 	}
 }
 
-void	ft_write_doc(char *content)
+void	ft_write_doc(t_command *cmd, char *content)
 {
 	int		fd;
 	ssize_t	check;
 
 	fd = open(".heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	ft_open_check(fd, ".heredoc");
+	ft_open_check(cmd, fd, ".heredoc");
 	check = write(fd, content, ft_strlen(content));
 	if (check == -1)
 		ft_printf("carcaribash: %s: %s\n", strerror(errno), ".heredoc");
@@ -63,6 +63,6 @@ void	ft_heredoc(t_command *cmd, int pos)
 	}
 	if (read != NULL)
 		free(read);
-	ft_write_doc(content);
+	ft_write_doc(cmd, content);
 	free(content);
 }

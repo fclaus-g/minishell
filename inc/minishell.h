@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/14 18:16:16 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/16 23:49:55 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_command
 	int			size;
 	int			fd_in;
 	int			fd_out;
+	int			fd_error;
 	int			built;
 	char		**paths;
 	char		*path_cmd;
@@ -124,12 +125,12 @@ void					ft_init_files(t_command *cmd);
 /*redir_files.c*/
 void					ft_file_fds(t_command *cmd);
 void					ft_open_file(t_command *cmd, char *file, int type);
-void					ft_open_check(int fd, char *file_path);
-void					ft_std_redir(t_command *cmd);
+void					ft_open_check(t_command *cmd, int fd, char *file_path);
+int						ft_std_redir(t_command *cmd);
 void					ft_std_shield(t_data *d, int mode);
 /*heredoc.c*/
 void					ft_heredoc(t_command *cmd, int pos);
-void					ft_write_doc(char *content);
+void					ft_write_doc(t_command *cmd, char *content);
 void					ft_is_heredoc(t_command *cmd);
 /*arr_tools_0.c*/
 t_element				*ft_arr_update(t_input *in, int i, char c);
@@ -154,17 +155,21 @@ void					free_cache(t_command *st, int error);
 void					split_cmd(t_command *st, char *cmdstr);
 int						find_path_index(t_command *st, char *cmd);
 void					get_paths(t_command *st, char **env);
-/*builts_utils.c*/
+/*bi_utils.c*/
 void					ft_tag_builts(t_command *cmds, int len);
 int						ft_is_built(char *str);
-/*builts_0.c*/
+char					*ft_getenv(t_data *d, char *var);
+/*bi_temp.c*/
 void					bi_exit(t_data *d);
 void					bi_echo(char **cmd_line);
 void					bi_export(t_data *d);
 char					**ft_export_order(char **env);
 void					bi_env(t_data *d);
-/*builts_1.c*/
+/*bi_dir.c*/
+void					bi_cd(t_data *d, t_command *cmd);
 void					bi_pwd(t_data *d);
+char					*ft_get_dir(char *arg);
+char					*ft_dir_back(char *arg);
 /*free.c*/
 void					ft_clean_input(t_input *input);
 void					ft_free_data(t_data *d);

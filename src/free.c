@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:24:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/15 22:36:42 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/16 16:21:52 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ anterior*/
 void	ft_clean_input(t_input *input)
 {
 	ft_free_cmds(input);
+	free(input->cmds);
 	ft_free_arr(input, input->n_elements);
+	free(input->elements);
 	input->cmd_n = 0;
 	input->n_elements = 0;
 	free(input->pipes);
@@ -98,8 +100,6 @@ void	ft_clean_exit(t_data *d)
 		ft_clean_input(&d->in);
 	if (d->rl_input != NULL)
 		free(d->rl_input);
-	free(d->in.cmds);
-	free(d->in.elements);
 	ft_free_data(d);
 }
 /**
