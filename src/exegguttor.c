@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/16 21:13:52 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/17 23:45:59 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_built_exe(t_command *cmd, t_data *d)
 	else if (ft_strcmp(cmd->cmd_tab[0], "unset") == 0)
 		ft_printf("[%s] built not implemented yet.\n", cmd->cmd_tab[0]);
 	else if (ft_strcmp(cmd->cmd_tab[0], "env") == 0)
-		bi_env(d);
+		ft_print_dstr(d->env_dup);
 	else if (ft_strcmp(cmd->cmd_tab[0], "exit") == 0)
 		bi_exit(d);
 }

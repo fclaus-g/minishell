@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/16 23:49:55 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/17 23:51:56 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_env
 typedef struct s_data
 {
 	char		**env_dup;
+	char		**env_exp;
 	t_env		*env_arr;
 	char		*rl_input;
 	int			og_stdin;
@@ -162,14 +163,17 @@ char					*ft_getenv(t_data *d, char *var);
 /*bi_temp.c*/
 void					bi_exit(t_data *d);
 void					bi_echo(char **cmd_line);
-void					bi_export(t_data *d);
-char					**ft_export_order(char **env);
-void					bi_env(t_data *d);
 /*bi_dir.c*/
 void					bi_cd(t_data *d, t_command *cmd);
 void					bi_pwd(t_data *d);
 char					*ft_get_dir(char *arg);
 char					*ft_dir_back(char *arg);
+/*bi_exp.c*/
+void					bi_export(t_data *d, t_command *cmd);
+char					**ft_export_order(char **env);
+void					ft_export_print(t_data *d);
+int						ft_exp_argcheck(char *arg);
+int						ft_export_chars(char c, int mode);
 /*free.c*/
 void					ft_clean_input(t_input *input);
 void					ft_free_data(t_data *d);
