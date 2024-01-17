@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/11 13:11:32 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/17 10:42:59 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,15 @@ int						ft_count_quotes(char *str);
 /**********************[elements.c]***********************************/
 void					ft_fill_elements(t_input *in);
 void					ft_check_elements(t_input *in, t_element *array);
+void					ft_define_type(t_element *element);
+/***********************[elements_utils.c]*****************************/
 int						ft_its_dollar(char *str);
 void					ft_print_element(t_element element);
+/**********************[elements_utils_def.c]**************************/
+int						ft_is_builtin(char *str);
+int						ft_is_redir(char *str);
+int						ft_is_pipe(char *str);
+int						ft_is_flag(char *str);
 /**********************[array_functions.c]*****************************/
 void					ft_print_array(t_element *array, int n_elements);
 void					ft_printenv(t_env *env, int len);
@@ -123,6 +130,7 @@ int	ft_is_biexit(char *str);
 /***********************[exit.c]***************************************/
 void	ft_clean_exit(t_data *d, char *readline);
 void	ft_free_data(t_data *d);
+void	ft_free_elements(t_input *input);
 
 /*checkin.c*/
 void					ft_checkinput(t_input *input);
@@ -149,9 +157,6 @@ int						ft_count_quotes(char *str);
 int						ft_end_quotes(char *str);
 void					ft_check_quotes_str(char *str, t_input *input);
 int						ft_count_char(char *str, char c);
-int						ft_is_builtin(char *str, t_input *input);
-int						ft_is_redir(char *str);
-int						ft_is_pipe(char *str);
 void					ft_check_c(t_input *input);
 void					ft_check_dollar(t_input *input);
 

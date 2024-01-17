@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:21:41 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/01/10 14:39:47 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:02:46 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ void	ft_fill_elements(t_input *in)
 		in->element[i].priority = 0;
 		in->element[i].pos = i;
 		in->element[i].data_st = in->data;
-		printf(BLUE"element[%d].data = %s\n"RESET, i, in->element[i].data);
 	}
-	//ft_print_array(in->element, in->n_elements);
+	ft_print_array(in->element, in->n_elements);
 }
 
 /*en esta funcion vamos a chequear cada elemento de l array
@@ -53,6 +52,7 @@ void	ft_check_elements(t_input *in, t_element *array)
 	{
 		if (ft_quote_in_data(array[i].data))
 			ft_management_quotes(&array[i]);
+		//ft_print_element(array[i]);
 	}
 	i = -1;
 	while (++i < in->n_elements)
@@ -60,27 +60,27 @@ void	ft_check_elements(t_input *in, t_element *array)
 		if (ft_its_dollar(array[i].data) && array[i].type != '\'')
 			ft_expand_dollar(&array[i], in->data);
 	}
-}
-
-int	ft_its_dollar(char *str)
-{
-	int	c;
-
-	c = -1;
-	while (str[++c])
+	i = -1;
+	while (++i < in->n_elements)
 	{
-		if (str[c] == '$')
-			return (1);
+		if (array[i].type == '0')
+			ft_define_type(&array[i]);
+		ft_print_element(array[i]);
+		//printf(BLUE"element[%d].data = %s\n"RESET, i, in->element[i].data);
 	}
-	return (0);
+	ft_print_array(array, in->n_elements);
 }
 
-void	ft_print_element(t_element element)
+void	ft_define_type(t_element *element)
 {
-	printf(BLUE"element.data = %s\n"RESET, element.data);
-	printf(YELLOW"element.type = %c\n"RESET, element.type);
-	printf(YELLOW"element.fd_in = %d\n"RESET, element.fd_in);
-	printf(YELLOW"element.fd_out = %d\n"RESET, element.fd_out);
-	printf(YELLOW"element.priority = %d\n"RESET, element.priority);
-	printf(YELLOW"element.pos = %d\n"RESET, element.pos);
+	if (ft_is_redir(element->data))
+		element->type = ft_is_redir(element->data) + '0';
+	else if (ft_is_pipe(element->data))
+		element->type = '|';
+	else if (ft_is_builtin(element->data))
+		element->type = 'b';
+	else if (ft_is_flag(element->data))
+		element->type = 'f';
+	else
+		element->type = '0';
 }
