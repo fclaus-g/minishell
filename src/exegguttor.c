@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exegguttor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/17 23:45:59 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/18 10:47:48 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_built_exe(t_command *cmd, t_data *d)
 {
-	if	(ft_std_redir(cmd) > 0)
+	if (ft_std_redir(cmd) > 0)
 		return ;
 	if (ft_strcmp(cmd->cmd_tab[0], "echo") == 0)
 		bi_echo(cmd->cmd_tab);
@@ -23,7 +23,7 @@ void	ft_built_exe(t_command *cmd, t_data *d)
 	else if (ft_strcmp(cmd->cmd_tab[0], "pwd") == 0)
 		bi_pwd(d);
 	else if (ft_strcmp(cmd->cmd_tab[0], "export") == 0)
-		bi_export(d);
+		bi_export(d, cmd);
 	else if (ft_strcmp(cmd->cmd_tab[0], "unset") == 0)
 		ft_printf("[%s] built not implemented yet.\n", cmd->cmd_tab[0]);
 	else if (ft_strcmp(cmd->cmd_tab[0], "env") == 0)
@@ -37,7 +37,7 @@ void	ft_exegguttor(t_command *cmd, char **env)
 	char	*str;
 	pid_t	pid;
 
-	if	(ft_std_redir(cmd) > 0)
+	if (ft_std_redir(cmd) > 0)
 		return ;
 	pid = fork();
 	if (pid == -1)

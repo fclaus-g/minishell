@@ -1,0 +1,10 @@
+Makefile
+a_draft
+a_test
+docs
+inc
+minishell
+minishell.dSYM
+obj
+out
+src

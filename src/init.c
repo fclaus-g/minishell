@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 07:32:32 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/16 21:25:18 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/18 12:01:56 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	ft_fill_input(t_input *in, char *st)
 		in->elements[i].data = ft_strdup(in->sp_input[i]);
 		in->elements[i].type = '0';
 	}
+	in->cmd_n = 0;
 	ft_totalfree(in->sp_input);
 	in->sp_input = NULL;
 }
@@ -80,6 +81,7 @@ void	ft_init(t_data *d, char **env)
 
 	d->rl_input = NULL;
 	d->env_dup = env;
+	d->env_exp = NULL;
 	d->env_arr = malloc(sizeof(t_env) * ft_strdlen(d->env_dup));
 	i = 0;
 	while (i < ft_strdlen(d->env_dup))

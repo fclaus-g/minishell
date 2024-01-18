@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_exp.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 23:43:59 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/01/18 00:15:32 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/18 10:50:25 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_export_chars(char c, int mode)
 int	ft_exp_argcheck(char *arg)
 {
 	int	i;
-	int sp;
+	int	sp;
 
 	i = 1;
 	sp = 0;
@@ -108,7 +108,7 @@ void	bi_export(t_data *d, t_command *cmd)
 		{
 			if (ft_exp_argcheck(cmd->cmd_tab[i]))
 				continue ;
-			ft_update_env(d, cmd->cmd_tab[i]);
+			//ft_update_env(d, cmd->cmd_tab[i]);
 		}
 	}
 }
