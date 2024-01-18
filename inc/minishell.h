@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/17 23:51:56 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/18 12:58:00 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 # include "./libft/libft.h"
 
 /*DEFS*/
+# define RED "\033[0;31m"
+# define GREEN "\033[0;32m"
+# define YELLOW "\033[0;33m"
+# define BLUE "\033[0;34m"
+# define RESET "\033[0m"
 /*Types/Tokens*/
 # define T_VOID '0' //sin tipo, sin catalogar todavía o literal
 # define T_CMD 'c' //command (de momento no hace falta catalogar este tipo)
@@ -68,6 +73,7 @@ typedef struct s_input
 	int			cmd_n;
 	int			(*pipes)[2];
 	char		**sp_input;
+	t_data		*data;
 	t_element	*elements;
 	t_command	*cmds;
 }	t_input;
@@ -87,6 +93,7 @@ typedef struct s_data
 	char		**env_dup;
 	char		**env_exp;
 	t_env		*env_arr;
+	int			env_size;
 	char		*rl_input;
 	int			og_stdin;
 	int			og_stdout;
