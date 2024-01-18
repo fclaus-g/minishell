@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 12:55:19 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/01/11 13:07:43 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/15 11:50:26 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void	bi_exit(t_data *d, t_input *in)
 {
-	ft_clean_input(in);
-	ft_free_data(d);
+	(void)d;
+	(void)in;
+	//ft_clean_input(in);
+	//ft_free_data(d);
 	exit(0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:30:09 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/01/10 14:31:40 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:30:00 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,20 +74,26 @@ char	*ft_clean_quotes(t_element element)
 {
 	int 	c;
 	int		i;
+	char 	q;
 	char	*aux;
+	int 	flag;
 
 	c = -1;
 	i = 0;
+	q = ft_define_qtype(element);
+	flag = -1;
 	aux = ft_calloc(sizeof(char), ft_strlen(element.data) - ft_count_quotes(element.data));
+	if (!aux)
+		printf(RED"malloc ko\n"RESET);
 	while (element.data[++c])
 	{
-		if (!ft_is_quote(element.data[c]))
-		{
-			aux[i] = element.data[c];
-			i++;
-		}
+		while (element.data[c] != q && flag == -1 && element.data[c])
+			aux[i++] = element.data[c++];
+		if (element.data[c] == q && flag == -1)
+			flag *= -1;
+		while (element.data[c] != q && flag == 1 && element.data[c])
+			aux[i++] = element.data[c++];
 	}
-	//ft_print_element(element);
 	return (aux);
 }
 

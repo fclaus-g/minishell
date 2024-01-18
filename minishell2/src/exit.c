@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 12:55:39 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/01/11 13:53:13 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/17 10:44:38 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 void	ft_clean_exit(t_data *d, char *readline)
 {
 	ft_free_data(d);
-	if (&d->in->n_elements > 0)
-	 	ft_clean_input(d->in);
+	ft_free_elements(d->in);
 	if (readline != NULL)
 		free(readline);
-	//free(d->in->element);
 }
 
 void	ft_free_data(t_data *d)
@@ -57,4 +55,16 @@ void	ft_clean_input(t_input *input)
 		free(input->element);
 	}
 	input->n_elements = 0;
+}
+
+void	ft_free_elements(t_input *input)
+{
+	int	i;
+
+	i = -1;
+	while (++i < input->n_elements)
+	{
+		free(input->element[i].data);
+	}
+	free(input->element);
 }

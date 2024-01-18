@@ -6,7 +6,7 @@
 #    By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 21:48:21 by pgomez-r          #+#    #+#              #
-#    Updated: 2024/01/11 13:10:18 by fclaus-g         ###   ########.fr        #
+#    Updated: 2024/01/16 12:31:39 by fclaus-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ NAME     = minishell
 SRC_PATH = src/
 OBJ_PATH = obj/
 
-SRC      = main.c init.c manage_input.c manage_input_utils.c quotes.c quotes2.c elements.c array_functions.c expand.c builtins.c exit.c
+SRC      = main.c init.c manage_input.c manage_input_utils.c quotes.c quotes2.c \
+		elements_utils.c elements_utils_def.c elements.c array_functions.c expand.c builtins.c exit.c
 SRCS	 = $(addprefix $(SRC_PATH), $(SRC))
 OBJ		 = $(SRC:.c=.o)
 OBJS	 = $(addprefix $(OBJ_PATH), $(OBJ))
@@ -45,7 +46,8 @@ norm:
 debug:
 		@gcc -Wall -Wextra -Werror -lreadline ./src/*.c ./inc/libft/libft.a -o debug 
 		@echo "\033[0;32m\n	##### Debug file successfully generated #####\n\033[0m"
-
+leaks:
+		@${CC} $(CFLAGS) $(OBJS) -fsanitize=address -static-libsan $(LDFLAGS) ./inc/libft/libft.a  -o $(NAME)
 clean:
 		@${RM} ${OBJS} ${BOBJS}
 		@${MAKE} -C ./inc/libft clean
