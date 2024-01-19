@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 07:32:32 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/18 12:01:56 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:13:07 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	ft_init(t_data *d, char **env)
 		ft_split_env(d, env[i], i);
 		i++;
 	}
+	d->env_size = i;
 }
 
 /*ft_init_pipes no se usa en el proceso del primer init que llamamos

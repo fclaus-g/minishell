@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 11:40:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/18 13:06:11 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/19 12:17:55 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,9 @@ primera vez el input en elementos teniendo en cuenta el tema de las comillas,
 despues de eso la idea es ir enocontrando, separando (si están pegados sin 
 espacios) y catalogando otros tipos de elementos (pipes, redirs)
 */
-int	ft_lexer(t_data *d, char *str_in)
+int	ft_lexer(t_data *d)
 {
-	ft_manage_input(str_in, &d->in);
+	ft_manage_input(d);
 	ft_token_pipes(&d->in);
 	ft_token_redirs(&d->in);
 	ft_token_files(&d->in);

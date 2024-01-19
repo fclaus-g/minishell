@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   manage_input.c                                     :+:      :+:    :+:   */
+/*   ft_malloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/18 14:09:31 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/01/19 14:10:54 by pgomez-r         ###   ########.fr       */
+/*   Created: 2024/01/19 13:05:42 by pgomez-r          #+#    #+#             */
+/*   Updated: 2024/01/19 13:05:58 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "libft.h"
 
-void	ft_manage_input(t_data *d)
+int	ft_malloc(void **var, size_t size)
 {
-	ft_separate_quotes(d);
-	d->in.sp_input = ft_split(d->rl_input, ' ');
-	ft_recovery_sp(&d->in);
-	d->in.n_elements = ft_strdlen(d->in.sp_input);
-	ft_fill_elements(&d->in);
-	ft_check_elements(&d->in, d->in.elements, d);
+	*var = malloc(size);
+	if (!var)
+	{
+		printf("cascaribash: malloc error\n");
+		return (-1);
+	}
+	return (0);
 }
+/*
+char *str;
+if (ft_malloc((void **)&str, 10 * sizeof(*str)) == -1)
+*/

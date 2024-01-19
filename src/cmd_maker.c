@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 04:19:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/18 12:37:45 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/19 13:52:36 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	ft_get_cmdline(t_input *in, t_command *cmds)
 		j = -1;
 		while (++j < cmds[i].size)
 		{
-			if (cmds[i].tokens[j].type == '0')
+			if (cmds[i].tokens[j].type == '0' || cmds[i].tokens[j].type == '\''
+				|| cmds[i].tokens[j].type == '\"')
 			{
 				if (cmds[i].cmd_line[0] != '\0')
 					cmds[i].cmd_line = ft_addspace(cmds[i].cmd_line);

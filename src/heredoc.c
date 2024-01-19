@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 23:29:12 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/01/16 15:06:59 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/19 13:10:14 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_heredoc(t_command *cmd, int pos)
 	while (ft_strcmp(read, eof))
 	{
 		content = ft_strjoint(content, read);
-		content = ft_strjoin(content, "\n");
+		content = ft_strjoint(content, "\n");
 		free(read);
 		read = readline("> ");
 	}

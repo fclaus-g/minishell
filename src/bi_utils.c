@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:15:46 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/01/16 21:15:51 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/19 11:05:36 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,22 @@ int	ft_is_built(char *str)
 	char	*builts[8];
 	int		i;
 
-	builts[0] = "echo\0";
-	builts[1] = "cd\0";
-	builts[2] = "pwd\0";
-	builts[3] = "export\0";
-	builts[4] = "unset\0";
-	builts[5] = "env\0";
-	builts[6] = "exit\0";
-	builts[7] = NULL;
-	i = -1;
-	while (++i < 7)
+	if (str != NULL)
 	{
-		if (ft_strcmp(str, builts[i]) == 0)
-			return (1);
+		builts[0] = "echo\0";
+		builts[1] = "cd\0";
+		builts[2] = "pwd\0";
+		builts[3] = "export\0";
+		builts[4] = "unset\0";
+		builts[5] = "env\0";
+		builts[6] = "exit\0";
+		builts[7] = NULL;
+		i = -1;
+		while (++i < 7)
+		{
+			if (ft_strcmp(str, builts[i]) == 0)
+				return (1);
+		}
 	}
 	return (0);
 }

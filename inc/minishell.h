@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/18 12:58:00 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/19 12:30:05 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct s_input
 	int			cmd_n;
 	int			(*pipes)[2];
 	char		**sp_input;
-	t_data		*data;
+	// t_data		*data;
 	t_element	*elements;
 	t_command	*cmds;
 }	t_input;
@@ -106,13 +106,40 @@ void					ft_engine(t_data *d);
 void					ft_check_std(void);
 void					debug_arr(t_input *in, char *str_in, char *msg);
 void					debug_cmds(t_input *in, char *str_in, char *msg);
+void					ft_print_element(t_element element);
 /*init.c*/
 void					ft_fill_input(t_input *in, char *st);
 void					ft_split_env(t_data *d, char *var, size_t x);
 void					ft_init(t_data *d, char **env);
 void					ft_init_pipes(t_input *in);
+/*manage_input.c*/
+void					ft_manage_input(t_data *d);
+/*manage_input_utils.c*/
+int						ft_is_space(char c);
+int						ft_is_special_char(char c);
+/*quotes.c*/
+void					ft_separate_quotes(t_data *d);
+void					ft_recovery_sp(t_input *input);
+int						ft_is_quote(char c);
+int						ft_in_quotes(char *str, int c);
+int						ft_quote_in_data(char *str);
+/*quotes2.c*/
+void					ft_management_quotes(t_element *element);
+int						ft_closed_quotes(char *str);
+char					ft_define_qtype(t_element element);
+char					*ft_clean_quotes(t_element element);
+int						ft_count_quotes(char *str);
+/**********************[elements.c]***********************************/
+void					ft_fill_elements(t_input *in);
+void					ft_check_elements(t_input *in, t_element *array, t_data *d);
+int						ft_its_dollar(char *str);
+/**********************[expand.c]**************************************/
+void					ft_expand_dollar(t_element *element, t_data *data);
+char					*ft_get_dollar_word(char *str, int start);
+char					*ft_search_value(char *comp, t_env *env, int lenv);
+char					*ft_insert_value(t_element elemento, char *value, int start, int del);
 /*lexer.c*/
-int						ft_lexer(t_data *d, char *str_in);
+int						ft_lexer(t_data *d);
 void					ft_token_pipes(t_input *in);
 void					ft_token_redirs(t_input *in);
 int						ft_syntax_check(t_input *in);

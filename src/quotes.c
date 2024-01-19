@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:34:04 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/01/10 13:41:10 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/19 13:44:16 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 cambiarlo por cada espacio que nos encontremos dentro de las comillas 
 con la idea de hacer luego un split y las comillas se queden en una linea
 de la matriz, a posteriori volveremos a cambiar el '\1' por ' '*/
-void	ft_separate_quotes(t_input *in)
+void	ft_separate_quotes(t_data *d)
 {
 	int		c;
 	int		flag;
@@ -24,21 +24,21 @@ void	ft_separate_quotes(t_input *in)
 
 	c = 0;
 	flag = -1;
-	while (in->str_input[c])
+	while (d->rl_input[c])
 	{
-		while (in->str_input[c] && !ft_is_quote(in->str_input[c]) && flag == -1)
+		while (d->rl_input[c] && !ft_is_quote(d->rl_input[c]) && flag == -1)
 			c++;
-		if (in->str_input[c] != '\0')
+		if (d->rl_input[c] != '\0')
 		{
-			q = in->str_input[c];
+			q = d->rl_input[c];
 			flag *= -1;
 			c++;
 		}
-		while (in->str_input[c] && in->str_input[c] != q && flag == 1)
+		while (d->rl_input[c] && d->rl_input[c] != q && flag == 1)
 		{
-			if (in->str_input[c] == ' ')
-				in->str_input[c] = '\1';
-			if (in->str_input[c] == q)
+			if (d->rl_input[c] == ' ')
+				d->rl_input[c] = '\1';
+			if (d->rl_input[c] == q)
 				flag *= -1;
 			c++;
 		}

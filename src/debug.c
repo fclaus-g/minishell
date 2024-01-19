@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/31 16:55:39 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/01/16 14:20:16 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/19 12:29:11 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,10 @@ void	debug_arr(t_input *in, char *str_in, char *msg)
 		printf("Texto elemento[%d]: %s <---> ", i, in->elements[i].data);
 		printf("Tipo elemento[%d]: %c\n", i, in->elements[i].type);
 	}
+}
+
+void	ft_print_element(t_element element)
+{
+	printf(BLUE"element.data = %s\n"RESET, element.data);
+	printf(YELLOW"element.type = %c\n"RESET, element.type);
 }

@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/18 12:53:00 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:07:27 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_engine(t_data *d)
 		}
 		d->rl_input = readline("cascaribash/> ");
 		add_history(d->rl_input);
-		if (ft_lexer(d, d->rl_input))
+		if (ft_lexer(d))
 			continue ;
 		ft_cmd_maker(&d->in);
 		ft_cmd_driver(d, d->in.cmds);
@@ -39,7 +39,7 @@ int	main(int ac, char **av, char **env)
 {
 	t_data	d;
 
-	atexit(ft_leaks);
+	//atexit(ft_leaks);
 	(void)av;
 	if (ac > 1)
 		return (1);

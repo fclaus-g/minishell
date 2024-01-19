@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:46:37 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/12/22 14:10:11 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/19 13:08:14 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ size_t		ft_minvalue_pos(int *array, size_t len);
 int			ft_abs_sum(int x, int y);
 void		ft_print_dstr(char **dstr);
 char		*ft_strtrim_free(char *s1, char const *set);
-
+int			ft_malloc(void **var, size_t size);
 
 /*FUNCIONES DE LIBFT*/
 int			ft_atoi(const char *str);
