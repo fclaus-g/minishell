@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 23:43:59 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/01/18 10:50:25 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:26:31 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ void	bi_export(t_data *d, t_command *cmd)
 		{
 			if (ft_exp_argcheck(cmd->cmd_tab[i]))
 				continue ;
-			//ft_update_env(d, cmd->cmd_tab[i]);
 		}
 	}
 }
