@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_dstr.c                                    :+:      :+:    :+:   */
+/*   manage_input_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/24 20:59:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/25 11:19:43 by pgruz11          ###   ########.fr       */
+/*   Created: 2023/12/29 18:03:35 by fclaus-g          #+#    #+#             */
+/*   Updated: 2024/01/08 09:32:48 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../inc/minishell.h"
 
-/**
- * @brief imprime matrices de cadenas de caracteres(char **) separadas por salto
- * de línea
- */
-void	ft_print_dstr(char **dstr)
+int	ft_is_space(char c)
 {
-	size_t	i;
+	if ((c >= 9 && c <= 13) || c == 32)
+		return (1);
+	return (0);
+}
 
-	i = 0;
-	while (dstr[i] != NULL)
-	{
-		ft_printf("%s\n", dstr[i]);
-		i++;
-	}
+int	ft_is_special_char(char c)
+{
+	if (c == '|' || c == '>' || c == '<' || c == ';')
+		return (1);
+	return (0);
 }

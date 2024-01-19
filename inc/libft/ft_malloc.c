@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_leaks.c                                         :+:      :+:    :+:   */
+/*   ft_malloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/24 21:11:57 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/01 22:03:29 by pgomez-r         ###   ########.fr       */
+/*   Created: 2024/01/19 13:05:42 by pgomez-r          #+#    #+#             */
+/*   Updated: 2024/01/19 13:05:58 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/**
- * @brief comprueba al final del programa si se han producido memory_leaks
- * se entrega el proyecto sin usarla para no alterar el output final
- * HOWTO -> añadir en función main como "atexit(ft_leaks)" para usarla 
- * 			y cambiar aquí el nombre del ejecutable
- */
-void	ft_leaks(void)
+int	ft_malloc(void **var, size_t size)
 {
-	system("leaks -q minishell");
+	*var = malloc(size);
+	if (!var)
+	{
+		printf("cascaribash: malloc error\n");
+		return (-1);
+	}
+	return (0);
 }
+/*
+char *str;
+if (ft_malloc((void **)&str, 10 * sizeof(*str)) == -1)
+*/

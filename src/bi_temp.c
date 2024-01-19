@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_dstr.c                                    :+:      :+:    :+:   */
+/*   bi_temp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/24 20:59:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/11/25 11:19:43 by pgruz11          ###   ########.fr       */
+/*   Created: 2023/11/23 17:57:29 by pgomez-r          #+#    #+#             */
+/*   Updated: 2024/01/18 10:46:37 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../inc/minishell.h"
 
-/**
- * @brief imprime matrices de cadenas de caracteres(char **) separadas por salto
- * de línea
- */
-void	ft_print_dstr(char **dstr)
+void	bi_exit(t_data *d)
 {
-	size_t	i;
+	ft_clean_exit(d);
+	exit(0);
+}
+
+void	bi_echo(char **cmd_line)
+{
+	int	i;
 
 	i = 0;
-	while (dstr[i] != NULL)
-	{
-		ft_printf("%s\n", dstr[i]);
-		i++;
-	}
+	while (cmd_line[++i] != NULL)
+		ft_printf("%s ", cmd_line[i]);
+	ft_printf("\n");
 }

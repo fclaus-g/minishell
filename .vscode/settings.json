@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		"ios": "c",
+		"cstdlib": "c",
+		"complex": "c"
+	}
+}
