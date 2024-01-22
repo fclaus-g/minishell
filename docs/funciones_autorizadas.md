@@ -158,3 +158,109 @@ struct stat {
     time_t    st_ctime;   /* time of last status change */
 };
 ```
+* **lstat->** Obtener info sobre un archivo, similar a **stat**, pero si es un enlace simbólico
+devuelve info sobre el enlace en sí no sobre el archivo al que apunta el enlace. Return(0)-> OK 
+(-1) Error.
+```C
+int lstat(const char *pathname, struct stat *statbuf);
+//pathname : especifica el nombre de un archivo.
+//statbuf : Puntero a una struct stat nonde lstat almacena la info del archivo.
+```
+* **fstat->** Obtiene info de un archivo abierto basándose en su fd. Return(0) -> OK | (-1) Error
+```C
+int fstat(int fd, struct stat *statbuf);
+```
+* **unlink->** Elimina un nombre de archivo del sistema de archivos. Si ese nombre era el 
+último enlace a un archivo y o hay procesos que lo tengan abierto, el archivo se borra y
+el espacio se libera. Return (0)->OK | (-1) -> Error.
+```C
+int unlink(const char *pathname);
+//pathname : nombre de archivo a eliminar.
+```
+* **execve->** Ejecuta un programa cargado en el espacio de memoria del proceso actual.
+Return nada si OK | (-1) Error.
+```C
+int execve(const char *filename, char *const argv[], char *const envp[]);
+//filename : nombre del ejecutable.
+//argv : Array de punteros a cadenas que representan los args que se pasarán al programa.
+//argv[0] seria el nombre del programa en sí, el último elem,ento del array debe ser NULL.
+//envp : array de punteros a cadenas que formanel entorno para el nuevo proceso.
+```
+* **dup->** duplica un fd existente. Cuando se duplica un fd ambos pueden usarse indistintamente.
+Comparten posición de archivo y permisos. Return (Newfd) | (-1) Error
+```C
+int dup(int oldfd);
+```
+* **dup2->** duplica un fd existente a otro fd especificado. Si el segundo fd está abierto, 
+se cierra antes de ser reasignado. return(newfd) | (-1) error.
+```C
+int dup2(int oldfd, int newfd);
+```
+* **pipe->** Crea un canal de comunicación unidireccional entre procesos. Crea 2 fd, uno para
+lectura y otro escritura. Return(0)-> OK | (-1) error.
+```C
+int pipe(int pipefd[2]);
+//pipefd[0] -> lectura
+//pipefd[1] -> escritura
+```
+* **opendir->** abre un directorio para leer su contenido. Devuelve un puntero a una struct DIR
+que se puede usar con otras funciones de dir como **readdir** y **closedir** o NULL si hay error.
+```C
+DIR *opendir(const char *name);
+//name : directorio a abrir.
+```
+* **struct DIR->** <dirent.h> es opaca, sus miembros no están accesibles directamente y no se debe acceder a ellos. Se debe de usar las funciones de directorio para trabajar con directorio.
+```C
+#include <dirent.h>
+
+DIR *dir;
+struct dirent *ent;
+
+dir = opendir("/path/to/directory");
+if (dir != NULL) {
+  while ((ent = readdir(dir)) != NULL) {
+    printf("%s\n", ent->d_name);
+  }
+  closedir(dir);
+} else {
+  // No se pudo abrir el directorio
+}
+```
+* **readdir->** Lee las entradas en un directorio abierto. Devuelve un puntero a una struct **dirent**
+que representa la siguiente entrada en el directorio o NULL si no hay más entradas o si hay error.
+```C
+struct dirent *readdir(DIR *dirp);
+//dirp : puntero a estructura DIR
+```
+La struct **dirent** tiene varios miembros, los mas usados son:
+    * *d_name*-> nombre de la entrada del directorio.
+    * *d_ino*-> núm del inodo del archivo.
+* **closedir->** Cierra un directorio abierto con **opendir**. Hay que cerrar los directorios 
+despues de terminar de usarlos para liberar memoria. Return(0) -> OK | (-1) error.
+```C
+int closedir(DIR *dirp);
+```
+* **strerror->** Se usa para obtener una cadena descriptiva del error correspondiente a un 
+núm de error. Util para prorporcionar mensajes de error más comprensibles. Return un puntero a
+la cadena que describe el error.
+```C
+char *strerror(int errnum);
+```
+* **perror->** Se usa para imprimir un mensaje de error descriptivo a la salida de error std.
+Toma una *str como arg y la imprime, seguida de un mensaje de error correspondiente al valor de errno.
+```C
+void perror(const char *str);
+//str : cadena que se imprimirá antes del mensaje de error.
+´´´
+-*errno* es una variable global que establece un valor específico del errer cuando ciertas funciones fallan. Los  valores específicos están en <errno.h>. Uso:
+```C
+#include <stdio.h>
+#include <errno.h>
+#include <string.h>
+
+FILE *file = fopen("non_existent_file.txt", "r");
+if (file == NULL) {
+  printf("Error opening file: %s\n", strerror(errno));
+}
+```
+

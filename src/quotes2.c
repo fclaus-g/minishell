@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:30:09 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/01/19 14:01:19 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/22 11:44:13 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,12 @@ char	*ft_clean_quotes(t_element element)
 	{
 		while (element.data[c] != q && flag == -1 && element.data[c])
 			aux[i++] = element.data[c++];
-		if (element.data[c] == q && flag == -1)
+		if (element.data[c] == q && flag == -1 && element.data[c])
 			flag *= -1;
 		while (element.data[c] != q && flag == 1 && element.data[c])
 			aux[i++] = element.data[c++];
 	}
+	free(element.data);
 	return (aux);
 }
 
@@ -105,18 +106,16 @@ int	ft_count_quotes(char *str)
 
 	c = -1;
 	quotes = 0;
-	while (str[++c])
+	while (str[++c] && str[c])
 	{
-		if (ft_is_quote(str[c]))
+		if (ft_is_quote(str[c]) && str[c])
 		{
 			q = str[c];
 			quotes++;
-			while (str[++c])
+			while (str[++c] && str[c])
 			{
-				if (str[c] == q)
-				{
+				if (str[c] == q && str[c])
 					quotes++;
-				}
 			}
 		}
 	}
