@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/19 12:30:05 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/22 10:31:19 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 # include "./libft/libft.h"
-
+	
 /*DEFS*/
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
@@ -22,7 +22,7 @@
 # define BLUE "\033[0;34m"
 # define RESET "\033[0m"
 /*Types/Tokens*/
-# define T_VOID '0' //sin tipo, sin catalogar todavía o literal
+# define T_VOID '0' //sin catalogar todavía o literal
 # define T_CMD 'c' //command (de momento no hace falta catalogar este tipo)
 # define T_OPT 'o' //option (de momento no hace falta catalogar este tipo)
 # define T_BLT 'b' //built (no se usa, tenemos built-in_flag en cada t_command)
@@ -73,7 +73,6 @@ typedef struct s_input
 	int			cmd_n;
 	int			(*pipes)[2];
 	char		**sp_input;
-	// t_data		*data;
 	t_element	*elements;
 	t_command	*cmds;
 }	t_input;
@@ -100,30 +99,29 @@ typedef struct s_data
 	t_input		in;
 }	t_data;
 
-/*main.c*/
+/**********************[main.c]***********************************/
 void					ft_engine(t_data *d);
-/*debug.c*/
+/**********************[debug.c]***********************************/
 void					ft_check_std(void);
 void					debug_arr(t_input *in, char *str_in, char *msg);
 void					debug_cmds(t_input *in, char *str_in, char *msg);
 void					ft_print_element(t_element element);
-/*init.c*/
+/**********************[init.c]***********************************/
 void					ft_fill_input(t_input *in, char *st);
 void					ft_split_env(t_data *d, char *var, size_t x);
 void					ft_init(t_data *d, char **env);
 void					ft_init_pipes(t_input *in);
-/*manage_input.c*/
+/**********************[manage_input.c]***********************************/
 void					ft_manage_input(t_data *d);
-/*manage_input_utils.c*/
 int						ft_is_space(char c);
 int						ft_is_special_char(char c);
-/*quotes.c*/
+/**********************[quotes.c]***********************************/
 void					ft_separate_quotes(t_data *d);
 void					ft_recovery_sp(t_input *input);
 int						ft_is_quote(char c);
 int						ft_in_quotes(char *str, int c);
 int						ft_quote_in_data(char *str);
-/*quotes2.c*/
+/**********************[quotes2.c]***********************************/
 void					ft_management_quotes(t_element *element);
 int						ft_closed_quotes(char *str);
 char					ft_define_qtype(t_element element);
@@ -138,77 +136,77 @@ void					ft_expand_dollar(t_element *element, t_data *data);
 char					*ft_get_dollar_word(char *str, int start);
 char					*ft_search_value(char *comp, t_env *env, int lenv);
 char					*ft_insert_value(t_element elemento, char *value, int start, int del);
-/*lexer.c*/
+/**********************[lexer.c]***********************************/
 int						ft_lexer(t_data *d);
 void					ft_token_pipes(t_input *in);
 void					ft_token_redirs(t_input *in);
 int						ft_syntax_check(t_input *in);
 void					ft_token_files(t_input *in);
-/*lexer_utils.c*/
+/**********************[lexer_utils.c]***********************************/
 int						ft_is_red(char	*s);
 void					ft_syntax_error(t_input *in, int i);
 int						ft_eof_check(t_input *in);
-/*cmd_maker.c*/
+/**********************[cmd_maker.c]***********************************/
 void					ft_cmd_maker(t_input *in);
 void					ft_init_cmd(t_input *in);
 void					ft_get_cmdline(t_input *in, t_command *cmds);
-/*cmd_maker_utils.c*/
+/**********************[cmd_maker_utils.c]***********************************/
 int						ft_element_cnt(t_input	*in, char c);
 int						ft_cmd_size(t_input *in, int *start);
 char					*ft_addspace(char *str);
 void					ft_init_files(t_command *cmd);
-/*redir_files.c*/
+/**********************[redir.c]***********************************/
 void					ft_file_fds(t_command *cmd);
 void					ft_open_file(t_command *cmd, char *file, int type);
 void					ft_open_check(t_command *cmd, int fd, char *file_path);
 int						ft_std_redir(t_command *cmd);
 void					ft_std_shield(t_data *d, int mode);
-/*heredoc.c*/
+/**********************[heredoc.c]***********************************/
 void					ft_heredoc(t_command *cmd, int pos);
 void					ft_write_doc(t_command *cmd, char *content);
 void					ft_is_heredoc(t_command *cmd);
-/*arr_tools_0.c*/
+/**********************[arr_tools_0.c]***********************************/
 t_element				*ft_arr_update(t_input *in, int i, char c);
 void					ft_fill_arr(t_input *in, t_element *new_arr, int tar, char **tab);
 char					**ft_element_split(char *str, char c);
 t_element				*ft_db_redirs(t_input *in, int i, char c);
 char					**ft_dbredir_split(char *str, char c);
-/*arr_tools_1.c*/
+/**********************[arr_tools_1.c]***********************************/
 void					ft_tag_type(t_element *arr, int start, int size, char c);
 char					*ft_write_token(char c);
 size_t					ft_count_elements(char *str, char c);
 void					ft_tag_redtype(t_element *arr, int start, int size, char c);
 char					*ft_save_dbred(char c);
-/*exegguttor.c*/
+/**********************[exegguttor.c]***********************************/
 void					ft_built_exe(t_command *cmd, t_data *d);
 void					ft_exegguttor(t_command *cmds, char **env);
 void					ft_shell_pipex(t_data *d, int i);
 int						ft_cmd_driver(t_data *d, t_command *cmds);
-/*exegguttor_utils.c*/
+/**********************[exegguttor_utils.c]***********************************/
 int						is_path(char *str);
 void					free_cache(t_command *st, int error);
 void					split_cmd(t_command *st, char *cmdstr);
 int						find_path_index(t_command *st, char *cmd);
 void					get_paths(t_command *st, char **env);
-/*bi_utils.c*/
+/**********************[bi_utils.c]***********************************/
 void					ft_tag_builts(t_command *cmds, int len);
 int						ft_is_built(char *str);
 char					*ft_getenv(t_data *d, char *var);
-/*bi_temp.c*/
+/**********************[bi_temp.c]***********************************/
 void					bi_exit(t_data *d);
 void					bi_echo(char **cmd_line);
-/*bi_dir.c*/
+/**********************[bi_dir.c]***********************************/
 void					bi_cd(t_data *d, t_command *cmd);
 void					bi_pwd(t_data *d);
 char					*ft_get_dir(char *arg);
 char					*ft_dir_back(char *arg);
-/*bi_exp.c*/
+/**********************[bi_dir.c]***********************************/
 void					bi_export(t_data *d, t_command *cmd);
 char					**ft_export_order(char **env);
 void					ft_export_print(t_data *d);
 int						ft_exp_argcheck(char *arg);
 int						ft_export_chars(char c, int mode);
-/*free.c*/
+/**********************[free.c]***********************************/
 void					ft_clean_input(t_input *input);
 void					ft_free_data(t_data *d);
 void					ft_free_arr(t_input *in, int size);
