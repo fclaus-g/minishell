@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/22 11:43:08 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/23 13:24:28 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_engine(t_data *d)
 {
 	while (1)
 	{
+		ft_signal();
 		if (d->rl_input != NULL)
 		{
 			free(d->rl_input);
@@ -39,7 +40,7 @@ int	main(int ac, char **av, char **env)
 {
 	t_data	d;
 
-	atexit(ft_leaks);
+	//atexit(ft_leaks);
 	(void)av;
 	if (ac > 1)
 		return (1);

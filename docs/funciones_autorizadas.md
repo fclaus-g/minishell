@@ -251,8 +251,8 @@ Toma una *str como arg y la imprime, seguida de un mensaje de error correspondie
 ```C
 void perror(const char *str);
 //str : cadena que se imprimirá antes del mensaje de error.
-´´´
--*errno* es una variable global que establece un valor específico del errer cuando ciertas funciones fallan. Los  valores específicos están en <errno.h>. Uso:
+```
+**errno** es una variable global que establece un valor específico del error cuando ciertas funciones fallan. Los  valores específicos están en <errno.h>. Uso:
 ```C
 #include <stdio.h>
 #include <errno.h>
@@ -264,3 +264,84 @@ if (file == NULL) {
 }
 ```
 
+* **isatty->** Determinar si un fd se refiere a un terminal <unistd.h>. Return (1) si es un terminal y (0) y establece errno para indicar el error.
+```C
+int isatty(int fd);
+
+#include <unistd.h>
+#include <stdio.h>
+//Ejemplo
+int main() {
+    if (isatty(STDOUT_FILENO)) {
+        printf("STDOUT is a terminal\n");
+    } else {
+        printf("STDOUT is not a terminal\n");
+    }
+    return 0;
+}
+```
+* **ttyname->** Obtiene el nombre del terminal asociado al fd abierto. Return (*nombre_del_terminal) || (NULL) si el fd no se refiere a un terminal o si hay error->errno.
+```C
+char *ttyname(int fd);
+//Ejemplo
+#include <unistd.h>
+#include <stdio.h>
+
+int main() {
+    char *name = ttyname(STDOUT_FILENO);
+    if (name != NULL) {
+        printf("STDOUT is a terminal with name: %s\n", name);
+    } else {
+        printf("STDOUT is not a terminal\n");
+    }
+    return 0;
+}
+```
+* **ttyslot->** Obtiene el índice del terminal de usuario en el archivo de registro utmp. Return(indice) || (0)si no tiene terminal o si error.
+```C
+int ttyslot(void);
+//Ejemplo
+#include <unistd.h>
+#include <stdio.h>
+
+int main() {
+    int slot = ttyslot();
+    if (slot > 0) {
+        printf("User terminal is in utmp slot: %d\n", slot);
+    } else {
+        printf("User does not have an input terminal\n");
+    }
+    return 0;
+}
+```
+* **ioctl->** <sys/ioctl.h> Realizar operaciones de control de IO en dispositivos. Return (0) OK || (-1) error->errno.
+```C
+int ioctl(int fd, unsigned long request, ...);
+//request = código de operación a realizar
+//... = depende del código de operación
+
+#include <sys/ioctl.h>
+#include <stdio.h>
+#include <unistd.h>
+
+int main() {
+    struct winsize w;
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+
+    printf ("lines %d\n", w.ws_row);
+    printf ("columns %d\n", w.ws_col);
+
+    return 0;
+}
+/*macros están definidas en varios archivos de encabezado, incluyendo <sys/ioctl.h>, <termios.h>, y otros. Aquí hay algunos ejemplos de macros de ioctl:
+
+TIOCGWINSZ: Obtiene el tamaño de la ventana del terminal. Se utiliza con una estructura winsize que se llena con las dimensiones de la ventana.
+
+TIOCSTI: Simula la entrada del terminal. Se utiliza con un puntero a los caracteres que se deben insertar en la cola de entrada del terminal.
+
+FIONREAD: Obtiene el número de bytes que se pueden leer sin bloqueo del descriptor de archivo. Se utiliza con un puntero a un entero que se llena con el número de bytes.
+
+TCGETS y TCSETS: Obtiene y establece los parámetros del terminal, respectivamente. Se utilizan con una estructura termios que contiene los parámetros del terminal.
+
+Cada una de estas macros representa una operación específica que ioctl puede realizar en un descriptor de archivo. La operación exacta y los argumentos que se deben pasar a ioctl dependen de la macro específica.*/
+```

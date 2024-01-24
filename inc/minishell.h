@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/22 13:32:15 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/24 14:37:15 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "./libft/libft.h"
 # include <signal.h>
-
+# include <sys/ioctl.h>
 /*DEFS*/
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
@@ -113,6 +113,9 @@ void					ft_fill_input(t_input *in, char *st);
 void					ft_split_env(t_data *d, char *var, size_t x);
 void					ft_init(t_data *d, char **env);
 void					ft_init_pipes(t_input *in);
+/*signals.c*/
+void 	ft_signal(void);
+void	ft_handler(int sig);
 /*manage_input.c*/
 void					ft_manage_input(t_data *d);
 /*manage_input_utils.c*/
