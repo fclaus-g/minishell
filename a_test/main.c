@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/14 23:38:28 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/28 20:03:15 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,18 @@
 int	main(int ac, char **av, char **env)
 {
 	t_data	d;
-	char	*str_input;
 
-	// str_input = NULL;
-	(void)env;
 	if (ac != 2)
 		return (1);
-	str_input = av[1];
 	ft_init(&d, env);
+	d.rl_input = (av[1]);
 	// if (str_input != NULL)
 	// 	ft_clean_input(&d.in);
 	// str_input = readline("cascaribash/> ");
 	// add_history(str_input);
 	// if (ft_is_biexit(str_input))
 	// 	return (printf("Taluego\n"), 1);
-	if (ft_lexer(&d, str_input))
+	if (ft_lexer(&d))
 		return (1);
 	ft_cmd_maker(&d.in);
 	//debug_arr(&d.in, str_input, "RESULTADO FINAL DE FT_LEXER");

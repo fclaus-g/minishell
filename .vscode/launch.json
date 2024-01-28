@@ -9,7 +9,7 @@
 			"request": "launch",
 			"name": "Debug",
 			"program": "${workspaceFolder}/a_test/test",
-			"args": ["\"hola\""],
+			"args": ["export HOLA=tu"],
 			"cwd": "${workspaceFolder}"
 		}
 	]

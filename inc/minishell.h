@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/22 10:31:19 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/28 22:16:44 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,14 +107,16 @@ void					debug_arr(t_input *in, char *str_in, char *msg);
 void					debug_cmds(t_input *in, char *str_in, char *msg);
 void					ft_print_element(t_element element);
 /**********************[init.c]***********************************/
-void					ft_fill_input(t_input *in, char *st);
-void					ft_split_env(t_data *d, char *var, size_t x);
-void					ft_init(t_data *d, char **env);
 void					ft_init_pipes(t_input *in);
+void					ft_parse_env(t_data *d, char **env);
+void					ft_split_env(t_data *d, char *var, size_t x);
+void					ft_get_envarray(t_data *d);
+void					ft_init(t_data *d, char **env);
 /**********************[manage_input.c]***********************************/
 void					ft_manage_input(t_data *d);
 int						ft_is_space(char c);
 int						ft_is_special_char(char c);
+void					ft_fill_input(t_input *in, char *st);
 /**********************[quotes.c]***********************************/
 void					ft_separate_quotes(t_data *d);
 void					ft_recovery_sp(t_input *input);
@@ -200,12 +202,21 @@ void					bi_cd(t_data *d, t_command *cmd);
 void					bi_pwd(t_data *d);
 char					*ft_get_dir(char *arg);
 char					*ft_dir_back(char *arg);
-/**********************[bi_dir.c]***********************************/
+/**********************[bi_exp.c]***********************************/
 void					bi_export(t_data *d, t_command *cmd);
-char					**ft_export_order(char **env);
+char					**ft_env_update(t_data *d, char *var);
+char					**ft_exp_update(t_data *d, char *var);
+/**********************[bi_exp_utils.c]***********************************/
+int						ft_valid_identifier(char *arg);
+int						ft_isvar(char *arg);
 void					ft_export_print(t_data *d);
-int						ft_exp_argcheck(char *arg);
-int						ft_export_chars(char c, int mode);
+char					**ft_export_order(char **env);
+char					*ft_export_varcopy(char *str);
+/**********************[bi_unset.c]***********************************/
+void					bi_unset(t_data *d, t_command *cmd);
+char					**ft_delete_var(char **str_tab, int pos);
+void					ft_unset_env(t_data *d, char *arg);
+void					ft_unset_exp(t_data *d, char *arg);
 /**********************[free.c]***********************************/
 void					ft_clean_input(t_input *input);
 void					ft_free_data(t_data *d);
