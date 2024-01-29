@@ -6,13 +6,13 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 23:18:10 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/20 01:48:20 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/29 10:53:25 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*ft_dir_back(char *arg)
+int	ft_dir_back(char *arg)
 {
 	char	*aux;
 	int		i;
@@ -22,50 +22,70 @@ char	*ft_dir_back(char *arg)
 	while (arg[i] != '/' && i > 0)
 		i--;
 	if (i == 0)
-		return ("/\0");
+	{
+		if (chdir("/\0") != 0)
+			ft_printf_error("cascaribash: cd error\n");
+		return (0);
+	}
 	aux = malloc(sizeof(char) * (i + 1));
 	if (!aux)
-		return (ft_printf_error("cacaribash: malloc error \n"), NULL);
+		return (ft_printf_error("cacaribash: malloc error \n"), 0);
 	len = i;
 	aux[i] = '\0';
 	i = -1;
 	while (++i < len)
 		aux[i] = arg[i];
-	return (aux);
+	if (chdir(aux) != 0)
+		ft_printf_error("cascaribash: cd error\n");
+	free (aux);
+	return (0);
 }
 
-char	*ft_get_dir(char *arg)
+void	ft_dir_home(t_data *d)
 {
-	char	curr_dir[PATH_MAX];
+	char	*dir;
 
-	if (!ft_strcmp("..", arg) || !ft_strcmp("../", arg))
-		return (ft_dir_back(getcwd(curr_dir, PATH_MAX)));
-	return (arg);
+	dir = ft_getenv(d, "HOME");
+	if (dir == NULL)
+		ft_printf_error("cascaribash: cd: %s not set\n");
+	if (chdir(dir) != 0)
+		ft_printf_error("cascaribash: cd error\n");
 }
 
 void	bi_cd(t_data *d, t_command *cmd)
 {
-	char	*dir;
+	char	curr_dir[PATH_MAX];
 
+	getcwd(curr_dir, PATH_MAX);
 	if (ft_strdlen(cmd->cmd_tab) == 1 || !ft_strcmp("~", cmd->cmd_tab[1]))
-	{
-		dir = ft_getenv(d, "HOME");
-		if (dir == NULL)
-			ft_printf_error("cascaribash: cd: %s not set\n");
-		if (chdir(dir) != 0)
-			ft_printf_error("cascaribash: cd error\n");
-	}
+		ft_dir_home(d);
 	else if (!ft_strcmp(".", cmd->cmd_tab[1])
 		|| !ft_strcmp("./", cmd->cmd_tab[1]))
 		return ;
+	else if (!ft_strcmp("..", cmd->cmd_tab[1])
+		|| !ft_strcmp("../", cmd->cmd_tab[1]))
+		ft_dir_back(curr_dir);
 	else
 	{
-		dir = ft_get_dir(cmd->cmd_tab[1]);
-		if (chdir(dir) != 0)
-			ft_printf_error("cd error\n");
+		if (chdir(cmd->cmd_tab[1]) != 0)
+			ft_printf_error("cascaribash: cd error\n");
 	}
-	if (dir != NULL)
-		free(dir);
+	ft_update_pwd(d, curr_dir);
+}
+/**
+ * TODO: check last change-> getcwd at the beginning instead of on ft_dir_back!
+ */
+
+void	ft_update_pwd(t_data *d, char *old_pwd)
+{
+	char	curr_pwd[PATH_MAX];
+
+	getcwd(curr_pwd, PATH_MAX);
+	if (!ft_strcmp(old_pwd, curr_pwd))
+		return ;
+	ft_overwrite_var(d, "OLDPWD", curr_pwd);
+	ft_overwrite_var(d, "PWD", curr_pwd);
+	ft_get_envarray(d);
 }
 
 void	bi_pwd(t_data *d)

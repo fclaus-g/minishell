@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/28 22:16:44 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/29 10:54:22 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,14 +194,17 @@ void					get_paths(t_command *st, char **env);
 void					ft_tag_builts(t_command *cmds, int len);
 int						ft_is_built(char *str);
 char					*ft_getenv(t_data *d, char *var);
+void					ft_overwrite_var(t_data *d, char *var, char* new);
+char					*ft_str_rplc(char *src, char *new);
 /**********************[bi_temp.c]***********************************/
 void					bi_exit(t_data *d);
 void					bi_echo(char **cmd_line);
 /**********************[bi_dir.c]***********************************/
-void					bi_cd(t_data *d, t_command *cmd);
 void					bi_pwd(t_data *d);
-char					*ft_get_dir(char *arg);
-char					*ft_dir_back(char *arg);
+void					ft_update_pwd(t_data *d, char *old_pwd);
+void					bi_cd(t_data *d, t_command *cmd);
+int						ft_dir_back(char *arg);
+void					ft_dir_home(t_data *d);
 /**********************[bi_exp.c]***********************************/
 void					bi_export(t_data *d, t_command *cmd);
 char					**ft_env_update(t_data *d, char *var);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:15:46 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/01/19 11:05:36 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/29 10:53:35 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,3 +61,32 @@ void	ft_tag_builts(t_command *cmds, int len)
 			cmds[i].built = 1;
 	}
 }
+
+char	*ft_str_rplc(char *src, char *new)
+{
+	char	*aux;
+
+	aux = ft_strdup(new);
+	free (src);
+	return (aux);
+}
+
+void	ft_overwrite_var(t_data *d, char *var, char* new)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (ft_strncmp(d->env_dup[i], var, ft_strlen(var)))
+		i++;
+	d->env_dup[i] = ft_str_rplc(d->env_dup[i], new);
+	j = 0;
+	while (ft_strncmp(d->env_exp[j], var, ft_strlen(var)))
+		j++;
+	free(d->env_exp[j]);
+	d->env_exp[j] = ft_export_varcopy(d->env_dup[i]);
+}
+
+/**
+ * TODO: check memoria con free(d.env_exp[j]) no me convence...
+ */
