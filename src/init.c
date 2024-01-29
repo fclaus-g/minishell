@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 07:32:32 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/28 21:44:40 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/29 12:21:50 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void	ft_get_envarray(t_data *d)
 			free(d->env_arr[i].title);
 			free(d->env_arr[i].line);
 		}
+		free(d->env_arr);
 	}
 	d->env_arr = malloc(sizeof(t_env) * ft_strdlen(d->env_dup));
 	i = -1;

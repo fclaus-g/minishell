@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 21:00:53 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/01/28 22:32:16 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/29 12:39:04 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,6 @@ void	ft_unset_env(t_data *d, char *arg)
 	i = -1;
 	while (++i < d->env_size)
 	{
-		
-		printf("env_size = %d\n", d->env_size);
-		printf("env_arr.title[i] = %s\n", d->env_arr[i].title);
-		printf("arg = %s\n", arg);
 		if (!ft_strcmp(d->env_arr[i].title, arg))
 		{
 			d->env_dup = ft_delete_var(d->env_dup, i);

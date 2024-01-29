@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:15:46 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/01/29 10:53:35 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/29 11:36:04 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,18 +73,26 @@ char	*ft_str_rplc(char *src, char *new)
 
 void	ft_overwrite_var(t_data *d, char *var, char* new)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	char	*title = NULL;
+	char	*aux;
 
+	title = ft_strjoint(title, var);
+	title = ft_strjoint(title, "=");
 	i = 0;
 	while (ft_strncmp(d->env_dup[i], var, ft_strlen(var)))
 		i++;
-	d->env_dup[i] = ft_str_rplc(d->env_dup[i], new);
+	d->env_dup[i] = ft_str_rplc(d->env_dup[i], title); 
+	d->env_dup[i] = ft_strjoint(d->env_dup[i], new);
 	j = 0;
 	while (ft_strncmp(d->env_exp[j], var, ft_strlen(var)))
 		j++;
-	free(d->env_exp[j]);
-	d->env_exp[j] = ft_export_varcopy(d->env_dup[i]);
+	d->env_exp[j] = ft_str_rplc(d->env_exp[j], "");
+	aux = ft_export_varcopy(d->env_dup[i]);
+	d->env_exp[j] = ft_strjoint(d->env_exp[j], aux);
+	free (aux);
+	free (title);
 }
 
 /**
