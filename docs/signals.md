@@ -27,3 +27,17 @@ Si se presiona **Ctrl+C=SIGINT** podemos decir que hay que mostrar un salto de l
 Si se presiona **CTRL+ D** no es una señal sino un caracter de control que representa el EOF. Cuando se presiona en un terminal quiere decir que no hay mas entrada por lo que se desencadena la salida. Al no ser una señal no se puede capturar por lo que para manejarla el copiloto nos sugiere que comprobemos si readline devuelve null, lo que indica que se ha alcanzado el final de entrada del archivo,(esto no me queda claro).
 
 **CTRL+'\'** seria la señal **SIGQUIT** no se puede lanzar desde el teclado directamente pero es equivalente a hacer un kill PID al proceso y machacarlo. Hay que ignorar la señal SIGQUIT.
+
+### void	ft_handler(int sig)
+```C
+void	ft_handler(int sig)
+{
+	(void)sig;
+	rl_on_new_line();//se utiliza para mover el cursor al inicio de la línea actual.
+	rl_redisplay();//se utiliza para mostrar el cursor en la posición a la que se movió con rl_on_new_line().
+	ft_putstr_fd("  ", 1);//mover el cursor dos espacios a la derecha. borrando el caracter ^C
+	printf("\n");
+	rl_replace_line("", 0);//borrar la línea de entrada actual.
+	rl_on_new_line();
+	rl_redisplay();
+}

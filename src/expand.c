@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 13:44:06 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/01/19 14:13:55 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/25 11:02:45 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,6 @@ char	*ft_insert_value(t_element elemento, char *value, int start, int del)
 		aux[j++] = elemento.data[c++];
 	}
 	aux[j] = '\0';
+	free(elemento.data);
 	return (aux);
 }

@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/24 14:37:15 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:23:59 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct s_data
 	t_input		in;
 }	t_data;
 
+extern int	listen;
 /*main.c*/
 void					ft_engine(t_data *d);
 /*debug.c*/
@@ -116,6 +117,7 @@ void					ft_init_pipes(t_input *in);
 /*signals.c*/
 void 	ft_signal(void);
 void	ft_handler(int sig);
+void	ft_control_d(t_data *d);
 /*manage_input.c*/
 void					ft_manage_input(t_data *d);
 /*manage_input_utils.c*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 23:29:12 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/01/19 13:10:14 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:24:52 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,16 @@ void	ft_heredoc(t_command *cmd, int pos)
 	if (cmd->tokens[pos + 1].type == 'e' || cmd->tokens[pos + 1].type == 'E')
 		eof = cmd->tokens[pos + 1].data;
 	read = readline("> ");
+	if (listen == 1)
+		return ;
 	while (ft_strcmp(read, eof))
 	{
 		content = ft_strjoint(content, read);
 		content = ft_strjoint(content, "\n");
 		free(read);
 		read = readline("> ");
+		if (listen == 1)
+		return ;
 	}
 	if (read != NULL)
 		free(read);
