@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 21:00:53 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/01/30 18:22:51 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/30 22:22:31 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	bi_unset(t_data *d, t_command *cmd)
 {
 	int	i;
 
-	//ft_print_dstr(d->env_exp);
 	i = 0;
 	while (cmd->cmd_tab[++i] != NULL)
 	{

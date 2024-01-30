@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   bi_exp.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 23:43:59 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/01/30 17:26:04 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/30 22:44:20 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int	ft_var_replace(t_data *d, char *var, int x)
+{
+	if (ft_strncmp(d->env_arr[x].title, var, ft_strlen(d->env_arr[x].title)))
+		return (1);
+	return (0);
+}
 
 char	**ft_env_update(t_data *d, char *var)
 {
@@ -55,6 +62,8 @@ void	bi_export(t_data *d, t_command *cmd)
 			continue ;
 		if (!ft_isvar(cmd->cmd_tab[i]))
 		{
+			if (!ft_var_replace(d, cmd->cmd_tab[i], i))
+				continue ;
 			d->env_dup = ft_env_update(d, cmd->cmd_tab[i]);
 			ft_get_envarray(d);
 			d->env_exp = ft_exp_update(d, cmd->cmd_tab[i]);
@@ -67,6 +76,18 @@ void	bi_export(t_data *d, t_command *cmd)
 		}
 	}
 }
+
+/**
+ * TODO: si existe VAR -> reemplazar
+ * HOWTO:
+ * 	1 - modificar env/exp_update para recibir "mode"
+ * 	2 - en env/exp_update separar mode == 0 / else
+ * 	3 - mode == 0 como ahora; else caso de reemplazo
+ * 	4 - función para reemplazar una str var en matriz strs
+ * HOWTO: (alternativa)
+ * 	- ft_ que si var ya existe, reemplace y devuelva 1
+ *  - justo después de if(!ft_var) -> if (ft_replace) true - continue
+ */
 
 /*EXPORT RULES
 Naming: The variable name must begin with a letter (a to z or A to Z) or an
