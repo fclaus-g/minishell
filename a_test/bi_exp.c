@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 23:43:59 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/01/28 20:15:08 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/30 17:23:06 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,15 @@ void	bi_export(t_data *d, t_command *cmd)
 			continue ;
 		if (!ft_isvar(cmd->cmd_tab[i]))
 		{
+			printf("[!]\n");
 			d->env_dup = ft_env_update(d, cmd->cmd_tab[i]);
+			printf("[!]\n");
 			ft_get_envarray(d);
+			printf("[!]\n");
 			d->env_exp = ft_exp_update(d, cmd->cmd_tab[i]);
+			printf("[!]\n");
 			ft_export_order(d->env_exp);
+			printf("[!]\n");
 		}
 		else
 		{

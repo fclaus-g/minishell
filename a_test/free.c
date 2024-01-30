@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:24:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/27 22:35:40 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/30 17:50:32 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ void	ft_clean_exit(t_data *d)
 {
 	if (&d->in.n_elements > 0)
 		ft_clean_input(&d->in);
-	if (d->rl_input != NULL)
-		free(d->rl_input);
+	// if (d->rl_input != NULL)
+	// 	free(d->rl_input);
 	ft_free_data(d);
 }
 /**

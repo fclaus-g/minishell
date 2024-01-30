@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 07:32:32 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/29 12:21:50 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/30 17:33:13 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	ft_get_envarray(t_data *d)
 	if (d->env_arr != NULL)
 	{
 		i = -1;
-		while (d->env_dup[++i] != NULL)
+		while (++i < d->env_size)
 		{
 			free(d->env_arr[i].full);
 			free(d->env_arr[i].title);

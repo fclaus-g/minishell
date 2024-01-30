@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 21:00:53 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/01/29 12:39:04 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/30 18:22:51 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,16 @@ char	**ft_delete_var(char **str_tab, int pos)
 	int		j;
 
 	aux = malloc(sizeof(char *) * ft_strdlen(str_tab));
-	i = -1;
-	j = -1;
-	while (str_tab[++i] != NULL)
+	i = 0;
+	j = 0;
+	while (str_tab[i] != NULL)
 	{
 		if (i != pos)
-			aux[++j] = ft_strdup(str_tab[i]);
+		{
+			aux[j] = ft_strdup(str_tab[i]);
+			j++;
+		}
+		i++;
 	}
 	aux[j] = NULL;
 	ft_totalfree(str_tab);
@@ -41,7 +45,6 @@ void	ft_unset_env(t_data *d, char *arg)
 		if (!ft_strcmp(d->env_arr[i].title, arg))
 		{
 			d->env_dup = ft_delete_var(d->env_dup, i);
-			ft_get_envarray(d);
 			return ;
 		}
 	}
@@ -69,11 +72,13 @@ void	bi_unset(t_data *d, t_command *cmd)
 {
 	int	i;
 
+	//ft_print_dstr(d->env_exp);
 	i = 0;
 	while (cmd->cmd_tab[++i] != NULL)
 	{
 		ft_unset_env(d, cmd->cmd_tab[i]);
 		ft_unset_exp(d, cmd->cmd_tab[i]);
+		ft_get_envarray(d);
 	}
 }
 
