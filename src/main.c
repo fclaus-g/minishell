@@ -6,13 +6,11 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/29 12:08:52 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/31 11:36:49 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-int	listen = 0;
 
 void	ft_leaks(void)
 {
@@ -22,7 +20,6 @@ void	ft_leaks(void)
 void	ft_engine(t_data *d)
 {
 	ft_signal();
-	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
 		if (d->rl_input != NULL)
@@ -30,7 +27,7 @@ void	ft_engine(t_data *d)
 			free(d->rl_input);
 			ft_clean_input(&d->in);
 		}
-		
+
 		d->rl_input = readline("cascaribash/> ");
 		ft_control_d(d);
 		add_history(d->rl_input);

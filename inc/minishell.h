@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/29 14:23:59 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/31 13:56:04 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,19 @@
 # define T_APP 'a' //redirección salida con APPEND '>>'
 # define T_EOF 'E' //end of file para heredoc (expande variables)
 # define T_EOD 'e' //end of file para heredoc (no expande variables)
+
+extern int	g_sign;
+
+typedef enum sign
+{
+	S_SIGN,
+	S_HERE,
+	S_EOF,
+	S_SIGINT,
+	S_SIGINT_CMD,
+	S_CMD,
+	S_CTRL_D,
+}			t_sign;
 
 /*STRUCTS*/
 /*Estructura para cada elemento del input, guarda tipo y su contenido en str*/
@@ -101,7 +114,6 @@ typedef struct s_data
 	t_input		in;
 }	t_data;
 
-extern int	listen;
 /*main.c*/
 void					ft_engine(t_data *d);
 /*debug.c*/
@@ -144,6 +156,7 @@ void					ft_expand_dollar(t_element *element, t_data *data);
 char					*ft_get_dollar_word(char *str, int start);
 char					*ft_search_value(char *comp, t_env *env, int lenv);
 char					*ft_insert_value(t_element elemento, char *value, int start, int del);
+char	*ft_clear_dollar(char *str, int pos);
 /*lexer.c*/
 int						ft_lexer(t_data *d);
 void					ft_token_pipes(t_input *in);

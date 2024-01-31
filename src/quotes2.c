@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:30:09 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/01/22 11:44:13 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/31 14:30:14 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,25 @@ int	ft_closed_quotes(char *str)
 {
 	int		c;
 	char	quote;
+	int	quotes;
 
 	c = -1;
+	quotes = 0;
 	while (str[++c])
 	{
 		if (ft_is_quote(str[c]))
 		{
 			quote = str[c];
+			quotes++;
 			while (str[++c])
 			{
 				if (str[c] == quote)
-					return (1);
+					quotes++;
 			}
 		}
 	}
+	if (quotes % 2 == 0)
+		return (1);
 	return (0);
 }
 

@@ -6,29 +6,31 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 11:17:20 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/01/29 14:24:07 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/31 12:51:12 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include <readline/readline.h>
 
+int g_sign;
+
 void	ft_signal(void)
 {
-	struct sigaction	action;
-
-	action.sa_handler = signal(SIGINT, ft_handler);
+	g_sign = 0;
+	signal(SIGINT, ft_handler);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 void	ft_handler(int sig)
 {
-	if (sig == SIGINT)
+	(void)sig;
+	if (g_sign == 0)
 	{
-		listen = 1;
 		rl_on_new_line();//se va al inicio de la misma linea y muestr ^C
 		rl_redisplay();//se va al inicio del input y muestra ^C
 		ft_putstr_fd("  ", 1);//escribe al inicio de la linea borrando ^C
-		printf("\n");//imprime el salto de linea y se va al inicio
+		ft_putstr_fd("\n", 1);//imprime el salto de linea y se va al inicio
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
@@ -46,3 +48,4 @@ void	ft_control_d(t_data *d)
 		exit(0); // te saca de minishell
 	}
 }
+

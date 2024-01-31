@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 13:44:06 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/01/25 11:02:45 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/31 14:45:14 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_expand_dollar(t_element *element, t_data *data)
 	c = -1;
 	while (element->data[++c])
 	{
-		if (element->data[c] == '$')
+		if (element->data[c] == '$' && element->data[c + 1] != '$' && !ft_isdigit(element->data[c + 1]))
 		{
 			var = ft_get_dollar_word(element->data, c + 1);
 			value = ft_search_value(var, data->env_arr, data->env_size);
@@ -36,6 +36,13 @@ void	ft_expand_dollar(t_element *element, t_data *data)
 			free(var);
 			free(value);
 		}
+		else if (element->data[c] == '$' && element->data[c + 1] == '$')
+		{
+			element->data = ft_clear_dollar(element->data, c);
+			ft_putstr_fd("syntax error", 1);
+		}	
+		else if (element->data[c] && ft_isdigit(element->data[c + 1]))
+			element->data = ft_clear_dollar(element->data, c);
 	}
 }
 
@@ -69,7 +76,6 @@ char	*ft_search_value(char *comp, t_env *env, int lenv)
 			return (aux);
 		}
 	}
-	printf("no encontrada coincidencia\n");
 	return (NULL);
 }
 
@@ -98,3 +104,29 @@ char	*ft_insert_value(t_element elemento, char *value, int start, int del)
 	free(elemento.data);
 	return (aux);
 }
+
+char	*ft_clear_dollar(char *str, int pos)
+{
+	char *aux;
+	int	c;
+
+	c = 0;
+	aux = malloc(sizeof(char) * ft_strlen(str) - ft_to_del_dollar(str));//vamos a poner el numero de char a restar
+	while (str[c])
+	{
+		while (str[c] && c < pos)
+		{
+			aux[c] = str[c];	
+			c++;
+		}
+		if (str[c] == '$' && (str[c + 1] == '$' || ft_isdigit(str[c + 1])))
+			c += 2;
+		while (str[c] && (str[c + 1] != '$' || !ft_isdigit(str[c + 1])))
+			aux[pos++] = str[c++];
+	}
+	aux[pos] = '\0';
+	free(str);
+	return (aux);
+}
+
+//int ft_to_del_dollar(char *str)
