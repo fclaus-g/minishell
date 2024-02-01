@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_temp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:57:29 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/31 15:56:57 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/01 14:50:30 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	bi_echo(char **args)
 			i++;
 		}
 		ft_printf("%s", args[i]);
+		if (args[i + 1] != NULL)
+			ft_printf(" ", args[i]);
 	}
 	if (nl == 1)
 		ft_printf("\n");

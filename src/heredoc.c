@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 23:29:12 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/01/19 13:10:14 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/01 14:09:12 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,18 @@ void	ft_heredoc(t_command *cmd, int pos)
 	if (cmd->tokens[pos + 1].type == 'e' || cmd->tokens[pos + 1].type == 'E')
 		eof = cmd->tokens[pos + 1].data;
 	read = readline("> ");
-	while (ft_strcmp(read, eof))
+	if (ft_strcmp(read, eof))
 	{
-		content = ft_strjoint(content, read);
-		content = ft_strjoint(content, "\n");
-		free(read);
-		read = readline("> ");
+		while (ft_strcmp(read, eof))
+		{
+			content = ft_strjoint(content, read);
+			content = ft_strjoint(content, "\n");
+			free(read);
+			read = readline("> ");
+		}
+		ft_write_doc(cmd, content);
+		if (content != NULL)
+			free(content);
 	}
-	if (read != NULL)
-		free(read);
-	ft_write_doc(cmd, content);
-	free(content);
+	free(read);
 }

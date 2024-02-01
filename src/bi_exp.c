@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_exp.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 23:43:59 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/01/31 15:30:35 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/01 14:48:35 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	bi_export(t_data *d, t_command *cmd)
 	i = 0;
 	while (cmd->cmd_tab[++i] != NULL)
 	{
-		if (ft_valid_identifier(cmd->cmd_tab[i]))
+		if (ft_valid_identifier(cmd->cmd_tab[i], 0))
 			continue ;
 		if (!ft_isvar(cmd->cmd_tab[i]))
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 13:44:06 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/01/31 22:42:38 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/01 14:52:59 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	ft_expand_dollar(t_element *element, t_data *data)
 	int		c;
 	char	*var;
 	char	*value;
+	char	*freeman;
 
 	c = -1;
 	while (element->data[++c])
@@ -31,8 +32,13 @@ void	ft_expand_dollar(t_element *element, t_data *data)
 			var = ft_get_dollar_word(element->data, c + 1);
 			value = ft_search_value(var, data->env_arr, data->env_size);
 			if (value)
-				element->data = \
-					ft_insert_value(*element, value, c, ft_strlen(var));
+			{
+				freeman = ft_insert_value(*element, value, c, ft_strlen(var));
+				element->data = ft_strdup(freeman);
+				free (freeman);
+			}
+			else if (!value && (!ft_valid_identifier(var, 1) || !ft_isvar(var)))
+				element->type = 'z';
 			free(var);
 			free(value);
 		}

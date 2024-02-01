@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/31 21:48:38 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/01 14:48:09 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,7 @@ char					**ft_env_update(t_data *d, char *var);
 char					**ft_exp_update(t_data *d, char *var);
 int						ft_var_replace(t_data *d, char *var);
 /**********************[bi_exp_utils.c]***********************************/
-int						ft_valid_identifier(char *arg);
+int						ft_valid_identifier(char *arg, int mode);
 int						ft_isvar(char *arg);
 void					ft_export_print(t_data *d);
 char					**ft_export_order(char **env);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:24:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/31 21:46:47 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/01 12:57:01 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ void	ft_free_cmds(t_input *in)
 			ft_totalfree(in->cmds[i].paths);
 		if (in->cmds[i].cmd_tab != NULL)
 			ft_totalfree(in->cmds[i].cmd_tab);
-		free(in->cmds[i].tokens);
+		if (in->cmds[i].tokens != NULL)
+			free(in->cmds[i].tokens);
 	}
 }
 /**
