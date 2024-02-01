@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_temp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:57:29 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/18 10:46:37 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/31 15:56:57 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,22 @@ void	bi_exit(t_data *d)
 	exit(0);
 }
 
-void	bi_echo(char **cmd_line)
+void	bi_echo(char **args)
 {
 	int	i;
+	int	nl;
 
+	nl = 1;
 	i = 0;
-	while (cmd_line[++i] != NULL)
-		ft_printf("%s ", cmd_line[i]);
-	ft_printf("\n");
+	while (args[++i] != NULL)
+	{
+		while (!ft_strcmp(args[i], "-n"))
+		{
+			nl = 0;
+			i++;
+		}
+		ft_printf("%s", args[i]);
+	}
+	if (nl == 1)
+		ft_printf("\n");
 }

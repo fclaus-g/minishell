@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:24:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/30 18:04:28 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/31 21:46:47 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,11 @@ void	ft_free_arr(t_input *in, int size)
 	i = -1;
 	while (++i < size)
 	{
-		free(in->elements[i].data);
-		in->elements[i].data = NULL;
+		if (in->elements[i].data != NULL)
+		{
+			free(in->elements[i].data);
+			in->elements[i].data = NULL;
+		}
 	}
 }
 

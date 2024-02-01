@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/29 10:54:22 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/31 21:48:38 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct s_data
 	char		*rl_input;
 	int			og_stdin;
 	int			og_stdout;
+	int			exit_code;
 	t_input		in;
 }	t_data;
 
@@ -133,6 +134,7 @@ int						ft_count_quotes(char *str);
 void					ft_fill_elements(t_input *in);
 void					ft_check_elements(t_input *in, t_element *array, t_data *d);
 int						ft_its_dollar(char *str);
+void					ft_dollar_check(t_command *cmd, t_data *d);
 /**********************[expand.c]**************************************/
 void					ft_expand_dollar(t_element *element, t_data *data);
 char					*ft_get_dollar_word(char *str, int start);
@@ -152,6 +154,7 @@ int						ft_eof_check(t_input *in);
 void					ft_cmd_maker(t_input *in);
 void					ft_init_cmd(t_input *in);
 void					ft_get_cmdline(t_input *in, t_command *cmds);
+void					ft_format_cmd(t_input *in);
 /**********************[cmd_maker_utils.c]***********************************/
 int						ft_element_cnt(t_input	*in, char c);
 int						ft_cmd_size(t_input *in, int *start);
@@ -198,7 +201,7 @@ void					ft_overwrite_var(t_data *d, char *var, char* new);
 char					*ft_str_rplc(char *src, char *new);
 /**********************[bi_temp.c]***********************************/
 void					bi_exit(t_data *d);
-void					bi_echo(char **cmd_line);
+void					bi_echo(char **args);
 /**********************[bi_dir.c]***********************************/
 void					bi_pwd(t_data *d);
 void					ft_update_pwd(t_data *d, char *old_pwd);
@@ -209,6 +212,7 @@ void					ft_dir_home(t_data *d);
 void					bi_export(t_data *d, t_command *cmd);
 char					**ft_env_update(t_data *d, char *var);
 char					**ft_exp_update(t_data *d, char *var);
+int						ft_var_replace(t_data *d, char *var);
 /**********************[bi_exp_utils.c]***********************************/
 int						ft_valid_identifier(char *arg);
 int						ft_isvar(char *arg);

@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:15:46 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/01/29 11:36:04 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/31 15:26:05 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,3 @@ void	ft_overwrite_var(t_data *d, char *var, char* new)
 	free (aux);
 	free (title);
 }
-
-/**
- * TODO: check memoria con free(d.env_exp[j]) no me convence...
- */

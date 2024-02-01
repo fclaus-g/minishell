@@ -3,20 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   bi_exp.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 23:43:59 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/01/30 22:44:20 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/31 15:30:35 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_var_replace(t_data *d, char *var, int x)
+int	ft_var_replace(t_data *d, char *var)
 {
-	if (ft_strncmp(d->env_arr[x].title, var, ft_strlen(d->env_arr[x].title)))
-		return (1);
-	return (0);
+	int		i;
+	size_t	len;
+
+	i = -1;
+	while (++i < d->env_size)
+	{
+		len = ft_strlen(d->env_arr[i].title);
+		if (!ft_strncmp(d->env_arr[i].title, var, len)
+			&& (var[len] == '=' || var[len] == '\0'))
+		{
+			ft_overwrite_var(d, d->env_arr[i].title, var + (len + 1));
+			ft_get_envarray(d);
+			return (0);
+		}
+	}
+	return (1);
 }
 
 char	**ft_env_update(t_data *d, char *var)
@@ -62,18 +75,15 @@ void	bi_export(t_data *d, t_command *cmd)
 			continue ;
 		if (!ft_isvar(cmd->cmd_tab[i]))
 		{
-			if (!ft_var_replace(d, cmd->cmd_tab[i], i))
+			if (!ft_var_replace(d, cmd->cmd_tab[i]))
 				continue ;
 			d->env_dup = ft_env_update(d, cmd->cmd_tab[i]);
 			ft_get_envarray(d);
 			d->env_exp = ft_exp_update(d, cmd->cmd_tab[i]);
-			ft_export_order(d->env_exp);
 		}
 		else
-		{
 			d->env_exp = ft_exp_update(d, cmd->cmd_tab[i]);
-			ft_export_order(d->env_exp);
-		}
+		ft_export_order(d->env_exp);
 	}
 }
 

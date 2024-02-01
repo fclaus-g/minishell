@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 13:44:06 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/01/27 22:02:27 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/31 20:43:37 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	ft_expand_dollar(t_element *element, t_data *data)
 			if (value)
 				element->data = \
 					ft_insert_value(*element, value, c, ft_strlen(var));
+			printf("%s\n", element->data);
 			free(var);
 			free(value);
 		}
@@ -69,7 +70,6 @@ char	*ft_search_value(char *comp, t_env *env, int lenv)
 			return (aux);
 		}
 	}
-	printf("no encontrada coincidencia\n");
 	return (NULL);
 }
 

@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:24:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/30 17:50:32 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/31 20:55:52 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_free_data(t_data *d)
 	int	i;
 
 	i = -1;
-	while (d->env_dup[++i] != NULL)
+	while (++i < d->env_size)
 	{
 		free(d->env_arr[i].full);
 		free(d->env_arr[i].title);
@@ -97,8 +97,9 @@ void	ft_free_arr(t_input *in, int size)
 	i = -1;
 	while (++i < size)
 	{
-		free(in->elements[i].data);
-		in->elements[i].data = NULL;
+		if (in->elements[i].data != NULL)
+		{free(in->elements[i].data);
+		in->elements[i].data = NULL;}
 	}
 }
 
@@ -108,8 +109,8 @@ void	ft_clean_exit(t_data *d)
 {
 	if (&d->in.n_elements > 0)
 		ft_clean_input(&d->in);
-	// if (d->rl_input != NULL)
-	// 	free(d->rl_input);
+	if (d->rl_input != NULL)
+		free(d->rl_input);
 	ft_free_data(d);
 }
 /**

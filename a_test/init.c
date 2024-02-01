@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 07:32:32 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/29 12:21:50 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/30 22:13:05 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	ft_get_envarray(t_data *d)
 	if (d->env_arr != NULL)
 	{
 		i = -1;
-		while (d->env_dup[++i] != NULL)
+		while (++i < d->env_size)
 		{
 			free(d->env_arr[i].full);
 			free(d->env_arr[i].title);
@@ -111,6 +111,7 @@ void	ft_get_envarray(t_data *d)
 	}
 	d->env_size = i;
 }
+
 void	ft_init(t_data *d, char **env)
 {
 	d->rl_input = NULL;
@@ -118,4 +119,3 @@ void	ft_init(t_data *d, char **env)
 	ft_parse_env(d, env);
 	ft_get_envarray(d);
 }
-

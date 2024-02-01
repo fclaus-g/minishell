@@ -6,11 +6,31 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 23:43:59 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/01/30 17:23:06 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/31 15:30:35 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int	ft_var_replace(t_data *d, char *var)
+{
+	int		i;
+	size_t	len;
+
+	i = -1;
+	while (++i < d->env_size)
+	{
+		len = ft_strlen(d->env_arr[i].title);
+		if (!ft_strncmp(d->env_arr[i].title, var, len)
+			&& (var[len] == '=' || var[len] == '\0'))
+		{
+			ft_overwrite_var(d, d->env_arr[i].title, var + (len + 1));
+			ft_get_envarray(d);
+			return (0);
+		}
+	}
+	return (1);
+}
 
 char	**ft_env_update(t_data *d, char *var)
 {
@@ -55,23 +75,29 @@ void	bi_export(t_data *d, t_command *cmd)
 			continue ;
 		if (!ft_isvar(cmd->cmd_tab[i]))
 		{
-			printf("[!]\n");
+			if (!ft_var_replace(d, cmd->cmd_tab[i]))
+				continue ;
 			d->env_dup = ft_env_update(d, cmd->cmd_tab[i]);
-			printf("[!]\n");
 			ft_get_envarray(d);
-			printf("[!]\n");
 			d->env_exp = ft_exp_update(d, cmd->cmd_tab[i]);
-			printf("[!]\n");
-			ft_export_order(d->env_exp);
-			printf("[!]\n");
 		}
 		else
-		{
 			d->env_exp = ft_exp_update(d, cmd->cmd_tab[i]);
-			ft_export_order(d->env_exp);
-		}
+		ft_export_order(d->env_exp);
 	}
 }
+
+/**
+ * TODO: si existe VAR -> reemplazar
+ * HOWTO:
+ * 	1 - modificar env/exp_update para recibir "mode"
+ * 	2 - en env/exp_update separar mode == 0 / else
+ * 	3 - mode == 0 como ahora; else caso de reemplazo
+ * 	4 - función para reemplazar una str var en matriz strs
+ * HOWTO: (alternativa)
+ * 	- ft_ que si var ya existe, reemplace y devuelva 1
+ *  - justo después de if(!ft_var) -> if (ft_replace) true - continue
+ */
 
 /*EXPORT RULES
 Naming: The variable name must begin with a letter (a to z or A to Z) or an

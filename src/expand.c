@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 13:44:06 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/01/27 22:02:27 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/31 22:42:38 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ char	*ft_search_value(char *comp, t_env *env, int lenv)
 			return (aux);
 		}
 	}
-	printf("no encontrada coincidencia\n");
 	return (NULL);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   elements.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:21:41 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/01/19 14:05:32 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/31 22:38:42 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,19 @@ void	ft_check_elements(t_input *in, t_element *array, t_data *d)
 {
 	int	i;
 
+	(void)d;
 	i = -1;
 	while (++i < in->n_elements)
 	{
 		if (ft_quote_in_data(array[i].data))
 			ft_management_quotes(&array[i]);
 	}
-	i = -1;
-	while (++i < in->n_elements)
-	{
-		if (ft_its_dollar(array[i].data) && array[i].type != '\'')
-			ft_expand_dollar(&array[i], d);
-	}
+	// i = -1;
+	// while (++i < in->n_elements)
+	// {
+	// 	if (ft_its_dollar(array[i].data) && array[i].type != '\'')
+	// 		ft_expand_dollar(&array[i], d);
+	// }
 }
 
 int	ft_its_dollar(char *str)
@@ -69,4 +70,18 @@ int	ft_its_dollar(char *str)
 			return (1);
 	}
 	return (0);
+}
+
+void	ft_dollar_check(t_command *cmd, t_data *d)
+{
+	int		i;
+	char	c;
+
+	i = -1;
+	while (++i < cmd->size)
+	{
+		c = cmd->tokens[i].type;
+		if ((c == '0' || c == '\"') && ft_its_dollar(cmd->tokens[i].data))
+			ft_expand_dollar(&cmd->tokens[i], d);
+	}
 }
