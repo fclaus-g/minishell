@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 13:44:06 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/01 14:52:59 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:24:18 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	ft_expand_dollar(t_element *element, t_data *data)
 			}
 			else if (!value && (!ft_valid_identifier(var, 1) || !ft_isvar(var)))
 				element->type = 'z';
+			else
+				ft_expand_more(); //no encuentra el nombre de variable y no es valida, asi que comprobamos excepciones por si queremos expandir alguna en lugar de dejarlas a cara perro
 			free(var);
 			free(value);
 		}
