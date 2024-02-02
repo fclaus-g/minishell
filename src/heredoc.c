@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 23:29:12 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/01 14:09:12 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/01 21:11:29 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_is_heredoc(t_command *cmd)
 	int	i;
 
 	if (access(".heredoc", F_OK) == 0)
-		remove(".heredoc");
+		unlink(".heredoc");
 	i = -1;
 	while (++i < cmd->size)
 	{

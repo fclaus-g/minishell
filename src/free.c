@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:24:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/01 12:57:01 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/01 21:11:24 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_clean_input(t_input *input)
 	free(input->pipes);
 	input->pipes = NULL;
 	if (access(".heredoc", F_OK) == 0)
-		remove(".heredoc");
+		unlink(".heredoc");
 }
 /**
  * TODO: Check si se están liberando en exeguttor los char** de cms
