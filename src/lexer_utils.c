@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 17:12:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/14 18:17:48 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/02 13:52:50 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	ft_syntax_error(t_input *in, int i)
 {
 	char	*msg;
 
+	in->dptr->exit_code = 258;
 	msg = "cascaribash: syntax error near unexpected token ";
 	if (i + 1 < in->n_elements)
 		ft_printf_error("%s`%s'\n", msg, in->elements[i + 1].data);

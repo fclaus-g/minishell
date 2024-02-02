@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_dir.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 23:18:10 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/29 12:06:37 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/02 14:26:32 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_dir_back(char *arg)
 	char	*aux;
 	int		i;
 	int		len;
-	
+
 	i = (int)ft_strlen(arg) - 1;
 	while (arg[i] != '/' && i > 0)
 		i--;

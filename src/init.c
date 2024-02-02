@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 07:32:32 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/30 22:13:05 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/02 13:46:24 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ void	ft_init(t_data *d, char **env)
 {
 	d->rl_input = NULL;
 	d->env_arr = NULL;
+	d->exit_code = 0;
+	d->in->dptr = d;
 	ft_parse_env(d, env);
 	ft_get_envarray(d);
 }

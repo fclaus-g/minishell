@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 23:43:59 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/02 09:27:01 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/02 10:55:03 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	bi_export(t_data *d, t_command *cmd)
 	i = 0;
 	while (cmd->cmd_tab[++i] != NULL)
 	{
-		if (ft_valid_identifier(cmd->cmd_tab[i], 0))
+		if (ft_val_id(cmd->cmd_tab[i], 0))
 			continue ;
 		if (!ft_isvar(cmd->cmd_tab[i]))
 		{

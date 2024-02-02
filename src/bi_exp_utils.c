@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 18:19:07 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/01 14:47:45 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/02 11:01:46 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,13 @@ int	ft_isvar(char *arg)
 	return (0);
 }
 
-int	ft_valid_identifier(char *arg, int mode)
+int	ft_val_id(char *arg, int mode)
 {
 	if (arg[0] != '_' && !ft_isalpha(arg[0]))
 	{
 		if (mode == 0)
-			ft_printf("cascaribash: export: `%s': not a valid identifier\n", arg);
+			ft_printf("cascaribash: export: `%s': not a valid identifier\n",
+				arg);
 		return (1);
 	}
 	return (0);

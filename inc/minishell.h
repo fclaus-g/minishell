@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/02 10:16:44 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/02 13:45:34 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 # include "./libft/libft.h"
-	
+
 /*DEFS*/
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
@@ -39,6 +39,7 @@
 # define T_APP 'a' //redirección salida con APPEND '>>'
 # define T_EOF 'E' //end of file para heredoc (expande variables)
 # define T_EOD 'e' //end of file para heredoc (no expande variables)
+# define T_DLT 'z' //$VAR valida no encontrada para borrar
 
 /*STRUCTS*/
 /*Estructura para cada elemento del input, guarda tipo y su contenido en str*/
@@ -75,6 +76,7 @@ typedef struct s_input
 	char		**sp_input;
 	t_element	*elements;
 	t_command	*cmds;
+	t_data		*dptr;
 }	t_input;
 
 /*Estructura para cada variable de entorno (tendremos que crear un array de
@@ -97,6 +99,9 @@ typedef struct s_data
 	int			og_stdin;
 	int			og_stdout;
 	int			exit_code;
+	char		*var;
+	char		*val;
+	char		*aux;
 	t_input		in;
 }	t_data;
 
@@ -136,7 +141,8 @@ void					ft_check_elements(t_input *in, t_element *array, t_data *d);
 int						ft_its_dollar(char *str);
 void					ft_dollar_check(t_command *cmd, t_data *d);
 /**********************[expand.c]**************************************/
-void					ft_expand_dollar(t_element *element, t_data *data);
+void					ft_expand_dollar(t_element *elm, t_data *d);
+void					ft_expand_init(t_element *element, t_data *d, int c);
 char					*ft_get_dollar_word(char *str, int start);
 char					*ft_search_value(char *comp, t_env *env, int lenv);
 char					*ft_insert_value(t_element elemento, char *value, int start, int del);
@@ -215,7 +221,7 @@ char					**ft_env_update(t_data *d, char *var);
 char					**ft_exp_update(t_data *d, char *var);
 int						ft_var_replace(t_data *d, char *var);
 /**********************[bi_exp_utils.c]***********************************/
-int						ft_valid_identifier(char *arg, int mode);
+int						ft_val_id(char *arg, int mode);
 int						ft_isvar(char *arg);
 void					ft_export_print(t_data *d);
 char					**ft_export_order(char **env);
