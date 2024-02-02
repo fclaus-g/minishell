@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 13:44:06 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/01/31 14:45:14 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/01 12:24:33 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ void	ft_expand_dollar(t_element *element, t_data *data)
 			free(var);
 			free(value);
 		}
-		else if (element->data[c] == '$' && element->data[c + 1] == '$')
-		{
-			element->data = ft_clear_dollar(element->data, c);
-			ft_putstr_fd("syntax error", 1);
-		}	
-		else if (element->data[c] && ft_isdigit(element->data[c + 1]))
-			element->data = ft_clear_dollar(element->data, c);
+		// else if (element->data[c] == '$' && element->data[c + 1] == '$')
+		// {
+		// 	element->data = ft_clear_dollar(element->data, c);
+		// 	ft_putstr_fd("syntax error", 1);
+		// }	
+		// else if (element->data[c] && ft_isdigit(element->data[c + 1]))
+		// 	element->data = ft_clear_dollar(element->data, c);
 	}
 }
 
@@ -111,7 +111,7 @@ char	*ft_clear_dollar(char *str, int pos)
 	int	c;
 
 	c = 0;
-	aux = malloc(sizeof(char) * ft_strlen(str) - ft_to_del_dollar(str));//vamos a poner el numero de char a restar
+	aux = malloc(sizeof(char) * ft_strlen(str));//vamos a poner el numero de char a restar
 	while (str[c])
 	{
 		while (str[c] && c < pos)
