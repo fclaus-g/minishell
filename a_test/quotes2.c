@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:30:09 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/02 10:28:57 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/27 22:02:06 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,25 +31,20 @@ int	ft_closed_quotes(char *str)
 {
 	int		c;
 	char	quote;
-	int	quotes;
 
 	c = -1;
-	quotes = 0;
 	while (str[++c])
 	{
 		if (ft_is_quote(str[c]))
 		{
 			quote = str[c];
-			quotes++;
 			while (str[++c])
 			{
 				if (str[c] == quote)
-					quotes++;
+					return (1);
 			}
 		}
 	}
-	if (quotes % 2 == 0)
-		return (1);
 	return (0);
 }
 
@@ -94,7 +89,7 @@ char	*ft_clean_quotes(t_element element)
 	{
 		while (element.data[c] != q && flag == -1 && element.data[c])
 			aux[i++] = element.data[c++];
-		if (element.data[c] == q && flag == -1 && element.data[c])
+		if (element.data[c] == q && flag == -1)
 			flag *= -1;
 		while (element.data[c] != q && flag == 1 && element.data[c])
 			aux[i++] = element.data[c++];
@@ -111,16 +106,18 @@ int	ft_count_quotes(char *str)
 
 	c = -1;
 	quotes = 0;
-	while (str[++c] && str[c])
+	while (str[++c])
 	{
-		if (ft_is_quote(str[c]) && str[c])
+		if (ft_is_quote(str[c]))
 		{
 			q = str[c];
 			quotes++;
-			while (str[++c] && str[c])
+			while (str[++c])
 			{
-				if (str[c] == q && str[c])
+				if (str[c] == q)
+				{
 					quotes++;
+				}
 			}
 		}
 	}

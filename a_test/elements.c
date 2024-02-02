@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   elements.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:21:41 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/01 14:40:56 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/31 19:54:32 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,12 @@ void	ft_check_elements(t_input *in, t_element *array, t_data *d)
 		if (ft_quote_in_data(array[i].data))
 			ft_management_quotes(&array[i]);
 	}
+	// i = -1;
+	// while (++i < in->n_elements)
+	// {
+	// 	if (ft_its_dollar(array[i].data) && array[i].type != '\'')
+	// 		ft_expand_dollar(&array[i], d);
+	// }
 }
 
 int	ft_its_dollar(char *str)

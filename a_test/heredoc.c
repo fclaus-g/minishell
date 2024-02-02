@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 23:29:12 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/02 10:29:57 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/19 13:10:14 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_is_heredoc(t_command *cmd)
 	int	i;
 
 	if (access(".heredoc", F_OK) == 0)
-		unlink(".heredoc");
+		remove(".heredoc");
 	i = -1;
 	while (++i < cmd->size)
 	{
@@ -54,18 +54,15 @@ void	ft_heredoc(t_command *cmd, int pos)
 	if (cmd->tokens[pos + 1].type == 'e' || cmd->tokens[pos + 1].type == 'E')
 		eof = cmd->tokens[pos + 1].data;
 	read = readline("> ");
-	if (ft_strcmp(read, eof))
+	while (ft_strcmp(read, eof))
 	{
-		while (ft_strcmp(read, eof))
-		{
-			content = ft_strjoint(content, read);
-			content = ft_strjoint(content, "\n");
-			free(read);
-			read = readline("> ");
-		}
-		ft_write_doc(cmd, content);
-		if (content != NULL)
-			free(content);
+		content = ft_strjoint(content, read);
+		content = ft_strjoint(content, "\n");
+		free(read);
+		read = readline("> ");
 	}
-	free(read);
+	if (read != NULL)
+		free(read);
+	ft_write_doc(cmd, content);
+	free(content);
 }

@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:24:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/01 21:11:24 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/01/31 20:55:52 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_clean_input(t_input *input)
 	free(input->pipes);
 	input->pipes = NULL;
 	if (access(".heredoc", F_OK) == 0)
-		unlink(".heredoc");
+		remove(".heredoc");
 }
 /**
  * TODO: Check si se están liberando en exeguttor los char** de cms
@@ -81,8 +81,7 @@ void	ft_free_cmds(t_input *in)
 			ft_totalfree(in->cmds[i].paths);
 		if (in->cmds[i].cmd_tab != NULL)
 			ft_totalfree(in->cmds[i].cmd_tab);
-		if (in->cmds[i].tokens != NULL)
-			free(in->cmds[i].tokens);
+		free(in->cmds[i].tokens);
 	}
 }
 /**
@@ -99,10 +98,8 @@ void	ft_free_arr(t_input *in, int size)
 	while (++i < size)
 	{
 		if (in->elements[i].data != NULL)
-		{
-			free(in->elements[i].data);
-			in->elements[i].data = NULL;
-		}
+		{free(in->elements[i].data);
+		in->elements[i].data = NULL;}
 	}
 }
 

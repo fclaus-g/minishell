@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 13:44:06 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/02 10:37:11 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/31 20:43:37 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,37 +22,23 @@ void	ft_expand_dollar(t_element *element, t_data *data)
 	int		c;
 	char	*var;
 	char	*value;
-	char	*freeman;
 
 	c = -1;
 	while (element->data[++c])
 	{
-		if (element->data[c] == '$' && element->data[c + 1] != '$' && !ft_isdigit(element->data[c + 1]))
+		if (element->data[c] == '$')
 		{
 			var = ft_get_dollar_word(element->data, c + 1);
 			value = ft_search_value(var, data->env_arr, data->env_size);
 			if (value)
-			{
-				freeman = ft_insert_value(*element, value, c, ft_strlen(var));
-				element->data = ft_strdup(freeman);
-				free (freeman);
-			}
-			else if (!value && (!ft_valid_identifier(var, 1) || !ft_isvar(var)))
-				element->type = 'z';
-			// else
-			// 	ft_expand_more();
+				element->data = \
+					ft_insert_value(*element, value, c, ft_strlen(var));
+			printf("%s\n", element->data);
 			free(var);
 			free(value);
 		}
 	}
 }
-
-/**
- * TODO: recotar lineas ft_expand_dollar
- * 	- Las tres cadenas declaradas, a t_data, con nombres más cortos
- * 	- Cambiar y reducir nombre de ft_valid_identifier
- * 	- (Si hace falta más recorte) función que libere dos cadenas (var + value)
- */
 
 char	*ft_get_dollar_word(char *str, int start)
 {
@@ -110,32 +96,5 @@ char	*ft_insert_value(t_element elemento, char *value, int start, int del)
 	}
 	aux[j] = '\0';
 	free (elemento.data);
-	free(elemento.data);
 	return (aux);
 }
-
-char	*ft_clear_dollar(char *str, int pos)
-{
-	char *aux;
-	int	c;
-
-	c = 0;
-	aux = malloc(sizeof(char) * ft_strlen(str));//vamos a poner el numero de char a restar
-	while (str[c])
-	{
-		while (str[c] && c < pos)
-		{
-			aux[c] = str[c];	
-			c++;
-		}
-		if (str[c] == '$' && (str[c + 1] == '$' || ft_isdigit(str[c + 1])))
-			c += 2;
-		while (str[c] && (str[c + 1] != '$' || !ft_isdigit(str[c + 1])))
-			aux[pos++] = str[c++];
-	}
-	aux[pos] = '\0';
-	free(str);
-	return (aux);
-}
-
-//int ft_to_del_dollar(char *str)

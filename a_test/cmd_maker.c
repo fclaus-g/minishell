@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_maker.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 04:19:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/01 13:46:27 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/31 18:51:27 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,6 @@ void	ft_init_cmd(t_input *in)
 	}
 }
 
-void	ft_format_cmd(t_input *in)
-{
-	int	i;
-
-	ft_get_cmdline(in, in->cmds);
-	i = -1;
-	while (++i < in->cmd_n)
-		split_cmd(&in->cmds[i], in->cmds[i].cmd_line);
-	ft_tag_builts(in->cmds, in->cmd_n);
-}
-
 void	ft_cmd_maker(t_input *in)
 {
 	int	i;
@@ -85,6 +74,11 @@ void	ft_cmd_maker(t_input *in)
 	i = -1;
 	while (++i < in->cmd_n)
 		ft_init_files(&in->cmds[i]);
+	ft_get_cmdline(in, in->cmds);
+	i = -1;
+	while (++i < in->cmd_n)
+		split_cmd(&in->cmds[i], in->cmds[i].cmd_line);
+	ft_tag_builts(in->cmds, in->cmd_n);
 }
 /*Estoy planteando el movimiento de fds-archivos antes de exegguttor,
 pero creo que tendría que cambiarlo y meterlo dentro, justo antes de

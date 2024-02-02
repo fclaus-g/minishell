@@ -1,27 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   manage_input_utils.c                               :+:      :+:    :+:   */
+/*   bi_temp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/29 18:03:35 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/01/08 09:32:48 by fclaus-g         ###   ########.fr       */
+/*   Created: 2023/11/23 17:57:29 by pgomez-r          #+#    #+#             */
+/*   Updated: 2024/01/31 15:56:57 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_is_space(char c)
+void	bi_exit(t_data *d)
 {
-	if ((c >= 9 && c <= 13) || c == 32)
-		return (1);
-	return (0);
+	ft_clean_exit(d);
+	exit(0);
 }
 
-int	ft_is_special_char(char c)
+void	bi_echo(char **args)
 {
-	if (c == '|' || c == '>' || c == '<' || c == ';')
-		return (1);
-	return (0);
+	int	i;
+	int	nl;
+
+	nl = 1;
+	i = 0;
+	while (args[++i] != NULL)
+	{
+		while (!ft_strcmp(args[i], "-n"))
+		{
+			nl = 0;
+			i++;
+		}
+		ft_printf("%s", args[i]);
+	}
+	if (nl == 1)
+		ft_printf("\n");
 }

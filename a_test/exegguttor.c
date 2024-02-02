@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exegguttor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/02 10:29:44 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/01/31 18:55:56 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,9 @@ void	ft_built_exe(t_command *cmd, t_data *d)
 		bi_exit(d);
 }
 
-void	ft_excve(t_command *cmd, char **env, int mode)
-{
-	if (mode == 0)
-	{
-		get_paths(cmd, env);
-		find_path_index(cmd, cmd->cmd_tab[0]);
-		if (execve(cmd->path_cmd, cmd->cmd_tab, env) == -1)
-			ft_excve_error(cmd);
-	}
-	if (execve(cmd->cmd_tab[0], cmd->cmd_tab, env) == -1)
-		ft_excve_error(cmd);
-}
-
 void	ft_exegguttor(t_command *cmd, char **env)
 {
+	char	*str;
 	pid_t	pid;
 
 	if (ft_std_redir(cmd) > 0)
@@ -58,10 +46,15 @@ void	ft_exegguttor(t_command *cmd, char **env)
 		waitpid(pid, NULL, 0);
 	else
 	{
-		if (!ft_strchr(cmd->cmd_tab[0], '/'))
-			ft_excve(cmd, env, 0);
-		else
-			ft_excve(cmd, env, 11);
+		str = NULL;
+		get_paths(cmd, env);
+		find_path_index(cmd, cmd->cmd_tab[0]);
+		if (execve(cmd->path_cmd, cmd->cmd_tab, env) == -1)
+		{
+			str = cmd->cmd_tab[0];
+			ft_printf_error("cascaribash: command not found: %s\n", str);
+			free_cache(cmd, 127);
+		}
 	}
 }
 
@@ -87,7 +80,6 @@ int	ft_cmd_driver(t_data *d, t_command *cmds)
 	while (++curr_cmd < d->in.cmd_n)
 	{
 		ft_dollar_check(&cmds[curr_cmd], d);
-		ft_format_cmd(&d->in);
 		ft_std_shield(d, 0);
 		ft_is_heredoc(&cmds[curr_cmd]);
 		ft_shell_pipex(d, curr_cmd);

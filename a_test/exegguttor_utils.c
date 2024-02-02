@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exegguttor_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/02 09:56:38 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/01/14 18:17:48 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,17 +80,17 @@ void	split_cmd(t_command *st, char *cmdstr)
  * @param paths -> copia de los paths convertidas al formato que necesita excve
  * @param cmd -> el comando usado en formato matriz de str
  */
-void	ft_excve_error(t_command *cmd)
+void	free_cache(t_command *st, int error)
 {
-	ft_printf_error("cascaribash: command not found: %s\n", cmd->cmd_tab[0]);
-	if (cmd)
+	if (st)
 	{
-		if (cmd->paths != NULL)
-			ft_totalfree(cmd->paths);
-		if (cmd->cmd_tab != NULL)
-			ft_totalfree(cmd->cmd_tab);
+		if (st->paths != NULL)
+			ft_totalfree(st->paths);
+		if (st->cmd_tab != NULL)
+			ft_totalfree(st->cmd_tab);
 	}
-	exit(127);
+	if (error > 0)
+		exit(error);
 }
 
 /**
