@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 23:43:59 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/01 14:48:35 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/02 09:27:01 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,18 +86,6 @@ void	bi_export(t_data *d, t_command *cmd)
 		ft_export_order(d->env_exp);
 	}
 }
-
-/**
- * TODO: si existe VAR -> reemplazar
- * HOWTO:
- * 	1 - modificar env/exp_update para recibir "mode"
- * 	2 - en env/exp_update separar mode == 0 / else
- * 	3 - mode == 0 como ahora; else caso de reemplazo
- * 	4 - función para reemplazar una str var en matriz strs
- * HOWTO: (alternativa)
- * 	- ft_ que si var ya existe, reemplace y devuelva 1
- *  - justo después de if(!ft_var) -> if (ft_replace) true - continue
- */
 
 /*EXPORT RULES
 Naming: The variable name must begin with a letter (a to z or A to Z) or an

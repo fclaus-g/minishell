@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exegguttor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/31 21:17:23 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/02 10:16:04 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,21 @@ void	ft_built_exe(t_command *cmd, t_data *d)
 		bi_exit(d);
 }
 
+void	ft_excve(t_command *cmd, char **env, int mode)
+{
+	if (mode == 0)
+	{
+		get_paths(cmd, env);
+		find_path_index(cmd, cmd->cmd_tab[0]);
+		if (execve(cmd->path_cmd, cmd->cmd_tab, env) == -1)
+			ft_excve_error(cmd);
+	}
+	if (execve(cmd->cmd_tab[0], cmd->cmd_tab, env) == -1)
+		ft_excve_error(cmd);
+}
+
 void	ft_exegguttor(t_command *cmd, char **env)
 {
-	char	*str;
 	pid_t	pid;
 
 	if (ft_std_redir(cmd) > 0)
@@ -46,15 +58,10 @@ void	ft_exegguttor(t_command *cmd, char **env)
 		waitpid(pid, NULL, 0);
 	else
 	{
-		str = NULL;
-		get_paths(cmd, env);
-		find_path_index(cmd, cmd->cmd_tab[0]);
-		if (execve(cmd->path_cmd, cmd->cmd_tab, env) == -1)
-		{
-			str = cmd->cmd_tab[0];
-			ft_printf_error("cascaribash: command not found: %s\n", str);
-			free_cache(cmd, 127);
-		}
+		if (!ft_strchr(cmd->cmd_tab[0], '/'))
+			ft_excve(cmd, env, 0);
+		else
+			ft_excve(cmd, env, 11);
 	}
 }
 

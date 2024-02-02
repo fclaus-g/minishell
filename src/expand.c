@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 13:44:06 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/01 18:24:18 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/02 10:01:18 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,20 @@ void	ft_expand_dollar(t_element *element, t_data *data)
 			}
 			else if (!value && (!ft_valid_identifier(var, 1) || !ft_isvar(var)))
 				element->type = 'z';
-			else
-				ft_expand_more(); //no encuentra el nombre de variable y no es valida, asi que comprobamos excepciones por si queremos expandir alguna en lugar de dejarlas a cara perro
+			// else
+			// 	ft_expand_more();
 			free(var);
 			free(value);
 		}
 	}
 }
+
+/**
+ * TODO: recotar lineas ft_expand_dollar
+ * 	- Las tres cadenas declaradas, a t_data, con nombres más cortos
+ * 	- Cambiar y reducir nombre de ft_valid_identifier
+ * 	- (Si hace falta más recorte) función que libere dos cadenas (var + value)
+ */
 
 char	*ft_get_dollar_word(char *str, int start)
 {

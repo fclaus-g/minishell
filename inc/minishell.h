@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/01 14:48:09 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/02 10:16:44 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,11 +185,12 @@ char					*ft_save_dbred(char c);
 /**********************[exegguttor.c]***********************************/
 void					ft_built_exe(t_command *cmd, t_data *d);
 void					ft_exegguttor(t_command *cmds, char **env);
+void					ft_excve(t_command *cmd, char **env, int mode);
 void					ft_shell_pipex(t_data *d, int i);
 int						ft_cmd_driver(t_data *d, t_command *cmds);
 /**********************[exegguttor_utils.c]***********************************/
 int						is_path(char *str);
-void					free_cache(t_command *st, int error);
+void					ft_excve_error(t_command *cmd);
 void					split_cmd(t_command *st, char *cmdstr);
 int						find_path_index(t_command *st, char *cmd);
 void					get_paths(t_command *st, char **env);
