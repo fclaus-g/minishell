@@ -17,5 +17,5 @@
 * [] Ir ejecutando segun correccion
 * [] Echo "\$<" & '$>' debe dar bad syntax error
 * [] expandir variables en heredoc
-* [x] echo "holaamigo"" no da error por comillas cerradas
+* [X] echo "holaamigo"" no da error por comillas cerradas
 * []cuando las comillas estan abiertas imprime error pero deberia de imprimirlo y volver a inicio(gestion de errores)

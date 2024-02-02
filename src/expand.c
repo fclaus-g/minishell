@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 13:44:06 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/02 10:37:11 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/02 10:48:56 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,33 +109,32 @@ char	*ft_insert_value(t_element elemento, char *value, int start, int del)
 		aux[j++] = elemento.data[c++];
 	}
 	aux[j] = '\0';
-	free (elemento.data);
 	free(elemento.data);
 	return (aux);
 }
 
-char	*ft_clear_dollar(char *str, int pos)
-{
-	char *aux;
-	int	c;
+// char	*ft_clear_dollar(char *str, int pos)
+// {
+// 	char *aux;
+// 	int	c;
 
-	c = 0;
-	aux = malloc(sizeof(char) * ft_strlen(str));//vamos a poner el numero de char a restar
-	while (str[c])
-	{
-		while (str[c] && c < pos)
-		{
-			aux[c] = str[c];	
-			c++;
-		}
-		if (str[c] == '$' && (str[c + 1] == '$' || ft_isdigit(str[c + 1])))
-			c += 2;
-		while (str[c] && (str[c + 1] != '$' || !ft_isdigit(str[c + 1])))
-			aux[pos++] = str[c++];
-	}
-	aux[pos] = '\0';
-	free(str);
-	return (aux);
-}
+// 	c = 0;
+// 	aux = malloc(sizeof(char) * ft_strlen(str));//vamos a poner el numero de char a restar
+// 	while (str[c])
+// 	{
+// 		while (str[c] && c < pos)
+// 		{
+// 			aux[c] = str[c];	
+// 			c++;
+// 		}
+// 		if (str[c] == '$' && (str[c + 1] == '$' || ft_isdigit(str[c + 1])))
+// 			c += 2;
+// 		while (str[c] && (str[c + 1] != '$' || !ft_isdigit(str[c + 1])))
+// 			aux[pos++] = str[c++];
+// 	}
+// 	aux[pos] = '\0';
+// 	free(str);
+// 	return (aux);
+// }
 
 //int ft_to_del_dollar(char *str)

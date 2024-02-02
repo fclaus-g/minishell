@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 23:29:12 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/02 10:29:57 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/02 14:11:05 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	ft_heredoc(t_command *cmd, int pos)
 	content = NULL;
 	read = NULL;
 	eof = NULL;
+	signal(SIGINT, ft_here_sig);
 	if (cmd->tokens[pos + 1].type == 'e' || cmd->tokens[pos + 1].type == 'E')
 		eof = cmd->tokens[pos + 1].data;
 	read = readline("> ");

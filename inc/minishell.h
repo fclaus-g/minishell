@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/02 10:34:33 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/02 14:12:27 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,8 @@ void					ft_init_pipes(t_input *in);
 void 	ft_signal(void);
 void	ft_handler(int sig);
 void	ft_control_d(t_data *d);
+void ft_here_sig(int sig);
+void ft_cmd_sig(int sig);
 /*manage_input.c*/
 void					ft_manage_input(t_data *d);
 int						ft_is_space(char c);
