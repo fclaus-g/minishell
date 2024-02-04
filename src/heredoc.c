@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 23:29:12 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/01 21:11:29 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/04 09:18:58 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ void	ft_write_doc(t_command *cmd, char *content)
 	ft_open_check(cmd, fd, ".heredoc");
 	check = write(fd, content, ft_strlen(content));
 	if (check == -1)
-		ft_printf("carcaribash: %s: %s\n", strerror(errno), ".heredoc");
+	{
+		cmd->dataptr->exit_code = 1;
+		ft_printf("cascaribash: %s: %s\n", strerror(errno), ".heredoc");
+	}
 	close(fd);
 }
 /**

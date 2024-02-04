@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_exp.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 23:43:59 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/02 10:55:03 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/04 10:47:19 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,10 @@ void	bi_export(t_data *d, t_command *cmd)
 	while (cmd->cmd_tab[++i] != NULL)
 	{
 		if (ft_val_id(cmd->cmd_tab[i], 0))
+		{
+			d->exit_code = 1;
 			continue ;
+		}
 		if (!ft_isvar(cmd->cmd_tab[i]))
 		{
 			if (!ft_var_replace(d, cmd->cmd_tab[i]))
@@ -84,6 +87,7 @@ void	bi_export(t_data *d, t_command *cmd)
 		else
 			d->env_exp = ft_exp_update(d, cmd->cmd_tab[i]);
 		ft_export_order(d->env_exp);
+		d->exit_code = 0;
 	}
 }
 

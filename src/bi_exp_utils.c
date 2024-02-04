@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_exp_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 18:19:07 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/02 11:01:46 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/04 10:38:48 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	ft_export_print(t_data *d)
 	i = -1;
 	while (d->env_exp[++i] != NULL)
 		printf("declare -x %s\n", d->env_exp[i]);
+	d->exit_code = 0;
 }
 
 char	**ft_export_order(char **env)

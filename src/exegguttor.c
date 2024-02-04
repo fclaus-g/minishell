@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exegguttor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/02 10:16:04 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/04 10:15:01 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_built_exe(t_command *cmd, t_data *d)
 	if (ft_std_redir(cmd) > 0)
 		return ;
 	if (ft_strcmp(cmd->cmd_tab[0], "echo") == 0)
-		bi_echo(cmd->cmd_tab);
+		bi_echo(d, cmd->cmd_tab);
 	else if (ft_strcmp(cmd->cmd_tab[0], "cd") == 0)
 		bi_cd(d, cmd);
 	else if (ft_strcmp(cmd->cmd_tab[0], "pwd") == 0)
@@ -27,27 +27,37 @@ void	ft_built_exe(t_command *cmd, t_data *d)
 	else if (ft_strcmp(cmd->cmd_tab[0], "unset") == 0)
 		bi_unset(d, cmd);
 	else if (ft_strcmp(cmd->cmd_tab[0], "env") == 0)
+	{
 		ft_print_dstr(d->env_dup);
+		d->exit_code = 0;
+	}
 	else if (ft_strcmp(cmd->cmd_tab[0], "exit") == 0)
 		bi_exit(d);
 }
 
-void	ft_excve(t_command *cmd, char **env, int mode)
+void	ft_excve(t_command *cmd, t_data *d, int mode)
 {
 	if (mode == 0)
 	{
-		get_paths(cmd, env);
+		get_paths(cmd, d->env_dup);
 		find_path_index(cmd, cmd->cmd_tab[0]);
-		if (execve(cmd->path_cmd, cmd->cmd_tab, env) == -1)
+		if (execve(cmd->path_cmd, cmd->cmd_tab, d->env_dup) == -1)
+		{
+			d->exit_code = 127;
 			ft_excve_error(cmd);
+		}
 	}
-	if (execve(cmd->cmd_tab[0], cmd->cmd_tab, env) == -1)
+	if (execve(cmd->cmd_tab[0], cmd->cmd_tab, d->env_dup) == -1)
+	{
+		d->exit_code = 127;
 		ft_excve_error(cmd);
+	}
 }
 
-void	ft_exegguttor(t_command *cmd, char **env)
+void	ft_exegguttor(t_command *cmd, t_data *d)
 {
 	pid_t	pid;
+	int		exit_stat;
 
 	if (ft_std_redir(cmd) > 0)
 		return ;
@@ -55,13 +65,17 @@ void	ft_exegguttor(t_command *cmd, char **env)
 	if (pid == -1)
 		ft_printf_error("cascaribash: fork process failed");
 	else if (pid > 0)
-		waitpid(pid, NULL, 0);
+	{
+		waitpid(pid, &exit_stat, 0);
+		if (WIFEXITED(exit_stat))
+			d->exit_code = WEXITSTATUS(exit_stat);
+	}
 	else
 	{
 		if (!ft_strchr(cmd->cmd_tab[0], '/'))
-			ft_excve(cmd, env, 0);
+			ft_excve(cmd, d, 0);
 		else
-			ft_excve(cmd, env, 11);
+			ft_excve(cmd, d, 11);
 	}
 }
 
@@ -94,7 +108,7 @@ int	ft_cmd_driver(t_data *d, t_command *cmds)
 		if (cmds[curr_cmd].built == 1)
 			ft_built_exe(&cmds[curr_cmd], d);
 		else
-			ft_exegguttor(&cmds[curr_cmd], d->env_dup);
+			ft_exegguttor(&cmds[curr_cmd], d);
 		ft_std_shield(d, 1);
 	}
 	return (0);

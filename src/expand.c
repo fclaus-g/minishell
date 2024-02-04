@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 13:44:06 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/02 11:09:21 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/04 12:30:00 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
 /*funcion que sustituira el $NAME por el valor del entorno en el elemento
 MIRAR BIEN PORQUE DEVUELVE UN NUM EN LUGAR DE UN VALOR PTE DE TENER EN CUENTA
 $HOME$USER deberia de imprimir 2 variables de entorno en mi caso no encontraria
@@ -35,8 +36,8 @@ void	ft_expand_dollar(t_element *elm, t_data *d)
 			}
 			else if (!d->val && (!ft_val_id(d->var, 1) || !ft_isvar(d->var)))
 				elm->type = 'z';
-			// else
-			// 	ft_expand_more();
+			else
+				ft_expand_more(elm, d, c);
 			free(d->var);
 			free(d->val);
 		}

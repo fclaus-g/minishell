@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_maker.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 04:19:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/01 13:46:27 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/04 09:15:00 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	ft_init_cmd(t_input *in)
 	while (i < in->cmd_n)
 	{
 		start = curr;
+		in->cmds[i].dataptr = in->dptr;
 		in->cmds[i].paths = NULL;
 		in->cmds[i].path_cmd = NULL;
 		in->cmds[i].cmd_tab = NULL;

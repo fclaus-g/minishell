@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 21:00:53 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/01/30 22:22:31 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/04 10:48:55 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	bi_unset(t_data *d, t_command *cmd)
 		ft_unset_exp(d, cmd->cmd_tab[i]);
 		ft_get_envarray(d);
 	}
+	d->exit_code = 0;
 }
 
 /**
