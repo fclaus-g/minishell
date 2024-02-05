@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/04 10:15:01 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/05 12:09:09 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	ft_cmd_driver(t_data *d, t_command *cmds)
 		ft_dollar_check(&cmds[curr_cmd], d);
 		ft_format_cmd(&d->in);
 		ft_std_shield(d, 0);
-		ft_is_heredoc(&cmds[curr_cmd]);
+		ft_is_heredoc(&cmds[curr_cmd], d);
 		ft_shell_pipex(d, curr_cmd);
 		if (cmds[curr_cmd].built == 1)
 			ft_built_exe(&cmds[curr_cmd], d);

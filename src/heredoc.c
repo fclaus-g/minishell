@@ -6,13 +6,13 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 23:29:12 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/04 09:18:58 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/05 12:09:41 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_is_heredoc(t_command *cmd)
+void	ft_is_heredoc(t_command *cmd, t_data *d)
 {
 	int	i;
 
@@ -22,7 +22,7 @@ void	ft_is_heredoc(t_command *cmd)
 	while (++i < cmd->size)
 	{
 		if (cmd->tokens[i].type == 'h')
-			ft_heredoc(cmd, i);
+			ft_heredoc(cmd, i, d);
 	}
 }
 
@@ -45,7 +45,7 @@ void	ft_write_doc(t_command *cmd, char *content)
  * TODO: permisos para .heredoc al crearlo? 
  */
 
-void	ft_heredoc(t_command *cmd, int pos)
+void	ft_heredoc(t_command *cmd, int pos, t_data *d)
 {
 	char	*content;
 	char	*read;
@@ -66,6 +66,7 @@ void	ft_heredoc(t_command *cmd, int pos)
 			free(read);
 			read = readline("> ");
 		}
+		content = ft_expand_hdoc(content, d);
 		ft_write_doc(cmd, content);
 		if (content != NULL)
 			free(content);
