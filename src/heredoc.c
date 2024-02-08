@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 23:29:12 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/08 18:28:21 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/08 18:48:44 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_is_heredoc(t_command *cmd, t_data *d)
 				ft_signal();
 			}
 			else
-			{	
+			{
 				signal(SIGINT, ft_here_sig);
 				ft_heredoc(cmd, i, d);
 				exit (0);

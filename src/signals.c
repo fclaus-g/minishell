@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 11:17:20 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/08 18:41:06 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/08 18:48:37 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-	
+
 int	g_sign;
 
 void	ft_signal(void)
