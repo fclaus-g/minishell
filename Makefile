@@ -3,16 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+         #
+#    By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 21:48:21 by pgomez-r          #+#    #+#              #
-#    Updated: 2024/02/05 11:54:25 by pgruz11          ###   ########.fr        #
+#    Updated: 2024/02/08 16:08:16 by pgomez-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC       = gcc
 CFLAGS   = -Wall -Wextra -Werror
-LDFLAGS  = -lreadline 
+LDFLAGS  = -L /Users/${USER}/.brew/opt/readline/lib -lreadline
+INC_RL   = -I /Users/${USER}/.brew/opt/readline/include
 NAME     = minishell
 
 SRC_PATH = src/
@@ -22,7 +23,7 @@ SRC      = main.c init.c free.c bi_exit_echo.c lexer.c lexer_utils.c redir.c \
 			bi_dir.c bi_utils.c arr_tools_0.c arr_tools_1.c cmd_maker.c \
 			exegguttor.c exegguttor_utils.c cmd_maker_utils.c heredoc.c debug.c \
 			bi_exp.c manage_input.c quotes.c quotes2.c elements.c expand.c \
-			bi_exp_utils.c bi_unset.c expand_utils.c heredoc_expand.c
+			bi_exp_utils.c bi_unset.c expand_utils.c heredoc_expand.c signals.c
 SRCS	 = $(addprefix $(SRC_PATH), $(SRC))
 OBJ		 = $(SRC:.c=.o)
 OBJS	 = $(addprefix $(OBJ_PATH), $(OBJ))
@@ -33,7 +34,7 @@ all:	${NAME}
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INC_RL) -c $< -o $@
 $(NAME):	$(OBJS)
 	@echo "\033[0;33m\n	 ##### Checking/compiling Libft_42 library #####\n\033[0m"
 	@${MAKE} -C ./inc/libft

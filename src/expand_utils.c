@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 11:17:25 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/05 11:49:46 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/08 15:53:31 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	ft_expand_more(t_element *elm, t_data *d, int pos)
 		elm->data = ft_strdup(aux);
 		free(aux);
 	}
-	
 }
 
 char	*ft_expand_exitcode(t_element *elm, t_data *d, int pos)

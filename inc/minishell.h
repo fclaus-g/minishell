@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/07 19:04:42 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/08 15:53:19 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@
 # define T_EOD 'e' //end of file para heredoc (no expande variables)
 # define T_DLT 'z' //$VAR valida no encontrada para borrar
 
-typedef struct s_input t_input;
-typedef struct s_element t_element;
-typedef struct s_data t_data;
-typedef struct s_env t_env;
+typedef struct s_input		t_input;
+typedef struct s_element	t_element;
+typedef struct s_data		t_data;
+typedef struct s_env		t_env;
 /*STRUCTS*/
 /*Estructura para cada elemento del input, guarda tipo y su contenido en str*/
 typedef struct s_element
@@ -191,6 +191,7 @@ char					*ft_exp_hdoc_misc(char *content, t_data *d, int pos);
 char					*ft_rplc_content(char *content, char *value, int start, int del);
 void					ft_exphd_init(char *content, t_data *d, int i);
 char					*ft_expand_hdoc(char *content, t_data *d);
+char					*ft_var_del(char *s);
 /**********************[arr_tools_0.c]***********************************/
 t_element				*ft_arr_update(t_input *in, int i, char c);
 void					ft_fill_arr(t_input *in, t_element *new_arr, int tar, char **tab);
@@ -252,5 +253,11 @@ void					ft_free_data(t_data *d);
 void					ft_free_arr(t_input *in, int size);
 void					ft_clean_exit(t_data *d);
 void					ft_free_cmds(t_input *in);
+/**********************[signals.c]***********************************/
+void					ft_signal(void);
+void					ft_cmd_sig(int sig);
+void					ft_here_sig(int sig);
+void					ft_handler(int sig);
+void					ft_control_d(t_data *d);
 
 #endif

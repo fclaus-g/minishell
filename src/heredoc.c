@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 23:29:12 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/07 18:45:41 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/08 17:33:18 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,11 @@ void	ft_write_doc(t_command *cmd, char *content)
 	int		fd;
 	ssize_t	check;
 
+	check = 0;
 	fd = open(".heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	ft_open_check(cmd, fd, ".heredoc");
-	check = write(fd, content, ft_strlen(content));
+	if (content != NULL)
+		check = write(fd, content, ft_strlen(content));
 	if (check == -1)
 	{
 		cmd->dataptr->exit_code = 1;

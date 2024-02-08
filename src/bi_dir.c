@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_dir.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 23:18:10 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/04 10:31:20 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/08 11:46:45 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,5 @@ void	bi_pwd(t_data *d)
 	(void)d;
 	if (getcwd(pwd, PATH_MAX) == NULL)
 		ft_error(d, 1, "cascaribash: pwd error");
-		ft_printf("%s\n", pwd);
+	ft_printf("%s\n", pwd);
 }
