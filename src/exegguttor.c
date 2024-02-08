@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/02 10:29:44 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/08 14:25:12 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,25 @@ void	ft_exegguttor(t_command *cmd, char **env)
 
 	if (ft_std_redir(cmd) > 0)
 		return ;
+	//signal(SIGINT, SIG_IGN);
+	signal(SIGINT, ft_cmd_sig);
 	pid = fork();
 	if (pid == -1)
 		ft_printf_error("cascaribash: fork process failed");
 	else if (pid > 0)
+	{
+		
 		waitpid(pid, NULL, 0);
+	}
 	else
 	{
+
 		if (!ft_strchr(cmd->cmd_tab[0], '/'))
 			ft_excve(cmd, env, 0);
 		else
 			ft_excve(cmd, env, 11);
 	}
+	ft_signal();
 }
 
 void	ft_shell_pipex(t_data *d, int i)
@@ -90,6 +97,11 @@ int	ft_cmd_driver(t_data *d, t_command *cmds)
 		ft_format_cmd(&d->in);
 		ft_std_shield(d, 0);
 		ft_is_heredoc(&cmds[curr_cmd]);
+		if (g_sign == 1)
+		{
+			g_sign = 0;
+			return (0);
+		}	
 		ft_shell_pipex(d, curr_cmd);
 		if (cmds[curr_cmd].built == 1)
 			ft_built_exe(&cmds[curr_cmd], d);

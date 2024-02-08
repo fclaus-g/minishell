@@ -6,12 +6,12 @@
 #    By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 21:48:21 by pgomez-r          #+#    #+#              #
-#    Updated: 2024/02/02 10:38:12 by fclaus-g         ###   ########.fr        #
+#    Updated: 2024/02/08 10:07:59 by fclaus-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC       = gcc
-CFLAGS   = -Wall -Wextra -Werror
+CFLAGS   = -g -Wall -Wextra -Werror
 LDFLAGS  = -L /Users/fclaus-g/.brew/opt/readline/lib -lreadline 
 NAME     = minishell
 INC_RL   = -I /Users/fclaus-g/.brew/opt/readline/include
