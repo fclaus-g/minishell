@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/05 12:09:55 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/07 19:04:42 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,8 +186,8 @@ void					ft_heredoc(t_command *cmd, int pos, t_data *d);
 void					ft_write_doc(t_command *cmd, char *content);
 void					ft_is_heredoc(t_command *cmd, t_data *d);
 /**********************[heredoc_expand.c]***********************************/
-char					*ft_hd_exitcode(char *src, t_data *d, int pos);
-void					ft_exp_hdoc_misc(char *content, t_data *d, int pos);
+char					*ft_hd_exitcode(char *src, t_data *d);
+char					*ft_exp_hdoc_misc(char *content, t_data *d, int pos);
 char					*ft_rplc_content(char *content, char *value, int start, int del);
 void					ft_exphd_init(char *content, t_data *d, int i);
 char					*ft_expand_hdoc(char *content, t_data *d);

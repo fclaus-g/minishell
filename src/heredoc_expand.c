@@ -6,11 +6,38 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 11:49:07 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/05 12:11:01 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/08 10:13:31 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+char	*ft_var_del(char *s)
+{
+	char	*aux;
+	int		i;
+	int		len;
+
+	i = 0;
+	while (s[i] != '$')
+		i++;
+	len = 1;
+	while (s[++i] != '\0' && s[i] != ' ' && s[i] != '\n' && s[i] != '$')
+		len++;
+	aux = malloc(sizeof(char) * ft_strlen(s) - len + 1);
+	i = -1;
+	len = -1;
+	while (s[++i] != '$')
+		aux[++len] = s[i];
+	i++;
+	while (s[i] != '\0' && s[i] != ' ' && s[i] != '\n' && s[i] != '$')
+		i++;
+	while(s[i] != '\0')
+		aux[++len] = s[i++];
+	aux[++len] = '\0';
+	free (s);
+	return (aux);
+}
 
 /*******************************************************************/
 /**********TODO ESTO A heredoc_expand.c************/
@@ -18,40 +45,43 @@
 - Modificar las ft para recibir cadena en lugar de element?
 - Comprobar en ft_replace si tengo que pasarle puntero a puntero char**
 */
-char	*ft_hd_exitcode(char *src, t_data *d, int pos)
+char	*ft_hd_exitcode(char *src, t_data *d)
 {
 	char	*code;
 	char	*str;
 	int		i;
 	int		j;
+	int		k;
 
-	(void)pos;
 	code = ft_itoa(d->exit_code);
-	str = malloc(sizeof(char) * (ft_strlen(src) + ft_strlen(code) - 1));
-	i = 1;
+	str = malloc(sizeof(char) * (ft_strlen(src) - 2 + ft_strlen(code) - 1));
+	i = -1;
 	j = -1;
-	while (++j < (int)ft_strlen(code))
-		str[j] = code[j];
-	while (str[++i] != '\0')
-		str[j++] = src[i];
-	str[j] = '\0';
+	k = -1;
+	while (src[++i] != '$')
+		str[++j] = src[i];
+	i++;
+	while (code[++k] != '\0')
+		str[++j] = code[k];
+	while (src[++i] != '\0')
+		str[++j] = src[i];
+	str[++j] = '\0';
 	free (code);
 	return (str);
 }
 
-void	ft_exp_hdoc_misc(char *content, t_data *d, int pos)
+char	*ft_exp_hdoc_misc(char *content, t_data *d, int pos)
 {
 	char	*aux;
 
 	aux = NULL;
 	if (content[pos + 1] == '?')
 	{
-		aux = ft_hd_exitcode(content, d, pos);
+		aux = ft_hd_exitcode(content, d);
 		free(content);
-		content = ft_strdup(aux);
-		free(aux);
+		return (aux);
 	}
-	
+	return (content);
 }
 
 char	*ft_rplc_content(char *content, char *value, int start, int del)
@@ -98,18 +128,21 @@ char	*ft_expand_hdoc(char *content, t_data *d)
 		if (content[i] == '$')
 		{
 			ft_exphd_init(content, d, i);
+			printf("VAR = %s\n", d->var);
 			if (d->val)
 			{
 				d->aux = ft_rplc_content(content, d->val, i, ft_strlen(d->var));
 				content = ft_strdup(d->aux);
 				free (d->aux);
 			}
-			// else if (!d->val && (!ft_val_id(d->var, 1) || !ft_isvar(d->var)))
-			// 	str = ft_strdup(""); //dejar vacio ese trozo de cadena...
+			else if (!d->val && (!ft_val_id(d->var, 1) || !ft_isvar(d->var)))
+				content = ft_var_del(content);
 			else
-				ft_exp_hdoc_misc(content, d, i);
+				content = ft_exp_hdoc_misc(content, d, i);
 			free(d->var);
 			free(d->val);
+			printf("Expand no.%d: %s\n", i, content);
+			i = -1;
 		}
 	}
 	return (content);
