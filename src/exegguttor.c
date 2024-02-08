@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exegguttor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/08 15:45:01 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/08 18:43:57 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	ft_exegguttor(t_command *cmd, t_data *d)
 
 	if (ft_std_redir(cmd) > 0)
 		return ;
-	signal(SIGINT, ft_cmd_sig);
+	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if (pid == -1)
 		ft_printf_error("cascaribash: fork process failed");
@@ -73,6 +73,7 @@ void	ft_exegguttor(t_command *cmd, t_data *d)
 	}
 	else
 	{
+		signal(SIGINT, ft_cmd_sig);
 		if (!ft_strchr(cmd->cmd_tab[0], '/'))
 			ft_excve(cmd, d, 0);
 		else

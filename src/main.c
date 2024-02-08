@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/08 15:42:51 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/08 18:36:40 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_engine(t_data *d)
 			ft_clean_input(&d->in);
 		}
 		d->rl_input = readline("cascaribash/> ");
+		ft_control_d(d);
 		add_history(d->rl_input);
 		if (ft_lexer(d))
 			continue ;
@@ -40,7 +41,7 @@ int	main(int ac, char **av, char **env)
 {
 	t_data	d;
 
-	atexit(ft_leaks);
+	//atexit(ft_leaks);
 	(void)av;
 	if (ac > 1)
 		return (1);

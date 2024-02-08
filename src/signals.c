@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 11:17:20 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/08 16:08:22 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/08 18:41:06 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-#include <readline/readline.h>
-
+	
 int	g_sign;
 
 void	ft_signal(void)
@@ -26,12 +25,14 @@ void	ft_cmd_sig(int sig)
 {
 	(void)sig;
 	write(1, "\n", 1);
+	exit (130);
 }
 
 void	ft_here_sig(int sig)
 {
 	(void)sig;
-	g_sign = 1;
+	write(1, "\n", 1);
+	exit(130);
 }
 
 void	ft_handler(int sig)

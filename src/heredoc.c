@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 23:29:12 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/08 17:33:18 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/08 18:28:21 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	ft_is_heredoc(t_command *cmd, t_data *d)
 {
-	int	i;
+	int		i;
+	pid_t	pid;
+	int		exit_stat;
 
 	if (access(".heredoc", F_OK) == 0)
 		unlink(".heredoc");
@@ -22,7 +24,23 @@ void	ft_is_heredoc(t_command *cmd, t_data *d)
 	while (++i < cmd->size)
 	{
 		if (cmd->tokens[i].type == 'h')
-			ft_heredoc(cmd, i, d);
+		{
+			pid = fork();
+			if (pid > 0)
+			{
+				signal(SIGINT, SIG_IGN);
+				waitpid(pid, &exit_stat, 0);
+				if (WIFEXITED(exit_stat))
+					d->exit_code = WEXITSTATUS(exit_stat);
+				ft_signal();
+			}
+			else
+			{	
+				signal(SIGINT, ft_here_sig);
+				ft_heredoc(cmd, i, d);
+				exit (0);
+			}
+		}
 	}
 }
 
