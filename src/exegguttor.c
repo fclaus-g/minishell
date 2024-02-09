@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/09 17:32:18 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/09 17:56:10 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	ft_exegguttor(t_command *cmd, t_data *d)
 	else
 	{
 		if (g_sign != 0)
-			exit (1);
+			exit (g_sign);
 		if (!ft_strchr(cmd->cmd_tab[0], '/'))
 			ft_excve(cmd, d, 0);
 		else

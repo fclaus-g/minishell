@@ -6,11 +6,13 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 23:29:12 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/09 17:31:56 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/09 18:04:58 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	ft_gsign_exit()
 
 void	ft_is_heredoc(t_command *cmd, t_data *d)
 {
@@ -35,8 +37,8 @@ void	ft_is_heredoc(t_command *cmd, t_data *d)
 				waitpid(pid, &exit_stat, 0);
 				if (WIFEXITED(exit_stat))
 					d->exit_code = WEXITSTATUS(exit_stat);
-				if (exit_stat != 0)
-					g_sign = 1;
+				if (d->exit_code != 0)
+					d->exit_code = g_sign;
 				ft_signal();
 			}
 			else
@@ -91,7 +93,6 @@ void	ft_heredoc(t_command *cmd, int pos, t_data *d)
 	char	*content;
 	char	*read;
 	char	*eof;
-	int		ctrld;
 
 	content = NULL;
 	read = NULL;
@@ -99,10 +100,12 @@ void	ft_heredoc(t_command *cmd, int pos, t_data *d)
 	if (cmd->tokens[pos + 1].type == 'e' || cmd->tokens[pos + 1].type == 'E')
 		eof = cmd->tokens[pos + 1].data;
 	read = readline("> ");
-	ctrld = ft_hdoc_ctrld(read, content);
-	if (ft_strcmp(read, eof) && ctrld != 1)
+	if (read == NULL)
+		exit (42);
+	//ctrld = ft_hdoc_ctrld(read, content);
+	if (ft_strcmp(read, eof))
 	{
-		while (ft_strcmp(read, eof) && ctrld != 1)
+		while (ft_strcmp(read, eof))
 		{
 			content = ft_strjoint(content, read);
 			content = ft_strjoint(content, "\n");
@@ -110,7 +113,7 @@ void	ft_heredoc(t_command *cmd, int pos, t_data *d)
 			read = readline("> ");
 			if (read == NULL && content != NULL)
 				break ;
-			ctrld = ft_hdoc_ctrld(read, content);
+			//ctrld = ft_hdoc_ctrld(read, content);
 		}
 		content = ft_expand_hdoc(content, d);
 		ft_write_doc(cmd, content);
