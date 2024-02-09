@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   elements.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:21:41 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/01 14:40:56 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/04 10:56:52 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_fill_elements(t_input *in)
 	i = -1;
 	in->elements = malloc(sizeof(t_element) * in->n_elements);
 	if (!in->elements)
-		printf(RED"malloc ko\n"RESET);
+		printf("cascaribash: malloc error\n");
 	while (++i < in->n_elements)
 	{
 		in->elements[i].type = '0';
@@ -49,7 +49,7 @@ void	ft_check_elements(t_input *in, t_element *array, t_data *d)
 	while (++i < in->n_elements)
 	{
 		if (ft_quote_in_data(array[i].data))
-			ft_management_quotes(&array[i]);
+			ft_management_quotes(&array[i], d);
 	}
 }
 

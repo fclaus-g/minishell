@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 07:32:32 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/30 22:13:05 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/04 09:53:55 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,12 @@ void	ft_init_pipes(t_input *in)
 
 	in->pipes = malloc(sizeof(*in->pipes) * (in->cmd_n - 1));
 	if (!in->pipes)
-	{
 		ft_printf_error("cascaribash: malloc error\n");
-		exit(EXIT_FAILURE);
-	}
 	i = -1;
 	while (++i < in->cmd_n - 1)
 	{
 		if (pipe(in->pipes[i]) == -1)
-		{
 			ft_printf_error("cascaribash: pipe error\n");
-			exit(EXIT_FAILURE);
-		}
 	}
 }
 
@@ -116,6 +110,8 @@ void	ft_init(t_data *d, char **env)
 {
 	d->rl_input = NULL;
 	d->env_arr = NULL;
+	d->exit_code = 0;
+	d->in.dptr = d;
 	ft_parse_env(d, env);
 	ft_get_envarray(d);
 }

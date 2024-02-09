@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 17:12:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/14 18:17:48 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/04 09:26:04 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,17 @@ void	ft_syntax_error(t_input *in, int i)
 {
 	char	*msg;
 
+	in->dptr->exit_code = 258;
 	msg = "cascaribash: syntax error near unexpected token ";
 	if (i + 1 < in->n_elements)
 		ft_printf_error("%s`%s'\n", msg, in->elements[i + 1].data);
 	else
 		ft_printf_error("%s`newline'\n", msg);
+}
+
+void	ft_error(t_data *d, int code, char *msg)
+{
+	d->exit_code = code;
+	if (msg != NULL)
+		ft_printf_error("%s\n");
 }

@@ -6,51 +6,56 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 13:44:06 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/02 10:48:56 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/09 10:06:59 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
 /*funcion que sustituira el $NAME por el valor del entorno en el elemento
 MIRAR BIEN PORQUE DEVUELVE UN NUM EN LUGAR DE UN VALOR PTE DE TENER EN CUENTA
 $HOME$USER deberia de imprimir 2 variables de entorno en mi caso no encontraria
 ninguna porque lo toma como una sola palabra el enfoque de como expandir hay 
 que cambiarlo, se me ocurre si encuentra el dolar haz esto y continue en lugar
 de hacerlo en una fncion aparte como esta ahora mismo*/
-void	ft_expand_dollar(t_element *element, t_data *data)
+void	ft_expand_dollar(t_element *elm, t_data *d)
 {
 	int		c;
-	char	*var;
-	char	*value;
-	char	*freeman;
 
 	c = -1;
-	while (element->data[++c])
+	while (elm->data[++c])
 	{
-		if (element->data[c] == '$' && element->data[c + 1] != '$' && !ft_isdigit(element->data[c + 1]))
+		if (elm->data[c] == '$')
 		{
-			var = ft_get_dollar_word(element->data, c + 1);
-			value = ft_search_value(var, data->env_arr, data->env_size);
-			if (value)
+			ft_expand_init(elm, d, c);
+			if (d->val)
 			{
-				freeman = ft_insert_value(*element, value, c, ft_strlen(var));
-				element->data = ft_strdup(freeman);
-				free (freeman);
+				d->aux = ft_insert_value(*elm, d->val, c, ft_strlen(d->var));
+				elm->data = ft_strdup(d->aux);
+				free (d->aux);
 			}
-			else if (!value && (!ft_valid_identifier(var, 1) || !ft_isvar(var)))
-				element->type = 'z';
-			// else
-			// 	ft_expand_more();
-			free(var);
-			free(value);
+			else if (!d->val && (!ft_val_id(d->var, 1) || !ft_isvar(d->var)))
+				elm->type = 'z';
+			else
+				ft_expand_more(elm, d, c);
+			free(d->var);
+			free(d->val);
 		}
 	}
+}
+
+void	ft_expand_init(t_element *element, t_data *d, int c)
+{
+	d->var = NULL;
+	d->val = NULL;
+	d->var = ft_get_dollar_word(element->data, c + 1);
+	d->val = ft_search_value(d->var, d->env_arr, d->env_size);
 }
 
 /**
  * TODO: recotar lineas ft_expand_dollar
  * 	- Las tres cadenas declaradas, a t_data, con nombres más cortos
- * 	- Cambiar y reducir nombre de ft_valid_identifier
+ * 	- Cambiar y reducir nombre de ft_valid_identifier 
  * 	- (Si hace falta más recorte) función que libere dos cadenas (var + value)
  */
 

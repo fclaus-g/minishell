@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:15:46 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/01/31 15:26:05 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/02 11:02:31 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,20 @@ char	*ft_str_rplc(char *src, char *new)
 	return (aux);
 }
 
-void	ft_overwrite_var(t_data *d, char *var, char* new)
+void	ft_overwrite_var(t_data *d, char *var, char *new)
 {
 	int		i;
 	int		j;
-	char	*title = NULL;
+	char	*title;
 	char	*aux;
 
+	title = NULL;
 	title = ft_strjoint(title, var);
 	title = ft_strjoint(title, "=");
 	i = 0;
 	while (ft_strncmp(d->env_dup[i], var, ft_strlen(var)))
 		i++;
-	d->env_dup[i] = ft_str_rplc(d->env_dup[i], title); 
+	d->env_dup[i] = ft_str_rplc(d->env_dup[i], title);
 	d->env_dup[i] = ft_strjoint(d->env_dup[i], new);
 	j = 0;
 	while (ft_strncmp(d->env_exp[j], var, ft_strlen(var)))

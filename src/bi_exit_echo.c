@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bi_temp.c                                          :+:      :+:    :+:   */
+/*   bi_exit_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:57:29 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/01 14:50:30 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/04 10:15:16 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	bi_exit(t_data *d)
 	exit(0);
 }
 
-void	bi_echo(char **args)
+void	bi_echo(t_data *d, char **args)
 {
 	int	i;
 	int	nl;
@@ -38,4 +38,5 @@ void	bi_echo(char **args)
 	}
 	if (nl == 1)
 		ft_printf("\n");
+	d->exit_code = 0;
 }
