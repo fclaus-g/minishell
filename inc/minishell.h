@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/08 15:53:19 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/09 13:03:00 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@
 # define T_EOF 'E' //end of file para heredoc (expande variables)
 # define T_EOD 'e' //end of file para heredoc (no expande variables)
 # define T_DLT 'z' //$VAR valida no encontrada para borrar
+
+int							g_sign;
 
 typedef struct s_input		t_input;
 typedef struct s_element	t_element;
@@ -225,6 +227,7 @@ char					*ft_str_rplc(char *src, char *new);
 /**********************[bi_exit_echo.c]***********************************/
 void					bi_exit(t_data *d);
 void					bi_echo(t_data *d, char **args);
+int						ft_is_dir(t_data *d, char *str);
 /**********************[bi_dir.c]***********************************/
 void					bi_pwd(t_data *d);
 void					ft_update_pwd(t_data *d, char *old_pwd);

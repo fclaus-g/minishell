@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exegguttor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/08 18:43:57 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/09 17:32:18 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	ft_built_exe(t_command *cmd, t_data *d)
 
 void	ft_excve(t_command *cmd, t_data *d, int mode)
 {
+	signal(SIGINT, ft_cmd_sig);
 	if (mode == 0)
 	{
 		get_paths(cmd, d->env_dup);
@@ -61,7 +62,8 @@ void	ft_exegguttor(t_command *cmd, t_data *d)
 
 	if (ft_std_redir(cmd) > 0)
 		return ;
-	signal(SIGINT, SIG_IGN);
+	//signal(SIGINT, SIG_IGN);
+	signal(SIGINT, ft_cmd_sig);
 	pid = fork();
 	if (pid == -1)
 		ft_printf_error("cascaribash: fork process failed");
@@ -73,7 +75,8 @@ void	ft_exegguttor(t_command *cmd, t_data *d)
 	}
 	else
 	{
-		signal(SIGINT, ft_cmd_sig);
+		if (g_sign != 0)
+			exit (1);
 		if (!ft_strchr(cmd->cmd_tab[0], '/'))
 			ft_excve(cmd, d, 0);
 		else
@@ -103,6 +106,7 @@ int	ft_cmd_driver(t_data *d, t_command *cmds)
 	curr_cmd = -1;
 	while (++curr_cmd < d->in.cmd_n)
 	{
+		g_sign = 0;
 		ft_dollar_check(&cmds[curr_cmd], d);
 		ft_format_cmd(&d->in);
 		ft_std_shield(d, 0);
