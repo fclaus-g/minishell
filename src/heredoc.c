@@ -6,50 +6,11 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 23:29:12 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/09 18:04:58 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/10 23:14:05 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-void	ft_gsign_exit()
-
-void	ft_is_heredoc(t_command *cmd, t_data *d)
-{
-	int		i;
-	pid_t	pid;
-	int		exit_stat;
-
-	if (access(".heredoc", F_OK) == 0)
-	{
-		unlink(".heredoc");
-		g_sign = 0;
-	}
-	i = -1;
-	while (++i < cmd->size)
-	{
-		if (cmd->tokens[i].type == 'h')
-		{
-			signal(SIGINT, SIG_IGN);
-			pid = fork();
-			if (pid > 0)
-			{
-				waitpid(pid, &exit_stat, 0);
-				if (WIFEXITED(exit_stat))
-					d->exit_code = WEXITSTATUS(exit_stat);
-				if (d->exit_code != 0)
-					d->exit_code = g_sign;
-				ft_signal();
-			}
-			else
-			{
-				signal(SIGINT, ft_here_sig);
-				ft_heredoc(cmd, i, d);
-				exit (0);
-			}
-		}
-	}
-}
 
 void	ft_write_doc(t_command *cmd, char *content)
 {
@@ -68,57 +29,62 @@ void	ft_write_doc(t_command *cmd, char *content)
 	}
 	close(fd);
 }
-/**
- * TODO: permisos para .heredoc al crearlo? 
- */
 
-int	ft_hdoc_ctrld(char *read, char *content)
+void	ft_heredoc(t_command *cmd, int pos, t_data *d, int *exit)
 {
-	if (read == NULL && content == NULL)
+	ft_heredoc_init(d, cmd, pos);
+	d->read = readline("> ");
+	if (d->read == NULL)
+		(*exit) = 242;
+	if ((*exit) != 242 && ft_strcmp(d->read, d->eof))
 	{
-		rl_replace_line("> ", 0);
-		exit(1);
+		while ((*exit) != 211 && ft_strcmp(d->read, d->eof))
+		{
+			ft_content_buffer(d);
+			d->read = readline("> ");
+			if (d->read == NULL && d->content != NULL)
+				(*exit) = 211;
+		}
+		d->content = ft_expand_hdoc(d->content, d);
+		ft_write_doc(cmd, d->content);
+		if (d->content != NULL)
+			free(d->content);
 	}
-	if (read == NULL && content != NULL)
-	{
-		g_sign = 0;
-		rl_replace_line("> ", 0);
-		return (1);
-	}
-	return (0);
+	if (d->read != NULL)
+		free(d->read);
 }
 
-void	ft_heredoc(t_command *cmd, int pos, t_data *d)
+void	ft_heredoc_loop(t_command *cmd, t_data *d)
 {
-	char	*content;
-	char	*read;
-	char	*eof;
+	int	i;
+	int	hd_exit;
 
-	content = NULL;
-	read = NULL;
-	eof = NULL;
-	if (cmd->tokens[pos + 1].type == 'e' || cmd->tokens[pos + 1].type == 'E')
-		eof = cmd->tokens[pos + 1].data;
-	read = readline("> ");
-	if (read == NULL)
-		exit (42);
-	//ctrld = ft_hdoc_ctrld(read, content);
-	if (ft_strcmp(read, eof))
+	i = -1;
+	while (++i < cmd->size)
 	{
-		while (ft_strcmp(read, eof))
+		hd_exit = 0;
+		if (cmd->tokens[i].type == 'h')
 		{
-			content = ft_strjoint(content, read);
-			content = ft_strjoint(content, "\n");
-			free(read);
-			read = readline("> ");
-			if (read == NULL && content != NULL)
-				break ;
-			//ctrld = ft_hdoc_ctrld(read, content);
+			signal(SIGINT, SIG_IGN);
+			d->pid = fork();
+			if (d->pid > 0)
+				ft_wait(d->pid, d, 1);
+			else
+			{
+				signal(SIGINT, ft_here_sig);
+				ft_heredoc(cmd, i, d, &hd_exit);
+				exit (hd_exit);
+			}
 		}
-		content = ft_expand_hdoc(content, d);
-		ft_write_doc(cmd, content);
-		if (content != NULL)
-			free(content);
 	}
-	free(read);
+}
+
+void	ft_is_heredoc(t_command *cmd, t_data *d)
+{
+	if (access(".heredoc", F_OK) == 0)
+	{
+		unlink(".heredoc");
+		g_sign = 0;
+	}
+	ft_heredoc_loop(cmd, d);
 }

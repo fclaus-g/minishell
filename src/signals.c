@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 11:17:20 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/09 14:00:34 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/10 22:17:40 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_here_sig(int sig)
 {
 	(void)sig;
 	write(1, "\n", 1);
-	exit(130);
+	exit(1);
 }
 
 void	ft_handler(int sig)

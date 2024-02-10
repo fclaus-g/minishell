@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:57:29 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/09 12:24:00 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/10 23:19:23 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,4 @@ void	bi_echo(t_data *d, char **args)
 	if (nl == 1)
 		ft_printf("\n");
 	d->exit_code = 0;
-}
-
-int	ft_is_dir(t_data *d, char *str)
-{
-	DIR	*dir;
-
-	dir = opendir(str);
-	if (dir == NULL)
-	{
-		ft_error(d, errno, NULL);
-		return (perror("cascaribash"), 1);
-	}
-	closedir(dir);
-	return (0);
 }

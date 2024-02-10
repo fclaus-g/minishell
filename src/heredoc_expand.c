@@ -6,45 +6,12 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 11:49:07 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/08 15:53:40 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/10 23:32:52 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*ft_var_del(char *s)
-{
-	char	*aux;
-	int		i;
-	int		len;
-
-	i = 0;
-	while (s[i] != '$')
-		i++;
-	len = 1;
-	while (s[++i] != '\0' && s[i] != ' ' && s[i] != '\n' && s[i] != '$')
-		len++;
-	aux = malloc(sizeof(char) * ft_strlen(s) - len + 1);
-	i = -1;
-	len = -1;
-	while (s[++i] != '$')
-		aux[++len] = s[i];
-	i++;
-	while (s[i] != '\0' && s[i] != ' ' && s[i] != '\n' && s[i] != '$')
-		i++;
-	while (s[i] != '\0')
-		aux[++len] = s[i++];
-	aux[++len] = '\0';
-	free (s);
-	return (aux);
-}
-
-/*******************************************************************/
-/**********TODO ESTO A heredoc_expand.c************/
-/*
-- Modificar las ft para recibir cadena en lugar de element?
-- Comprobar en ft_replace si tengo que pasarle puntero a puntero char**
-*/
 char	*ft_hd_exitcode(char *src, t_data *d)
 {
 	char	*code;
@@ -128,7 +95,6 @@ char	*ft_expand_hdoc(char *content, t_data *d)
 		if (content[i] == '$')
 		{
 			ft_exphd_init(content, d, i);
-			printf("VAR = %s\n", d->var);
 			if (d->val)
 			{
 				d->aux = ft_rplc_content(content, d->val, i, ft_strlen(d->var));
@@ -141,7 +107,6 @@ char	*ft_expand_hdoc(char *content, t_data *d)
 				content = ft_exp_hdoc_misc(content, d, i);
 			free(d->var);
 			free(d->val);
-			printf("Expand no.%d: %s\n", i, content);
 			i = -1;
 		}
 	}

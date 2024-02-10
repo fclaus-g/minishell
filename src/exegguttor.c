@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/09 17:56:10 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/10 22:36:50 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,31 +58,24 @@ void	ft_excve(t_command *cmd, t_data *d, int mode)
 void	ft_exegguttor(t_command *cmd, t_data *d)
 {
 	pid_t	pid;
-	int		exit_stat;
 
 	if (ft_std_redir(cmd) > 0)
 		return ;
-	//signal(SIGINT, SIG_IGN);
 	signal(SIGINT, ft_cmd_sig);
 	pid = fork();
 	if (pid == -1)
 		ft_printf_error("cascaribash: fork process failed");
 	else if (pid > 0)
-	{
-		waitpid(pid, &exit_stat, 0);
-		if (WIFEXITED(exit_stat))
-			d->exit_code = WEXITSTATUS(exit_stat);
-	}
+		ft_wait(pid, d, 0);
 	else
 	{
 		if (g_sign != 0)
-			exit (g_sign);
+			exit (d->exit_code);
 		if (!ft_strchr(cmd->cmd_tab[0], '/'))
 			ft_excve(cmd, d, 0);
 		else
 			ft_excve(cmd, d, 11);
 	}
-	ft_signal();
 }
 
 void	ft_shell_pipex(t_data *d, int i)

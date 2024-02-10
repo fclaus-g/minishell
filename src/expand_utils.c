@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 11:17:25 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/08 15:53:31 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/10 23:33:01 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,31 @@ char	*ft_expand_exitcode(t_element *elm, t_data *d, int pos)
 	str[j] = '\0';
 	free (code);
 	return (str);
+}
+
+char	*ft_var_del(char *s)
+{
+	char	*aux;
+	int		i;
+	int		len;
+
+	i = 0;
+	while (s[i] != '$')
+		i++;
+	len = 1;
+	while (s[++i] != '\0' && s[i] != ' ' && s[i] != '\n' && s[i] != '$')
+		len++;
+	aux = malloc(sizeof(char) * ft_strlen(s) - len + 1);
+	i = -1;
+	len = -1;
+	while (s[++i] != '$')
+		aux[++len] = s[i];
+	i++;
+	while (s[i] != '\0' && s[i] != ' ' && s[i] != '\n' && s[i] != '$')
+		i++;
+	while (s[i] != '\0')
+		aux[++len] = s[i++];
+	aux[++len] = '\0';
+	free (s);
+	return (aux);
 }
