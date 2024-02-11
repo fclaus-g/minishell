@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:24:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/09 17:22:11 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/11 19:48:02 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,23 +66,24 @@ void	ft_free_data(t_data *d)
 void	ft_free_cmds(t_input *in)
 {
 	int	i;
+	int	j;
 
 	i = -1;
 	while (++i < in->cmd_n)
 	{
-		if (in->cmds[i].path_cmd != NULL)
-			free(in->cmds[i].path_cmd);
-		if (in->cmds[i].cmd_line != NULL)
-		{
-			free(in->cmds[i].cmd_line);
-			in->cmds[i].cmd_line = NULL;
-		}
+		ft_free_str(in->cmds[i].path_cmd);
+		ft_free_str(in->cmds[i].cmd_line);
 		if (in->cmds[i].paths != NULL)
 			ft_totalfree(in->cmds[i].paths);
 		if (in->cmds[i].cmd_tab != NULL)
 			ft_totalfree(in->cmds[i].cmd_tab);
 		if (in->cmds[i].tokens != NULL)
+		{
+			j = -1;
+			while (++j < in->cmds[i].size)
+				ft_free_str(in->cmds[i].tokens[j].data);
 			free(in->cmds[i].tokens);
+		}
 	}
 }
 /**
