@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:09:31 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/11 19:38:52 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/11 23:30:57 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,6 @@ void	ft_dollar_check(t_command *cmd, t_data *d)
 	{
 		c = cmd->tokens[i].type;
 		if ((c == '0' || c == '\"') && ft_its_dollar(cmd->tokens[i].data))
-			cmd->tokens[i].data = ft_expand_hdoc(cmd->tokens[i].data, d);
+			cmd->tokens[i].data = ft_expand(cmd->tokens[i].data, d);
 	}
 }
-
-/*
-10-02-24 -> Comienzo a probar sustituir todas las ft_expand que funcionan
-	con t_element por las que devuelven char*
-El planteamiento original es en ft_dollar_check: 
-	l:78  if ((c == '0' || c == '\"') && ft_its_dollar(cmd->tokens[i].data))
-			ft_expand_dollar(&cmd->tokens[i], d);
-Si funciona así -> unificar las funciones hdoc y expand en uno o varios file.c
-*/

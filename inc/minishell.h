@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/10 23:33:47 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/11 23:30:43 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,15 +154,15 @@ char					ft_define_qtype(t_element element);
 char					*ft_clean_quotes(t_element element);
 int						ft_count_quotes(char *str);
 /**********************[expand.c]**************************************/
-void					ft_expand_dollar(t_element *elm, t_data *d);
-void					ft_expand_init(t_element *element, t_data *d, int c);
+char					*ft_expand_excd(char *src, t_data *d);
+char					*ft_expand_other(char *content, t_data *d, int pos);
+char					*ft_rplc_content(char *content, char *value, int start, int del);
+char					*ft_expand(char *content, t_data *d);
+/**********************[expand_utils.c]**************************************/
+void					ft_expand_init(char *content, t_data *d, int i);
 char					*ft_get_dollar_word(char *str, int start);
 char					*ft_search_value(char *comp, t_env *env, int lenv);
-char					*ft_insert_value(t_element elemento, char *value, int start, int del);
-/**********************[expand_utils.c]**************************************/
-void					ft_expand_more(t_element *elm, t_data *d, int pos);
-char					*ft_expand_exitcode(t_element *elm, t_data *d, int pos);
-char					*ft_var_del(char *s);
+char					*ft_var_del(char *s, int *pos);
 /**********************[lexer.c]***********************************/
 int						ft_lexer(t_data *d);
 void					ft_token_pipes(t_input *in);
@@ -195,12 +195,6 @@ void					ft_write_doc(t_command *cmd, char *content);
 void					ft_heredoc(t_command *cmd, int pos, t_data *d, int *exit);
 void					ft_heredoc_loop(t_command *cmd, t_data *d);
 void					ft_is_heredoc(t_command *cmd, t_data *d);
-/**********************[heredoc_expand.c]***********************************/
-char					*ft_hd_exitcode(char *src, t_data *d);
-char					*ft_exp_hdoc_misc(char *content, t_data *d, int pos);
-char					*ft_rplc_content(char *content, char *value, int start, int del);
-void					ft_exphd_init(char *content, t_data *d, int i);
-char					*ft_expand_hdoc(char *content, t_data *d);
 /**********************[heredoc_utils.c]***********************************/
 void					ft_content_buffer(t_data *d);
 void					ft_heredoc_init(t_data *d, t_command *cmd, int pos);

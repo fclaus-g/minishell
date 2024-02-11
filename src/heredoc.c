@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 23:29:12 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/10 23:14:05 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/11 23:30:49 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_heredoc(t_command *cmd, int pos, t_data *d, int *exit)
 			if (d->read == NULL && d->content != NULL)
 				(*exit) = 211;
 		}
-		d->content = ft_expand_hdoc(d->content, d);
+		d->content = ft_expand(d->content, d);
 		ft_write_doc(cmd, d->content);
 		if (d->content != NULL)
 			free(d->content);

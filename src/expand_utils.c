@@ -6,48 +6,54 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 11:17:25 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/10 23:33:01 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/11 23:26:51 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_expand_more(t_element *elm, t_data *d, int pos)
+void	ft_expand_init(char *content, t_data *d, int i)
+{
+	d->var = NULL;
+	d->val = NULL;
+	d->var = ft_get_dollar_word(content, i + 1);
+	d->val = ft_search_value(d->var, d->env_arr, d->env_size);
+}
+
+char	*ft_get_dollar_word(char *str, int start)
 {
 	char	*aux;
+	int		c;
 
-	aux = NULL;
-	if (elm->data[pos + 1] == '?')
-	{
-		aux = ft_expand_exitcode(elm, d, pos);
-		free(elm->data);
-		elm->data = ft_strdup(aux);
-		free(aux);
-	}
+	c = start;
+	while (str[c] && str[c] != '$' && !ft_is_space(str[c]) \
+			&& !ft_is_quote(str[c]))
+		c++;
+	aux = ft_substr(str, start, c - start);
+	return (aux);
 }
 
-char	*ft_expand_exitcode(t_element *elm, t_data *d, int pos)
+/*en esta funcion vamos a buscar en el array de entorno
+una coincidencia con la str *comp para obtener el valor
+de la variab*/
+char	*ft_search_value(char *comp, t_env *env, int lenv)
 {
-	char	*code;
-	char	*str;
 	int		i;
-	int		j;
+	char	*aux;
 
-	(void)pos;
-	code = ft_itoa(d->exit_code);
-	str = malloc(sizeof(char) * (ft_strlen(elm->data) + ft_strlen(code) - 1));
-	i = 1;
-	j = -1;
-	while (++j < (int)ft_strlen(code))
-		str[j] = code[j];
-	while (elm->data[++i] != '\0')
-		str[j++] = elm->data[i];
-	str[j] = '\0';
-	free (code);
-	return (str);
+	i = -1;
+	while (++i < lenv)
+	{
+		if (!ft_strcmp(comp, env[i].title))
+		{
+			aux = ft_strdup(env[i].line);
+			return (aux);
+		}
+	}
+	return (NULL);
 }
 
-char	*ft_var_del(char *s)
+char	*ft_var_del(char *s, int *pos)
 {
 	char	*aux;
 	int		i;
@@ -71,5 +77,6 @@ char	*ft_var_del(char *s)
 		aux[++len] = s[i++];
 	aux[++len] = '\0';
 	free (s);
+	(*pos) = -1;
 	return (aux);
 }
