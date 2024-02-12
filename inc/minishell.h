@@ -39,7 +39,9 @@
 # define T_APP 'a' //redirección salida con APPEND '>>'
 # define T_EOF 'E' //end of file para heredoc (expande variables)
 # define T_EOD 'e' //end of file para heredoc (no expande variables)
-# define T_DLT 'z' //$VAR valida no encontrada para borrar
+# define T_BSL '\\' //backslash
+# define T_SCL ';' //semicolon
+# define T_AND '&' //"&&" AND operator
 
 int							g_sign;
 
@@ -167,13 +169,20 @@ char					*ft_var_del(char *s, int *pos);
 int						ft_lexer(t_data *d);
 void					ft_token_pipes(t_input *in);
 void					ft_token_redirs(t_input *in);
-int						ft_syntax_check(t_input *in);
 void					ft_token_files(t_input *in);
 /**********************[lexer_utils.c]***********************************/
 int						ft_is_red(char	*s);
 void					ft_syntax_error(t_input *in, int i);
 int						ft_eof_check(t_input *in);
 void					ft_error(t_data *d, int code, char *msg);
+/**********************[lexer_spchars.c]***********************************/
+void    				ft_token_spchars(t_input *in);
+int						ft_char_pos(char *s, char c);
+void					ft_token_and(t_input *in);
+/**********************[syntax_check.c]***********************************/
+int						ft_syntax_check(t_input *in);
+int 					ft_stdset_check(t_input *in);
+int 					ft_spcset_check(t_input *in);
 /**********************[cmd_maker.c]***********************************/
 void					ft_cmd_maker(t_input *in);
 void					ft_init_cmd(t_input *in);

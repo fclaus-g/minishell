@@ -108,9 +108,6 @@ void	ft_fill_arr(t_input *in, t_element *new_arr, int tar, char **tab)
 para separar >> o << en un elemento independiente y catalogarlo (o solo lo
 último, si ya se encuentra como elemento independiente) - Puede servir como
 base para otra función si hace falta contemplar || como operador lógico*/
-/**
- * TODO: ft_free_arr justo antes de free(in->elements) da doble free -> FIX!
- */
 t_element	*ft_db_redirs(t_input *in, int i, char c)
 {
 	char		**new_text;
