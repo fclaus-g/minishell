@@ -6,33 +6,13 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:24:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/13 20:17:33 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/13 22:37:16 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*Archivo para funciones de final de programa y liberación de memoria*/
 
 #include "../inc/minishell.h"
-
-void	ft_find_leak(t_data *d)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	while (++i < d->in.n_elements)
-	{
-		printf("elements[%d].data = %p\n", i, (void *)&d->in.elements[i].data);
-		j = -1;
-		// while (++j < d->in.cmds[i].size)
-		// {
-		// 	printf("cmd[%d].cmd_tab[%d] = %p\n", i, j,
-		// 		(void *)&d->in.cmds[i].cmd_tab[j]);
-		// 	printf("cmd[%d].token[%d].data = %p\n", i, j,
-		// 		(void *)&d->in.cmds[i].tokens[j].data);
-		// }
-	}
-}
 
 /*Se llama antes de cada readline; en la primera ocasión inicia valores a 0
 En el resto además libera las variables que han necesitado malloc en la lectura
@@ -49,7 +29,6 @@ void	ft_clean_input(t_input *input)
 		ft_free_arr(input, input->n_elements);
 		free(input->elements);
 	}
-	//ft_find_leak(input->dptr);
 	input->cmd_n = 0;
 	input->n_elements = 0;
 	if (input->pipes != NULL)

@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 05:47:26 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/12 06:28:54 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/13 22:37:41 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,29 @@ Comprobar si funciona todo igual y además guarda los nuevos tipos
 Para redirecciones no me funciona porque hay que comprobar si hay una,
 dos o más, se queda su función como estaba*/
 
-void    ft_token_spchars(t_input *in)
+void	ft_token_spchars(t_input *in)
 {
-    int     i;
-    int     j;
-    char    *set;
+	int		i;
+	int		j;
+	char	*set;
 
-    set = "|;\\\0";
-    j = -1;
-    while (set[++j] != '\0')
-    {
-        i = -1;
-        while (++i < in->n_elements)
-        {
-            if (in->elements[i].type == '0'
-                && ft_strchr(in->elements[i].data, set[j]))
-		    {
-                if (ft_strlen(in->elements[i].data) > 1)
-                    in->elements = ft_arr_update(in, i, set[j]);
-                else
-                    in->elements[i].type = set[j];
-		    }
-        }
-    }
+	set = "|;\\\0";
+	j = -1;
+	while (set[++j] != '\0')
+	{
+		i = -1;
+		while (++i < in->n_elements)
+		{
+			if (in->elements[i].type == '0'
+				&& ft_strchr(in->elements[i].data, set[j]))
+			{
+				if (ft_strlen(in->elements[i].data) > 1)
+					in->elements = ft_arr_update(in, i, set[j]);
+				else
+					in->elements[i].type = set[j];
+			}
+		}
+	}
 }
 
 int	ft_char_pos(char *s, char c)
