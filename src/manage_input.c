@@ -3,23 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   manage_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:09:31 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/11 23:30:57 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/13 07:44:22 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_manage_input(t_data *d)
+int	ft_manage_input(t_data *d)
 {
 	ft_separate_quotes(d);
 	d->in.sp_input = ft_split(d->rl_input, ' ');
 	ft_recovery_sp(&d->in);
 	d->in.n_elements = ft_strdlen(d->in.sp_input);
 	ft_fill_elements(&d->in);
-	ft_check_elements(&d->in, d->in.elements, d);
+	if (ft_check_elements(&d->in, d->in.elements, d))
+		return (1);
+	return (0);
 }
 
 void	ft_fill_elements(t_input *in)
@@ -38,9 +40,10 @@ void	ft_fill_elements(t_input *in)
 	in->cmd_n = 0;
 	ft_totalfree(in->sp_input);
 	in->sp_input = NULL;
+	in->pipes = NULL;
 }
 
-void	ft_check_elements(t_input *in, t_element *array, t_data *d)
+int	ft_check_elements(t_input *in, t_element *array, t_data *d)
 {
 	int	i;
 
@@ -49,8 +52,12 @@ void	ft_check_elements(t_input *in, t_element *array, t_data *d)
 	while (++i < in->n_elements)
 	{
 		if (ft_quote_in_data(array[i].data))
-			ft_management_quotes(&array[i], d);
+		{
+			if (ft_management_quotes(&array[i], d))
+				return (1);
+		}
 	}
+	return (0);
 }
 
 int	ft_its_dollar(char *str)

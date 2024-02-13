@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 06:35:26 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/12 06:47:42 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/12 21:04:32 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ int ft_spcset_check(t_input *in)
     int		i;
 	int		j;
 	char	*set;
+	char	*msg;
 
+	msg = "cascaribash: syntax error, not supported token";
 	set = ";\\&\0";
 	i = -1;
 	while (set[++i] != '\0')
@@ -26,10 +28,14 @@ int ft_spcset_check(t_input *in)
 		while (++j < in->n_elements)
 		{
 			if (in->elements[j].type == set[i])
-				return (ft_syntax_error(in, j), 1);
+			{
+				in->dptr->exit_code = 258;
+				ft_printf_error("%s `%c'\n", msg, set[i]);
+				return (1);
+			}
 		}
-        return (0);
 	}
+    return (0);
 }
 
 /*Comprueba si hay dos elementos del mismo tipo "especial" (redirecciones y 
@@ -60,8 +66,8 @@ int ft_stdset_check(t_input *in)
 			// 	&& ft_strchr(set, in->elements[j + 1].type) != NULL)
 			// 	return (ft_syntax_error(in, j), 1);
 		}
-        return (0);
 	}
+    return (0);
 }
 
 int	ft_syntax_check(t_input *in)

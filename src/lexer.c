@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 11:40:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/09 16:03:20 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/12 21:24:20 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,10 @@ espacios) y catalogando otros tipos de elementos (pipes, redirs)
 */
 int	ft_lexer(t_data *d)
 {
-	ft_manage_input(d);
-	//ft_token_pipes(&d->in);
-	ft_token_spchars(&d->in)
+	if (ft_manage_input(d))
+		return (1);
+	ft_token_spchars(&d->in);
+	ft_token_and(&d->in);
 	ft_token_redirs(&d->in);
 	ft_token_files(&d->in);
 	if (ft_syntax_check(&d->in))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/11 23:30:43 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/12 21:16:57 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,9 +138,9 @@ void					ft_split_env(t_data *d, char *var, size_t x);
 void					ft_get_envarray(t_data *d);
 void					ft_init(t_data *d, char **env);
 /**********************[manage_input.c]***********************************/
-void					ft_manage_input(t_data *d);
+int						ft_manage_input(t_data *d);
 void					ft_fill_elements(t_input *in);
-void					ft_check_elements(t_input *in, t_element *array, t_data *d);
+int						ft_check_elements(t_input *in, t_element *array, t_data *d);
 int						ft_its_dollar(char *str);
 void					ft_dollar_check(t_command *cmd, t_data *d);
 /**********************[quotes.c]***********************************/
@@ -150,7 +150,7 @@ int						ft_is_quote(char c);
 int						ft_in_quotes(char *str, int c);
 int						ft_quote_in_data(char *str);
 /**********************[quotes2.c]***********************************/
-void					ft_management_quotes(t_element *element, t_data *d);
+int						ft_management_quotes(t_element *element, t_data *d);
 int						ft_closed_quotes(char *str);
 char					ft_define_qtype(t_element element);
 char					*ft_clean_quotes(t_element element);

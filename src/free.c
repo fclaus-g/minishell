@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:24:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/11 19:48:02 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/13 07:42:13 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	ft_clean_input(t_input *input)
 	}
 	input->cmd_n = 0;
 	input->n_elements = 0;
-	free(input->pipes);
+	if (input->pipes != NULL)
+		free(input->pipes);
 	input->pipes = NULL;
 	if (access(".heredoc", F_OK) == 0)
 		unlink(".heredoc");

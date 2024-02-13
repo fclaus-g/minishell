@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/11 19:38:19 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/12 20:51:01 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main(int ac, char **av, char **env)
 	t_data	d;
 
 	g_sign = 0;
-	atexit(ft_leaks);
+	//atexit(ft_leaks);
 	(void)av;
 	if (ac > 1)
 		return (1);
