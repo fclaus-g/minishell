@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/09 10:02:41 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/13 20:18:45 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,14 +141,9 @@ void					ft_split_env(t_data *d, char *var, size_t x);
 void					ft_get_envarray(t_data *d);
 void					ft_init(t_data *d, char **env);
 void					ft_init_pipes(t_input *in);
-/*signals.c*/
-void 	ft_signal(void);
-void	ft_handler(int sig);
-void	ft_control_d(t_data *d);
-void ft_here_sig(int sig);
-void ft_cmd_sig(int sig);
+
 /*manage_input.c*/
-void					ft_manage_input(t_data *d);
+int					ft_manage_input(t_data *d);
 int						ft_is_space(char c);
 int						ft_is_special_char(char c);
 void					ft_fill_input(t_input *in, char *st);
@@ -166,7 +161,7 @@ char					*ft_clean_quotes(t_element element);
 int						ft_count_quotes(char *str);
 /**********************[elements.c]***********************************/
 void					ft_fill_elements(t_input *in);
-void					ft_check_elements(t_input *in, t_element *array, t_data *d);
+int						ft_check_elements(t_input *in, t_element *array, t_data *d);
 int						ft_its_dollar(char *str);
 void					ft_dollar_check(t_command *cmd, t_data *d);
 /**********************[expand.c]**************************************/
@@ -278,7 +273,7 @@ void					ft_free_arr(t_input *in, int size);
 void					ft_clean_exit(t_data *d);
 void					ft_free_cmds(t_input *in);
 /**********************[signals.c]***********************************/
-void					ft_signal(void);
+void					ft_signal();
 void					ft_cmd_sig(int sig);
 void					ft_here_sig(int sig);
 void					ft_handler(int sig);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   elements.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:21:41 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/04 10:56:52 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/09 11:32:30 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ modificar el valor de un elemento del array si que necesitamos * y &,
 * en el prototipo y & en la llamada a funcion. Si no vamos a modificar
 el valor del elemento en si, sino que la función chequeara valores y 
 los retornará, se puede pasar en la llamada ft_funcion(*valor).*/
-void	ft_check_elements(t_input *in, t_element *array, t_data *d)
+int	ft_check_elements(t_input *in, t_element *array, t_data *d)
 {
 	int	i;
 
@@ -49,8 +49,17 @@ void	ft_check_elements(t_input *in, t_element *array, t_data *d)
 	while (++i < in->n_elements)
 	{
 		if (ft_quote_in_data(array[i].data))
+		{
 			ft_management_quotes(&array[i], d);
+			return (1);
+		}	
+		else if (ft_quote_in_data(array[i].data) && !ft_closed_quotes(array[i].data))
+		{
+			d->exit_code = 1;
+			return (0);
+		}
 	}
+	return (1);
 }
 
 int	ft_its_dollar(char *str)

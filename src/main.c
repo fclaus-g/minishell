@@ -6,21 +6,21 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/02/09 10:08:13 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/13 20:20:05 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../inc/minishell.h"
 
-// void	ft_leaks(void)
-// {
-// 	system("leaks -q minishell");
-// }
+void	ft_leaks(void)
+{
+	system("leaks -q minishell");
+}
 
 void	ft_engine(t_data *d)
 {
-	ft_signal();
+	ft_signal(0);
 	while (1)
 	{
 		if (d->rl_input != NULL)
@@ -42,7 +42,7 @@ int	main(int ac, char **av, char **env)
 {
 	t_data	d;
 
-	// atexit(ft_leaks);
+	atexit(ft_leaks);
 	(void)av;
 	if (ac > 1)
 		return (1);

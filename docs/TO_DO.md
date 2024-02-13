@@ -19,3 +19,4 @@
 * [] expandir variables en heredoc
 * [X] echo "holaamigo"" no da error por comillas cerradas
 * []cuando las comillas estan abiertas imprime error pero deberia de imprimirlo y volver a inicio(gestion de errores)
+* [] SEG FAULT cuando intentas entrar con cd a un archivo

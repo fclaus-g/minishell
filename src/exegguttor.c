@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/09 10:05:33 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/13 20:19:12 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	ft_exegguttor(t_command *cmd, t_data *d)
 
 	if (ft_std_redir(cmd) > 0)
 		return ;
-	signal(SIGINT, SIG_IGN);
+	ft_signal();
 	pid = fork();
 	if (pid == -1)
 		ft_printf_error("cascaribash: fork process failed");

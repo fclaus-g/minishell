@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 11:17:20 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/09 10:10:04 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/09 10:49:12 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,28 @@
 
 int	g_sign;
 
-void	ft_signal(void)
+void	ft_signal(int mode)
 {
-	signal(SIGINT, ft_handler);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGSTOP, SIG_IGN);
+	if (mode == 0)
+	{
+		signal(SIGINT, ft_handler);
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGSTOP, SIG_IGN);
+	}
+	else 
+	{
+		signal(SIGINT, ft_cmd_sig);
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGSTOP, SIG_IGN);
+	}
+
 }
 
 void	ft_cmd_sig(int sig)
 {
 	(void)sig;
-	write(1, "\n", 1);
-	exit (130);
+	write(1, "\n", 14);
+	//exit (130);
 }
 
 void	ft_here_sig(int sig)
