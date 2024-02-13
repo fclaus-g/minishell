@@ -9,7 +9,7 @@
 			"request": "launch",
 			"name": "Debug",
 			"program": "${workspaceFolder}/a_test/test",
-			"args": ["echo $-4s y$USER pero$USERI"],
+			"args": ["ls | grep inc"],
 			"cwd": "${workspaceFolder}"
 		}
 	]

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/12 21:16:57 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/13 20:45:02 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,18 +176,18 @@ void					ft_syntax_error(t_input *in, int i);
 int						ft_eof_check(t_input *in);
 void					ft_error(t_data *d, int code, char *msg);
 /**********************[lexer_spchars.c]***********************************/
-void    				ft_token_spchars(t_input *in);
+void					ft_token_spchars(t_input *in);
 int						ft_char_pos(char *s, char c);
 void					ft_token_and(t_input *in);
 /**********************[syntax_check.c]***********************************/
 int						ft_syntax_check(t_input *in);
-int 					ft_stdset_check(t_input *in);
-int 					ft_spcset_check(t_input *in);
+int						ft_stdset_check(t_input *in);
+int						ft_spcset_check(t_input *in);
 /**********************[cmd_maker.c]***********************************/
 void					ft_cmd_maker(t_input *in);
 void					ft_init_cmd(t_input *in);
-void					ft_get_cmdline(t_input *in, t_command *cmds);
-void					ft_format_cmd(t_input *in);
+void					ft_get_cmdline(t_command *cmd);
+void					ft_format_cmd(t_command *cmd);
 /**********************[cmd_maker_utils.c]***********************************/
 int						ft_element_cnt(t_input	*in, char c);
 int						ft_cmd_size(t_input *in, int *start);

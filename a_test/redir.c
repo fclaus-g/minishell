@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 09:35:55 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/13 21:08:52 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/04 09:18:51 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ void	ft_file_fds(t_command *cmd)
 	{
 		if (cmd->tokens[i].type == 'i')
 			ft_open_file(cmd, cmd->tokens[i].data, 0);
-		else if (cmd->tokens[i].type == 'h')
-			ft_open_file(cmd, ".heredoc", 0);
 		else if (cmd->tokens[i].type == 'o')
 			ft_open_file(cmd, cmd->tokens[i].data, 1);
 		else if (cmd->tokens[i].type == 'O')

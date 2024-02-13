@@ -3,30 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_maker.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 04:19:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/13 20:45:52 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/11 19:44:38 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_get_cmdline(t_command *cmd)
+void	ft_get_cmdline(t_input *in, t_command *cmds)
 {
 	int	i;
+	int	j;
 
-	cmd->cmd_line = malloc(sizeof(char) * 1);
-	cmd->cmd_line[0] = '\0';
 	i = -1;
-	while (++i < cmd->size)
+	while (++i < in->cmd_n)
 	{
-		if (cmd->tokens[i].type == '0' || cmd->tokens[i].type == '\''
-			|| cmd->tokens[i].type == '\"')
+		cmds[i].cmd_line = malloc(sizeof(char) * 1);
+		cmds[i].cmd_line[0] = '\0';
+		j = -1;
+		while (++j < cmds[i].size)
 		{
-			if (cmd->cmd_line[0] != '\0')
-				cmd->cmd_line = ft_addspace(cmd->cmd_line);
-			cmd->cmd_line = ft_strjoint(cmd->cmd_line, cmd->tokens[i].data);
+			if (cmds[i].tokens[j].type == '0' || cmds[i].tokens[j].type == '\''
+				|| cmds[i].tokens[j].type == '\"')
+			{
+				if (cmds[i].cmd_line[0] != '\0')
+					cmds[i].cmd_line = ft_addspace(cmds[i].cmd_line);
+				cmds[i].cmd_line
+					= ft_strjoint(cmds[i].cmd_line, cmds[i].tokens[j].data);
+			}
 		}
 	}
 }
@@ -60,12 +66,15 @@ void	ft_init_cmd(t_input *in)
 	}
 }
 
-void	ft_format_cmd(t_command *cmd)
+void	ft_format_cmd(t_input *in)
 {
-	ft_get_cmdline(cmd);
-	split_cmd(cmd, cmd->cmd_line);
-	if (ft_is_built(cmd->cmd_tab[0]))
-		cmd->built = 1;
+	int	i;
+
+	ft_get_cmdline(in, in->cmds);
+	i = -1;
+	while (++i < in->cmd_n)
+		split_cmd(&in->cmds[i], in->cmds[i].cmd_line);
+	ft_tag_builts(in->cmds, in->cmd_n);
 }
 
 void	ft_cmd_maker(t_input *in)

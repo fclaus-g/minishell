@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:24:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/13 20:17:33 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/13 19:38:50 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_clean_input(t_input *input)
 		ft_free_arr(input, input->n_elements);
 		free(input->elements);
 	}
-	//ft_find_leak(input->dptr);
+	ft_find_leak(input->dptr);
 	input->cmd_n = 0;
 	input->n_elements = 0;
 	if (input->pipes != NULL)

@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/11 22:40:08 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/13 19:41:06 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	main(int ac, char **av, char **env)
 	if (ft_lexer(&d))
 		return (1);
 	ft_cmd_maker(&d.in);
-	debug_arr(&d.in, d.rl_input, "RESULTADO FINAL DE FT_LEXER");
-	debug_cmds(&d.in, d.rl_input, "RESULTADO FINAL DE FT_CMD_MAKER");
+	//debug_arr(&d.in, d.rl_input, "RESULTADO FINAL DE FT_LEXER");
+	//debug_cmds(&d.in, d.rl_input, "RESULTADO FINAL DE FT_CMD_MAKER");
 	ft_cmd_driver(&d, d.in.cmds);
 	ft_clean_exit(&d);
 	return (0);
