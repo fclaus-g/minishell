@@ -47,7 +47,7 @@ void	ft_dir_home(t_data *d)
 
 	dir = ft_getenv(d, "HOME");
 	if (dir == NULL)
-		ft_error(d, 1, "cascaribash: cd: %s not set");
+		ft_error(d, 1, "cascaribash: cd: $HOME not set");
 	else if (chdir(dir) != 0)
 		ft_error(d, 1, "cascaribash: cd error");
 	else

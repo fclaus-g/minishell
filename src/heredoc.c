@@ -25,7 +25,7 @@ void	ft_write_doc(t_command *cmd, char *content)
 	if (check == -1)
 	{
 		cmd->dataptr->exit_code = 1;
-		ft_printf("cascaribash: %s: %s\n", strerror(errno), ".heredoc");
+		ft_printf("cascaribash: %s: %s\n", ".heredoc", strerror(errno));
 	}
 	close(fd);
 }

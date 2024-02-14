@@ -17,7 +17,7 @@ void	ft_open_check(t_command *cmd, int fd, char *file_path)
 	if (fd == -1)
 	{
 		cmd->dataptr->exit_code = 1;
-		ft_printf("cascaribash: %s: %s\n", strerror(errno), file_path);
+		ft_printf("cascaribash: %s: %s\n", file_path, strerror(errno));
 		cmd->fd_error = 1;
 	}
 }

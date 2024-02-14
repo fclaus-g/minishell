@@ -89,13 +89,13 @@ void	ft_overwrite_var(t_data *d, char *var, char *new)
 
 int	ft_is_dir(t_data *d, char *str)
 {
-	DIR	*dir;
+	DIR		*dir;
 
 	dir = opendir(str);
 	if (dir == NULL)
 	{
 		ft_error(d, errno, NULL);
-		return (perror("cascaribash"), 1);
+		return (perror("cascaribash: cd: "), 1);
 	}
 	closedir(dir);
 	return (0);

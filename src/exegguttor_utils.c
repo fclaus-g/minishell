@@ -82,7 +82,7 @@ void	split_cmd(t_command *st, char *cmdstr)
  */
 void	ft_excve_error(t_command *cmd)
 {
-	ft_printf_error("cascaribash: command not found: %s\n", cmd->cmd_tab[0]);
+	ft_printf_error("cascaribash: %s: command not found\n", cmd->cmd_tab[0]);
 	if (cmd)
 	{
 		if (cmd->paths != NULL)
