@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/13 20:19:12 by fclaus-g         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/02/14 10:25:22 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../inc/minishell.h"
 
@@ -37,6 +38,7 @@ void	ft_built_exe(t_command *cmd, t_data *d)
 
 void	ft_excve(t_command *cmd, t_data *d, int mode)
 {
+	signal(SIGINT, ft_cmd_sig);
 	if (mode == 0)
 	{
 		get_paths(cmd, d->env_dup);
@@ -57,29 +59,24 @@ void	ft_excve(t_command *cmd, t_data *d, int mode)
 void	ft_exegguttor(t_command *cmd, t_data *d)
 {
 	pid_t	pid;
-	int		exit_stat;
 
 	if (ft_std_redir(cmd) > 0)
 		return ;
-	ft_signal();
+	signal(SIGINT, ft_cmd_sig);
 	pid = fork();
 	if (pid == -1)
 		ft_printf_error("cascaribash: fork process failed");
 	else if (pid > 0)
-	{
-		waitpid(pid, &exit_stat, 0);
-		if (WIFEXITED(exit_stat))
-			d->exit_code = WEXITSTATUS(exit_stat);
-	}
+		ft_wait(pid, d, 0);
 	else
 	{
-		signal(SIGINT, ft_cmd_sig);
+		if (g_sign != 0)
+			exit (d->exit_code);
 		if (!ft_strchr(cmd->cmd_tab[0], '/'))
 			ft_excve(cmd, d, 0);
 		else
 			ft_excve(cmd, d, 11);
 	}
-	ft_signal();
 }
 
 void	ft_shell_pipex(t_data *d, int i)
@@ -103,8 +100,9 @@ int	ft_cmd_driver(t_data *d, t_command *cmds)
 	curr_cmd = -1;
 	while (++curr_cmd < d->in.cmd_n)
 	{
+		g_sign = 0;
 		ft_dollar_check(&cmds[curr_cmd], d);
-		ft_format_cmd(&d->in);
+		ft_format_cmd(&cmds[curr_cmd]);
 		ft_std_shield(d, 0);
 		ft_is_heredoc(&cmds[curr_cmd], d);
 		ft_shell_pipex(d, curr_cmd);

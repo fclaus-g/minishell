@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/14 18:17:48 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/04 09:00:31 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,17 +80,17 @@ void	split_cmd(t_command *st, char *cmdstr)
  * @param paths -> copia de los paths convertidas al formato que necesita excve
  * @param cmd -> el comando usado en formato matriz de str
  */
-void	free_cache(t_command *st, int error)
+void	ft_excve_error(t_command *cmd)
 {
-	if (st)
+	ft_printf_error("cascaribash: command not found: %s\n", cmd->cmd_tab[0]);
+	if (cmd)
 	{
-		if (st->paths != NULL)
-			ft_totalfree(st->paths);
-		if (st->cmd_tab != NULL)
-			ft_totalfree(st->cmd_tab);
+		if (cmd->paths != NULL)
+			ft_totalfree(cmd->paths);
+		if (cmd->cmd_tab != NULL)
+			ft_totalfree(cmd->cmd_tab);
 	}
-	if (error > 0)
-		exit(error);
+	exit(127);
 }
 
 /**

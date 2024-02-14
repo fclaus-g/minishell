@@ -5,45 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/02/09 10:07:54 by fclaus-g         ###   ########.fr       */
+/*   Created: 2023/12/27 23:29:12 by pgruz11           #+#    #+#             */
+/*   Updated: 2024/02/14 10:26:53 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../inc/minishell.h"
-
-void	ft_is_heredoc(t_command *cmd, t_data *d)
-{
-	int		i;
-	pid_t	pid;
-	int		exit_stat;
-
-	if (access(".heredoc", F_OK) == 0)
-		unlink(".heredoc");
-	i = -1;
-	while (++i < cmd->size)
-	{
-		if (cmd->tokens[i].type == 'h')
-		{
-			pid = fork();
-			if (pid > 0)
-			{
-				signal(SIGINT, SIG_IGN);
-				waitpid(pid, &exit_stat, 0);
-				if (WIFEXITED(exit_stat))
-					d->exit_code = WEXITSTATUS(exit_stat);
-				ft_signal();
-			}
-			else
-			{
-				signal(SIGINT, ft_here_sig);
-				ft_heredoc(cmd, i, d);
-				exit (0);
-			}
-		}
-	}
-}
 
 void	ft_write_doc(t_command *cmd, char *content)
 {
@@ -58,41 +26,66 @@ void	ft_write_doc(t_command *cmd, char *content)
 	if (check == -1)
 	{
 		cmd->dataptr->exit_code = 1;
-		ft_printf("cascaribash: %s: %s\n", strerror(errno), ".heredoc");
+		ft_printf("cascaribash: %s: %s\n", ".heredoc", strerror(errno));
 	}
 	close(fd);
 }
-/**
- * TODO: permisos para .heredoc al crearlo? 
- */
 
-void	ft_heredoc(t_command *cmd, int pos, t_data *d)
+void	ft_heredoc(t_command *cmd, int pos, t_data *d, int *exit)
 {
-	char	*content;
-	char	*read;
-	char	*eof;
-
-	content = NULL;
-	read = NULL;
-	eof = NULL;
-	signal(SIGINT, ft_here_sig);
-	if (cmd->tokens[pos + 1].type == 'e' || cmd->tokens[pos + 1].type == 'E')
-		eof = cmd->tokens[pos + 1].data;
-	read = readline("> ");
-	if (ft_strcmp(read, eof) && g_sign != 1)
+	ft_heredoc_init(d, cmd, pos);
+	d->read = readline("> ");
+	if (d->read == NULL)
+		(*exit) = 242;
+	if ((*exit) != 242 && ft_strcmp(d->read, d->eof))
 	{
-		while (ft_strcmp(read, eof) && g_sign != 1)
+		while ((*exit) != 211 && ft_strcmp(d->read, d->eof))
 		{
-			content = ft_strjoint(content, read);
-			content = ft_strjoint(content, "\n");
-			free(read);
-			read = readline("> ");
+			ft_content_buffer(d);
+			d->read = readline("> ");
+			if (d->read == NULL && d->content != NULL)
+				(*exit) = 211;
 		}
-		content = ft_expand_hdoc(content, d);
-		ft_write_doc(cmd, content);
-		if (content != NULL)
-			free(content);
+		d->content = ft_expand(d->content, d);
+		ft_write_doc(cmd, d->content);
+		if (d->content != NULL)
+			free(d->content);
 	}
-	free(read);
-	ft_signal();
+	if (d->read != NULL)
+		free(d->read);
+}
+
+void	ft_heredoc_loop(t_command *cmd, t_data *d)
+{
+	int	i;
+	int	hd_exit;
+
+	i = -1;
+	while (++i < cmd->size)
+	{
+		hd_exit = 0;
+		if (cmd->tokens[i].type == 'h')
+		{
+			signal(SIGINT, SIG_IGN);
+			d->pid = fork();
+			if (d->pid > 0)
+				ft_wait(d->pid, d, 1);
+			else
+			{
+				signal(SIGINT, ft_here_sig);
+				ft_heredoc(cmd, i, d, &hd_exit);
+				exit (hd_exit);
+			}
+		}
+	}
+}
+
+void	ft_is_heredoc(t_command *cmd, t_data *d)
+{
+	if (access(".heredoc", F_OK) == 0)
+	{
+		unlink(".heredoc");
+		g_sign = 0;
+	}
+	ft_heredoc_loop(cmd, d);
 }

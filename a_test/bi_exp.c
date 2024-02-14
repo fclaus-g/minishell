@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 23:43:59 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/01/31 15:30:35 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/04 10:47:19 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,11 @@ void	bi_export(t_data *d, t_command *cmd)
 	i = 0;
 	while (cmd->cmd_tab[++i] != NULL)
 	{
-		if (ft_valid_identifier(cmd->cmd_tab[i]))
+		if (ft_val_id(cmd->cmd_tab[i], 0))
+		{
+			d->exit_code = 1;
 			continue ;
+		}
 		if (!ft_isvar(cmd->cmd_tab[i]))
 		{
 			if (!ft_var_replace(d, cmd->cmd_tab[i]))
@@ -84,20 +87,9 @@ void	bi_export(t_data *d, t_command *cmd)
 		else
 			d->env_exp = ft_exp_update(d, cmd->cmd_tab[i]);
 		ft_export_order(d->env_exp);
+		d->exit_code = 0;
 	}
 }
-
-/**
- * TODO: si existe VAR -> reemplazar
- * HOWTO:
- * 	1 - modificar env/exp_update para recibir "mode"
- * 	2 - en env/exp_update separar mode == 0 / else
- * 	3 - mode == 0 como ahora; else caso de reemplazo
- * 	4 - función para reemplazar una str var en matriz strs
- * HOWTO: (alternativa)
- * 	- ft_ que si var ya existe, reemplace y devuelva 1
- *  - justo después de if(!ft_var) -> if (ft_replace) true - continue
- */
 
 /*EXPORT RULES
 Naming: The variable name must begin with a letter (a to z or A to Z) or an

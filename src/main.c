@@ -6,9 +6,10 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/02/13 20:20:05 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/14 10:29:23 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 #include "../inc/minishell.h"
@@ -42,6 +43,7 @@ int	main(int ac, char **av, char **env)
 {
 	t_data	d;
 
+	g_sign = 0;
 	atexit(ft_leaks);
 	(void)av;
 	if (ac > 1)

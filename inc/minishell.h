@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/13 20:18:45 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/14 10:25:42 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,11 @@
 # define T_APP 'a' //redirección salida con APPEND '>>'
 # define T_EOF 'E' //end of file para heredoc (expande variables)
 # define T_EOD 'e' //end of file para heredoc (no expande variables)
+# define T_BSL '\\' //backslash
+# define T_SCL ';' //semicolon
+# define T_AND '&' //"&&" AND operator
 
-extern int	g_sign;
-
-typedef enum sign
-{
-	S_SIGN,
-	S_HERE,
-	S_EOF,
-	S_SIGINT,
-	S_SIGINT_CMD,
-	S_CMD,
-	S_CTRL_D,
-}			t_sign;
-# define T_DLT 'z' //$VAR valida no encontrada para borrar
+int							g_sign;
 
 typedef struct s_input		t_input;
 typedef struct s_element	t_element;
@@ -125,6 +116,11 @@ typedef struct s_data
 	char		*val;
 	char		*aux;
 	t_input		in;
+	char		*content;
+	char		*read;
+	char		*eof;
+	pid_t		pid;
+	int			pes;
 }	t_data;
 
 /**********************[main.c]***********************************/
@@ -134,19 +130,23 @@ void					ft_check_std(void);
 void					debug_arr(t_input *in, char *str_in, char *msg);
 void					debug_cmds(t_input *in, char *str_in, char *msg);
 void					ft_print_element(t_element element);
+/**********************[mini_utils.c]***********************************/
+void					ft_wait(pid_t pid, t_data *d, int mode);
+void					ft_free_str(char *str);
+char					*ft_str_rplc(char *src, char *new);
+int						ft_is_space(char c);
 /**********************[init.c]***********************************/
 void					ft_init_pipes(t_input *in);
 void					ft_parse_env(t_data *d, char **env);
 void					ft_split_env(t_data *d, char *var, size_t x);
 void					ft_get_envarray(t_data *d);
 void					ft_init(t_data *d, char **env);
-void					ft_init_pipes(t_input *in);
-
-/*manage_input.c*/
-int					ft_manage_input(t_data *d);
-int						ft_is_space(char c);
-int						ft_is_special_char(char c);
-void					ft_fill_input(t_input *in, char *st);
+/**********************[manage_input.c]***********************************/
+int						ft_manage_input(t_data *d);
+void					ft_fill_elements(t_input *in);
+int						ft_check_elements(t_input *in, t_element *array, t_data *d);
+int						ft_its_dollar(char *str);
+void					ft_dollar_check(t_command *cmd, t_data *d);
 /**********************[quotes.c]***********************************/
 void					ft_separate_quotes(t_data *d);
 void					ft_recovery_sp(t_input *input);
@@ -154,41 +154,44 @@ int						ft_is_quote(char c);
 int						ft_in_quotes(char *str, int c);
 int						ft_quote_in_data(char *str);
 /**********************[quotes2.c]***********************************/
-void					ft_management_quotes(t_element *element, t_data *d);
+int						ft_management_quotes(t_element *element, t_data *d);
 int						ft_closed_quotes(char *str);
 char					ft_define_qtype(t_element element);
 char					*ft_clean_quotes(t_element element);
 int						ft_count_quotes(char *str);
-/**********************[elements.c]***********************************/
-void					ft_fill_elements(t_input *in);
-int						ft_check_elements(t_input *in, t_element *array, t_data *d);
-int						ft_its_dollar(char *str);
-void					ft_dollar_check(t_command *cmd, t_data *d);
 /**********************[expand.c]**************************************/
-void					ft_expand_dollar(t_element *elm, t_data *d);
-void					ft_expand_init(t_element *element, t_data *d, int c);
+char					*ft_expand_excd(char *src, t_data *d);
+char					*ft_expand_other(char *content, t_data *d, int pos);
+char					*ft_rplc_content(char *content, char *value, int start, int del);
+char					*ft_expand(char *content, t_data *d);
+/**********************[expand_utils.c]**************************************/
+void					ft_expand_init(char *content, t_data *d, int i);
 char					*ft_get_dollar_word(char *str, int start);
 char					*ft_search_value(char *comp, t_env *env, int lenv);
-char					*ft_insert_value(t_element elemento, char *value, int start, int del);
-/**********************[expand_utils.c]**************************************/
-void					ft_expand_more(t_element *elm, t_data *d, int pos);
-char					*ft_expand_exitcode(t_element *elm, t_data *d, int pos);
+char					*ft_var_del(char *s, int *pos);
 /**********************[lexer.c]***********************************/
 int						ft_lexer(t_data *d);
 void					ft_token_pipes(t_input *in);
 void					ft_token_redirs(t_input *in);
-int						ft_syntax_check(t_input *in);
 void					ft_token_files(t_input *in);
 /**********************[lexer_utils.c]***********************************/
 int						ft_is_red(char	*s);
 void					ft_syntax_error(t_input *in, int i);
 int						ft_eof_check(t_input *in);
 void					ft_error(t_data *d, int code, char *msg);
+/**********************[lexer_spchars.c]***********************************/
+void					ft_token_spchars(t_input *in);
+int						ft_char_pos(char *s, char c);
+void					ft_token_and(t_input *in);
+/**********************[syntax_check.c]***********************************/
+int						ft_syntax_check(t_input *in);
+int						ft_stdset_check(t_input *in);
+int						ft_spcset_check(t_input *in);
 /**********************[cmd_maker.c]***********************************/
 void					ft_cmd_maker(t_input *in);
 void					ft_init_cmd(t_input *in);
-void					ft_get_cmdline(t_input *in, t_command *cmds);
-void					ft_format_cmd(t_input *in);
+void					ft_get_cmdline(t_command *cmd);
+void					ft_format_cmd(t_command *cmd);
 /**********************[cmd_maker_utils.c]***********************************/
 int						ft_element_cnt(t_input	*in, char c);
 int						ft_cmd_size(t_input *in, int *start);
@@ -201,16 +204,14 @@ void					ft_open_check(t_command *cmd, int fd, char *file_path);
 int						ft_std_redir(t_command *cmd);
 void					ft_std_shield(t_data *d, int mode);
 /**********************[heredoc.c]***********************************/
-void					ft_heredoc(t_command *cmd, int pos, t_data *d);
 void					ft_write_doc(t_command *cmd, char *content);
+void					ft_heredoc(t_command *cmd, int pos, t_data *d, int *exit);
+void					ft_heredoc_loop(t_command *cmd, t_data *d);
 void					ft_is_heredoc(t_command *cmd, t_data *d);
-/**********************[heredoc_expand.c]***********************************/
-char					*ft_hd_exitcode(char *src, t_data *d);
-char					*ft_exp_hdoc_misc(char *content, t_data *d, int pos);
-char					*ft_rplc_content(char *content, char *value, int start, int del);
-void					ft_exphd_init(char *content, t_data *d, int i);
-char					*ft_expand_hdoc(char *content, t_data *d);
-char					*ft_var_del(char *s);
+/**********************[heredoc_utils.c]***********************************/
+void					ft_content_buffer(t_data *d);
+void					ft_heredoc_init(t_data *d, t_command *cmd, int pos);
+void					ft_wait(pid_t pid, t_data *d, int mode);
 /**********************[arr_tools_0.c]***********************************/
 t_element				*ft_arr_update(t_input *in, int i, char c);
 void					ft_fill_arr(t_input *in, t_element *new_arr, int tar, char **tab);
@@ -240,7 +241,7 @@ void					ft_tag_builts(t_command *cmds, int len);
 int						ft_is_built(char *str);
 char					*ft_getenv(t_data *d, char *var);
 void					ft_overwrite_var(t_data *d, char *var, char* new);
-char					*ft_str_rplc(char *src, char *new);
+int						ft_is_dir(t_data *d, char *str);
 /**********************[bi_exit_echo.c]***********************************/
 void					bi_exit(t_data *d);
 void					bi_echo(t_data *d, char **args);

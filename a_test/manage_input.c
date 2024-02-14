@@ -6,53 +6,83 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:09:31 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/01/27 22:29:56 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/13 07:44:22 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_manage_input(t_data *d)
+int	ft_manage_input(t_data *d)
 {
 	ft_separate_quotes(d);
 	d->in.sp_input = ft_split(d->rl_input, ' ');
 	ft_recovery_sp(&d->in);
 	d->in.n_elements = ft_strdlen(d->in.sp_input);
 	ft_fill_elements(&d->in);
-	ft_check_elements(&d->in, d->in.elements, d);
+	if (ft_check_elements(&d->in, d->in.elements, d))
+		return (1);
+	return (0);
 }
 
-/*Función para guardar el input que está en formato str después de readline en 
-el formato de doble matrix y array de estructuras que queremos para usarlo
-En el mismo bucle podemos ir llamando a la función lexer cuando la tengamos*/
-void	ft_fill_input(t_input *in, char *st)
+void	ft_fill_elements(t_input *in)
 {
 	int	i;
 
-	in->sp_input = ft_split(st, ' ');
-	in->n_elements = (int)ft_strdlen(in->sp_input);
-	in->elements = malloc(sizeof(t_element) * in->n_elements);
 	i = -1;
-	while (in->sp_input[++i] != NULL)
+	in->elements = malloc(sizeof(t_element) * in->n_elements);
+	if (!in->elements)
+		printf("cascaribash: malloc error\n");
+	while (++i < in->n_elements)
 	{
-		in->elements[i].data = ft_strdup(in->sp_input[i]);
 		in->elements[i].type = '0';
+		in->elements[i].data = ft_strdup(in->sp_input[i]);
 	}
 	in->cmd_n = 0;
 	ft_totalfree(in->sp_input);
 	in->sp_input = NULL;
+	in->pipes = NULL;
 }
 
-int	ft_is_space(char c)
+int	ft_check_elements(t_input *in, t_element *array, t_data *d)
 {
-	if ((c >= 9 && c <= 13) || c == 32)
-		return (1);
+	int	i;
+
+	(void)d;
+	i = -1;
+	while (++i < in->n_elements)
+	{
+		if (ft_quote_in_data(array[i].data))
+		{
+			if (ft_management_quotes(&array[i], d))
+				return (1);
+		}
+	}
 	return (0);
 }
 
-int	ft_is_special_char(char c)
+int	ft_its_dollar(char *str)
 {
-	if (c == '|' || c == '>' || c == '<' || c == ';')
-		return (1);
+	int	c;
+
+	c = -1;
+	while (str[++c])
+	{
+		if (str[c] == '$')
+			return (1);
+	}
 	return (0);
+}
+
+void	ft_dollar_check(t_command *cmd, t_data *d)
+{
+	int		i;
+	char	c;
+
+	i = -1;
+	while (++i < cmd->size)
+	{
+		c = cmd->tokens[i].type;
+		if ((c == '0' || c == '\"') && ft_its_dollar(cmd->tokens[i].data))
+			cmd->tokens[i].data = ft_expand(cmd->tokens[i].data, d);
+	}
 }

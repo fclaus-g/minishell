@@ -43,6 +43,8 @@ void	ft_tag_redtype(t_element *arr, int start, int size, char c)
 				arr[start++].type = 'h';
 			else if (c == '>')
 				arr[start++].type = 'a';
+			else if (c == '&')
+				arr[start++].type = '&';
 		}
 		else
 			arr[start++].type = '0';

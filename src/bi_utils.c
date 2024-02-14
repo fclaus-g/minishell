@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:15:46 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/02 11:02:31 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/10 23:19:32 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,6 @@ void	ft_tag_builts(t_command *cmds, int len)
 	}
 }
 
-char	*ft_str_rplc(char *src, char *new)
-{
-	char	*aux;
-
-	aux = ft_strdup(new);
-	free (src);
-	return (aux);
-}
-
 void	ft_overwrite_var(t_data *d, char *var, char *new)
 {
 	int		i;
@@ -94,4 +85,18 @@ void	ft_overwrite_var(t_data *d, char *var, char *new)
 	d->env_exp[j] = ft_strjoint(d->env_exp[j], aux);
 	free (aux);
 	free (title);
+}
+
+int	ft_is_dir(t_data *d, char *str)
+{
+	DIR		*dir;
+
+	dir = opendir(str);
+	if (dir == NULL)
+	{
+		ft_error(d, errno, NULL);
+		return (perror("cascaribash: cd: "), 1);
+	}
+	closedir(dir);
+	return (0);
 }

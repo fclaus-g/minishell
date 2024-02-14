@@ -3,16 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+         #
+#    By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 21:48:21 by pgomez-r          #+#    #+#              #
-#    Updated: 2023/12/22 16:08:28 by pgruz11          ###   ########.fr        #
+#    Updated: 2024/02/11 22:38:10 by pgomez-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC       = gcc
-CFLAGS   = -Wall -Wextra -Werror -g
-LDFLAGS  = -lreadline 
+CFLAGS   = -Wall -Wextra -Werror
+LDFLAGS  = -L /Users/${USER}/.brew/opt/readline/lib -lreadline
+INC_RL   = -I /Users/${USER}/.brew/opt/readline/include
 NAME     = test
 
 SRCS = $(wildcard *.c)
@@ -23,12 +24,12 @@ RM       = rm -f
 all:	${NAME}
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -c $?
+	@$(CC) $(CFLAGS) $(INC_RL) -c $?
 
 $(NAME):	$(OBJS)
 	@echo "\033[0;33m\n	 ##### Checking/compiling Libft_42 library #####\n\033[0m"
 	@${MAKE} -C ../inc/libft
-	@${CC} $(CFLAGS) $(OBJS) $(LDFLAGS) ../inc/libft/libft.a  -o $(NAME)
+	@${CC} $(CFLAGS) $(OBJS) $(LDFLAGS) ../inc/libft/libft.a  -g -o $(NAME)
 	@echo "\033[0;32m\n	 ##### Test program is ready! #####\n\033[0m"
 
 clean:

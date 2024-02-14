@@ -1,42 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bi_exit_echo.c                                     :+:      :+:    :+:   */
+/*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/23 17:57:29 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/10 23:19:23 by pgomez-r         ###   ########.fr       */
+/*   Created: 2024/02/09 18:02:55 by pgomez-r          #+#    #+#             */
+/*   Updated: 2024/02/10 23:16:41 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	bi_exit(t_data *d)
+void	ft_content_buffer(t_data *d)
 {
-	ft_clean_exit(d);
-	exit(0);
+	d->content = ft_strjoint(d->content, d->read);
+	d->content = ft_strjoint(d->content, "\n");
+	free(d->read);
 }
 
-void	bi_echo(t_data *d, char **args)
+void	ft_heredoc_init(t_data *d, t_command *cmd, int pos)
 {
-	int	i;
-	int	nl;
-
-	nl = 1;
-	i = 0;
-	while (args[++i] != NULL)
-	{
-		while (!ft_strcmp(args[i], "-n"))
-		{
-			nl = 0;
-			i++;
-		}
-		ft_printf("%s", args[i]);
-		if (args[i + 1] != NULL)
-			ft_printf(" ", args[i]);
-	}
-	if (nl == 1)
-		ft_printf("\n");
-	d->exit_code = 0;
+	d->content = NULL;
+	d->read = NULL;
+	d->eof = NULL;
+	if (cmd->tokens[pos + 1].type == 'e' || cmd->tokens[pos + 1].type == 'E')
+		d->eof = cmd->tokens[pos + 1].data;
 }

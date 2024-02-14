@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redir_files.c                                      :+:      :+:    :+:   */
+/*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 09:35:55 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/01/16 15:01:42 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/04 09:18:51 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	ft_open_check(t_command *cmd, int fd, char *file_path)
 {
 	if (fd == -1)
 	{
-		ft_printf("carcaribash: %s: %s\n", strerror(errno), file_path);
+		cmd->dataptr->exit_code = 1;
+		ft_printf("cascaribash: %s: %s\n", strerror(errno), file_path);
 		cmd->fd_error = 1;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:15:46 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/01/31 15:26:05 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/10 23:19:32 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,28 +62,20 @@ void	ft_tag_builts(t_command *cmds, int len)
 	}
 }
 
-char	*ft_str_rplc(char *src, char *new)
-{
-	char	*aux;
-
-	aux = ft_strdup(new);
-	free (src);
-	return (aux);
-}
-
-void	ft_overwrite_var(t_data *d, char *var, char* new)
+void	ft_overwrite_var(t_data *d, char *var, char *new)
 {
 	int		i;
 	int		j;
-	char	*title = NULL;
+	char	*title;
 	char	*aux;
 
+	title = NULL;
 	title = ft_strjoint(title, var);
 	title = ft_strjoint(title, "=");
 	i = 0;
 	while (ft_strncmp(d->env_dup[i], var, ft_strlen(var)))
 		i++;
-	d->env_dup[i] = ft_str_rplc(d->env_dup[i], title); 
+	d->env_dup[i] = ft_str_rplc(d->env_dup[i], title);
 	d->env_dup[i] = ft_strjoint(d->env_dup[i], new);
 	j = 0;
 	while (ft_strncmp(d->env_exp[j], var, ft_strlen(var)))
@@ -93,4 +85,18 @@ void	ft_overwrite_var(t_data *d, char *var, char* new)
 	d->env_exp[j] = ft_strjoint(d->env_exp[j], aux);
 	free (aux);
 	free (title);
+}
+
+int	ft_is_dir(t_data *d, char *str)
+{
+	DIR	*dir;
+
+	dir = opendir(str);
+	if (dir == NULL)
+	{
+		ft_error(d, errno, NULL);
+		return (perror("cascaribash"), 1);
+	}
+	closedir(dir);
+	return (0);
 }

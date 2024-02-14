@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:30:09 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/09 10:09:14 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/14 10:30:21 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*esta funcion chequeara si las comillas estan cerradas, si es asi
 definira el tipo de comillas con ft_define-qtype y si hay dollar lo 
 expandira LO MISMO CREO UN PUNTERO A ENV PARA TRABAJAR MAS COMODO*/
-void	ft_management_quotes(t_element *element, t_data *d)
+int	ft_management_quotes(t_element *element, t_data *d)
 {
 	if (ft_closed_quotes(element->data))
 	{
@@ -25,8 +25,10 @@ void	ft_management_quotes(t_element *element, t_data *d)
 	else
 	{
 		d->exit_code = 1;
-		printf("cascaribash: unclosed quotes\n");
+		printf("cascaribash: syntax error: unclosed quotes\n");
+		return (1);
 	}
+	return (0);
 }
 
 /*funcion que chequea si las comillas estan cerradas*/
