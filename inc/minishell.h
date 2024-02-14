@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/14 10:25:42 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/14 13:13:17 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,5 +279,10 @@ void					ft_cmd_sig(int sig);
 void					ft_here_sig(int sig);
 void					ft_handler(int sig);
 void					ft_control_d(t_data *d);
-
+/**********************[check_spchar.c]***********************************/
+int	ft_is_special_char(char c);
+void	ft_check_special_chars_right(t_data *d);
+char	*ft_insert_right_space(char *s, int pos);
+void	ft_check_special_chars_left(t_data *d);
+char	*ft_insert_left_space(char *s, int pos);
 #endif
