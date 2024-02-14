@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:15:46 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/10 23:19:32 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/14 18:47:43 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,9 @@ int	ft_is_dir(t_data *d, char *str)
 	dir = opendir(str);
 	if (dir == NULL)
 	{
-		ft_error(d, errno, NULL);
-		return (perror("cascaribash: cd: "), 1);
+		ft_error(d, 1, NULL);
+		ft_printf_error("cascaribash: cd: %s: %s\n", str, strerror(errno));
+		return (1);
 	}
 	closedir(dir);
 	return (0);
