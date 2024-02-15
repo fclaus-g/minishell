@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 11:40:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/14 19:09:44 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/15 19:26:34 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,14 @@ hay que comprobar que no me haya cargado su funcionamiento anterior*/
 gestionar los fds para redireccionar stdin/stdout*/
 void	ft_token_files(t_input *in)
 {
-	int	i;
+	int		i;
+	char	t;
 
 	i = -1;
 	while (++i < in->n_elements)
 	{
-		if (in->elements[i].type == '<' && in->elements[i + 1].type == '0'
+		t = in->elements[i + 1].type;
+		if (in->elements[i].type == '<' && (t == '0' || t == '\'' || t == '\"')
 			&& i + 1 < in->n_elements)
 			in->elements[i + 1].type = 'i';
 		else if (in->elements[i].type == 'h' && i + 1 < in->n_elements)
@@ -79,11 +81,11 @@ void	ft_token_files(t_input *in)
 			else if (in->elements[i + 1].type == '\'')
 				in->elements[i + 1].type = 'e';
 		}
-		else if (in->elements[i].type == '>' && in->elements[i + 1].type == '0'
-			&& i + 1 < in->n_elements)
+		else if (in->elements[i].type == '>'
+			&& (t == '0' || t == '\'' || t == '\"') && i + 1 < in->n_elements)
 			in->elements[i + 1].type = 'o';
-		else if (in->elements[i].type == 'a' && in->elements[i + 1].type == '0'
-			&& i + 1 < in->n_elements)
+		else if (in->elements[i].type == 'a'
+			&& (t == '0' || t == '\'' || t == '\"') && i + 1 < in->n_elements)
 			in->elements[i + 1].type = 'O';
 	}
 }

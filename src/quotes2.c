@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:30:09 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/14 19:02:25 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/15 21:25:10 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,12 @@ int	ft_management_quotes(t_element *element, t_data *d)
 	{
 		d->exit_code = 1;
 		printf("cascaribash: syntax error: unclosed quotes\n");
-		return (1);	
+		return (1);
 	}
 	if (ft_closed_quotes(element->data))
 	{
 		element->type = ft_define_qtype(*element);
-		element->data = ft_clean_quotes(*element);
-	}
-	else
-	{
-		d->exit_code = 1;
-		printf("cascaribash: syntax error: unclosed quotes\n");
-		return (1);
+		//element->data = ft_clean_quotes(*element, d);
 	}
 	return (0);
 }
@@ -42,7 +36,7 @@ int	ft_closed_quotes(char *str)
 {
 	int		c;
 	char	quote;
-	int	quotes;
+	int		quotes;
 
 	c = -1;
 	quotes = 0;
@@ -63,7 +57,6 @@ int	ft_closed_quotes(char *str)
 		return (1);
 	return (0);
 }
-
 
 /*funcion que devuelve el tipo de comilla que estamos tratando*/
 char	ft_define_qtype(t_element element)
@@ -86,32 +79,30 @@ char	ft_define_qtype(t_element element)
 /*funcion que va a eliminar las comillas del bloque teniendo 
 en cuenta que deben ser del mismo tipo (si hay comillas del otro
 tipo deben mostrarse)*/
-char	*ft_clean_quotes(t_element element)
+char	*ft_clean_quotes(t_element element, t_data *d)
 {
+	char	*aux;
 	int		c;
 	int		i;
-	char	q;
-	char	*aux;
-	int		flag;
 
-	c = -1;
-	i = 0;
-	q = ft_define_qtype(element);
-	flag = -1;
 	aux = ft_calloc(sizeof(char),
 			ft_strlen(element.data) - ft_count_quotes(element.data) + 1);
 	if (!aux)
-		ft_printf_error("cascaribash: malloc error\n");
+		return (NULL);
+	c = -1;
+	i = 0;
+	d->q = 0;
+	d->q_flag = 0;
 	while (element.data[++c])
 	{
-		while (element.data[c] != q && flag == -1 && element.data[c])
-			aux[i++] = element.data[c++];
-		if (element.data[c] == q && flag == -1)
-			flag *= -1;
-		while (element.data[c] != q && flag == 1 && element.data[c])
-			aux[i++] = element.data[c++];
+		if (ft_is_quote(element.data[c]) && d->q_flag == 0)
+			ft_flag_check(d, element.data[c], 0);
+		else if (element.data[c] == d->q && d->q_flag == 1)
+			ft_flag_check(d, element.data[c], 1);
+		else
+			aux[i++] = element.data[c];
 	}
-	free (element.data);
+	//free (element.data);
 	return (aux);
 }
 
@@ -134,6 +125,8 @@ int	ft_count_quotes(char *str)
 				if (str[c] == q && str[c])
 				{
 					quotes++;
+					q = '\1';
+					break ;
 				}
 			}
 		}

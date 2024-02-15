@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 23:18:10 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/09 12:13:17 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/15 14:01:34 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_dir_home(t_data *d)
 
 	dir = ft_getenv(d, "HOME");
 	if (dir == NULL)
-		ft_error(d, 1, "cascaribash: cd: $HOME not set");
+		ft_error(d, 1, "cascaribash: cd: HOME not set");
 	else if (chdir(dir) != 0)
 		ft_error(d, 1, "cascaribash: cd error");
 	else

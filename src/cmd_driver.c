@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exegguttor.c                                       :+:      :+:    :+:   */
+/*   cmd_driver.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/13 20:33:37 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/15 21:34:40 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,18 @@ void	ft_shell_pipex(t_data *d, int i)
 	}
 }
 
+void	ft_quotes(t_command *cmd, t_data *d)
+{
+	int	i;
+
+	i = -1;
+	while (++i < cmd->size)
+	{
+		if (cmd->tokens[i].type == '\'' || cmd->tokens[i].type == '\"')
+			cmd->tokens[i].data = ft_clean_quotes(*cmd->tokens, d);
+	}
+}
+
 int	ft_cmd_driver(t_data *d, t_command *cmds)
 {
 	int			curr_cmd;
@@ -101,7 +113,8 @@ int	ft_cmd_driver(t_data *d, t_command *cmds)
 	{
 		g_sign = 0;
 		ft_dollar_check(&cmds[curr_cmd], d);
-		ft_format_cmd(&cmds[curr_cmd]);
+		ft_quotes(&cmds[curr_cmd], d);
+		ft_format_cmd(&cmds[curr_cmd], d);
 		ft_std_shield(d, 0);
 		ft_is_heredoc(&cmds[curr_cmd], d);
 		ft_shell_pipex(d, curr_cmd);

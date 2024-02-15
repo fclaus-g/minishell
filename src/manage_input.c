@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:09:31 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/14 18:55:06 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/15 21:02:05 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ void	ft_dollar_check(t_command *cmd, t_data *d)
 	while (++i < cmd->size)
 	{
 		c = cmd->tokens[i].type;
-		if ((c == '0' || c == '\"') && ft_its_dollar(cmd->tokens[i].data))
+		if ((c == '0' || c == '\"' || c == '\'')
+			&& ft_its_dollar(cmd->tokens[i].data))
 			cmd->tokens[i].data = ft_expand(cmd->tokens[i].data, d);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 11:17:20 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/13 18:53:29 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/15 12:49:05 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_signal(void)
 {
 	signal(SIGINT, ft_handler);
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGSTOP, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
 }
 
 void	ft_cmd_sig(int sig)

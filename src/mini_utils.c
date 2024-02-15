@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 23:16:26 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/13 19:09:45 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/15 20:42:44 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,18 @@ int	ft_is_space(char c)
 	if ((c >= 9 && c <= 13) || c == 32)
 		return (1);
 	return (0);
+}
+
+void	ft_flag_check(t_data *d, char c, int mode)
+{
+	if (mode == 0)
+	{
+		d->q = c;
+		d->q_flag = 1;
+	}
+	else
+	{
+		d->q = 0;
+		d->q_flag = 0;
+	}
 }

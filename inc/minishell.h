@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/14 19:14:10 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/15 20:43:34 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,8 @@ typedef struct s_data
 	char		*eof;
 	pid_t		pid;
 	int			pes;
+	char		q;
+	int			q_flag;
 }	t_data;
 
 /**********************[main.c]***********************************/
@@ -131,6 +133,7 @@ void					ft_wait(pid_t pid, t_data *d, int mode);
 void					ft_free_str(char *str);
 char					*ft_str_rplc(char *src, char *new);
 int						ft_is_space(char c);
+void					ft_flag_check(t_data *d, char c, int mode);
 /**********************[signals.c]***********************************/
 void					ft_signal(void);
 void					ft_cmd_sig(int sig);
@@ -159,7 +162,7 @@ int						ft_quote_in_data(char *str);
 int						ft_management_quotes(t_element *element, t_data *d);
 int						ft_closed_quotes(char *str);
 char					ft_define_qtype(t_element element);
-char					*ft_clean_quotes(t_element element);
+char					*ft_clean_quotes(t_element element, t_data *d);
 int						ft_count_quotes(char *str);
 /**********************[check_spchar.c]***********************************/
 int						ft_is_special_char(char c);
@@ -199,7 +202,7 @@ int						ft_spcset_check(t_input *in);
 void					ft_cmd_maker(t_input *in);
 void					ft_init_cmd(t_input *in);
 void					ft_get_cmdline(t_command *cmd);
-void					ft_format_cmd(t_command *cmd);
+void					ft_format_cmd(t_command *cmd, t_data *d);
 /**********************[cmd_maker_utils.c]***********************************/
 int						ft_element_cnt(t_input	*in, char c);
 int						ft_cmd_size(t_input *in, int *start);
@@ -239,7 +242,7 @@ void					ft_excve(t_command *cmd, t_data *d, int mode);
 /**********************[exegguttor_utils.c]***********************************/
 int						is_path(char *str);
 void					ft_excve_error(t_command *cmd);
-void					split_cmd(t_command *st, char *cmdstr);
+void					ft_split_cmd(t_command *st, t_data *d);
 int						find_path_index(t_command *st, char *cmd);
 void					get_paths(t_command *st, char **env);
 /**********************[bi_utils.c]***********************************/
