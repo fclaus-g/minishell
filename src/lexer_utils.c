@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 17:12:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/04 09:26:04 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/14 19:08:53 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,17 @@ void	ft_error(t_data *d, int code, char *msg)
 	d->exit_code = code;
 	if (msg != NULL)
 		ft_printf_error("%s\n");
+}
+
+int	ft_char_pos(char *s, char c)
+{
+	int	i;
+
+	i = -1;
+	while (s[++i] != '\0')
+	{
+		if (s[i] == c)
+			return (i);
+	}
+	return (-1);
 }

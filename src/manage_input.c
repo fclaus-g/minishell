@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:09:31 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/13 07:44:22 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/14 18:55:06 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	ft_manage_input(t_data *d)
 {
+	ft_check_special_chars_right(d);
+	ft_check_special_chars_left(d);
 	ft_separate_quotes(d);
 	d->in.sp_input = ft_split(d->rl_input, ' ');
 	ft_recovery_sp(&d->in);

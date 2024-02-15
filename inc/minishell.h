@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/13 20:45:02 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/14 19:14:10 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,12 @@ void					ft_wait(pid_t pid, t_data *d, int mode);
 void					ft_free_str(char *str);
 char					*ft_str_rplc(char *src, char *new);
 int						ft_is_space(char c);
+/**********************[signals.c]***********************************/
+void					ft_signal(void);
+void					ft_cmd_sig(int sig);
+void					ft_here_sig(int sig);
+void					ft_handler(int sig);
+void					ft_control_d(t_data *d);
 /**********************[init.c]***********************************/
 void					ft_init_pipes(t_input *in);
 void					ft_parse_env(t_data *d, char **env);
@@ -155,30 +161,36 @@ int						ft_closed_quotes(char *str);
 char					ft_define_qtype(t_element element);
 char					*ft_clean_quotes(t_element element);
 int						ft_count_quotes(char *str);
-/**********************[expand.c]**************************************/
-char					*ft_expand_excd(char *src, t_data *d);
-char					*ft_expand_other(char *content, t_data *d, int pos);
-char					*ft_rplc_content(char *content, char *value, int start, int del);
-char					*ft_expand(char *content, t_data *d);
-/**********************[expand_utils.c]**************************************/
-void					ft_expand_init(char *content, t_data *d, int i);
-char					*ft_get_dollar_word(char *str, int start);
-char					*ft_search_value(char *comp, t_env *env, int lenv);
-char					*ft_var_del(char *s, int *pos);
+/**********************[check_spchar.c]***********************************/
+int						ft_is_special_char(char c);
+void					ft_check_special_chars_right(t_data *d);
+char					*ft_insert_right_space(char *s, int pos);
+void					ft_check_special_chars_left(t_data *d);
+char					*ft_insert_left_space(char *s, int pos);
 /**********************[lexer.c]***********************************/
 int						ft_lexer(t_data *d);
-void					ft_token_pipes(t_input *in);
+void					ft_token_spchars(t_input *in);
 void					ft_token_redirs(t_input *in);
 void					ft_token_files(t_input *in);
+void					ft_token_and(t_input *in);
 /**********************[lexer_utils.c]***********************************/
 int						ft_is_red(char	*s);
 void					ft_syntax_error(t_input *in, int i);
 int						ft_eof_check(t_input *in);
 void					ft_error(t_data *d, int code, char *msg);
-/**********************[lexer_spchars.c]***********************************/
-void					ft_token_spchars(t_input *in);
 int						ft_char_pos(char *s, char c);
-void					ft_token_and(t_input *in);
+/**********************[arr_tools_0.c]***********************************/
+t_element				*ft_arr_update(t_input *in, int i, char c);
+void					ft_fill_arr(t_input *in, t_element *new_arr, int tar, char **tab);
+char					**ft_element_split(char *str, char c);
+t_element				*ft_db_redirs(t_input *in, int i, char c);
+char					**ft_dbredir_split(char *str, char c);
+/**********************[arr_tools_1.c]***********************************/
+void					ft_tag_type(t_element *arr, int start, int size, char c);
+char					*ft_write_token(char c);
+size_t					ft_count_elements(char *str, char c);
+void					ft_tag_redtype(t_element *arr, int start, int size, char c);
+char					*ft_save_dbred(char c);
 /**********************[syntax_check.c]***********************************/
 int						ft_syntax_check(t_input *in);
 int						ft_stdset_check(t_input *in);
@@ -193,12 +205,16 @@ int						ft_element_cnt(t_input	*in, char c);
 int						ft_cmd_size(t_input *in, int *start);
 char					*ft_addspace(char *str);
 void					ft_init_files(t_command *cmd);
-/**********************[redir.c]***********************************/
-void					ft_file_fds(t_command *cmd);
-void					ft_open_file(t_command *cmd, char *file, int type);
-void					ft_open_check(t_command *cmd, int fd, char *file_path);
-int						ft_std_redir(t_command *cmd);
-void					ft_std_shield(t_data *d, int mode);
+/**********************[expand.c]**************************************/
+char					*ft_expand_excd(char *src, t_data *d);
+char					*ft_expand_other(char *content, t_data *d, int pos);
+char					*ft_rplc_content(char *content, char *value, int start, int del);
+char					*ft_expand(char *content, t_data *d);
+/**********************[expand_utils.c]**************************************/
+void					ft_expand_init(char *content, t_data *d, int i);
+char					*ft_get_dollar_word(char *str, int start);
+char					*ft_search_value(char *comp, t_env *env, int lenv);
+char					*ft_var_del(char *s, int *pos);
 /**********************[heredoc.c]***********************************/
 void					ft_write_doc(t_command *cmd, char *content);
 void					ft_heredoc(t_command *cmd, int pos, t_data *d, int *exit);
@@ -208,24 +224,18 @@ void					ft_is_heredoc(t_command *cmd, t_data *d);
 void					ft_content_buffer(t_data *d);
 void					ft_heredoc_init(t_data *d, t_command *cmd, int pos);
 void					ft_wait(pid_t pid, t_data *d, int mode);
-/**********************[arr_tools_0.c]***********************************/
-t_element				*ft_arr_update(t_input *in, int i, char c);
-void					ft_fill_arr(t_input *in, t_element *new_arr, int tar, char **tab);
-char					**ft_element_split(char *str, char c);
-t_element				*ft_db_redirs(t_input *in, int i, char c);
-char					**ft_dbredir_split(char *str, char c);
-/**********************[arr_tools_1.c]***********************************/
-void					ft_tag_type(t_element *arr, int start, int size, char c);
-char					*ft_write_token(char c);
-size_t					ft_count_elements(char *str, char c);
-void					ft_tag_redtype(t_element *arr, int start, int size, char c);
-char					*ft_save_dbred(char c);
-/**********************[exegguttor.c]***********************************/
+/**********************[redir.c]***********************************/
+void					ft_file_fds(t_command *cmd);
+void					ft_open_file(t_command *cmd, char *file, int type);
+void					ft_open_check(t_command *cmd, int fd, char *file_path);
+int						ft_std_redir(t_command *cmd);
+void					ft_std_shield(t_data *d, int mode);
+/**********************[cmd_driver.c]***********************************/
+int						ft_cmd_driver(t_data *d, t_command *cmds);
+void					ft_shell_pipex(t_data *d, int i);
 void					ft_built_exe(t_command *cmd, t_data *d);
 void					ft_exegguttor(t_command *cmds, t_data *d);
 void					ft_excve(t_command *cmd, t_data *d, int mode);
-void					ft_shell_pipex(t_data *d, int i);
-int						ft_cmd_driver(t_data *d, t_command *cmds);
 /**********************[exegguttor_utils.c]***********************************/
 int						is_path(char *str);
 void					ft_excve_error(t_command *cmd);
@@ -269,11 +279,5 @@ void					ft_free_data(t_data *d);
 void					ft_free_arr(t_input *in, int size);
 void					ft_clean_exit(t_data *d);
 void					ft_free_cmds(t_input *in);
-/**********************[signals.c]***********************************/
-void					ft_signal(void);
-void					ft_cmd_sig(int sig);
-void					ft_here_sig(int sig);
-void					ft_handler(int sig);
-void					ft_control_d(t_data *d);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:30:09 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/12 21:13:38 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/14 19:02:25 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@ definira el tipo de comillas con ft_define-qtype y si hay dollar lo
 expandira LO MISMO CREO UN PUNTERO A ENV PARA TRABAJAR MAS COMODO*/
 int	ft_management_quotes(t_element *element, t_data *d)
 {
+	if (ft_count_quotes(element->data) % 2 != 0)
+	{
+		d->exit_code = 1;
+		printf("cascaribash: syntax error: unclosed quotes\n");
+		return (1);	
+	}
 	if (ft_closed_quotes(element->data))
 	{
 		element->type = ft_define_qtype(*element);
@@ -36,22 +42,28 @@ int	ft_closed_quotes(char *str)
 {
 	int		c;
 	char	quote;
+	int	quotes;
 
 	c = -1;
+	quotes = 0;
 	while (str[++c])
 	{
 		if (ft_is_quote(str[c]))
 		{
 			quote = str[c];
+			quotes++;
 			while (str[++c])
 			{
 				if (str[c] == quote)
-					return (1);
+					quotes++;
 			}
 		}
 	}
+	if (quotes % 2 == 0)
+		return (1);
 	return (0);
 }
+
 
 /*funcion que devuelve el tipo de comilla que estamos tratando*/
 char	ft_define_qtype(t_element element)
@@ -89,7 +101,7 @@ char	*ft_clean_quotes(t_element element)
 	aux = ft_calloc(sizeof(char),
 			ft_strlen(element.data) - ft_count_quotes(element.data) + 1);
 	if (!aux)
-		printf(RED"malloc ko\n"RESET);
+		ft_printf_error("cascaribash: malloc error\n");
 	while (element.data[++c])
 	{
 		while (element.data[c] != q && flag == -1 && element.data[c])
@@ -111,15 +123,15 @@ int	ft_count_quotes(char *str)
 
 	c = -1;
 	quotes = 0;
-	while (str[++c])
+	while (str[++c] && str[c])
 	{
-		if (ft_is_quote(str[c]))
+		if (ft_is_quote(str[c]) && str[c])
 		{
 			q = str[c];
 			quotes++;
-			while (str[++c])
+			while (str[++c] && str[c])
 			{
-				if (str[c] == q)
+				if (str[c] == q && str[c])
 				{
 					quotes++;
 				}
