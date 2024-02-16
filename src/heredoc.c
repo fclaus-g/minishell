@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 23:29:12 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/11 23:30:49 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/16 14:07:32 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	ft_write_doc(t_command *cmd, char *content)
 
 	check = 0;
 	fd = open(".heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	ft_open_check(cmd, fd, ".heredoc");
+	ft_open_check(cmd, fd, ".heredoc", 0);
 	if (content != NULL)
 		check = write(fd, content, ft_strlen(content));
 	if (check == -1)
 	{
 		cmd->dataptr->exit_code = 1;
-		ft_printf("cascaribash: %s: %s\n", ".heredoc", strerror(errno));
+		ft_printf_error("cascaribash: %s: %s\n", ".heredoc", strerror(errno));
 	}
 	close(fd);
 }

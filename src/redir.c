@@ -3,21 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 09:35:55 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/13 21:08:52 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/16 14:07:30 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_open_check(t_command *cmd, int fd, char *file_path)
+void	ft_open_check(t_command *cmd, int fd, char *file_path, int mode)
 {
 	if (fd == -1)
 	{
 		cmd->dataptr->exit_code = 1;
-		ft_printf("cascaribash: %s: %s\n", file_path, strerror(errno));
+		if (ft_strcmp(cmd->cmd_tab[0], "echo") != 0 && mode == 0)
+			ft_printf_error("cascaribash: %s: %s\n",
+				file_path, strerror(errno));
 		cmd->fd_error = 1;
 	}
 }
@@ -29,21 +31,21 @@ void	ft_open_file(t_command *cmd, char *file, int type)
 		if (cmd->fd_in != -1)
 			close(cmd->fd_in);
 		cmd->fd_in = open(file, O_RDONLY);
-		ft_open_check(cmd, cmd->fd_in, file);
+		ft_open_check(cmd, cmd->fd_in, file, 0);
 	}
 	if (type == 1)
 	{
 		if (cmd->fd_out != -1)
 			close(cmd->fd_out);
 		cmd->fd_out = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		ft_open_check(cmd, cmd->fd_out, file);
+		ft_open_check(cmd, cmd->fd_out, file, 1);
 	}
 	if (type == 2)
 	{
 		if (cmd->fd_out != -1)
 			close(cmd->fd_out);
 		cmd->fd_out = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		ft_open_check(cmd, cmd->fd_out, file);
+		ft_open_check(cmd, cmd->fd_out, file, 1);
 	}
 }
 

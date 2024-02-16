@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_driver.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/16 12:37:14 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/16 18:23:41 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 void	ft_built_exe(t_command *cmd, t_data *d)
 {
 	if (ft_std_redir(cmd) > 0)
-		return ;
+	{
+		if (ft_strcmp(cmd->cmd_tab[0], "echo") != 0)
+			return ;
+	}
 	if (ft_strcmp(cmd->cmd_tab[0], "echo") == 0)
 		bi_echo(d, cmd->cmd_tab);
 	else if (ft_strcmp(cmd->cmd_tab[0], "cd") == 0)
@@ -92,18 +95,6 @@ void	ft_shell_pipex(t_data *d, int i)
 	}
 }
 
-void	ft_quotes(t_command *cmd, t_data *d)
-{
-	int	i;
-
-	i = -1;
-	while (++i < cmd->size)
-	{
-		if (cmd->tokens[i].type == '\'' || cmd->tokens[i].type == '\"')
-			cmd->tokens[i].data = ft_clean_quotes(&cmd->tokens[i], d);
-	}
-}
-
 int	ft_cmd_driver(t_data *d, t_command *cmds)
 {
 	int			curr_cmd;
@@ -114,6 +105,7 @@ int	ft_cmd_driver(t_data *d, t_command *cmds)
 		g_sign = 0;
 		ft_dollar_check(&cmds[curr_cmd], d);
 		ft_quotes(&cmds[curr_cmd], d);
+		ft_check_empty(&cmds[curr_cmd]);
 		ft_format_cmd(&cmds[curr_cmd], d);
 		ft_std_shield(d, 0);
 		ft_is_heredoc(&cmds[curr_cmd], d);

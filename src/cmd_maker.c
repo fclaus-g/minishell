@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_maker.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 04:19:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/15 20:37:57 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/16 18:23:45 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	ft_check_empty(t_command *cmd)
+{
+	int		i;
+	char	t;
+
+	i = -1;
+	while (++i < cmd->size)
+	{
+		t = cmd->tokens[i].type;
+		if ((t == '0' || t == '\'' || t == '\"')
+			&& (!ft_strcmp(cmd->tokens[i].data, "\0")
+				|| !ft_strcmp(cmd->tokens[i].data, "")
+				|| !ft_strcmp(cmd->tokens[i].data, " ")))
+			cmd->tokens = ft_delete_element(cmd, i);
+	}
+}
 
 void	ft_get_cmdline(t_command *cmd)
 {

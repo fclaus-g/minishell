@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_maker_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 04:19:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/11 19:42:03 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/16 18:23:46 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,29 @@ void	ft_init_files(t_command *cmd)
 	cmd->path_cmd = NULL;
 	cmd->cmd_tab = NULL;
 	cmd->cmd_line = NULL;
+}
+
+t_element *ft_delete_element(t_command *cmd, int pos)
+{
+	int			i;
+	int			j;
+	t_element	*aux;
+
+	i = 0;
+	j = -1;
+	aux = malloc(sizeof(t_element) * cmd->size - 1);
+	while (++j < cmd->size)
+	{
+		if (j != pos)
+		{
+			aux[i].data = ft_strdup(cmd->tokens[j].data);
+			aux[i++].type = cmd->tokens[j].type;
+		}
+	}
+	i = -1;
+	while (++i < cmd->size)
+		ft_free_str(cmd->tokens[i].data);
+	free (cmd->tokens);
+	cmd->size--;
+	return (aux);
 }

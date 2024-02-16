@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 11:17:25 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/11 23:26:51 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/16 18:23:44 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,13 @@ char	*ft_var_del(char *s, int *pos)
 	free (s);
 	(*pos) = -1;
 	return (aux);
+}
+
+void	ft_quotes(t_command *cmd, t_data *d)
+{
+	int	i;
+
+	i = -1;
+	while (++i < cmd->size)
+		cmd->tokens[i].data = ft_clean_quotes(&cmd->tokens[i], d);
 }

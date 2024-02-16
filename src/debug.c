@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/31 16:55:39 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/01/19 12:29:11 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/16 17:40:26 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	debug_cmds(t_input *in, char *str_in, char *msg)
 	{
 		j = -1;
 		printf(" --- COMMAND[%d] --- \n", i);
+		printf("CMD SIZE = %d\n", in->cmds[i].size);
 		printf("CMD_LINE[%d]: %s\n", i, in->cmds[i].cmd_line);
 		while (++j < in->cmds[i].size)
 		{

@@ -5,6 +5,7 @@
 # docs/
 # a_*/
 # # minishell
+minishell_tester
 
 ### C ###
 # Prerequisites

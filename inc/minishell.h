@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/16 12:35:34 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/16 18:23:47 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,11 +191,13 @@ void					ft_cmd_maker(t_input *in);
 void					ft_init_cmd(t_input *in);
 void					ft_get_cmdline(t_command *cmd);
 void					ft_format_cmd(t_command *cmd, t_data *d);
+void					ft_check_empty(t_command *cmd);
 /**********************[cmd_maker_utils.c]***********************************/
 int						ft_element_cnt(t_input	*in, char c);
 int						ft_cmd_size(t_input *in, int *start);
 char					*ft_addspace(char *str);
 void					ft_init_files(t_command *cmd);
+t_element 				*ft_delete_element(t_command *cmd, int pos);
 /**********************[expand.c]**************************************/
 char					*ft_expand_excd(char *src, t_data *d);
 char					*ft_expand_other(char *content, t_data *d, int pos);
@@ -206,6 +208,7 @@ void					ft_expand_init(char *content, t_data *d, int i);
 char					*ft_get_dollar_word(char *str, int start);
 char					*ft_search_value(char *comp, t_env *env, int lenv);
 char					*ft_var_del(char *s, int *pos);
+void					ft_quotes(t_command *cmd, t_data *d);
 /**********************[quotes.c]***********************************/
 void					ft_separate_quotes(t_data *d);
 void					ft_recovery_sp(t_input *input);
@@ -230,7 +233,7 @@ void					ft_wait(pid_t pid, t_data *d, int mode);
 /**********************[redir.c]***********************************/
 void					ft_file_fds(t_command *cmd);
 void					ft_open_file(t_command *cmd, char *file, int type);
-void					ft_open_check(t_command *cmd, int fd, char *file_path);
+void					ft_open_check(t_command *cmd, int fd, char *file_path, int mode);
 int						ft_std_redir(t_command *cmd);
 void					ft_std_shield(t_data *d, int mode);
 /**********************[cmd_driver.c]***********************************/

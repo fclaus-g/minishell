@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:30:09 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/16 12:38:11 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/16 14:07:33 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,11 @@ int	ft_management_quotes(t_element *element, t_data *d)
 	if (ft_count_quotes(element->data) % 2 != 0)
 	{
 		d->exit_code = 1;
-		printf("cascaribash: syntax error: unclosed quotes\n");
+		ft_printf_error("cascaribash: syntax error: unclosed quotes\n");
 		return (1);
 	}
 	if (ft_closed_quotes(element->data))
-	{
 		element->type = ft_define_qtype(*element);
-		//element->data = ft_clean_quotes(*element, d);
-	}
 	return (0);
 }
 
