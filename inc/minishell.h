@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/15 20:43:34 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/16 12:35:34 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,18 +152,6 @@ void					ft_fill_elements(t_input *in);
 int						ft_check_elements(t_input *in, t_element *array, t_data *d);
 int						ft_its_dollar(char *str);
 void					ft_dollar_check(t_command *cmd, t_data *d);
-/**********************[quotes.c]***********************************/
-void					ft_separate_quotes(t_data *d);
-void					ft_recovery_sp(t_input *input);
-int						ft_is_quote(char c);
-int						ft_in_quotes(char *str, int c);
-int						ft_quote_in_data(char *str);
-/**********************[quotes2.c]***********************************/
-int						ft_management_quotes(t_element *element, t_data *d);
-int						ft_closed_quotes(char *str);
-char					ft_define_qtype(t_element element);
-char					*ft_clean_quotes(t_element element, t_data *d);
-int						ft_count_quotes(char *str);
 /**********************[check_spchar.c]***********************************/
 int						ft_is_special_char(char c);
 void					ft_check_special_chars_right(t_data *d);
@@ -218,6 +206,18 @@ void					ft_expand_init(char *content, t_data *d, int i);
 char					*ft_get_dollar_word(char *str, int start);
 char					*ft_search_value(char *comp, t_env *env, int lenv);
 char					*ft_var_del(char *s, int *pos);
+/**********************[quotes.c]***********************************/
+void					ft_separate_quotes(t_data *d);
+void					ft_recovery_sp(t_input *input);
+int						ft_is_quote(char c);
+int						ft_in_quotes(char *str, int c);
+int						ft_quote_in_data(char *str);
+/**********************[quotes2.c]***********************************/
+int						ft_management_quotes(t_element *element, t_data *d);
+int						ft_closed_quotes(char *str);
+char					ft_define_qtype(t_element element);
+char					*ft_clean_quotes(t_element *element, t_data *d);
+int						ft_count_quotes(char *str);
 /**********************[heredoc.c]***********************************/
 void					ft_write_doc(t_command *cmd, char *content);
 void					ft_heredoc(t_command *cmd, int pos, t_data *d, int *exit);

@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/15 21:34:40 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/16 12:37:14 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	ft_quotes(t_command *cmd, t_data *d)
 	while (++i < cmd->size)
 	{
 		if (cmd->tokens[i].type == '\'' || cmd->tokens[i].type == '\"')
-			cmd->tokens[i].data = ft_clean_quotes(*cmd->tokens, d);
+			cmd->tokens[i].data = ft_clean_quotes(&cmd->tokens[i], d);
 	}
 }
 

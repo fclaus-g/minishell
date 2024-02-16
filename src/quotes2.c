@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:30:09 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/15 21:25:10 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/16 12:38:11 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,30 +79,30 @@ char	ft_define_qtype(t_element element)
 /*funcion que va a eliminar las comillas del bloque teniendo 
 en cuenta que deben ser del mismo tipo (si hay comillas del otro
 tipo deben mostrarse)*/
-char	*ft_clean_quotes(t_element element, t_data *d)
+char	*ft_clean_quotes(t_element *element, t_data *d)
 {
 	char	*aux;
 	int		c;
 	int		i;
 
 	aux = ft_calloc(sizeof(char),
-			ft_strlen(element.data) - ft_count_quotes(element.data) + 1);
+			ft_strlen(element->data) - ft_count_quotes(element->data) + 1);
 	if (!aux)
 		return (NULL);
 	c = -1;
 	i = 0;
 	d->q = 0;
 	d->q_flag = 0;
-	while (element.data[++c])
+	while (element->data[++c])
 	{
-		if (ft_is_quote(element.data[c]) && d->q_flag == 0)
-			ft_flag_check(d, element.data[c], 0);
-		else if (element.data[c] == d->q && d->q_flag == 1)
-			ft_flag_check(d, element.data[c], 1);
+		if (ft_is_quote(element->data[c]) && d->q_flag == 0)
+			ft_flag_check(d, element->data[c], 0);
+		else if (element->data[c] == d->q && d->q_flag == 1)
+			ft_flag_check(d, element->data[c], 1);
 		else
-			aux[i++] = element.data[c];
+			aux[i++] = element->data[c];
 	}
-	//free (element.data);
+	free (element->data);
 	return (aux);
 }
 
