@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/02/14 10:29:23 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/15 14:48:23 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ void	ft_engine(t_data *d)
 		}
 		d->rl_input = readline("cascaribash/> ");
 		ft_control_d(d);
-		add_history(d->rl_input);
+		if (ft_strcmp(d->rl_input, ""))
+			add_history(d->rl_input);
 		if (ft_lexer(d))
 			continue ;
 		ft_cmd_maker(&d->in);
+		//debug_cmds(&d->in, "CMD_LINE (abajo)", d->in.cmds[0].cmd_line);
 		ft_cmd_driver(d, d->in.cmds);
 	}
 }
@@ -44,7 +46,7 @@ int	main(int ac, char **av, char **env)
 	t_data	d;
 
 	g_sign = 0;
-	atexit(ft_leaks);
+	//atexit(ft_leaks);
 	(void)av;
 	if (ac > 1)
 		return (1);

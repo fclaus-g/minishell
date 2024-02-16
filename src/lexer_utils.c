@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 17:12:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/04 09:26:04 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/15 14:00:22 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,5 @@ void	ft_error(t_data *d, int code, char *msg)
 {
 	d->exit_code = code;
 	if (msg != NULL)
-		ft_printf_error("%s\n");
+		ft_printf_error("%s\n", msg);
 }

@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 11:40:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/14 10:28:50 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/15 13:28:13 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@
 gestionar los fds para redireccionar stdin/stdout*/
 void	ft_token_files(t_input *in)
 {
-	int	i;
+	int		i;
+	char	t;
 
 	i = -1;
 	while (++i < in->n_elements)
 	{
-		if (in->elements[i].type == '<' && in->elements[i + 1].type == '0'
+		t = in->elements[i + 1].type;
+		if (in->elements[i].type == '<' && (t == '0' || t == '\'' || t == '\"')
 			&& i + 1 < in->n_elements)
 			in->elements[i + 1].type = 'i';
 		else if (in->elements[i].type == 'h' && i + 1 < in->n_elements)
@@ -32,11 +34,11 @@ void	ft_token_files(t_input *in)
 			else if (in->elements[i + 1].type == '\'')
 				in->elements[i + 1].type = 'e';
 		}
-		else if (in->elements[i].type == '>' && in->elements[i + 1].type == '0'
-			&& i + 1 < in->n_elements)
+		else if (in->elements[i].type == '>'
+			&& (t == '0' || t == '\'' || t == '\"') && i + 1 < in->n_elements)
 			in->elements[i + 1].type = 'o';
-		else if (in->elements[i].type == 'a' && in->elements[i + 1].type == '0'
-			&& i + 1 < in->n_elements)
+		else if (in->elements[i].type == 'a'
+			&& (t == '0' || t == '\'' || t == '\"') && i + 1 < in->n_elements)
 			in->elements[i + 1].type = 'O';
 	}
 }
@@ -93,6 +95,7 @@ int	ft_lexer(t_data *d)
 	ft_token_and(&d->in);
 	ft_token_redirs(&d->in);
 	ft_token_files(&d->in);
+	//debug_arr(&d->in, NULL, NULL);
 	if (ft_syntax_check(&d->in))
 		return (1);
 	return (0);

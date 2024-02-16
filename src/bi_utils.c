@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:15:46 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/10 23:19:32 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/15 13:56:19 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_getenv(t_data *d, char *var)
 	int	i;
 
 	i = -1;
-	while (++i < (int)ft_strdlen(d->env_dup))
+	while (++i < d->env_size)
 	{
 		if (!ft_strcmp(d->env_arr[i].title, var))
 			return (d->env_arr[i].line);

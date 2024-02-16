@@ -1,0 +1,19 @@
+total 352
+drwxr-xr-x  18 fclaus-g  2022_malaga     612 Feb 15 14:30 .
+drwxr-xr-x  12 fclaus-g  2022_malaga     408 Oct 26 10:51 ..
+-rw-r--r--@  1 fclaus-g  2022_malaga    6148 Feb 14 11:14 .DS_Store
+drwxr-xr-x  14 fclaus-g  2022_malaga     476 Feb 14 13:38 .git
+-rw-r--r--   1 fclaus-g  2022_malaga    1719 Feb 14 11:25 .gitignore
+drwxr-xr-x   4 fclaus-g  2022_malaga     136 Feb 14 11:25 .vscode
+-rw-r--r--   1 fclaus-g  2022_malaga    2653 Feb 14 11:31 Makefile
+drwxr-xr-x  34 fclaus-g  2022_malaga    1156 Feb 14 11:25 a_test
+drwxr-xr-x  13 fclaus-g  2022_malaga     442 Feb 14 11:25 docs
+drwxr-xr-x   5 fclaus-g  2022_malaga     170 Feb 14 11:25 inc
+-rwxr-xr-x   1 fclaus-g  2022_malaga  114416 Feb 15 14:00 minishell
+drwxr-xr-x   3 fclaus-g  2022_malaga     102 Dec 18 12:46 minishell.dSYM
+drwxr-xr-x  24 fclaus-g  2022_malaga     816 Feb 15 09:48 minishell_tester
+drwxr-xr-x  48 fclaus-g  2022_malaga    1632 Feb 15 14:00 obj
+-rwxrwxrwx   1 fclaus-g  2022_malaga       0 Feb 15 14:35 out
+-rw-r--r--   1 fclaus-g  2022_malaga       0 Feb 15 14:35 out2
+-rw-r--r--   1 fclaus-g  2022_malaga   48363 Feb 14 11:25 rl_version.c
+drwxr-xr-x  34 fclaus-g  2022_malaga    1156 Feb 14 11:28 src

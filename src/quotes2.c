@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:30:09 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/14 11:43:33 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/15 19:30:06 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,6 @@ int	ft_management_quotes(t_element *element, t_data *d)
 	{
 		element->type = ft_define_qtype(*element);
 		element->data = ft_clean_quotes(*element);
-	}
-	else
-	{
-		d->exit_code = 1;
-		printf("cascaribash: syntax error: unclosed quotes\n");
-		return (1);
 	}
 	return (0);
 }

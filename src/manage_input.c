@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:09:31 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/14 13:36:47 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/15 11:35:52 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,14 @@ int	ft_manage_input(t_data *d)
 {
 	ft_check_special_chars_right(d);
 	ft_check_special_chars_left(d);
+	//printf("input_str = %s\n", d->rl_input);
 	ft_separate_quotes(d);
 	d->in.sp_input = ft_split(d->rl_input, ' ');
 	ft_recovery_sp(&d->in);
+	//ft_print_dstr(d->in.sp_input);
 	d->in.n_elements = ft_strdlen(d->in.sp_input);
 	ft_fill_elements(&d->in);
+	//debug_arr(&d->in, NULL, NULL);
 	if (ft_check_elements(&d->in, d->in.elements, d))
 		return (1);
 	return (0);

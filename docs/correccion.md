@@ -6,18 +6,18 @@
 * El makefile no relink.
 
 ### Comandos simples y variables globales
-* []Ejecutar un comando simple con un un path absoluto como  [**/bin/ls**] ---->  				**muestra command not found**
-* []Explicar porque usamos una global ----------------------------------------->  				**aun no uso la global**
+* [x]Ejecutar un comando simple con un un path absoluto como  [**/bin/ls**] ----> /bin/pwd 	 	/bin/echo		
+* [x]Explicar porque usamos una global ----------------------------------------->  				**mirarlo**
 * [X]Probar entrada vacia ->**da un salto de linea OK**
-* []Probar solo espacios o tabs ->**espacio muestra \n y tabs autocompleta**
+* [x]Probar solo espacios o tabs ->**espacio muestra \n y tabs autocompleta**
 
 ### Argumentos
-* []Ejecutar comando simple con path absoluto como [**/bin/ls**] con opciones y sin comillas -> **muestra command not found**
-* []Repetir multiples veces con comandos y args 
+* [x]Ejecutar comando simple con path absoluto como [**/bin/ls**] con opciones y sin comillas -> 
+* [x]Repetir multiples veces con comandos y args 
 
 ### echo
-* []Ejecutar echo, echo + args y echo -n
-* []Probar diferentes args
+* [x]Ejecutar echo, echo + args y echo -n
+* [x]Probar diferentes args
 ### exit
 * []exit con y sin args
 * []Probar diferentes args
