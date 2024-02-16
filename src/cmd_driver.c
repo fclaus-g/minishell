@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/16 10:34:18 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/16 12:00:19 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,13 @@ void	ft_quotes(t_command *cmd, t_data *d)
 	int	i;
 
 	i = -1;
+
 	while (++i < cmd->size)
 	{
-		if (cmd->tokens[i].type == '\'' || cmd->tokens[i].type == '\"')
-			cmd->tokens[i].data = ft_clean_quotes(*cmd->tokens, d);
+		if (cmd->tokens[i].type == '\'' || cmd->tokens[i].type == '\"' || cmd->tokens[i].type == '0')
+		{
+			cmd->tokens[i].data = ft_clean_quotes(&cmd->tokens[i], d);
+		}
 	}
 }
 

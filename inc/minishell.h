@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/16 10:32:16 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/16 11:12:08 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ int						ft_quote_in_data(char *str);
 int						ft_management_quotes(t_element *element, t_data *d);
 int						ft_closed_quotes(char *str);
 char					ft_define_qtype(t_element element);
-char					*ft_clean_quotes(t_element element, t_data *d);
+char					*ft_clean_quotes(t_element *element, t_data *d);
 int						ft_count_quotes(char *str);
 /**********************[check_spchar.c]***********************************/
 int						ft_is_special_char(char c);

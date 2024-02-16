@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:21:41 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/09 11:32:30 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/16 12:10:22 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_fill_elements(t_input *in)
 	{
 		in->elements[i].type = '0';
 		in->elements[i].data = ft_strdup(in->sp_input[i]);
+		printf("ELEMENT data =%s type = %c\n", in->elements[i].data, in->elements[i].type);
 	}
 	in->cmd_n = 0;
 	ft_totalfree(in->sp_input);
@@ -52,8 +53,9 @@ int	ft_check_elements(t_input *in, t_element *array, t_data *d)
 		{
 			ft_management_quotes(&array[i], d);
 			return (1);
-		}	
-		else if (ft_quote_in_data(array[i].data) && !ft_closed_quotes(array[i].data))
+		}
+		else if (ft_quote_in_data(array[i].data) 
+		&& !ft_closed_quotes(array[i].data))
 		{
 			d->exit_code = 1;
 			return (0);

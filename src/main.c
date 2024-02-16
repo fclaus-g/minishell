@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/16 10:38:37 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/16 11:23:31 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	ft_engine(t_data *d)
 		if (ft_lexer(d))
 			continue ;
 		ft_cmd_maker(&d->in);
-		//debug_cmds(&d->in, "CMD_LINE (abajo)", d->in.cmds[0].cmd_line);
 		ft_cmd_driver(d, d->in.cmds);
 	}
 }

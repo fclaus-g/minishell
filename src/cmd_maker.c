@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_maker.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 04:19:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/15 20:37:57 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/16 11:44:53 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	ft_init_cmd(t_input *in)
 		{
 			in->cmds[i].tokens[j].data = ft_strdup(in->elements[start].data);
 			in->cmds[i].tokens[j].type = in->elements[start++].type;
+			printf("token en cmd data =%s type = %c\n", in->cmds[i].tokens[j].data, in->cmds[i].tokens[j].type);
 		}
 		i++;
 	}
