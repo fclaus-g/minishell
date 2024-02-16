@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/02/14 10:26:22 by fclaus-g         ###   ########.fr       */
+/*   Created: 2024/01/08 13:44:06 by fclaus-g          #+#    #+#             */
+/*   Updated: 2024/02/16 10:34:38 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,25 @@ char	*ft_rplc_content(char *content, char *value, int start, int del)
 	return (aux);
 }
 
+void	ft_quote_exp(char c, t_data *d)
+{
+	if (ft_is_quote(c) && d->q_flag == 0)
+		ft_flag_check(d, c, 0);
+	else if (c == d->q && d->q_flag == 1)
+		ft_flag_check(d, c, 1);
+}
+
 char	*ft_expand(char *content, t_data *d)
 {
 	int		i;
 
+	d->q = 0;
+	d->q_flag = 0;
 	i = -1;
 	while (content[++i])
 	{
-		if (content[i] == '$')
+		ft_quote_exp(content[i], d);
+		if (content[i] == '$' && (d->q == 0 || d->q == '\"'))
 		{
 			ft_expand_init(content, d, i);
 			if (d->val)

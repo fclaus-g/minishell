@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exegguttor_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/04 09:00:31 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/15 20:40:59 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,30 @@ int	find_path_index(t_command *st, char *cmd)
  * ls como cmd1[0] -la como cmd1[1], ya que execve necesita que el comando entre
  * como una matriz de cadenas *av[]
  */
-void	split_cmd(t_command *st, char *cmdstr)
+void	ft_split_cmd(t_command *st, t_data *d)
 {
-	st->cmd_tab = ft_split(cmdstr, ' ');
+	int	i;
+	int	len;
+
+	(void)d;
+	i = -1;
+	len = 1;
+	while (++i < st->size)
+	{
+		if (st->tokens[i].type == '0' || st->tokens[i].type == '\''
+			|| st->tokens[i].type == '\"')
+			len++;
+	}
+	st->cmd_tab = malloc(sizeof(char *) * len);
+	i = -1;
+	len = 0;
+	while (++i < st->size)
+	{
+		if (st->tokens[i].type == '0' || st->tokens[i].type == '\''
+			|| st->tokens[i].type == '\"')
+			st->cmd_tab[len++] = ft_strdup(st->tokens[i].data);
+	}
+	st->cmd_tab[len] = NULL;
 	if (!st->cmd_tab)
 		perror ("cascaribash: parse error");
 }

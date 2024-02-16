@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/18 14:09:31 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/15 11:35:52 by fclaus-g         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/02/16 10:36:12 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../inc/minishell.h"
 
@@ -16,7 +17,6 @@ int	ft_manage_input(t_data *d)
 {
 	ft_check_special_chars_right(d);
 	ft_check_special_chars_left(d);
-	//printf("input_str = %s\n", d->rl_input);
 	ft_separate_quotes(d);
 	d->in.sp_input = ft_split(d->rl_input, ' ');
 	ft_recovery_sp(&d->in);
@@ -87,7 +87,8 @@ void	ft_dollar_check(t_command *cmd, t_data *d)
 	while (++i < cmd->size)
 	{
 		c = cmd->tokens[i].type;
-		if ((c == '0' || c == '\"') && ft_its_dollar(cmd->tokens[i].data))
+		if ((c == '0' || c == '\"' || c == '\'')
+			&& ft_its_dollar(cmd->tokens[i].data))
 			cmd->tokens[i].data = ft_expand(cmd->tokens[i].data, d);
 	}
 }

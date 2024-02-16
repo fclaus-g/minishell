@@ -6,12 +6,59 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 11:40:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/15 13:28:13 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/16 10:35:29 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+void	ft_token_spchars(t_input *in)
+{
+	int		i;
+	int		j;
+	char	*set;
+
+	set = "|;\\\0";
+	j = -1;
+	while (set[++j] != '\0')
+	{
+		i = -1;
+		while (++i < in->n_elements)
+		{
+			if (in->elements[i].type == '0'
+				&& ft_strchr(in->elements[i].data, set[j]))
+			{
+				if (ft_strlen(in->elements[i].data) > 1)
+					in->elements = ft_arr_update(in, i, set[j]);
+				else
+					in->elements[i].type = set[j];
+			}
+		}
+	}
+}
+
+/*Comprobar como se comporta con un varias cantidades de && seguidos
+& && &&& &&&&&& &&&&*/
+void	ft_token_and(t_input *in)
+{
+	int	i;
+	int	and;
+
+	i = -1;
+	while (++i < in->n_elements)
+	{
+		and = ft_char_pos(in->elements[i].data, '&');
+		if (in->elements[i].type == '0' && and >= 0)
+		{
+			if (in->elements[i].data[and] == in->elements[i].data[and + 1]
+				&& in->elements[i].data[and] != in->elements[i].data[and + 2])
+				in->elements = ft_db_redirs(in, i, in->elements[i].data[and]);
+		}
+	}
+}
+
+/*He modificado ft_tag_redir para que funcione con && también,
+hay que comprobar que no me haya cargado su funcionamiento anterior*/
 /*Función para catalogar los archivos IN/OUT, solo cataloga, luego veremos como
 gestionar los fds para redireccionar stdin/stdout*/
 void	ft_token_files(t_input *in)
@@ -61,23 +108,6 @@ void	ft_token_redirs(t_input *in)
 				in->elements = ft_arr_update(in, i, in->elements[i].data[red]);
 			else
 				in->elements[i].type = in->elements[i].data[red];
-		}
-	}
-}
-
-void	ft_token_pipes(t_input *in)
-{
-	int	i;
-
-	i = -1;
-	while (++i < in->n_elements)
-	{
-		if (in->elements[i].type == '0' && ft_strchr(in->elements[i].data, '|'))
-		{
-			if (ft_strlen(in->elements[i].data) > 1)
-				in->elements = ft_arr_update(in, i, '|');
-			else
-				in->elements[i].type = '|';
 		}
 	}
 }

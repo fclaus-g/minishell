@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 04:19:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/13 20:45:52 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/15 20:37:57 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ void	ft_init_cmd(t_input *in)
 	}
 }
 
-void	ft_format_cmd(t_command *cmd)
+void	ft_format_cmd(t_command *cmd, t_data *d)
 {
 	ft_get_cmdline(cmd);
-	split_cmd(cmd, cmd->cmd_line);
+	ft_split_cmd(cmd, d);
 	if (ft_is_built(cmd->cmd_tab[0]))
 		cmd->built = 1;
 }

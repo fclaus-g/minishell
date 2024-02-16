@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:15:46 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/15 13:56:19 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/16 10:32:48 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,9 @@ int	ft_is_dir(t_data *d, char *str)
 	dir = opendir(str);
 	if (dir == NULL)
 	{
-		ft_error(d, errno, NULL);
-		return (perror("cascaribash: cd: "), 1);
+		ft_error(d, 1, NULL);
+		ft_printf_error("cascaribash: cd: %s: %s\n", str, strerror(errno));
+		return (1);
 	}
 	closedir(dir);
 	return (0);

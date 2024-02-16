@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/02/15 14:48:23 by fclaus-g         ###   ########.fr       */
+/*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
+/*   Updated: 2024/02/16 10:38:37 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_leaks(void)
 
 void	ft_engine(t_data *d)
 {
-	ft_signal(0);
+	ft_signal();
 	while (1)
 	{
 		if (d->rl_input != NULL)

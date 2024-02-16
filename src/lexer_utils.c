@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 17:12:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/15 14:00:22 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/16 10:35:02 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,17 @@ void	ft_error(t_data *d, int code, char *msg)
 	d->exit_code = code;
 	if (msg != NULL)
 		ft_printf_error("%s\n", msg);
+}
+
+int	ft_char_pos(char *s, char c)
+{
+	int	i;
+
+	i = -1;
+	while (s[++i] != '\0')
+	{
+		if (s[i] == c)
+			return (i);
+	}
+	return (-1);
 }

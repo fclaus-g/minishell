@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:30:09 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/15 19:30:06 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/16 10:40:12 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_management_quotes(t_element *element, t_data *d)
 	if (ft_closed_quotes(element->data))
 	{
 		element->type = ft_define_qtype(*element);
-		element->data = ft_clean_quotes(*element);
+		//element->data = ft_clean_quotes(*element);
 	}
 	return (0);
 }
@@ -40,19 +40,24 @@ int	ft_closed_quotes(char *str)
 
 	c = -1;
 	quotes = 0;
+	quotes = 0;
 	while (str[++c])
 	{
 		if (ft_is_quote(str[c]))
 		{
 			quote = str[c];
 			quotes++;
+			quotes++;
 			while (str[++c])
 			{
 				if (str[c] == quote)
 					quotes++;
+					
 			}
 		}
 	}
+	if (quotes % 2 == 0)
+		return (1);
 	if (quotes % 2 == 0)
 		return (1);
 	return (0);
@@ -79,32 +84,30 @@ char	ft_define_qtype(t_element element)
 /*funcion que va a eliminar las comillas del bloque teniendo 
 en cuenta que deben ser del mismo tipo (si hay comillas del otro
 tipo deben mostrarse)*/
-char	*ft_clean_quotes(t_element element)
+char	*ft_clean_quotes(t_element element, t_data *d)
 {
+	char	*aux;
 	int		c;
 	int		i;
-	char	q;
-	char	*aux;
-	int		flag;
 
-	c = -1;
-	i = 0;
-	q = ft_define_qtype(element);
-	flag = -1;
 	aux = ft_calloc(sizeof(char),
 			ft_strlen(element.data) - ft_count_quotes(element.data) + 1);
 	if (!aux)
-		printf(RED"malloc ko\n"RESET);
+		return (NULL);
+	c = -1;
+	i = 0;
+	d->q = 0;
+	d->q_flag = 0;
 	while (element.data[++c])
 	{
-		while (element.data[c] != q && flag == -1 && element.data[c])
-			aux[i++] = element.data[c++];
-		if (element.data[c] == q && flag == -1 && element.data[c])
-			flag *= -1;
-		while (element.data[c] != q && flag == 1 && element.data[c])
-			aux[i++] = element.data[c++];
+		if (ft_is_quote(element.data[c]) && d->q_flag == 0)
+			ft_flag_check(d, element.data[c], 0);
+		else if (element.data[c] == d->q && d->q_flag == 1)
+			ft_flag_check(d, element.data[c], 1);
+		else
+			aux[i++] = element.data[c];
 	}
-	free (element.data);
+	//free (element.data);
 	return (aux);
 }
 
@@ -125,7 +128,11 @@ int	ft_count_quotes(char *str)
 			while (str[++c] && str[c])
 			{
 				if (str[c] == q && str[c])
+				{
 					quotes++;
+					q = '\1';
+					break ;
+				}
 			}
 		}
 	}
