@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:09:31 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/16 14:07:32 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/18 16:57:30 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	ft_fill_elements(t_input *in)
 	in->cmd_n = 0;
 	ft_totalfree(in->sp_input);
 	in->sp_input = NULL;
-	in->pipes = NULL;
 }
 
 int	ft_check_elements(t_input *in, t_element *array, t_data *d)

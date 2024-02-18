@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 07:32:32 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/04 09:53:55 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/18 16:55:30 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,9 @@ void	ft_init(t_data *d, char **env)
 	d->env_arr = NULL;
 	d->exit_code = 0;
 	d->in.dptr = d;
+	d->in.cmd_n = 0;
+	d->in.n_elements = 0;
+	d->in.pipes = NULL;
 	ft_parse_env(d, env);
 	ft_get_envarray(d);
 }

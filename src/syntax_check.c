@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 06:35:26 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/13 20:53:53 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/18 22:59:31 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	ft_stdset_check(t_input *in)
 				return (ft_syntax_error(in, j), 1);
 			if (in->elements[j].type == set[i] && (j + 1) >= in->n_elements)
 				return (ft_syntax_error(in, j), 1);
-			if (in->elements[j].type == set[i]
+			if (in->elements[j].type == set[i] && in->elements[j].type != '|'
 				&& ft_strchr(set, in->elements[j + 1].type) != NULL)
 				return (ft_syntax_error(in, j), 1);
 		}

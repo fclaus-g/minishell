@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_driver.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/16 18:23:41 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/18 22:15:09 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 void	ft_built_exe(t_command *cmd, t_data *d)
 {
 	if (ft_std_redir(cmd) > 0)
-	{
-		if (ft_strcmp(cmd->cmd_tab[0], "echo") != 0)
-			return ;
-	}
+		return ;
 	if (ft_strcmp(cmd->cmd_tab[0], "echo") == 0)
+	{	
 		bi_echo(d, cmd->cmd_tab);
+		//return ;
+	}
 	else if (ft_strcmp(cmd->cmd_tab[0], "cd") == 0)
 		bi_cd(d, cmd);
 	else if (ft_strcmp(cmd->cmd_tab[0], "pwd") == 0)
@@ -35,7 +35,7 @@ void	ft_built_exe(t_command *cmd, t_data *d)
 		d->exit_code = 0;
 	}
 	else if (ft_strcmp(cmd->cmd_tab[0], "exit") == 0)
-		bi_exit(d);
+		bi_exit(cmd->cmd_tab, d);
 }
 
 void	ft_excve(t_command *cmd, t_data *d, int mode)
@@ -46,16 +46,11 @@ void	ft_excve(t_command *cmd, t_data *d, int mode)
 		get_paths(cmd, d->env_dup);
 		find_path_index(cmd, cmd->cmd_tab[0]);
 		if (execve(cmd->path_cmd, cmd->cmd_tab, d->env_dup) == -1)
-		{
-			d->exit_code = 127;
 			ft_excve_error(cmd);
-		}
 	}
+	ft_excve_dircheck(cmd->cmd_tab[0]);
 	if (execve(cmd->cmd_tab[0], cmd->cmd_tab, d->env_dup) == -1)
-	{
-		d->exit_code = 127;
 		ft_excve_error(cmd);
-	}
 }
 
 void	ft_exegguttor(t_command *cmd, t_data *d)

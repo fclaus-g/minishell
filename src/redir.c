@@ -3,24 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 09:35:55 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/16 14:07:30 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/18 22:07:33 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+/**
+ * TODO -> borrar int mode de prototipo si finalmente no se usa! 
+ */
+
 void	ft_open_check(t_command *cmd, int fd, char *file_path, int mode)
 {
+	(void)mode;
 	if (fd == -1)
 	{
-		cmd->dataptr->exit_code = 1;
-		if (ft_strcmp(cmd->cmd_tab[0], "echo") != 0 && mode == 0)
-			ft_printf_error("cascaribash: %s: %s\n",
-				file_path, strerror(errno));
 		cmd->fd_error = 1;
+		cmd->dataptr->exit_code = 1;
+		ft_printf_error("cascaribash: %s: %s\n", file_path, strerror(errno));
 	}
 }
 

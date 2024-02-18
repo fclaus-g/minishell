@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 11:17:20 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/15 12:49:05 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/18 16:57:56 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	ft_control_d(t_data *d)
 	{
 		rl_on_new_line();
 		rl_redisplay();
-		ft_putstr_fd("exit\n", 1);
-		bi_exit(d);
+		ft_clean_exit(d);
+		ft_printf("exit\n");
+		exit(0);
 	}
 }

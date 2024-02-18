@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/16 18:23:47 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/18 22:15:02 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,8 +255,11 @@ char					*ft_getenv(t_data *d, char *var);
 void					ft_overwrite_var(t_data *d, char *var, char* new);
 int						ft_is_dir(t_data *d, char *str);
 /**********************[bi_exit_echo.c]***********************************/
-void					bi_exit(t_data *d);
+void					bi_exit(char **args, t_data *d);
 void					bi_echo(t_data *d, char **args);
+void					ft_exit_mod(char **args, t_data *d);
+int						ft_is_num(char *str);
+void					ft_excve_dircheck(char *str);
 /**********************[bi_dir.c]***********************************/
 void					bi_pwd(t_data *d);
 void					ft_update_pwd(t_data *d, char *old_pwd);

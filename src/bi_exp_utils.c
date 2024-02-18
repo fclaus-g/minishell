@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_exp_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 18:19:07 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/16 14:07:31 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/18 22:33:52 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,25 @@ int	ft_isvar(char *arg)
 
 int	ft_val_id(char *arg, int mode)
 {
+	int	i;
+
+	i = 0;
 	if (arg[0] != '_' && !ft_isalpha(arg[0]))
 	{
 		if (mode == 0)
 			ft_printf_error(
 				"cascaribash: export: `%s': not a valid identifier\n", arg);
 		return (1);
+	}
+	while (arg[++i] != '\0' && arg[i] != '=')
+	{
+		if (arg[i] != '_' && !ft_isalnum(arg[i]))
+		{
+			if (mode == 0)
+				ft_printf_error(
+					"cascaribash: export: `%s': not a valid identifier\n", arg);
+			return (1);
+		}
 	}
 	return (0);
 }
