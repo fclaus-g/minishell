@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/18 22:15:02 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/19 19:43:04 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,11 @@ void					ft_free_str(char *str);
 char					*ft_str_rplc(char *src, char *new);
 int						ft_is_space(char c);
 void					ft_flag_check(t_data *d, char c, int mode);
+/**********************[mini_utils_1.c]***********************************/
+void					ft_free_flags(t_data *d, int mode);
+int						ft_is_num(char *str);
+int						ft_is_dir(t_data *d, char *str);
+void					ft_excve_dircheck(char *str);
 /**********************[signals.c]***********************************/
 void					ft_signal(void);
 void					ft_cmd_sig(int sig);
@@ -197,9 +202,10 @@ int						ft_element_cnt(t_input	*in, char c);
 int						ft_cmd_size(t_input *in, int *start);
 char					*ft_addspace(char *str);
 void					ft_init_files(t_command *cmd);
-t_element 				*ft_delete_element(t_command *cmd, int pos);
+t_element				*ft_delete_element(t_command *cmd, int pos);
 /**********************[expand.c]**************************************/
 char					*ft_expand_excd(char *src, t_data *d);
+void					ft_quote_exp(char c, t_data *d);
 char					*ft_expand_other(char *content, t_data *d, int pos);
 char					*ft_rplc_content(char *content, char *value, int start, int del);
 char					*ft_expand(char *content, t_data *d);
@@ -229,7 +235,6 @@ void					ft_is_heredoc(t_command *cmd, t_data *d);
 /**********************[heredoc_utils.c]***********************************/
 void					ft_content_buffer(t_data *d);
 void					ft_heredoc_init(t_data *d, t_command *cmd, int pos);
-void					ft_wait(pid_t pid, t_data *d, int mode);
 /**********************[redir.c]***********************************/
 void					ft_file_fds(t_command *cmd);
 void					ft_open_file(t_command *cmd, char *file, int type);
@@ -252,14 +257,11 @@ void					get_paths(t_command *st, char **env);
 void					ft_tag_builts(t_command *cmds, int len);
 int						ft_is_built(char *str);
 char					*ft_getenv(t_data *d, char *var);
-void					ft_overwrite_var(t_data *d, char *var, char* new);
-int						ft_is_dir(t_data *d, char *str);
+void					ft_overwrite_var(t_data *d, char *var, char *new);
 /**********************[bi_exit_echo.c]***********************************/
 void					bi_exit(char **args, t_data *d);
 void					bi_echo(t_data *d, char **args);
 void					ft_exit_mod(char **args, t_data *d);
-int						ft_is_num(char *str);
-void					ft_excve_dircheck(char *str);
 /**********************[bi_dir.c]***********************************/
 void					bi_pwd(t_data *d);
 void					ft_update_pwd(t_data *d, char *old_pwd);

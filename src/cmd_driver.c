@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/18 22:15:09 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/19 19:32:32 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ void	ft_built_exe(t_command *cmd, t_data *d)
 	if (ft_std_redir(cmd) > 0)
 		return ;
 	if (ft_strcmp(cmd->cmd_tab[0], "echo") == 0)
-	{	
 		bi_echo(d, cmd->cmd_tab);
-		//return ;
-	}
 	else if (ft_strcmp(cmd->cmd_tab[0], "cd") == 0)
 		bi_cd(d, cmd);
 	else if (ft_strcmp(cmd->cmd_tab[0], "pwd") == 0)

@@ -6,7 +6,7 @@
 #    By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 21:48:21 by pgomez-r          #+#    #+#              #
-#    Updated: 2024/02/14 19:15:07 by pgruz11          ###   ########.fr        #
+#    Updated: 2024/02/19 19:47:08 by pgruz11          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRC      = main.c init.c free.c bi_exit_echo.c lexer.c lexer_utils.c redir.c \
 			cmd_driver.c exegguttor_utils.c cmd_maker_utils.c heredoc.c debug.c \
 			bi_exp.c manage_input.c quotes.c quotes2.c expand.c mini_utils.c \
 			bi_exp_utils.c bi_unset.c expand_utils.c signals.c heredoc_utils.c \
-			check_spchar.c syntax_check.c
+			check_spchar.c syntax_check.c mini_utils_1.c
 SRCS	 = $(addprefix $(SRC_PATH), $(SRC))
 OBJ		 = $(SRC:.c=.o)
 OBJS	 = $(addprefix $(OBJ_PATH), $(OBJ))

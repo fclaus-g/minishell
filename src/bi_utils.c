@@ -6,7 +6,7 @@
 /*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:15:46 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/14 18:47:43 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/19 19:42:00 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,19 +85,4 @@ void	ft_overwrite_var(t_data *d, char *var, char *new)
 	d->env_exp[j] = ft_strjoint(d->env_exp[j], aux);
 	free (aux);
 	free (title);
-}
-
-int	ft_is_dir(t_data *d, char *str)
-{
-	DIR		*dir;
-
-	dir = opendir(str);
-	if (dir == NULL)
-	{
-		ft_error(d, 1, NULL);
-		ft_printf_error("cascaribash: cd: %s: %s\n", str, strerror(errno));
-		return (1);
-	}
-	closedir(dir);
-	return (0);
 }

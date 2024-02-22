@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 13:44:06 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/15 21:16:35 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/19 19:35:11 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,7 @@ char	*ft_expand(char *content, t_data *d)
 {
 	int		i;
 
-	d->q = 0;
-	d->q_flag = 0;
+	ft_free_flags(d, 0);
 	i = -1;
 	while (content[++i])
 	{
@@ -108,8 +107,7 @@ char	*ft_expand(char *content, t_data *d)
 				content = ft_var_del(content, &i);
 			else
 				content = ft_expand_other(content, d, i);
-			free(d->var);
-			free(d->val);
+			ft_free_flags(d, 1);
 		}
 	}
 	return (content);

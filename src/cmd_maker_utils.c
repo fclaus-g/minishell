@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_maker_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 04:19:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/16 18:23:46 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/19 19:44:20 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	ft_init_files(t_command *cmd)
 	cmd->cmd_line = NULL;
 }
 
-t_element *ft_delete_element(t_command *cmd, int pos)
+t_element	*ft_delete_element(t_command *cmd, int pos)
 {
 	int			i;
 	int			j;
