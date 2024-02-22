@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+         #
+#    By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 21:48:21 by pgomez-r          #+#    #+#              #
-#    Updated: 2024/02/19 19:47:08 by pgruz11          ###   ########.fr        #
+#    Updated: 2024/02/22 11:36:14 by fclaus-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,10 +44,8 @@ $(NAME):	$(OBJS)
 
 norm:
 		@echo "\033[0;32m\n	 ##### Cheking 42_School_NORMINETTE #####\n\033[0m";
-		@norminette src/
-		@norminette inc/libft
-		@norminette inc/minishell.h
-
+		@norminette src/ inc/libft/
+		
 debug:
 		@gcc -Wall -Wextra -Werror -lreadline ./src/*.c ./inc/libft/libft.a -o debug 
 		@echo "\033[0;32m\n	##### Debug file successfully generated #####\n\033[0m"
