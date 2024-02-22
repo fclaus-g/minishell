@@ -3,9 +3,9 @@
 # *.md
 # *.pdf
 # docs/
-# a_*/
-# # minishell
-minishell_tester
+a_*/
+minishell
+minishell_tester/
 
 ### C ###
 # Prerequisites
