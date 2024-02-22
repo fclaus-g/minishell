@@ -1,0 +1,126 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exegguttor_utils.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/21 22:21:48 by pgomez-r          #+#    #+#             */
+/*   Updated: 2024/02/15 20:40:59 by pgomez-r         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../inc/minishell.h"
+/**
+Vamos a sacar de @param env la línea PATH y guardar todas sus direcciones
+en nuestra variable @param	paths
+*/
+void	get_paths(t_command *st, char **env)
+{
+	size_t	i;
+	char	*path_fix;
+
+	i = 0;
+	path_fix = NULL;
+	while (env[i] && is_path(env[i]))
+		i++;
+	st->paths = ft_split(env[i], ':');
+	path_fix = ft_strcpy(path_fix, st->paths[0] + 5);
+	free(st->paths[0]);
+	st->paths[0] = ft_strcpy(st->paths[0], path_fix);
+	free(path_fix);
+	i = 0;
+	while (st->paths[i] != NULL)
+	{
+		st->paths[i] = (ft_strjoint(st->paths[i], "/"));
+		i++;
+	}
+}
+
+/*Ya tenemos los paths de env en una variable, esta función tiene que
+encontrar el MATCH entre el comando a ejecutar y su correspondiente path*/
+int	find_path_index(t_command *st, char *cmd)
+{
+	int	i;
+
+	if (!st->path_cmd)
+	{
+		st->path_cmd = malloc(sizeof(char) * 1);
+		st->path_cmd = NULL;
+	}
+	i = 0;
+	while (st->paths[i] != NULL)
+	{
+		st->path_cmd = ft_strjoin(st->paths[i], cmd);
+		if (access(st->path_cmd, F_OK | X_OK) == 0)
+			return (0);
+		if (st->path_cmd != NULL)
+			free(st->path_cmd);
+		i++;
+	}
+	return (-1);
+}
+
+/**
+ * Función para guardar cmd1 y cmd2 -que entra a pipex por av[2] y av[3]-
+ * el comando y sus opciones, ej -> cmd1= "ls -la" tenemos que quedarnos con
+ * ls como cmd1[0] -la como cmd1[1], ya que execve necesita que el comando entre
+ * como una matriz de cadenas *av[]
+ */
+void	ft_split_cmd(t_command *st, t_data *d)
+{
+	int	i;
+	int	len;
+
+	(void)d;
+	i = -1;
+	len = 1;
+	while (++i < st->size)
+	{
+		if (st->tokens[i].type == '0' || st->tokens[i].type == '\''
+			|| st->tokens[i].type == '\"')
+			len++;
+	}
+	st->cmd_tab = malloc(sizeof(char *) * len);
+	i = -1;
+	len = 0;
+	while (++i < st->size)
+	{
+		if (st->tokens[i].type == '0' || st->tokens[i].type == '\''
+			|| st->tokens[i].type == '\"')
+			st->cmd_tab[len++] = ft_strdup(st->tokens[i].data);
+	}
+	st->cmd_tab[len] = NULL;
+	if (!st->cmd_tab)
+		perror ("cascaribash: parse error");
+}
+
+/**
+ * @brief Libera cadenas a las que hicimos malloc con split y no se les ha
+ * hecho antes free 
+ * @param paths -> copia de los paths convertidas al formato que necesita excve
+ * @param cmd -> el comando usado en formato matriz de str
+ */
+void	ft_excve_error(t_command *cmd)
+{
+	ft_printf_error("cascaribash: %s: command not found\n", cmd->cmd_tab[0]);
+	if (cmd)
+	{
+		if (cmd->paths != NULL)
+			ft_totalfree(cmd->paths);
+		if (cmd->cmd_tab != NULL)
+			ft_totalfree(cmd->cmd_tab);
+	}
+	exit(127);
+}
+
+/**
+ * keep it cutre =) 
+ */
+int	is_path(char *str)
+{
+	if (str[0] == 'P' && str[1] == 'A' && str[2] == 'T'
+		&& str[3] == 'H' && str[4] == '=')
+		return (0);
+	return (1);
+}

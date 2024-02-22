@@ -1,3 +1,12 @@
+### Minishell ###
+# Cuando estemos listos para entregar, descomentar esta sección
+# *.md
+# *.pdf
+# docs/
+# a_*/
+# # minishell
+minishell_tester
+
 ### C ###
 # Prerequisites
 *.d
@@ -117,3 +126,4 @@ Temporary Items
 # Ignore all local history of files
 .history
 .ionide
+

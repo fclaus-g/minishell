@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_dstr.c                                    :+:      :+:    :+:   */
+/*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/24 20:59:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/04/24 21:00:01 by pgomez-r         ###   ########.fr       */
+/*   Created: 2024/02/09 18:02:55 by pgomez-r          #+#    #+#             */
+/*   Updated: 2024/02/10 23:16:41 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../inc/minishell.h"
 
-/**
- * @brief imprime matrices de cadenas de caracteres(char **) separadas por salto
- * de línea
- */
-void	ft_print_dstr(char **dstr)
+void	ft_content_buffer(t_data *d)
 {
-	size_t	i;
+	d->content = ft_strjoint(d->content, d->read);
+	d->content = ft_strjoint(d->content, "\n");
+	free(d->read);
+}
 
-	i = 0;
-	while (dstr[i] != NULL)
-	{
-		printf("%s\n", dstr[i]);
-		i++;
-	}
+void	ft_heredoc_init(t_data *d, t_command *cmd, int pos)
+{
+	d->content = NULL;
+	d->read = NULL;
+	d->eof = NULL;
+	if (cmd->tokens[pos + 1].type == 'e' || cmd->tokens[pos + 1].type == 'E')
+		d->eof = cmd->tokens[pos + 1].data;
 }

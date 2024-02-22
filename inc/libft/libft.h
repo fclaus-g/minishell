@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:46:37 by pgomez-r          #+#    #+#             */
-/*   Updated: 2023/04/25 21:37:57 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/09 12:17:03 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@
 # include <limits.h>
 # include <sys/wait.h>
 # include <errno.h>
+# include <dirent.h>
+# include <pthread.h>
+# include <sys/stat.h>
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <dirent.h>
 
 /*ESTRUCURAS*/
 /*listas libft*/
@@ -62,7 +68,6 @@ typedef struct s_lis_utils
 }			t_lis_utils;
 
 /*FUNCIONES ft_utils*/
-void		ft_leaks(void);
 int			ft_strcmp(char *s1, char *s2);
 char		*ft_strcpy(char *dest, char *src);
 size_t		ft_strdlen(char **str);
@@ -82,6 +87,8 @@ int			ft_chklimit(char **str);
 size_t		ft_minvalue_pos(int *array, size_t len);
 int			ft_abs_sum(int x, int y);
 void		ft_print_dstr(char **dstr);
+char		*ft_strtrim_free(char *s1, char const *set);
+int			ft_malloc(void **var, size_t size);
 
 /*FUNCIONES DE LIBFT*/
 int			ft_atoi(const char *str);
@@ -127,6 +134,8 @@ t_list		*ft_lstlast(t_list *lst);
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 t_list		*ft_lstnew(void *content);
 int			ft_lstsize(t_list *lst);
+/*FUNCIONES SPLIT*/
+char		*ft_savewords(const char *s, unsigned int n);
 
 /*FUNCIONES DE PRINTF*/
 int			ft_printf(char const *str, ...);
@@ -149,7 +158,7 @@ void		ft_puthex_error(unsigned long int n, char *base, size_t *i);
 
 /*GNL*/
 char		*get_next_line(int fd);
-char		*join_and_free(char *stack, char *tmp);
+char		*ft_strjoint(char *stack, char *tmp);
 char		*update_stack(char *stack);
 char		*create_line(char *stack);
 

@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 13:33:57 by pgomez-r          #+#    #+#             */
-/*   Updated: 2022/10/25 09:44:00 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2023/12/14 14:27:48 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,3 +66,15 @@ restandole valor a end-- cada vez que se cumpla while
 Cuando tenemos los valores finales de start y end, asignamos memoria para 
 la cadena nueva con el tamaño de end - start + 1
 Por ultimo copiamos la s1 en str con un while y cerramos '\0' cuando termine*/
+
+char	*ft_strtrim_free(char *s1, char const *set)
+{
+	char	*aux;
+
+	aux = ft_strtrim(s1, set);
+	free(s1);
+	return (aux);
+}
+/*Versión "actualizada" para que también libere la memoria de la str original,
+para cuando queramos usar esta función para transformar una misma cadena sin
+crear una variable nueva (ej. s1 = ft_strim_free(s1, set))*/
