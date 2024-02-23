@@ -4,8 +4,8 @@
 # *.pdf
 # docs/
 # a_*/
-# # minishell
-minishell_tester
+minishell
+minishell_tester/
 
 ### C ###
 # Prerequisites

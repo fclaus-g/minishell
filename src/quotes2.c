@@ -3,18 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   quotes2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:30:09 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/16 14:07:33 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/23 17:30:16 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/*esta funcion chequeara si las comillas estan cerradas, si es asi
-definira el tipo de comillas con ft_define-qtype y si hay dollar lo 
-expandira LO MISMO CREO UN PUNTERO A ENV PARA TRABAJAR MAS COMODO*/
 int	ft_management_quotes(t_element *element, t_data *d)
 {
 	if (ft_count_quotes(element->data) % 2 != 0)
@@ -28,7 +25,6 @@ int	ft_management_quotes(t_element *element, t_data *d)
 	return (0);
 }
 
-/*funcion que chequea si las comillas estan cerradas*/
 int	ft_closed_quotes(char *str)
 {
 	int		c;
@@ -55,7 +51,6 @@ int	ft_closed_quotes(char *str)
 	return (0);
 }
 
-/*funcion que devuelve el tipo de comilla que estamos tratando*/
 char	ft_define_qtype(t_element element)
 {
 	int		c;
@@ -73,9 +68,6 @@ char	ft_define_qtype(t_element element)
 	return (0);
 }
 
-/*funcion que va a eliminar las comillas del bloque teniendo 
-en cuenta que deben ser del mismo tipo (si hay comillas del otro
-tipo deben mostrarse)*/
 char	*ft_clean_quotes(t_element *element, t_data *d)
 {
 	char	*aux;

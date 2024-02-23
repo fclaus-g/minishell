@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 21:00:53 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/04 10:48:55 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/23 17:27:46 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,3 @@ void	bi_unset(t_data *d, t_command *cmd)
 	}
 	d->exit_code = 0;
 }
-
-/**
- * 1) Check cada arg[i] (menos 0) de unset en env_arr.title
- * 2) Si coincide, guarda la pos [i]
- * 3) Borra env_dup[i] y genera un env_dup nuevo (malloc + free)
- * 4) Actualizamos get env_array a partir del nuevo env_dup
- * 5) Buscamos cada arg[i] (menos 0) de unset en env_exp (como?)
- * ...
- */

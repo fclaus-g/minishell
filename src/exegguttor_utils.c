@@ -6,15 +6,12 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/15 20:40:59 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/23 17:28:59 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-/**
-Vamos a sacar de @param env la línea PATH y guardar todas sus direcciones
-en nuestra variable @param	paths
-*/
+
 void	get_paths(t_command *st, char **env)
 {
 	size_t	i;
@@ -37,8 +34,6 @@ void	get_paths(t_command *st, char **env)
 	}
 }
 
-/*Ya tenemos los paths de env en una variable, esta función tiene que
-encontrar el MATCH entre el comando a ejecutar y su correspondiente path*/
 int	find_path_index(t_command *st, char *cmd)
 {
 	int	i;
@@ -61,12 +56,6 @@ int	find_path_index(t_command *st, char *cmd)
 	return (-1);
 }
 
-/**
- * Función para guardar cmd1 y cmd2 -que entra a pipex por av[2] y av[3]-
- * el comando y sus opciones, ej -> cmd1= "ls -la" tenemos que quedarnos con
- * ls como cmd1[0] -la como cmd1[1], ya que execve necesita que el comando entre
- * como una matriz de cadenas *av[]
- */
 void	ft_split_cmd(t_command *st, t_data *d)
 {
 	int	i;
@@ -95,12 +84,6 @@ void	ft_split_cmd(t_command *st, t_data *d)
 		perror ("cascaribash: parse error");
 }
 
-/**
- * @brief Libera cadenas a las que hicimos malloc con split y no se les ha
- * hecho antes free 
- * @param paths -> copia de los paths convertidas al formato que necesita excve
- * @param cmd -> el comando usado en formato matriz de str
- */
 void	ft_excve_error(t_command *cmd)
 {
 	ft_printf_error("cascaribash: %s: command not found\n", cmd->cmd_tab[0]);
@@ -114,9 +97,6 @@ void	ft_excve_error(t_command *cmd)
 	exit(127);
 }
 
-/**
- * keep it cutre =) 
- */
 int	is_path(char *str)
 {
 	if (str[0] == 'P' && str[1] == 'A' && str[2] == 'T'

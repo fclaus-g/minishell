@@ -3,20 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:24:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/18 16:53:41 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/23 17:16:14 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*Archivo para funciones de final de programa y liberación de memoria*/
-
 #include "../inc/minishell.h"
 
-/*Se llama antes de cada readline; en la primera ocasión inicia valores a 0
-En el resto además libera las variables que han necesitado malloc en la lectura
-anterior*/
 void	ft_clean_input(t_input *input)
 {
 	if (input->cmd_n > 0)
@@ -37,15 +32,7 @@ void	ft_clean_input(t_input *input)
 	if (access(".heredoc", F_OK) == 0)
 		unlink(".heredoc");
 }
-/**
- * TODO: Check si se están liberando en exeguttor los char** de cms
- * Tendrían que liberarse y dejar a NULL cada vez que se termina una exe,
- * para luego volver a hacerles malloc y darles valor si es necesario en
- * siguientes comandos
- */
 
-/*Función para liberar memoria de la struct inicial-general, que
-ahora mismo solo tiene el entorno duplicado*/
 void	ft_free_data(t_data *d)
 {
 	int	i;
@@ -87,11 +74,6 @@ void	ft_free_cmds(t_input *in)
 		}
 	}
 }
-/**
- * TODO: check si se le está haciendo malloc siempre a todas las vars
- * TODO: pensar trigger IF para activar la función y en que momentos
- * El último free seguramente de doble free!
- */
 
 void	ft_free_arr(t_input *in, int size)
 {
@@ -108,8 +90,6 @@ void	ft_free_arr(t_input *in, int size)
 	}
 }
 
-/*Función para liberar toda la memoría alojada cuando se haga exit del
-programa*/
 void	ft_clean_exit(t_data *d)
 {
 	ft_clean_input(&d->in);
@@ -117,6 +97,3 @@ void	ft_clean_exit(t_data *d)
 		free(d->rl_input);
 	ft_free_data(d);
 }
-/**
- * TODO: mejorar el IF (comprobación) para liberar o no
- */

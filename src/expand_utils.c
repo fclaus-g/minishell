@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 11:17:25 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/16 18:23:44 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/23 17:29:03 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,6 @@ char	*ft_get_dollar_word(char *str, int start)
 	return (aux);
 }
 
-/*en esta funcion vamos a buscar en el array de entorno
-una coincidencia con la str *comp para obtener el valor
-de la variab*/
 char	*ft_search_value(char *comp, t_env *env, int lenv)
 {
 	int		i;

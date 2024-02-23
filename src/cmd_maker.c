@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_maker.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 04:19:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/16 18:23:45 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/23 17:28:33 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,3 @@ void	ft_cmd_maker(t_input *in)
 	ft_init_cmd(in);
 	ft_init_pipes(in);
 }
-/*Estoy planteando el movimiento de fds-archivos antes de exegguttor,
-pero creo que tendría que cambiarlo y meterlo dentro, justo antes de
-ejecutar cada comando, para modificar los archivos encadenados si es
-necesario*/

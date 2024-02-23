@@ -3,19 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_maker_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 04:19:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/19 19:44:20 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/23 17:28:28 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/*Función para calcular cuantos elementos de un tipo tenemos en la linea total 
-de input. Para que podamos usarla correctamente en cmd_maker, depende de que la
-comprobación previa de sintaxis funcione correctamente y "aborte" misión antes 
-si hay fallos de ese tipo*/
 int	ft_element_cnt(t_input	*in, char c)
 {
 	int	i;

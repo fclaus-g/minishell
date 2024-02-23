@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 11:40:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/15 19:26:34 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/23 17:29:38 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ void	ft_token_spchars(t_input *in)
 	}
 }
 
-/*Comprobar como se comporta con un varias cantidades de && seguidos
-& && &&& &&&&&& &&&&*/
 void	ft_token_and(t_input *in)
 {
 	int	i;
@@ -57,10 +55,6 @@ void	ft_token_and(t_input *in)
 	}
 }
 
-/*He modificado ft_tag_redir para que funcione con && también,
-hay que comprobar que no me haya cargado su funcionamiento anterior*/
-/*Función para catalogar los archivos IN/OUT, solo cataloga, luego veremos como
-gestionar los fds para redireccionar stdin/stdout*/
 void	ft_token_files(t_input *in)
 {
 	int		i;
@@ -112,11 +106,6 @@ void	ft_token_redirs(t_input *in)
 	}
 }
 
-/*Proceso de lexer/token; fill_input será sustituido por la ft que separe por 
-primera vez el input en elementos teniendo en cuenta el tema de las comillas,
-despues de eso la idea es ir enocontrando, separando (si están pegados sin 
-espacios) y catalogando otros tipos de elementos (pipes, redirs)
-*/
 int	ft_lexer(t_data *d)
 {
 	if (ft_manage_input(d))

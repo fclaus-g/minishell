@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 23:29:12 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/23 15:13:01 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/23 17:11:33 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ int	ft_heredoc_loop(t_command *cmd, t_data *d)
 	i = -1;
 	while (++i < cmd->size)
 	{
-		ret = 1;
 		hd_exit = 0;
 		if (cmd->tokens[i].type == 'h')
 		{
+			ret = 1;
 			signal(SIGINT, SIG_IGN);
 			d->pid = fork();
 			if (d->pid > 0)

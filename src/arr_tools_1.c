@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   arr_tools_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 22:59:50 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/14 18:17:48 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/23 17:27:20 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/*Para catalogar los nuevos elementos resultantes de la división del 
-original, solo sirve dentro de ft_arr_update (de momento)*/
 void	ft_tag_type(t_element *arr, int start, int size, char c)
 {
 	int	i;
@@ -29,7 +27,6 @@ void	ft_tag_type(t_element *arr, int start, int size, char c)
 	}
 }
 
-/*Cataloga los elementos nuevos despues de dividir por << / >> */
 void	ft_tag_redtype(t_element *arr, int start, int size, char c)
 {
 	int	i;
@@ -52,9 +49,6 @@ void	ft_tag_redtype(t_element *arr, int start, int size, char c)
 	}
 }
 
-/*Para guardar el elemento separador de ft_element_split en su
-propia cadena, que devolvemos para insertar en la posición de la
-matriz de cadenas correspondiente*/
 char	*ft_write_token(char c)
 {
 	char	*str;
@@ -65,9 +59,6 @@ char	*ft_write_token(char c)
 	return (str);
 }
 
-/*Mismo que ft_write_token, guarda el elemento separador de
-dbred_split en su propia cadena, que se inserta en la posición que
-le corresponde dentro de la matriz de cadenas*/
 char	*ft_save_dbred(char c)
 {
 	char	*str;
@@ -79,9 +70,6 @@ char	*ft_save_dbred(char c)
 	return (str);
 }
 
-/*Versión equivalente al count_words de nuestro ft_split estandar
-pero teniendo en cuenta que el elemento separador tiene su propia
-cadena*/
 size_t	ft_count_elements(char *str, char c)
 {
 	int		i;

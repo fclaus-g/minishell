@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 07:32:32 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/18 16:55:30 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/23 17:29:23 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/*ft_init_pipes no se usa en el proceso del primer init que llamamos
-en el main, pero la dejo por aquí porque es función de inicialización*/
 void	ft_init_pipes(t_input *in)
 {
 	int	i;
@@ -29,13 +27,6 @@ void	ft_init_pipes(t_input *in)
 	}
 }
 
-/*A esta función le entra una variable de entorno completa en una str
-Lo que hace es dividirla y guardar por un lado el nombre de la variable (antes
-de '=') y por otro el contenido o ruta (después de '='), ambos se quedan
-guardados por separado en la struct que tenemos para cada variable de entorno*/
-/**
- * TODO: fix '=' cuando no hay o hay varios! (Gracias Rosana =D)
- */
 void	ft_split_env(t_data *d, char *var, size_t x)
 {
 	int	i;

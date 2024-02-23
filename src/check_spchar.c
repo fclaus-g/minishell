@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_spchar.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:29:29 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/14 13:13:03 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/23 17:28:20 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@ int	ft_is_special_char(char c)
 	return (0);
 }
 
-/*Esta funcion chequea si hay un caracter especial(|,<,>, ;) pegado a un 
-caracter imprimible si es asi añade un espacio con **ft_insert_space** 
-para aislar el caracter especial antes de splitear*/
 void	ft_check_special_chars_right(t_data *d)
 {
 	int		c;
@@ -48,8 +45,6 @@ void	ft_check_special_chars_right(t_data *d)
 	}
 }
 
-/*funcion que sustituye la str pasada por arg con un espacio añadido a
-continuacion de la pos pasada por arg se usa en ft_check_special_char */
 char	*ft_insert_right_space(char *s, int pos)
 {
 	int		c;

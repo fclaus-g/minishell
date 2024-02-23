@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_exp.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 23:43:59 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/04 10:47:19 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/23 17:27:41 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,3 @@ void	bi_export(t_data *d, t_command *cmd)
 		d->exit_code = 0;
 	}
 }
-
-/*EXPORT RULES
-Naming: The variable name must begin with a letter (a to z or A to Z) or an
-underscore (_), followed by letters, digits (0 to 9), or underscores.
-Special characters are not allowed along the whole line.
-No spaces around the equals sign; VAR=value is correct, VAR = value is not
-No command substitution: The value assigned to the variable should not be the
-result of a command substitution.
-No special shell characters: (; & | > >> < * ? () $ # {} [] ! \); unless they
-are properly escaped or enclose in quotes.*/

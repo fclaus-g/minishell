@@ -6,15 +6,11 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 09:35:55 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/23 14:11:27 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/23 17:30:25 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-/**
- * TODO -> borrar int mode de prototipo si finalmente no se usa! 
- */
 
 void	ft_open_check(t_command *cmd, int fd, char *file_path)
 {

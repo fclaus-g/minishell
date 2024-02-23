@@ -6,16 +6,12 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:34:04 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/01/19 13:44:16 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/23 17:30:06 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/*En ft_separate_quotes vamos a usar un caracter de control '\1' para 
-cambiarlo por cada espacio que nos encontremos dentro de las comillas 
-con la idea de hacer luego un split y las comillas se queden en una linea
-de la matriz, a posteriori volveremos a cambiar el '\1' por ' '*/
 void	ft_separate_quotes(t_data *d)
 {
 	int		c;
@@ -45,7 +41,6 @@ void	ft_separate_quotes(t_data *d)
 	}
 }
 
-/*funcion que recupera los caracteres de control '\1' por espacios de nuevo*/
 void	ft_recovery_sp(t_input *input)
 {
 	int	i;
@@ -70,9 +65,6 @@ int	ft_is_quote(char c)
 	return (0);
 }
 
-/*funcion que chequea si un caracter se encuentra entre comillas
-solo chequea si el caracter esta detras de una comilla y la flag
-no esta activa, NO COMPRUEBA SI LAS COMILLAS ESTAN CERRADAS*/
 int	ft_in_quotes(char *str, int c)
 {
 	int		i;
@@ -94,7 +86,6 @@ int	ft_in_quotes(char *str, int c)
 	return (0);
 }
 
-/*chequea si una string tiene comillas*/
 int	ft_quote_in_data(char *str)
 {
 	int	i;
