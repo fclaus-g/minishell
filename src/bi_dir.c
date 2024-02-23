@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 23:18:10 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/15 14:01:34 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/23 12:34:15 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,10 @@ void	ft_update_pwd(t_data *d, char *old_pwd)
 	getcwd(curr_pwd, PATH_MAX);
 	if (!ft_strcmp(old_pwd, curr_pwd))
 		return ;
-	ft_overwrite_var(d, "OLDPWD", old_pwd);
-	ft_overwrite_var(d, "PWD", curr_pwd);
+	if (!ft_cd_protect(d, "OLDPWD"))
+		ft_overwrite_var(d, "OLDPWD", old_pwd);
+	if (!ft_cd_protect(d, "PWD"))
+		ft_overwrite_var(d, "PWD", curr_pwd);
 	ft_get_envarray(d);
 }
 

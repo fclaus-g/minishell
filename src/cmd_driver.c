@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_driver.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/19 19:32:32 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/23 15:25:27 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ void	ft_exegguttor(t_command *cmd, t_data *d)
 		ft_wait(pid, d, 0);
 	else
 	{
-		if (g_sign != 0)
-			exit (d->exit_code);
 		if (!ft_strchr(cmd->cmd_tab[0], '/'))
 			ft_excve(cmd, d, 0);
 		else

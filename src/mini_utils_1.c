@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_utils_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 19:35:59 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/19 19:43:21 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/23 12:36:27 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,17 @@ void	ft_excve_dircheck(char *str)
 		closedir(dir);
 		exit (126);
 	}
+}
+
+int	ft_cd_protect(t_data *d, char *var)
+{
+	int	i;
+
+	i = -1;
+	while (++i < d->env_size)
+	{
+		if (!ft_strcmp(d->env_arr[i].title, var))
+			return (0);
+	}
+	return (1);
 }

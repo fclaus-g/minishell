@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/19 19:43:04 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/23 14:49:42 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_command
 	int			fd_out;
 	int			fd_error;
 	int			built;
+	int			open_hd;
 	char		**paths;
 	char		*path_cmd;
 	char		*cmd_line;
@@ -139,6 +140,7 @@ void					ft_free_flags(t_data *d, int mode);
 int						ft_is_num(char *str);
 int						ft_is_dir(t_data *d, char *str);
 void					ft_excve_dircheck(char *str);
+int						ft_cd_protect(t_data *d, char *var);
 /**********************[signals.c]***********************************/
 void					ft_signal(void);
 void					ft_cmd_sig(int sig);
@@ -230,15 +232,16 @@ int						ft_count_quotes(char *str);
 /**********************[heredoc.c]***********************************/
 void					ft_write_doc(t_command *cmd, char *content);
 void					ft_heredoc(t_command *cmd, int pos, t_data *d, int *exit);
-void					ft_heredoc_loop(t_command *cmd, t_data *d);
+int						ft_heredoc_loop(t_command *cmd, t_data *d);
 void					ft_is_heredoc(t_command *cmd, t_data *d);
 /**********************[heredoc_utils.c]***********************************/
 void					ft_content_buffer(t_data *d);
 void					ft_heredoc_init(t_data *d, t_command *cmd, int pos);
+void					ft_check_hdocfile(t_command *cmd);
 /**********************[redir.c]***********************************/
 void					ft_file_fds(t_command *cmd);
 void					ft_open_file(t_command *cmd, char *file, int type);
-void					ft_open_check(t_command *cmd, int fd, char *file_path, int mode);
+void					ft_open_check(t_command *cmd, int fd, char *file_path);
 int						ft_std_redir(t_command *cmd);
 void					ft_std_shield(t_data *d, int mode);
 /**********************[cmd_driver.c]***********************************/
@@ -290,5 +293,7 @@ void					ft_free_data(t_data *d);
 void					ft_free_arr(t_input *in, int size);
 void					ft_clean_exit(t_data *d);
 void					ft_free_cmds(t_input *in);
+/**********************basura***********************************/
+void					print_error(char *s);
 
 #endif

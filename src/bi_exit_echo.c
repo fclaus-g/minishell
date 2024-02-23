@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_exit_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:57:29 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/19 19:43:15 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/23 12:29:02 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,13 @@ void	bi_echo(t_data *d, char **args)
 	i = 0;
 	while (args[++i] != NULL)
 	{
-		while (!ft_strcmp(args[i], "-n"))
+		while (args[i] != NULL && !ft_strcmp(args[i], "-n"))
 		{
 			nl = 0;
 			i++;
 		}
-		ft_printf("%s", args[i]);
+		if (args[i] != NULL)
+			ft_printf("%s", args[i]);
 		if (args[i + 1] != NULL)
 			ft_printf(" ", args[i]);
 	}
