@@ -3,7 +3,7 @@
 # *.md
 # *.pdf
 # docs/
-# a_*/
+a_*/
 minishell
 minishell_tester/
 

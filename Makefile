@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+         #
+#    By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 21:48:21 by pgomez-r          #+#    #+#              #
-#    Updated: 2024/02/22 11:36:14 by fclaus-g         ###   ########.fr        #
+#    Updated: 2024/02/24 09:58:09 by pgruz11          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ OBJ_PATH = obj/
 
 SRC      = main.c init.c free.c bi_exit_echo.c lexer.c lexer_utils.c redir.c \
 			bi_dir.c bi_utils.c arr_tools_0.c arr_tools_1.c cmd_maker.c \
-			cmd_driver.c exegguttor_utils.c cmd_maker_utils.c heredoc.c debug.c \
+			cmd_driver.c exegguttor_utils.c cmd_maker_utils.c heredoc.c \
 			bi_exp.c manage_input.c quotes.c quotes2.c expand.c mini_utils.c \
 			bi_exp_utils.c bi_unset.c expand_utils.c signals.c heredoc_utils.c \
 			check_spchar.c syntax_check.c mini_utils_1.c
