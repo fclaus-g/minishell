@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 04:19:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/23 17:28:28 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/28 15:09:30 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_cmd_size(t_input *in, int *start)
 
 	i = *(start);
 	size = 0;
-	if (in->elements[i].type == '|')
+	if (i < in->n_elements && in->elements[i].type == '|')
 		i++;
 	while (i < in->n_elements && in->elements[i].type != '|')
 	{
@@ -50,7 +50,7 @@ char	*ft_addspace(char *str)
 	char	*aux;
 	int		i;
 
-	aux = malloc(sizeof(char) * ft_strlen(str) + 2);
+	aux = ft_malloc(sizeof(char) * (ft_strlen(str) + 2));
 	i = 0;
 	while (str[i] != '\0')
 	{
@@ -72,6 +72,7 @@ void	ft_init_files(t_command *cmd)
 	cmd->path_cmd = NULL;
 	cmd->cmd_tab = NULL;
 	cmd->cmd_line = NULL;
+	cmd->built = 0;
 }
 
 t_element	*ft_delete_element(t_command *cmd, int pos)
@@ -82,7 +83,7 @@ t_element	*ft_delete_element(t_command *cmd, int pos)
 
 	i = 0;
 	j = -1;
-	aux = malloc(sizeof(t_element) * cmd->size - 1);
+	aux = ft_malloc(sizeof(t_element) * (cmd->size - 1));
 	while (++j < cmd->size)
 	{
 		if (j != pos)

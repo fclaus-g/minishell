@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:09:31 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/18 16:57:30 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/28 15:09:50 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_fill_elements(t_input *in)
 	int	i;
 
 	i = -1;
-	in->elements = malloc(sizeof(t_element) * in->n_elements);
+	in->elements = ft_malloc(sizeof(t_element) * in->n_elements);
 	if (!in->elements)
 		ft_printf_error("cascaribash: malloc error\n");
 	while (++i < in->n_elements)

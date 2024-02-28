@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/23 17:28:59 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/28 15:09:34 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	find_path_index(t_command *st, char *cmd)
 
 	if (!st->path_cmd)
 	{
-		st->path_cmd = malloc(sizeof(char) * 1);
+		st->path_cmd = ft_malloc(sizeof(char) * 1);
 		st->path_cmd = NULL;
 	}
 	i = 0;
@@ -70,7 +70,7 @@ void	ft_split_cmd(t_command *st, t_data *d)
 			|| st->tokens[i].type == '\"')
 			len++;
 	}
-	st->cmd_tab = malloc(sizeof(char *) * len);
+	st->cmd_tab = ft_malloc(sizeof(char *) * len);
 	i = -1;
 	len = 0;
 	while (++i < st->size)

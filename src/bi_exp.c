@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 23:43:59 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/23 17:27:41 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/28 15:09:28 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	**ft_env_update(t_data *d, char *var)
 	char	**aux;
 	int		i;
 
-	aux = malloc(sizeof(char *) * (ft_strdlen(d->env_dup) + 2));
+	aux = ft_malloc(sizeof(char *) * (ft_strdlen(d->env_dup) + 2));
 	i = -1;
 	while (++i < (int)ft_strdlen(d->env_dup))
 		aux[i] = ft_strdup(d->env_dup[i]);
@@ -52,7 +52,7 @@ char	**ft_exp_update(t_data *d, char *var)
 	char	**aux;
 	int		i;
 
-	aux = malloc(sizeof(char *) * (ft_strdlen(d->env_exp) + 2));
+	aux = ft_malloc(sizeof(char *) * (ft_strdlen(d->env_exp) + 2));
 	i = -1;
 	while (++i < (int)ft_strdlen(d->env_exp))
 		aux[i] = ft_strdup(d->env_exp[i]);

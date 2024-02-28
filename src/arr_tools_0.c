@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 22:59:50 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/23 17:27:02 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/28 15:09:22 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_element	*ft_arr_update(t_input *in, int i, char c)
 	size = in->n_elements;
 	new_text = ft_element_split(in->elements[i].data, c);
 	new_size = in->n_elements + (int)ft_strdlen(new_text) - 1;
-	new_arr = malloc(sizeof(t_element) * new_size);
+	new_arr = ft_malloc(sizeof(t_element) * new_size);
 	in->n_elements = new_size;
 	ft_fill_arr(in, new_arr, i, new_text);
 	ft_tag_type(new_arr, i, (int)ft_strdlen(new_text), c);
@@ -39,7 +39,7 @@ char	**ft_element_split(char *str, char c)
 	int		j;
 	int		k;
 
-	tab = malloc(sizeof(char *) * (ft_count_elements(str, c) + 1));
+	tab = ft_malloc(sizeof(char *) * (ft_count_elements(str, c) + 1));
 	i = 0;
 	k = 0;
 	while (str[i] != '\0')
@@ -97,7 +97,7 @@ t_element	*ft_db_redirs(t_input *in, int i, char c)
 	size = in->n_elements;
 	new_text = ft_dbredir_split(in->elements[i].data, c);
 	new_size = in->n_elements + (int)ft_strdlen(new_text) - 1;
-	new_arr = malloc(sizeof(t_element) * new_size);
+	new_arr = ft_malloc(sizeof(t_element) * new_size);
 	in->n_elements = new_size;
 	ft_fill_arr(in, new_arr, i, new_text);
 	ft_tag_redtype(new_arr, i, (int)ft_strdlen(new_text), c);
@@ -114,7 +114,7 @@ char	**ft_dbredir_split(char *str, char c)
 	int		j;
 	int		k;
 
-	tab = malloc(sizeof(char *) * ft_count_elements(str, c));
+	tab = ft_malloc(sizeof(char *) * ft_count_elements(str, c));
 	i = 0;
 	k = 0;
 	while (str[i] != '\0')

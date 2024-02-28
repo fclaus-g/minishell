@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/23 17:29:47 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/28 14:08:31 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	ft_engine(t_data *d)
 		if (ft_lexer(d))
 			continue ;
 		ft_cmd_maker(&d->in);
+		if (!d->in.n_elements)
+			continue ;
 		ft_cmd_driver(d, d->in.cmds);
 	}
 }

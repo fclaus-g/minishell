@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 23:18:10 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/23 12:34:15 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/28 15:06:46 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int	ft_dir_back(t_data *d, char *arg)
 			ft_error(d, 1, "cascaribash: cd error");
 		return (0);
 	}
-	aux = malloc(sizeof(char) * (i + 1));
+	aux = ft_malloc(sizeof(char) * (i + 1));
 	if (!aux)
-		return (ft_error(d, 1, "cacaribash: malloc error"), 1);
+		return (ft_error(d, 1, "cacaribash: ft_ft_malloc error"), 1);
 	len = i;
 	aux[i] = '\0';
 	i = -1;

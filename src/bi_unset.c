@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 21:00:53 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/23 17:27:46 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/28 15:09:29 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	**ft_delete_var(char **str_tab, int pos)
 	int		i;
 	int		j;
 
-	aux = malloc(sizeof(char *) * ft_strdlen(str_tab));
+	aux = ft_malloc(sizeof(char *) * ft_strdlen(str_tab));
 	i = 0;
 	j = 0;
 	while (str_tab[i] != NULL)

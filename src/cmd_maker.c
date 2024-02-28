@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 04:19:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/23 17:28:33 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/28 15:09:32 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_get_cmdline(t_command *cmd)
 {
 	int	i;
 
-	cmd->cmd_line = malloc(sizeof(char) * 1);
+	cmd->cmd_line = ft_malloc(sizeof(char) * 1);
 	cmd->cmd_line[0] = '\0';
 	i = -1;
 	while (++i < cmd->size)
@@ -56,7 +56,7 @@ void	ft_init_cmd(t_input *in)
 	int	curr;
 
 	in->cmd_n = ft_element_cnt(in, '|') + 1;
-	in->cmds = malloc(sizeof(t_command) * in->cmd_n);
+	in->cmds = ft_malloc(sizeof(t_command) * in->cmd_n);
 	i = 0;
 	curr = 0;
 	while (i < in->cmd_n)
@@ -66,7 +66,7 @@ void	ft_init_cmd(t_input *in)
 		ft_init_files(&in->cmds[i]);
 		in->cmds[i].size = ft_cmd_size(in, &curr);
 		curr++;
-		in->cmds[i].tokens = malloc(sizeof(t_element) * in->cmds[i].size);
+		in->cmds[i].tokens = ft_malloc(sizeof(t_element) * in->cmds[i].size);
 		j = -1;
 		while (++j < in->cmds[i].size)
 		{

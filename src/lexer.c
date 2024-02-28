@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 11:40:28 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/23 17:29:38 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/28 10:06:09 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,28 +58,26 @@ void	ft_token_and(t_input *in)
 void	ft_token_files(t_input *in)
 {
 	int		i;
-	char	t;
+	char	ct;
+	char	nt;
 
 	i = -1;
-	while (++i < in->n_elements)
+	while (++i < in->n_elements && (i + 1 < in->n_elements))
 	{
-		t = in->elements[i + 1].type;
-		if (in->elements[i].type == '<' && (t == '0' || t == '\'' || t == '\"')
-			&& i + 1 < in->n_elements)
+		ct = in->elements[i].type;
+		nt = in->elements[i + 1].type;
+		if (ct == '<' && (nt == '0' || nt == '\'' || nt == '\"'))
 			in->elements[i + 1].type = 'i';
-		else if (in->elements[i].type == 'h' && i + 1 < in->n_elements)
+		else if (ct == 'h')
 		{
-			if (in->elements[i + 1].type == '0'
-				|| in->elements[i + 1].type == '\"')
+			if (nt == '0' || nt == '\"')
 				in->elements[i + 1].type = 'E';
-			else if (in->elements[i + 1].type == '\'')
+			else if (nt == '\'')
 				in->elements[i + 1].type = 'e';
 		}
-		else if (in->elements[i].type == '>'
-			&& (t == '0' || t == '\'' || t == '\"') && i + 1 < in->n_elements)
+		else if (ct == '>' && (nt == '0' || nt == '\'' || nt == '\"'))
 			in->elements[i + 1].type = 'o';
-		else if (in->elements[i].type == 'a'
-			&& (t == '0' || t == '\'' || t == '\"') && i + 1 < in->n_elements)
+		else if (ct == 'a' && (nt == '0' || nt == '\'' || nt == '\"'))
 			in->elements[i + 1].type = 'O';
 	}
 }

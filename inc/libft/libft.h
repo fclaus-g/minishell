@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:46:37 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/09 12:17:03 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/28 15:10:46 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ size_t		ft_minvalue_pos(int *array, size_t len);
 int			ft_abs_sum(int x, int y);
 void		ft_print_dstr(char **dstr);
 char		*ft_strtrim_free(char *s1, char const *set);
-int			ft_malloc(void **var, size_t size);
+void		*ft_malloc(size_t size);
 
 /*FUNCIONES DE LIBFT*/
 int			ft_atoi(const char *str);

@@ -3,6 +3,7 @@
 # *.md
 # *.pdf
 # docs/
+#correction.sh
 a_*/
 minishell
 minishell_tester/

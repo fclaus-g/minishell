@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:30:09 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/23 17:30:16 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/28 13:34:14 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,25 @@ int	ft_closed_quotes(char *str)
 	char	quote;
 	int		quotes;
 
-	c = -1;
+	c = 0;
 	quotes = 0;
-	while (str[++c])
+	while (str && str[c])
 	{
 		if (ft_is_quote(str[c]))
 		{
 			quote = str[c];
 			quotes++;
-			while (str[++c])
+			while (str[c])
 			{
+				c++;
 				if (str[c] == quote)
 					quotes++;
 			}
 		}
+		if (str[c])
+			c++;
 	}
-	if (quotes % 2 == 0)
-		return (1);
-	return (0);
+	return (quotes % 2 == 0);
 }
 
 char	ft_define_qtype(t_element element)
@@ -101,24 +102,25 @@ int	ft_count_quotes(char *str)
 	int		quotes;
 	char	q;
 
-	c = -1;
+	c = 0;
 	quotes = 0;
-	while (str[++c] && str[c])
+	while (str[c])
 	{
-		if (ft_is_quote(str[c]) && str[c])
+		if (ft_is_quote(str[c]))
 		{
-			q = str[c];
 			quotes++;
-			while (str[++c] && str[c])
+			q = str[c++];
+			while (str[c])
 			{
-				if (str[c] == q && str[c])
+				if (str[c] && str[c++] == q)
 				{
 					quotes++;
-					q = '\1';
 					break ;
 				}
 			}
 		}
+		if (str[c])
+			c++;
 	}
 	return (quotes);
 }

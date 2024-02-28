@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/23 14:49:42 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/28 15:36:40 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ char					*ft_str_rplc(char *src, char *new);
 int						ft_is_space(char c);
 void					ft_flag_check(t_data *d, char c, int mode);
 /**********************[mini_utils_1.c]***********************************/
-void					ft_free_flags(t_data *d, int mode);
+void					ft_free_flags(t_data *d, int mode, int *pos);
 int						ft_is_num(char *str);
 int						ft_is_dir(t_data *d, char *str);
 void					ft_excve_dircheck(char *str);
@@ -215,7 +215,7 @@ char					*ft_expand(char *content, t_data *d);
 void					ft_expand_init(char *content, t_data *d, int i);
 char					*ft_get_dollar_word(char *str, int start);
 char					*ft_search_value(char *comp, t_env *env, int lenv);
-char					*ft_var_del(char *s, int *pos);
+char					*ft_var_del(char *s);
 void					ft_quotes(t_command *cmd, t_data *d);
 /**********************[quotes.c]***********************************/
 void					ft_separate_quotes(t_data *d);
@@ -238,6 +238,7 @@ void					ft_is_heredoc(t_command *cmd, t_data *d);
 void					ft_content_buffer(t_data *d);
 void					ft_heredoc_init(t_data *d, t_command *cmd, int pos);
 void					ft_check_hdocfile(t_command *cmd);
+int						ft_expand_char(char c);
 /**********************[redir.c]***********************************/
 void					ft_file_fds(t_command *cmd);
 void					ft_open_file(t_command *cmd, char *file, int type);
@@ -263,6 +264,7 @@ char					*ft_getenv(t_data *d, char *var);
 void					ft_overwrite_var(t_data *d, char *var, char *new);
 /**********************[bi_exit_echo.c]***********************************/
 void					bi_exit(char **args, t_data *d);
+void					bi_env(char **args, t_data *d);
 void					bi_echo(t_data *d, char **args);
 void					ft_exit_mod(char **args, t_data *d);
 /**********************[bi_dir.c]***********************************/

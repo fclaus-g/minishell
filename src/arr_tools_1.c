@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 22:59:50 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/23 17:27:20 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/28 15:09:25 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*ft_write_token(char c)
 {
 	char	*str;
 
-	str = malloc(sizeof(char) * 2);
+	str = ft_malloc(sizeof(char) * 2);
 	str[0] = c;
 	str[1] = '\0';
 	return (str);
@@ -63,7 +63,7 @@ char	*ft_save_dbred(char c)
 {
 	char	*str;
 
-	str = malloc(sizeof(char) * 3);
+	str = ft_malloc(sizeof(char) * 3);
 	str[0] = c;
 	str[1] = c;
 	str[2] = '\0';

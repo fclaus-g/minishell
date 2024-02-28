@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:02:55 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/23 15:11:47 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/28 11:54:51 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,12 @@ void	ft_check_hdocfile(t_command *cmd)
 		}
 		close(fd);
 	}
+}
+
+int	ft_expand_char(char c)
+{
+	if (c != '\0' && c != ' ' && c != '\n' && c != '$'
+		&& c != '\'' && c != '\"')
+		return (1);
+	return (0);
 }

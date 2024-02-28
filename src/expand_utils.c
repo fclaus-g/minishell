@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 11:17:25 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/23 17:29:03 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/28 15:09:35 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*ft_search_value(char *comp, t_env *env, int lenv)
 	return (NULL);
 }
 
-char	*ft_var_del(char *s, int *pos)
+char	*ft_var_del(char *s)
 {
 	char	*aux;
 	int		i;
@@ -60,21 +60,20 @@ char	*ft_var_del(char *s, int *pos)
 	while (s[i] != '$')
 		i++;
 	len = 1;
-	while (s[++i] != '\0' && s[i] != ' ' && s[i] != '\n' && s[i] != '$')
+	while (ft_expand_char(s[++i]))
 		len++;
-	aux = malloc(sizeof(char) * ft_strlen(s) - len + 1);
+	aux = ft_malloc(sizeof(char) * (ft_strlen(s) - len + 1));
 	i = -1;
 	len = -1;
 	while (s[++i] != '$')
 		aux[++len] = s[i];
 	i++;
-	while (s[i] != '\0' && s[i] != ' ' && s[i] != '\n' && s[i] != '$')
+	while (ft_expand_char(s[i]))
 		i++;
 	while (s[i] != '\0')
 		aux[++len] = s[i++];
 	aux[++len] = '\0';
 	free (s);
-	(*pos) = -1;
 	return (aux);
 }
 
