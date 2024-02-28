@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_driver.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/23 15:25:27 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/25 19:47:05 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	ft_built_exe(t_command *cmd, t_data *d)
 	}
 	else if (ft_strcmp(cmd->cmd_tab[0], "exit") == 0)
 		bi_exit(cmd->cmd_tab, d);
+	exit(d->exit_code);
 }
 
 void	ft_excve(t_command *cmd, t_data *d, int mode)
@@ -52,23 +53,12 @@ void	ft_excve(t_command *cmd, t_data *d, int mode)
 
 void	ft_exegguttor(t_command *cmd, t_data *d)
 {
-	pid_t	pid;
-
 	if (ft_std_redir(cmd) > 0)
 		return ;
-	signal(SIGINT, ft_cmd_sig);
-	pid = fork();
-	if (pid == -1)
-		ft_printf_error("cascaribash: fork process failed");
-	else if (pid > 0)
-		ft_wait(pid, d, 0);
+	if (!ft_strchr(cmd->cmd_tab[0], '/'))
+		ft_excve(cmd, d, 0);
 	else
-	{
-		if (!ft_strchr(cmd->cmd_tab[0], '/'))
-			ft_excve(cmd, d, 0);
-		else
-			ft_excve(cmd, d, 11);
-	}
+		ft_excve(cmd, d, 11);
 }
 
 void	ft_shell_pipex(t_data *d, int i)
@@ -97,14 +87,12 @@ int	ft_cmd_driver(t_data *d, t_command *cmds)
 		ft_quotes(&cmds[curr_cmd], d);
 		ft_check_empty(&cmds[curr_cmd]);
 		ft_format_cmd(&cmds[curr_cmd], d);
-		ft_std_shield(d, 0);
 		ft_is_heredoc(&cmds[curr_cmd], d);
 		ft_shell_pipex(d, curr_cmd);
 		if (cmds[curr_cmd].built == 1)
 			ft_built_exe(&cmds[curr_cmd], d);
 		else
 			ft_exegguttor(&cmds[curr_cmd], d);
-		ft_std_shield(d, 1);
 	}
 	return (0);
 }
