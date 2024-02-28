@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 23:29:12 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/16 14:07:32 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/23 17:11:33 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@ void	ft_write_doc(t_command *cmd, char *content)
 
 	check = 0;
 	fd = open(".heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	ft_open_check(cmd, fd, ".heredoc", 0);
-	if (content != NULL)
-		check = write(fd, content, ft_strlen(content));
+	ft_open_check(cmd, fd, ".heredoc");
+	check = write(fd, content, ft_strlen(content));
 	if (check == -1)
 	{
 		cmd->dataptr->exit_code = 1;
@@ -54,17 +53,20 @@ void	ft_heredoc(t_command *cmd, int pos, t_data *d, int *exit)
 		free(d->read);
 }
 
-void	ft_heredoc_loop(t_command *cmd, t_data *d)
+int	ft_heredoc_loop(t_command *cmd, t_data *d)
 {
 	int	i;
 	int	hd_exit;
+	int	ret;
 
+	ret = 0;
 	i = -1;
 	while (++i < cmd->size)
 	{
 		hd_exit = 0;
 		if (cmd->tokens[i].type == 'h')
 		{
+			ret = 1;
 			signal(SIGINT, SIG_IGN);
 			d->pid = fork();
 			if (d->pid > 0)
@@ -77,6 +79,7 @@ void	ft_heredoc_loop(t_command *cmd, t_data *d)
 			}
 		}
 	}
+	return (ret);
 }
 
 void	ft_is_heredoc(t_command *cmd, t_data *d)
@@ -86,5 +89,6 @@ void	ft_is_heredoc(t_command *cmd, t_data *d)
 		unlink(".heredoc");
 		g_sign = 0;
 	}
-	ft_heredoc_loop(cmd, d);
+	if (ft_heredoc_loop(cmd, d))
+		ft_check_hdocfile(cmd);
 }

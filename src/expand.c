@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 13:44:06 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/19 19:35:11 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/28 15:09:37 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_expand_excd(char *src, t_data *d)
 	int		k;
 
 	code = ft_itoa(d->exit_code);
-	str = malloc(sizeof(char) * (ft_strlen(src) - 2 + ft_strlen(code) - 1));
+	str = ft_malloc(sizeof(char) * (ft_strlen(src) - 2 + ft_strlen(code) - 1));
 	i = -1;
 	j = -1;
 	k = -1;
@@ -59,8 +59,8 @@ char	*ft_rplc_content(char *content, char *value, int start, int del)
 	int		j;
 
 	c = -1;
-	aux = malloc(sizeof(char) * ft_strlen(content) \
-		+ ft_strlen(value) - del + 1);
+	aux = ft_malloc(sizeof(char) * (ft_strlen(content) \
+		+ ft_strlen(value) - del + 1));
 	while (content[++c] && c < start)
 		aux[c] = content[c];
 	i = 0;
@@ -89,7 +89,7 @@ char	*ft_expand(char *content, t_data *d)
 {
 	int		i;
 
-	ft_free_flags(d, 0);
+	ft_free_flags(d, 0, &i);
 	i = -1;
 	while (content[++i])
 	{
@@ -104,10 +104,10 @@ char	*ft_expand(char *content, t_data *d)
 				free (d->aux);
 			}
 			else if (!d->val && (!ft_val_id(d->var, 1) || !ft_isvar(d->var)))
-				content = ft_var_del(content, &i);
+				content = ft_var_del(content);
 			else
 				content = ft_expand_other(content, d, i);
-			ft_free_flags(d, 1);
+			ft_free_flags(d, 1, &i);
 		}
 	}
 	return (content);

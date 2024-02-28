@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   mini_utils_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 19:35:59 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/19 19:43:21 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/28 12:18:17 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_free_flags(t_data *d, int mode)
+void	ft_free_flags(t_data *d, int mode, int *pos)
 {
 	if (mode == 0)
 	{
@@ -21,8 +21,11 @@ void	ft_free_flags(t_data *d, int mode)
 	}
 	else
 	{
+		d->q = 0;
+		d->q_flag = 0;
 		ft_free_str(d->var);
 		ft_free_str(d->val);
+		(*pos) = -1;
 	}
 }
 
@@ -77,4 +80,17 @@ void	ft_excve_dircheck(char *str)
 		closedir(dir);
 		exit (126);
 	}
+}
+
+int	ft_cd_protect(t_data *d, char *var)
+{
+	int	i;
+
+	i = -1;
+	while (++i < d->env_size)
+	{
+		if (!ft_strcmp(d->env_arr[i].title, var))
+			return (0);
+	}
+	return (1);
 }

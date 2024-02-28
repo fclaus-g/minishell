@@ -3,19 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_maker_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 04:19:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/19 19:44:20 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/28 15:09:30 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/*Función para calcular cuantos elementos de un tipo tenemos en la linea total 
-de input. Para que podamos usarla correctamente en cmd_maker, depende de que la
-comprobación previa de sintaxis funcione correctamente y "aborte" misión antes 
-si hay fallos de ese tipo*/
 int	ft_element_cnt(t_input	*in, char c)
 {
 	int	i;
@@ -38,7 +34,7 @@ int	ft_cmd_size(t_input *in, int *start)
 
 	i = *(start);
 	size = 0;
-	if (in->elements[i].type == '|')
+	if (i < in->n_elements && in->elements[i].type == '|')
 		i++;
 	while (i < in->n_elements && in->elements[i].type != '|')
 	{
@@ -54,7 +50,7 @@ char	*ft_addspace(char *str)
 	char	*aux;
 	int		i;
 
-	aux = malloc(sizeof(char) * ft_strlen(str) + 2);
+	aux = ft_malloc(sizeof(char) * (ft_strlen(str) + 2));
 	i = 0;
 	while (str[i] != '\0')
 	{
@@ -76,6 +72,7 @@ void	ft_init_files(t_command *cmd)
 	cmd->path_cmd = NULL;
 	cmd->cmd_tab = NULL;
 	cmd->cmd_line = NULL;
+	cmd->built = 0;
 }
 
 t_element	*ft_delete_element(t_command *cmd, int pos)
@@ -86,7 +83,7 @@ t_element	*ft_delete_element(t_command *cmd, int pos)
 
 	i = 0;
 	j = -1;
-	aux = malloc(sizeof(t_element) * cmd->size - 1);
+	aux = ft_malloc(sizeof(t_element) * (cmd->size - 1));
 	while (++j < cmd->size)
 	{
 		if (j != pos)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 06:35:26 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/18 22:59:31 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/23 17:30:31 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,6 @@ int	ft_spcset_check(t_input *in)
 	return (0);
 }
 
-/*Comprueba si hay dos elementos del mismo tipo "especial" (redirecciones y 
-pipes) seguidas, si es así envía error de syntax por consola*/
-/**
- * TODO: plantear cómo encontrar syntax error con elementos de diferente tipo >|
- * TODO: con >> o <<, cuando imprimir error near `>' o near `>>'
- */
 int	ft_stdset_check(t_input *in)
 {
 	int		i;

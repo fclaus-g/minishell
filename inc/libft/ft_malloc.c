@@ -6,23 +6,21 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 13:05:42 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/01/19 13:05:58 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/28 15:02:14 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_malloc(void **var, size_t size)
+void	*ft_malloc(size_t size)
 {
-	*var = malloc(size);
-	if (!var)
+	void	*alloc;
+
+	alloc = malloc(size);
+	if (!alloc)
 	{
 		printf("cascaribash: malloc error\n");
-		return (-1);
+		exit(EXIT_FAILURE);
 	}
-	return (0);
+	return (alloc);
 }
-/*
-char *str;
-if (ft_malloc((void **)&str, 10 * sizeof(*str)) == -1)
-*/

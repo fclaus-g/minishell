@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_exp.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 23:43:59 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/04 10:47:19 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/28 15:09:28 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	**ft_env_update(t_data *d, char *var)
 	char	**aux;
 	int		i;
 
-	aux = malloc(sizeof(char *) * (ft_strdlen(d->env_dup) + 2));
+	aux = ft_malloc(sizeof(char *) * (ft_strdlen(d->env_dup) + 2));
 	i = -1;
 	while (++i < (int)ft_strdlen(d->env_dup))
 		aux[i] = ft_strdup(d->env_dup[i]);
@@ -52,7 +52,7 @@ char	**ft_exp_update(t_data *d, char *var)
 	char	**aux;
 	int		i;
 
-	aux = malloc(sizeof(char *) * (ft_strdlen(d->env_exp) + 2));
+	aux = ft_malloc(sizeof(char *) * (ft_strdlen(d->env_exp) + 2));
 	i = -1;
 	while (++i < (int)ft_strdlen(d->env_exp))
 		aux[i] = ft_strdup(d->env_exp[i]);
@@ -90,13 +90,3 @@ void	bi_export(t_data *d, t_command *cmd)
 		d->exit_code = 0;
 	}
 }
-
-/*EXPORT RULES
-Naming: The variable name must begin with a letter (a to z or A to Z) or an
-underscore (_), followed by letters, digits (0 to 9), or underscores.
-Special characters are not allowed along the whole line.
-No spaces around the equals sign; VAR=value is correct, VAR = value is not
-No command substitution: The value assigned to the variable should not be the
-result of a command substitution.
-No special shell characters: (; & | > >> < * ? () $ # {} [] ! \); unless they
-are properly escaped or enclose in quotes.*/

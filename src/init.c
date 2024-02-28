@@ -3,22 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 07:32:32 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/18 16:55:30 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/28 15:09:46 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/*ft_init_pipes no se usa en el proceso del primer init que llamamos
-en el main, pero la dejo por aquí porque es función de inicialización*/
 void	ft_init_pipes(t_input *in)
 {
 	int	i;
 
-	in->pipes = malloc(sizeof(*in->pipes) * (in->cmd_n - 1));
+	in->pipes = ft_malloc(sizeof(*in->pipes) * (in->cmd_n - 1));
 	if (!in->pipes)
 		ft_printf_error("cascaribash: malloc error\n");
 	i = -1;
@@ -29,13 +27,6 @@ void	ft_init_pipes(t_input *in)
 	}
 }
 
-/*A esta función le entra una variable de entorno completa en una str
-Lo que hace es dividirla y guardar por un lado el nombre de la variable (antes
-de '=') y por otro el contenido o ruta (después de '='), ambos se quedan
-guardados por separado en la struct que tenemos para cada variable de entorno*/
-/**
- * TODO: fix '=' cuando no hay o hay varios! (Gracias Rosana =D)
- */
 void	ft_split_env(t_data *d, char *var, size_t x)
 {
 	int	i;
@@ -44,7 +35,7 @@ void	ft_split_env(t_data *d, char *var, size_t x)
 	i = 0;
 	while (var[i] != '=' && var[i] != '\0')
 		i++;
-	d->env_arr[x].title = malloc(sizeof(char) * i + 1);
+	d->env_arr[x].title = ft_malloc(sizeof(char) * (i + 1));
 	i = 0;
 	while (var[i] != '=' && var[i] != '\0')
 	{
@@ -56,7 +47,7 @@ void	ft_split_env(t_data *d, char *var, size_t x)
 	j = i;
 	while (var[i] != '\0')
 		i++;
-	d->env_arr[x].line = malloc(sizeof(char) * ((i - j) + 1));
+	d->env_arr[x].line = ft_malloc(sizeof(char) * ((i - j) + 1));
 	i = j;
 	j = 0;
 	while (var[i] != '\0')
@@ -67,14 +58,19 @@ void	ft_split_env(t_data *d, char *var, size_t x)
 void	ft_parse_env(t_data *d, char **env)
 {
 	int	i;
+	int	len;
 
-	d->env_dup = malloc(sizeof(char *) * (int)ft_strdlen(env) + 1);
-	d->env_exp = malloc(sizeof(char *) * (int)ft_strdlen(env) + 1);
-	i = -1;
-	while (env[++i] != NULL)
+	len = 0;
+	if (env)
+		len = (int)ft_strdlen(env);
+	d->env_dup = ft_malloc(sizeof(char *) * (len + 1));
+	d->env_exp = ft_malloc(sizeof(char *) * (len + 1));
+	i = 0;
+	while (i < len)
 	{
 		d->env_dup[i] = ft_strdup(env[i]);
 		d->env_exp[i] = ft_export_varcopy(env[i]);
+		i++;
 	}
 	d->env_dup[i] = NULL;
 	d->env_exp[i] = NULL;
@@ -96,7 +92,7 @@ void	ft_get_envarray(t_data *d)
 		}
 		free(d->env_arr);
 	}
-	d->env_arr = malloc(sizeof(t_env) * ft_strdlen(d->env_dup));
+	d->env_arr = ft_malloc(sizeof(t_env) * ft_strdlen(d->env_dup));
 	i = -1;
 	while (++i < (int)ft_strdlen(d->env_dup))
 	{

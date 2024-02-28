@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:02:55 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/10 23:16:41 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/28 11:54:51 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,41 @@ void	ft_heredoc_init(t_data *d, t_command *cmd, int pos)
 	d->eof = NULL;
 	if (cmd->tokens[pos + 1].type == 'e' || cmd->tokens[pos + 1].type == 'E')
 		d->eof = cmd->tokens[pos + 1].data;
+}
+
+void	ft_check_hdocfile(t_command *cmd)
+{
+	int		fd;
+	ssize_t	check;
+	char	buff[10];
+
+	if (access(".heredoc", F_OK) < 0)
+	{
+		fd = open(".heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		ft_open_check(cmd, fd, ".heredoc");
+		check = write(fd, "\0", 1);
+		close(fd);
+	}
+	else
+	{
+		fd = open(".heredoc", O_RDONLY);
+		check = read(fd, buff, 10);
+		if (check < 0)
+		{
+			close(fd);
+			unlink(".heredoc");
+			fd = open(".heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+			ft_open_check(cmd, fd, ".heredoc");
+			check = write(fd, "\0", 1);
+		}
+		close(fd);
+	}
+}
+
+int	ft_expand_char(char c)
+{
+	if (c != '\0' && c != ' ' && c != '\n' && c != '$'
+		&& c != '\'' && c != '\"')
+		return (1);
+	return (0);
 }

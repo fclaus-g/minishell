@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_exp_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 18:19:07 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/18 22:33:52 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/28 15:09:27 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char	*ft_export_varcopy(char *str)
 		aux = ft_strdup(str);
 	else
 	{
-		aux = malloc(sizeof(char) * ft_strlen(str) + 3);
+		aux = ft_malloc(sizeof(char) * (ft_strlen(str) + 3));
 		i = -1;
 		while (str[++i] != '=')
 			aux[i] = str[i];

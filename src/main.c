@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 21:52:51 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/16 18:18:02 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/02/28 14:08:31 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	ft_engine(t_data *d)
 		if (ft_lexer(d))
 			continue ;
 		ft_cmd_maker(&d->in);
+		if (!d->in.n_elements)
+			continue ;
 		ft_cmd_driver(d, d->in.cmds);
 	}
 }
@@ -43,7 +45,6 @@ int	main(int ac, char **av, char **env)
 	t_data	d;
 
 	g_sign = 0;
-	//atexit(ft_leaks);
 	(void)av;
 	if (ac > 1)
 		return (1);
