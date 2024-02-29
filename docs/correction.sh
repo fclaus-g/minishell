@@ -74,6 +74,8 @@ wc
 export PATH=/bin:/usr/bin
 wc -c "hola" | ls
 ls -la | wc -w
+> out ls
+< out cat
 ls > out | cat -e out
 echo "taluego.txt" >> out | cat -e out
 echo "hola" > out | echo "hola" > out | echo "hola" > out | echo "hola" > out | echo "hola" > out | echo "hola" > out | echo "hola" > out

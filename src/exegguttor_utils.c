@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exegguttor_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:48 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/28 15:09:34 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/29 08:44:51 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ void	get_paths(t_command *st, char **env)
 	path_fix = NULL;
 	while (env[i] && is_path(env[i]))
 		i++;
+	if ((int)i == st->dataptr->env_size)
+	{
+		ft_printf_error("cascaribash: %s: No such file or directory\n",
+			st->cmd_tab[0]);
+		exit(127);
+	}
 	st->paths = ft_split(env[i], ':');
 	path_fix = ft_strcpy(path_fix, st->paths[0] + 5);
 	free(st->paths[0]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_driver.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/28 15:35:58 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/29 09:11:37 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,28 @@ void	ft_shell_pipex(t_data *d, int i)
 	}
 }
 
+void	debug_cmds(t_input *in, char *str_in, char *msg)
+{
+	int	i;
+	int	j;
+
+	printf("///INPUT_LINE\\\\\\\n%s\n\n", str_in);
+	printf("///%s\\\\\\\n\n", msg);
+	printf("Número comandos actual: %d\n", in->cmd_n);
+	i = -1;
+	while (++i < in->cmd_n)
+	{
+		j = -1;
+		printf(" --- COMMAND[%d] --- \n", i);
+		printf("CMD_LINE[%d]: %s\n", i, in->cmds[i].cmd_line);
+		while (++j < in->cmds[i].size)
+		{
+			printf("Data elem[%d]: %s <---> ", j, in->cmds[i].tokens[j].data);
+			printf("Type elem[%d]: %c\n", j, in->cmds[i].tokens[j].type);
+		}
+	}
+}
+
 int	ft_cmd_driver(t_data *d, t_command *cmds)
 {
 	int			curr_cmd;
@@ -95,6 +117,8 @@ int	ft_cmd_driver(t_data *d, t_command *cmds)
 		ft_format_cmd(&cmds[curr_cmd], d);
 		ft_std_shield(d, 0);
 		ft_is_heredoc(&cmds[curr_cmd], d);
+		if (!ft_check_empty(&cmds[curr_cmd]))
+			continue ;
 		ft_shell_pipex(d, curr_cmd);
 		if (cmds[curr_cmd].built == 1)
 			ft_built_exe(&cmds[curr_cmd], d);

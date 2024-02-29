@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/28 15:36:40 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/29 09:05:42 by pgruz11          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,7 @@ void					ft_cmd_maker(t_input *in);
 void					ft_init_cmd(t_input *in);
 void					ft_get_cmdline(t_command *cmd);
 void					ft_format_cmd(t_command *cmd, t_data *d);
-void					ft_check_empty(t_command *cmd);
+int						ft_check_empty(t_command *cmd);
 /**********************[cmd_maker_utils.c]***********************************/
 int						ft_element_cnt(t_input	*in, char c);
 int						ft_cmd_size(t_input *in, int *start);
