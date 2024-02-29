@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 21:00:53 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/28 15:09:29 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/29 14:55:01 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,16 @@ void	bi_unset(t_data *d, t_command *cmd)
 	i = 0;
 	while (cmd->cmd_tab[++i] != NULL)
 	{
+		if (ft_val_id(cmd->cmd_tab[i], 1))
+		{
+			ft_printf_error("cascaribash: unset: `%s': not valid identifier\n",
+				cmd->cmd_tab[i]);
+			d->exit_code = 1;
+			continue ;
+		}
 		ft_unset_env(d, cmd->cmd_tab[i]);
 		ft_unset_exp(d, cmd->cmd_tab[i]);
 		ft_get_envarray(d);
+		d->exit_code = 0;
 	}
-	d->exit_code = 0;
 }

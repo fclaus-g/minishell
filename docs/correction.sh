@@ -35,8 +35,9 @@ echo hola$IVENT"$PWD"$TEST'$HOME'$HOME tu
 echo ' '
 echo ""
 env asdlakdas asldkasd alssd
-env env (diferente a bash, nosotros "not found")
+env env env
 env -
+env -la
 env -lachota
 export TEST=1234
 export 1TEST=1234
@@ -51,6 +52,9 @@ unset
 unset asdad
 unset -1HOLA
 unset 1HOLA
+unset unset unset unset
+unset unset unset unset USER
+unset unset unset unset /USER PWD
 cd -
 cd ../
 cd
@@ -76,6 +80,9 @@ wc -c "hola" | ls
 ls -la | wc -w
 > out ls
 < out cat
+<< 0 wc -w (sin input para heredoc, meter EOF o CTRL-D)
+cat << 0 > out | cat -e out (con y sin input para heredoc)
+ls << 0 (con y sin input para heredoc)
 ls > out | cat -e out
 echo "taluego.txt" >> out | cat -e out
 echo "hola" > out | echo "hola" > out | echo "hola" > out | echo "hola" > out | echo "hola" > out | echo "hola" > out | echo "hola" > out

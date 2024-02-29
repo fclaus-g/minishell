@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_driver.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:21:34 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/29 09:11:37 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/29 14:37:35 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,28 +79,6 @@ void	ft_shell_pipex(t_data *d, int i)
 	{
 		dup2(d->in.pipes[i][1], 1);
 		close(d->in.pipes[i][1]);
-	}
-}
-
-void	debug_cmds(t_input *in, char *str_in, char *msg)
-{
-	int	i;
-	int	j;
-
-	printf("///INPUT_LINE\\\\\\\n%s\n\n", str_in);
-	printf("///%s\\\\\\\n\n", msg);
-	printf("Número comandos actual: %d\n", in->cmd_n);
-	i = -1;
-	while (++i < in->cmd_n)
-	{
-		j = -1;
-		printf(" --- COMMAND[%d] --- \n", i);
-		printf("CMD_LINE[%d]: %s\n", i, in->cmds[i].cmd_line);
-		while (++j < in->cmds[i].size)
-		{
-			printf("Data elem[%d]: %s <---> ", j, in->cmds[i].tokens[j].data);
-			printf("Type elem[%d]: %c\n", j, in->cmds[i].tokens[j].type);
-		}
 	}
 }
 

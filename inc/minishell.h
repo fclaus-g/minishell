@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgruz11 <pgruz11@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/29 09:05:42 by pgruz11          ###   ########.fr       */
+/*   Updated: 2024/02/29 14:19:17 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,8 +263,9 @@ int						ft_is_built(char *str);
 char					*ft_getenv(t_data *d, char *var);
 void					ft_overwrite_var(t_data *d, char *var, char *new);
 /**********************[bi_exit_echo.c]***********************************/
-void					bi_exit(char **args, t_data *d);
+int						ft_env_withargs(char **args, t_data *d);
 void					bi_env(char **args, t_data *d);
+void					bi_exit(char **args, t_data *d);
 void					bi_echo(t_data *d, char **args);
 void					ft_exit_mod(char **args, t_data *d);
 /**********************[bi_dir.c]***********************************/

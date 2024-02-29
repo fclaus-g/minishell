@@ -6,31 +6,40 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:57:29 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/28 15:41:31 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/29 14:33:04 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	bi_env(char **args, t_data *d)
+int	ft_env_withargs(char **args, t_data *d)
 {
-	if (ft_strdlen(args) > 1)
+	int	i;
+
+	if (ft_strdlen(args) == 2 && !ft_strcmp(args[1], "-"))
+		return (0);
+	i = 0;
+	while (args[i] != NULL && !ft_strcmp(args[i], "env"))
+		i++;
+	if (args[i] != NULL)
 	{
-		if (ft_strdlen(args) == 2 && !ft_strcmp(args[1], "-"))
-			d->exit_code = 0;
-		else if (args[1][0] == '-' && args[1][1])
-		{
-			ft_printf_error("cascaribash: env: illegal option -- %c\n",
-				args[1][0]);
-			d->exit_code = 1;
-		}
+		if (args[i][0] == '-' && args[i][1])
+			return (ft_printf_error("cascaribash: env: illegal option -- %c\n",
+					args[i][1]), 1);
 		else
 		{
 			ft_printf_error("cascaribash: env: %s: No such file or directory\n",
 				args[1]);
-			d->exit_code = 127;
+			return (127);
 		}
 	}
+	return (ft_print_dstr(d->env_dup), 0);
+}
+
+void	bi_env(char **args, t_data *d)
+{
+	if (ft_strdlen(args) > 1)
+		d->exit_code = ft_env_withargs(args, d);
 	else
 	{
 		ft_print_dstr(d->env_dup);

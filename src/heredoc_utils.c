@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:02:55 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/28 11:54:51 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/02/29 13:48:47 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	ft_check_hdocfile(t_command *cmd)
 	{
 		fd = open(".heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		ft_open_check(cmd, fd, ".heredoc");
-		check = write(fd, "\0", 1);
 		close(fd);
 	}
 	else
@@ -50,8 +49,6 @@ void	ft_check_hdocfile(t_command *cmd)
 			close(fd);
 			unlink(".heredoc");
 			fd = open(".heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-			ft_open_check(cmd, fd, ".heredoc");
-			check = write(fd, "\0", 1);
 		}
 		close(fd);
 	}
