@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:30:09 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/28 13:34:14 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/03/01 11:42:41 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	ft_management_quotes(t_element *element, t_data *d)
 {
 	if (ft_count_quotes(element->data) % 2 != 0)
 	{
-		d->exit_code = 1;
 		ft_printf_error("cascaribash: syntax error: unclosed quotes\n");
+		d->exit_code = 1;
 		return (1);
 	}
 	if (ft_closed_quotes(element->data))
@@ -102,25 +102,24 @@ int	ft_count_quotes(char *str)
 	int		quotes;
 	char	q;
 
-	c = 0;
+	c = -1;
 	quotes = 0;
-	while (str[c])
+	while (str[++c] && str[c])
 	{
-		if (ft_is_quote(str[c]))
+		if (ft_is_quote(str[c]) && str[c])
 		{
+			q = str[c];
 			quotes++;
-			q = str[c++];
-			while (str[c])
+			while (str[++c] && str[c])
 			{
-				if (str[c] && str[c++] == q)
+				if (str[c] == q && str[c])
 				{
 					quotes++;
+					q = '\1';
 					break ;
 				}
 			}
 		}
-		if (str[c])
-			c++;
 	}
 	return (quotes);
 }

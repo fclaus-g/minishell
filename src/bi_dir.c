@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 23:18:10 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/28 15:06:46 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/03/01 10:00:26 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,11 @@ void	ft_update_pwd(t_data *d, char *old_pwd)
 
 void	bi_pwd(t_data *d)
 {
-	char	pwd[PATH_MAX];
+	char	*pwd;
 
-	(void)d;
+	pwd = ft_calloc(PATH_MAX, sizeof(char));
 	if (getcwd(pwd, PATH_MAX) == NULL)
 		ft_error(d, 1, "cascaribash: pwd error");
 	ft_printf("%s\n", pwd);
+	ft_free_str(pwd);
 }

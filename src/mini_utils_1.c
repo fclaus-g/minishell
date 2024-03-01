@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 19:35:59 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/28 12:18:17 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/03/01 12:50:13 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	ft_free_flags(t_data *d, int mode, int *pos)
 		d->q_flag = 0;
 		ft_free_str(d->var);
 		ft_free_str(d->val);
-		(*pos) = -1;
+		if (d->exp_flag == 0)
+			(*pos) = -1;
 	}
 }
 

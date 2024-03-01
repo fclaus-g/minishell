@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 06:35:26 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/23 17:30:31 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/03/01 10:49:31 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_spcset_check(t_input *in)
 	char	*msg;
 
 	msg = "cascaribash: syntax error, not supported token";
-	set = ";\\&\0";
+	set = ";\\&()\0";
 	i = -1;
 	while (set[++i] != '\0')
 	{

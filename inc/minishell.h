@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:04:00 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/29 14:19:17 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/03/01 13:50:31 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,15 +120,11 @@ typedef struct s_data
 	int			pes;
 	char		q;
 	int			q_flag;
+	int			exp_flag;
 }	t_data;
 
 /**********************[main.c]***********************************/
 void					ft_engine(t_data *d);
-/**********************[debug.c]***********************************/
-void					ft_check_std(void);
-void					debug_arr(t_input *in, char *str_in, char *msg);
-void					debug_cmds(t_input *in, char *str_in, char *msg);
-void					ft_print_element(t_element element);
 /**********************[mini_utils.c]***********************************/
 void					ft_wait(pid_t pid, t_data *d, int mode);
 void					ft_free_str(char *str);

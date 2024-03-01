@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:57:29 by pgomez-r          #+#    #+#             */
-/*   Updated: 2024/02/29 14:33:04 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/03/01 09:18:32 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_exit_mod(char **args, t_data *d)
 	if (!ft_is_num(args[1]) && ft_strdlen(args) > 2)
 	{
 		d->exit_code = 1;
-		ft_printf_error("cascaribash: exit: too many arguments\n");
+		ft_printf_error("exit\ncascaribash: exit: too many arguments\n");
 		return ;
 	}
 }

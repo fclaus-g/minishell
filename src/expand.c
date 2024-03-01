@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 13:44:06 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/02/28 15:09:37 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/03/01 13:02:38 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,13 @@ char	*ft_expand_other(char *content, t_data *d, int pos)
 	char	*aux;
 
 	aux = NULL;
-	if (content[pos + 1] == '?')
+	if (content && content[pos + 1] && content[pos + 1] == '?')
 	{
 		aux = ft_expand_excd(content, d);
 		free(content);
 		return (aux);
 	}
+	d->exp_flag = 1;
 	return (content);
 }
 
@@ -103,7 +104,8 @@ char	*ft_expand(char *content, t_data *d)
 				content = ft_strdup(d->aux);
 				free (d->aux);
 			}
-			else if (!d->val && (!ft_val_id(d->var, 1) || !ft_isvar(d->var)))
+			else if (!d->val && d->var
+				&& (!ft_val_id(d->var, 1) || !ft_isvar(d->var)))
 				content = ft_var_del(content);
 			else
 				content = ft_expand_other(content, d, i);

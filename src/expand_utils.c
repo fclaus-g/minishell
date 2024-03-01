@@ -6,7 +6,7 @@
 /*   By: pgomez-r <pgomez-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 11:17:25 by pgruz11           #+#    #+#             */
-/*   Updated: 2024/02/28 15:09:35 by pgomez-r         ###   ########.fr       */
+/*   Updated: 2024/03/01 13:07:01 by pgomez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,12 @@ void	ft_expand_init(char *content, t_data *d, int i)
 {
 	d->var = NULL;
 	d->val = NULL;
-	d->var = ft_get_dollar_word(content, i + 1);
-	d->val = ft_search_value(d->var, d->env_arr, d->env_size);
+	d->exp_flag = 0;
+	if (content[i + 1])
+	{
+		d->var = ft_get_dollar_word(content, i + 1);
+		d->val = ft_search_value(d->var, d->env_arr, d->env_size);
+	}
 }
 
 char	*ft_get_dollar_word(char *str, int start)
@@ -26,8 +30,8 @@ char	*ft_get_dollar_word(char *str, int start)
 	int		c;
 
 	c = start;
-	while (str[c] && str[c] != '$' && !ft_is_space(str[c]) \
-			&& !ft_is_quote(str[c]))
+	while (str[c] && str[c] != '$' && !ft_is_space(str[c])
+		&& !ft_is_quote(str[c]))
 		c++;
 	aux = ft_substr(str, start, c - start);
 	return (aux);
